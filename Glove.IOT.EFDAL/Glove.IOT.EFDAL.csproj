@@ -45,10 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDal.cs" />
+    <Compile Include="DbContextFactory.cs" />
     <Compile Include="UserInfoDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Glove.IOT.IDAL\Glove.IOT.IDAL.csproj">
+      <Project>{6D217267-B257-49F9-AB8E-5E718BFD66FD}</Project>
+      <Name>Glove.IOT.IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glove.IOT.Model\Glove.IOT.Model.csproj">
       <Project>{61203463-03BB-4B9D-927B-75B0C9272B76}</Project>
       <Name>Glove.IOT.Model</Name>

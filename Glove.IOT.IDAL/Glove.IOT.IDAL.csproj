@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{22D4C5E0-3091-46B1-876A-9A80665DFBC7}</ProjectGuid>
+    <ProjectGuid>{6D217267-B257-49F9-AB8E-5E718BFD66FD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Glove.IOT.BLL</RootNamespace>
-    <AssemblyName>Glove.IOT.BLL</AssemblyName>
+    <RootNamespace>Glove.IOT.IDAL</RootNamespace>
+    <AssemblyName>Glove.IOT.IDAL</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,23 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseService.cs" />
-    <Compile Include="UserInfoService.cs" />
+    <Compile Include="IBaseDal.cs" />
+    <Compile Include="IDbSession.cs" />
+    <Compile Include="IUserInfoDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Glove.IOT.DALFactory\Glove.IOT.DALFactory.csproj">
-      <Project>{090AD518-11E3-4688-B9D7-E82DB7DB8273}</Project>
-      <Name>Glove.IOT.DALFactory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Glove.IOT.EFDAL\Glove.IOT.EFDAL.csproj">
-      <Project>{7F2E71B9-9178-4224-9AF1-3ED5EDC0951F}</Project>
-      <Name>Glove.IOT.EFDAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Glove.IOT.IDAL\Glove.IOT.IDAL.csproj">
-      <Project>{6D217267-B257-49F9-AB8E-5E718BFD66FD}</Project>
-      <Name>Glove.IOT.IDAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Glove.IOT.Model\Glove.IOT.Model.csproj">
       <Project>{61203463-03BB-4B9D-927B-75B0C9272B76}</Project>
       <Name>Glove.IOT.Model</Name>

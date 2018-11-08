@@ -1,0 +1,50 @@
+﻿using Glove.IOT.DALFactory;
+using Glove.IOT.EFDAL;
+using Glove.IOT.IDAL;
+using Glove.IOT.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glove.IOT.BLL
+{
+    public class UserInfoService:BaseService<UserInfo>
+    {
+        #region
+        //依赖接口编程
+        //IUserInfoDal UserInfoDal = new UserInfoDal();
+
+        //private IUserInfoDal UserInfoDal = StaticDalFactory.GetUserInfoDal();
+        //DbSession dbSession = new DbSession();
+        //IDbSession dbSession = new DbSession();
+        //private IDbSession dbSession = DbSessionFactory.GetCurrentDbSession();
+        #endregion
+
+        public override void SetCurrentDal()
+        {
+            CurrentDal = this.DbSession.UserInfoDal;
+        }
+
+        #region
+        //public UserInfo Add(UserInfo userInfo)
+        //{
+
+        //    dbSession.UserInfoDal.Add(userInfo);
+        //    if (dbSession.SaveChanges() > 0)
+        //    {
+
+
+        //    }
+        //    dbSession.UserInfoDal.Add(new UserInfo());
+
+        //    dbSession.SaveChanges();
+        //    //return UserInfoDal.Add(userInfo);
+
+
+        //}
+        #endregion
+
+    }
+}

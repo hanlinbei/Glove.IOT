@@ -14,14 +14,14 @@ namespace Glove.IOT.UnitTest
         {
             //测试 获取数据的方法
             UserInfoDal dal = new UserInfoDal();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 10; i++)
             {
                 dal.Add(new UserInfo()
                 {
                     UName = i + "ssss"
                 });
             }
-            IQueryable<UserInfo> temp = dal.GetUsers(u => u.UName.Contains("ss"));
+            IQueryable<UserInfo> temp = dal.GetEntities(u => u.UName.Contains("ss"));
 
             //断言
             Assert.AreEqual(true, temp.Count() >= 10);

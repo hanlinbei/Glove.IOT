@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -9,48 +10,32 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.EFDAL
 {
-    class BaseDal<T>where T:class,new()
+    public class BaseDal<T>where T:class,new()
     {
-        DataModelContainer db = new DataModelContainer();
+        //DataModelContainer db = new DataModelContainer();
+        //依赖抽象编程
+        public DbContext Db
+        {
+            get { return DbContextFactory.GetCurrentDbContext(); }
+        }
         //查询所有用户
-        public IQueryable<T> GetUsers(Expression<Func<UserInfo, bool>> whereLambda)
+        public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
 
-            return db.UserInfo.Where(whereLambda).AsQueryable();
-
-        }
-        //添加用户
-        public UserInfo Add(UserInfo userInfo)
-        {
-            db.UserInfo.Add(userInfo);
-            db.SaveChanges();
-            return userInfo;
+            return Db.Set<T>().Where(whereLambda).AsQueryable();
 
         }
-        //更新用户数据
-        public bool Update(UserInfo userInfo)
-        {
-            db.Entry(userInfo).State = EntityState.Modified;
-            return db.SaveChanges() > 0;
-        }
 
-        //删除数据
-        public bool Delete(UserInfo userInfo)
+        public IQueryable<T> GetPageEntities<S>(int pageSize, int pageIndex, out int total,
+                                               Expression<Func<T, bool>> whereLambda,
+                                               Expression<Func<T, S>> orderByLambda,
+                                               bool isAsc)
         {
-            db.Entry(userInfo).State = EntityState.Deleted;
-            return db.SaveChanges() > 0;
-        }
-
-        public IQueryable<UserInfo> GetUsers<S>(int pageSize, int pageIndex, out int total,
-                                                Expression<Func<UserInfo, bool>> whereLambda,
-                                                Expression<Func<UserInfo, S>> orderByLambda,
-                                                bool isAsc)
-        {
-            total = db.UserInfo.Where(whereLambda).Count();
+            total = Db.Set<T>().Where(whereLambda).Count();
             if (isAsc)
             {
-                var temp = db.UserInfo.Where(whereLambda)
-                            .OrderBy<UserInfo, S>(orderByLambda)
+                var temp = Db.Set<T>().Where(whereLambda)
+                            .OrderBy<T, S>(orderByLambda)
                             .Skip(pageSize * (pageIndex - 1))
                             .Take(pageSize).AsQueryable();
                 return temp;
@@ -58,8 +43,8 @@ namespace Glove.IOT.EFDAL
             }
             else
             {
-                var temp = db.UserInfo.Where(whereLambda)
-                           .OrderByDescending<UserInfo, S>(orderByLambda)
+                var temp = Db.Set<T>().Where(whereLambda)
+                           .OrderByDescending<T, S>(orderByLambda)
                            .Skip(pageSize * (pageIndex - 1))
                            .Take(pageSize).AsQueryable();
                 return temp;
@@ -69,5 +54,31 @@ namespace Glove.IOT.EFDAL
 
 
         }
+        //添加用户
+        public T Add(T entity)
+        {
+            Db.Set<T>().Add(entity);
+            //Db.SaveChanges();
+            return entity;
+
+        }
+        //更新用户数据
+        public bool Update(T entity)
+        {
+            Db.Entry(entity).State = EntityState.Modified;
+            //return Db.SaveChanges() > 0;
+            return true;
+        }
+
+        //删除数据
+        public bool Delete(T entity)
+        {
+            Db.Entry(entity).State = EntityState.Deleted;
+            //return Db.SaveChanges() > 0;
+            return true;
+        }
+
+
     }
 }
+

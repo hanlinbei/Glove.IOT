@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Glove.IOT.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glove.IOT.BLL
+namespace Glove.IOT.IDAL
 {
-    public class Class1
+    public interface IUserInfoDal:IBaseDal<UserInfo>
     {
     }
 }
