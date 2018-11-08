@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glove.IOT.BLL", "Glove.IOT.BLL\Glove.IOT.BLL.csproj", "{22D4C5E0-3091-46B1-876A-9A80665DFBC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glove.IOT.Common", "Glove.IOT.Common\Glove.IOT.Common.csproj", "{AEE3CFE4-0194-4B0F-8DA8-A6FA883299BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glove.IOT.EFDAL", "Glove.IOT.EFDAL\Glove.IOT.EFDAL.csproj", "{7F2E71B9-9178-4224-9AF1-3ED5EDC0951F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glove.IOT.Model", "Glove.IOT.Model\Glove.IOT.Model.csproj", "{61203463-03BB-4B9D-927B-75B0C9272B76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glove.IOT.UI.Portal", "Glove.IOT.UI.Portal\Glove.IOT.UI.Portal.csproj", "{70027388-7A7E-4A7C-8655-A0BF5425454D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glove.IOT.UnitTest", "Glove.IOT.UnitTest\Glove.IOT.UnitTest.csproj", "{36EA8F35-88E6-43FF-9EE9-2245656A32DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22D4C5E0-3091-46B1-876A-9A80665DFBC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22D4C5E0-3091-46B1-876A-9A80665DFBC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22D4C5E0-3091-46B1-876A-9A80665DFBC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22D4C5E0-3091-46B1-876A-9A80665DFBC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEE3CFE4-0194-4B0F-8DA8-A6FA883299BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEE3CFE4-0194-4B0F-8DA8-A6FA883299BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEE3CFE4-0194-4B0F-8DA8-A6FA883299BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEE3CFE4-0194-4B0F-8DA8-A6FA883299BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F2E71B9-9178-4224-9AF1-3ED5EDC0951F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F2E71B9-9178-4224-9AF1-3ED5EDC0951F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F2E71B9-9178-4224-9AF1-3ED5EDC0951F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F2E71B9-9178-4224-9AF1-3ED5EDC0951F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61203463-03BB-4B9D-927B-75B0C9272B76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61203463-03BB-4B9D-927B-75B0C9272B76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61203463-03BB-4B9D-927B-75B0C9272B76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61203463-03BB-4B9D-927B-75B0C9272B76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70027388-7A7E-4A7C-8655-A0BF5425454D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70027388-7A7E-4A7C-8655-A0BF5425454D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70027388-7A7E-4A7C-8655-A0BF5425454D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70027388-7A7E-4A7C-8655-A0BF5425454D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36EA8F35-88E6-43FF-9EE9-2245656A32DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36EA8F35-88E6-43FF-9EE9-2245656A32DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36EA8F35-88E6-43FF-9EE9-2245656A32DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36EA8F35-88E6-43FF-9EE9-2245656A32DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9323689-4EF6-4BA7-A174-2F1DAFFBED18}
+	EndGlobalSection
+EndGlobal
