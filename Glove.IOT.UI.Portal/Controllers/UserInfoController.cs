@@ -12,7 +12,8 @@ namespace Glove.IOT.UI.Portal.Controllers
     public class UserInfoController : Controller
     {
         // GET: UserInfo
-        UserInfoService UserInfoService = new UserInfoService();
+        //UserInfoService UserInfoService = new UserInfoService();
+        public IUserInfoService UserInfoService { get; set; }
         public ActionResult Index()
         {
             ViewData.Model = UserInfoService.GetEntities(u => true);

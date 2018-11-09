@@ -1,5 +1,6 @@
 ﻿using Glove.IOT.DALFactory;
 using Glove.IOT.EFDAL;
+using Glove.IOT.IBLL;
 using Glove.IOT.IDAL;
 using Glove.IOT.Model;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.BLL
 {
-    public class UserInfoService:BaseService<UserInfo>
+    public class UserInfoService:BaseService<UserInfo>,IUserInfoService
     {
         #region
         //依赖接口编程
