@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glove.IOT.IDAL", "Glove.IOT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glove.IOT.DALFactory", "Glove.IOT.DALFactory\Glove.IOT.DALFactory.csproj", "{090AD518-11E3-4688-B9D7-E82DB7DB8273}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glove.IOT.IBLL", "Glove.IOT.IBLL\Glove.IOT.IBLL.csproj", "{0666C01E-F646-4523-A139-FBFBB78BA7FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{090AD518-11E3-4688-B9D7-E82DB7DB8273}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{090AD518-11E3-4688-B9D7-E82DB7DB8273}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{090AD518-11E3-4688-B9D7-E82DB7DB8273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0666C01E-F646-4523-A139-FBFBB78BA7FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0666C01E-F646-4523-A139-FBFBB78BA7FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0666C01E-F646-4523-A139-FBFBB78BA7FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0666C01E-F646-4523-A139-FBFBB78BA7FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

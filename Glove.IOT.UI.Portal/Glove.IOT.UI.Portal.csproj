@@ -147,7 +147,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -178,7 +178,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -189,9 +191,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\UserInfo\Index.cshtml" />
+    <Content Include="Views\UserInfo\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -209,6 +210,36 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glove.IOT.BLL\Glove.IOT.BLL.csproj">
+      <Project>{22D4C5E0-3091-46B1-876A-9A80665DFBC7}</Project>
+      <Name>Glove.IOT.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glove.IOT.Common\Glove.IOT.Common.csproj">
+      <Project>{aee3cfe4-0194-4b0f-8da8-a6fa883299bb}</Project>
+      <Name>Glove.IOT.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glove.IOT.DALFactory\Glove.IOT.DALFactory.csproj">
+      <Project>{090ad518-11e3-4688-b9d7-e82db7db8273}</Project>
+      <Name>Glove.IOT.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glove.IOT.EFDAL\Glove.IOT.EFDAL.csproj">
+      <Project>{7f2e71b9-9178-4224-9af1-3ed5edc0951f}</Project>
+      <Name>Glove.IOT.EFDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glove.IOT.IBLL\Glove.IOT.IBLL.csproj">
+      <Project>{0666C01E-F646-4523-A139-FBFBB78BA7FD}</Project>
+      <Name>Glove.IOT.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glove.IOT.IDAL\Glove.IOT.IDAL.csproj">
+      <Project>{6d217267-b257-49f9-ab8e-5e718bfd66fd}</Project>
+      <Name>Glove.IOT.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glove.IOT.Model\Glove.IOT.Model.csproj">
+      <Project>{61203463-03bb-4b9d-927b-75b0c9272b76}</Project>
+      <Name>Glove.IOT.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
