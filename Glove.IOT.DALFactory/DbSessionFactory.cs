@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.DALFactory
 {
-    public class DbSessionFactory
+    public  class DbSessionFactory
     {
         public static IDbSession GetCurrentDbSession()
         {

@@ -20,17 +20,19 @@ namespace Glove.IOT.BLL
 
         public IDbSession DbSession
         {
-            get
-            {
-                return DbSessionFactory.GetCurrentDbSession();
-            }
+            get;
+            set;
+            //{
+            //    return DbSessionFactory.GetCurrentDbSession();
+            //}
         }
 
-        public BaseService()//基类的构造函数
-        {
-            SetCurrentDal();//抽象方法
-        }
-        public abstract void SetCurrentDal();//抽象方法要求子类必须实现
+        //public BaseService(IDbSession dbSession)//基类的构造函数
+        //{
+        //    DbSession = dbSession;
+        //    SetCurrentDal();//抽象方法
+        //}
+        //public abstract void SetCurrentDal();//抽象方法要求子类必须实现
 
         //查询
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)

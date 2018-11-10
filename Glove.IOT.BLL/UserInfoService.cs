@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.BLL
 {
-    public class UserInfoService:BaseService<UserInfo>,IUserInfoService
+    public class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
         #region
         //依赖接口编程
@@ -22,11 +22,18 @@ namespace Glove.IOT.BLL
         //IDbSession dbSession = new DbSession();
         //private IDbSession dbSession = DbSessionFactory.GetCurrentDbSession();
         #endregion
+        //public UserInfoService(IDbSession dbSession)
+        //    :base(dbSession)
+        //    {
+        //    //this.DbSession = dbSession;
 
-        public override void SetCurrentDal()
-        {
-            CurrentDal = this.DbSession.UserInfoDal;
-        }
+        //    }
+
+
+        //public override void SetCurrentDal()
+        //{
+        //    CurrentDal = this.DbSession.UserInfoDal;
+        //}
 
         #region
         //public UserInfo Add(UserInfo userInfo)
