@@ -48,6 +48,9 @@
     <Reference Include="Common.Logging">
       <HintPath>..\packages\Spring.Net\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\Log4Net\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Spring.Aop">
       <HintPath>..\packages\Spring.Net\Spring.Aop.dll</HintPath>
@@ -166,6 +169,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
+    <Compile Include="Controllers\UserLoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,6 +186,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\login\HeadBack.jpg" />
+    <Content Include="Content\Images\login\login-btn.gif" />
+    <Content Include="Content\Images\login\panel-c.gif" />
+    <Content Include="Content\Images\login\panel-f.gif" />
+    <Content Include="Content\Images\login\panel-h.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -217,6 +226,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\UserInfo\Index.cshtml" />
     <Content Include="Views\UserInfo\Create.cshtml" />
+    <Content Include="Views\UserLogin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

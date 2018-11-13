@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.Common
 {
-    public class Class1
+    public class SqlServerWriter : ILogWriter
     {
+        public void WriteLogInfo(string txt)
+        {
+           
+        }
     }
 }

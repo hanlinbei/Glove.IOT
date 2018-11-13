@@ -11,6 +11,9 @@ namespace Glove.IOT.UI.Portal.Models
         public override void OnException(ExceptionContext filterContext)
         {
             base.OnException(filterContext);
+            //自己处理异常
+            //直接把错误信息写到日志文件里去
+            Common.LogHelper.WriteLog(filterContext.Exception.ToString());
         }
     }
 }

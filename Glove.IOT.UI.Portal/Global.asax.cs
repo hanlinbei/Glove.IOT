@@ -16,6 +16,9 @@ namespace Glove.IOT.UI.Portal
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //从配置文件读取log4net的配置，然后进行一个初始化的工作
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }
