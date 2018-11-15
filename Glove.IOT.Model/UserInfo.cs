@@ -14,7 +14,15 @@ namespace Glove.IOT.Model
     
     public partial class UserInfo
     {
+        public UserInfo()
+        {
+            this.DelFlag = 0;
+        }
+    
         public int Id { get; set; }
         public string UName { get; set; }
+        public string Pwd { get; set; }
+        public string ShowName { get; set; }
+        public short DelFlag { get; set; }
     }
 }

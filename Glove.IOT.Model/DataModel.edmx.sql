@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/08/2018 13:56:36
--- Generated from EDMX file: D:\研究生学习大文件资料\Glove.IOT\Glove.IOT.Model\DataModel.edmx
+-- Date Created: 11/13/2018 15:00:58
+-- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -22,6 +22,9 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[UserInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserInfo];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -30,7 +33,10 @@ GO
 -- Creating table 'UserInfo'
 CREATE TABLE [dbo].[UserInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [UName] nvarchar(32)  NULL
+    [UName] nvarchar(32)  NULL,
+    [Pwd] nvarchar(32)  NOT NULL,
+    [ShowName] nvarchar(64)  NOT NULL,
+    [DelFlag] smallint  NOT NULL
 );
 GO
 

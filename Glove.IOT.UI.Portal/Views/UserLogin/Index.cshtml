@@ -15,6 +15,7 @@
         }
     </script>
     <script src="../../Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="../../Scripts/jquery.validate.min.js" type="text/javascript"></script>
 
     <style type="text/css">
@@ -157,13 +158,25 @@
 
             $("#imgCode").attr("src", str);
         }
-      
-        </script>
+        //登录成功之后执行此代码
+        function afterLogin(data) {
+            if (data == "OK") {
+                //登录成功
+                window.location.href = "/Home/Index";
+            }
+            else
+            {
+                alert(data);
+                changeCheckCode()
+            }
+        }
+    </script>
 
 
 </head>
 <body style="padding: 10px">
-
+    @using (Ajax.BeginForm("ProcessLogin", "UserLogin", new AjaxOptions() { OnSuccess = "afterLogin" }))
+    {
     <div id="login">
         <div id="loginlogo">
         </div>
@@ -246,5 +259,6 @@
             Copyright  2018 杭州展晖科技有限公司
         </div>
     </div>
+    }
 </body>
 </html>
