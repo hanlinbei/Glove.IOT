@@ -1,5 +1,6 @@
 ﻿using Glove.IOT.Common;
 using Glove.IOT.IBLL;
+using Glove.IOT.UI.Portal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,10 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
+    [LoginCheckFilter(IsCheck =false)]
     public class UserLoginController : Controller
     {
+    
         // GET: UserLogin
         public IUserInfoService UserInfoService { get; set; }
         public ActionResult Index()
@@ -41,6 +44,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             string sessionCode = Session["VCode"] as string;
             Session["VCode"] = null;
             if ((string.IsNullOrEmpty(sessionCode)) || (strCode != sessionCode))
+
             {
                 return Content("验证码错误！");
             }
@@ -57,9 +61,18 @@ namespace Glove.IOT.UI.Portal.Controllers
             {
                 return Content("用户名密码错误！会登录吗");
             }
-            Session["loginUser"] = userInfo;
+            //Session["loginUser"] = userInfo;
+            //用memcache+cookies代替之
+            //立即分配一个标志，Guid把标志作为mm存储数据的key,把用户对象放到mm，把guid写到客户端cookies里面去
+            string userLoginId = Guid.NewGuid().ToString();
+            //把用户数据写到mm
+            Common.Cache.CacheHelper.AddCache(userLoginId, userInfo, DateTime.Now.AddMinutes(20));
+            //往客户端写入cookie
+            Response.Cookies["userLoginId"].Value = userLoginId;
+
             //如果正确跳转到首页
-            return Content("OK");
+            return RedirectToAction("Index", "Home");
+            //return Content("OK");
         }
         #endregion
 
