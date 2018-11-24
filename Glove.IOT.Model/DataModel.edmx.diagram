@@ -5,7 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="df6f26d1233445a48b3b6eb19aedb272" Name="Diagram1" >
-        <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="5.375" PointY="1.75" />
+        <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="5" PointY="1.625" />
+        <EntityTypeShape EntityType="DataModel.RoleInfo" Width="1.5" PointX="8" PointY="4.125" />
+        <EntityTypeShape EntityType="DataModel.ActionInfo" Width="1.5" PointX="11.5" PointY="1.5" />
+        <AssociationConnector Association="DataModel.UserInfoRoleInfo" />
+        <AssociationConnector Association="DataModel.ActionInfoRoleInfo" ManuallyRouted="true" >
+          <ConnectorPoint PointX="12.25" PointY="4.5289925130208335" />
+          <ConnectorPoint PointX="12.25" PointY="5.8893126865402552" />
+          <ConnectorPoint PointX="9.5" PointY="5.8893126865402552" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DataModel.R_UserInfo_ActionInfo" Width="1.5" PointX="9.25" PointY="1.5" />
+        <AssociationConnector Association="DataModel.UserInfoR_UserInfo_ActionInfo" />
+        <AssociationConnector Association="DataModel.ActionInfoR_UserInfo_ActionInfo" />
+        <EntityTypeShape EntityType="DataModel.UserInfoExt" Width="1.5" PointX="5.5" PointY="4.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -11,8 +11,11 @@ namespace Glove.IOT.UI.Portal.Controllers
         // GET: Home
         public ActionResult Index()
         {
-          
-            return View("TreeIndex");
+          //最新的主框架
+            return View();
+            //老式的主框架
+            //return View("TreeIndex");
+
         }
     }
 }
