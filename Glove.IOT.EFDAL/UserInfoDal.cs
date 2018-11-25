@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.EFDAL
 {
-    public class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
+    public partial class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
     {
         public string Name { get; set; }
         //    DataModelContainer db = new DataModelContainer();

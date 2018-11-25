@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.IBLL
 {
-    public interface IUserInfoService:IBaseService<UserInfo>
+    public partial interface IUserInfoService:IBaseService<UserInfo>
     {
     }
 }

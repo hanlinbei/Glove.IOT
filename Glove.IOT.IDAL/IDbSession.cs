@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Glove.IOT.IDAL
 {
-    public interface IDbSession
+    public partial interface IDbSession
     {
-        IUserInfoDal UserInfoDal { get; }
+        #region 改成了模版自动生成
+        //IUserInfoDal UserInfoDal { get; }
+        #endregion
         int SaveChanges();
     }
 }

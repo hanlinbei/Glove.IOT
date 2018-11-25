@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.BLL
 {
-    public class UserInfoService : BaseService<UserInfo>, IUserInfoService
+    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
         #region
         //依赖接口编程
@@ -29,12 +29,12 @@ namespace Glove.IOT.BLL
 
         //    }
 
-
+        #region 由模版自动生成
         //public override void SetCurrentDal()
         //{
         //    CurrentDal = this.DbSession.UserInfoDal;
         //}
-
+        #endregion
         #region
         //public UserInfo Add(UserInfo userInfo)
         //{

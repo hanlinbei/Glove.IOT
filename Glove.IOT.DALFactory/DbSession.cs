@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.DALFactory
 {
-    public class DbSession:IDbSession
+    public partial class DbSession:IDbSession
     {
-        public IUserInfoDal UserInfoDal
-        {
-            get { return StaticDalFactory.GetUserInfoDal(); }
-        }
-
+        #region 简单工厂或者抽象工厂部分 用模版自动生成
+        //public IUserInfoDal UserInfoDal
+        //{
+        //    get { return StaticDalFactory.GetUserInfoDal(); }
+        //}
+        #endregion
         /// <summary>
         /// 拿到当前的上下文，把修改的实体做一个整体的提交
         /// </summary>

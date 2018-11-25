@@ -16,16 +16,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IUserInfoService UserInfoService { get; set; }
         public ActionResult Index()
         {
-            //throw new Exception("ddddddd");
-            if (Session["loginUser"] == null)
-            {
-                return RedirectToAction("Index", "UserLogin");
-            }
-            ViewData.Model = UserInfoService.GetEntities(u => true);
             return View();
         }
 
-        public ActionResult GetAllUserInfo()
+        public ActionResult GetAllUserInfos()
         {
             //jquery easyui:table:{total:32,row:[{},{}]}
             // easyui:table 在初始化的时候自动发送以下俩个参数值

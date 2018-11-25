@@ -10,7 +10,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    @*<link href="~/Content/tableStyle.css" rel="stylesheet" />*@
+    <link href="~/Content/tableStyle.css" rel="stylesheet" />
 
     <link href="~/Content/jquery-easyui-1.3.1/themes/default/easyui.css" rel="stylesheet" />
     <link href="~/Content/jquery-easyui-1.3.1/themes/icon.css" rel="stylesheet" />
@@ -40,7 +40,7 @@
                 pageSize: 10,
                 pageNumber: 1,
                 pageList: [10, 20, 30],
-                queryParams: queryParam,//让表格在加载数据的时候，额外传输的数据。
+                queryParams: {},//让表格在加载数据的时候，额外传输的数据。
                 columns: [[
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
                     { field: 'ID', title: '用户的编号', width: 80 },
@@ -52,14 +52,6 @@
                         formatter: function (value, row, index) {
                             return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d h:m:s");
                         }
-                    },
-                    {
-                        field: 'ModfiedOn', title: '操作', width: 120, formatter: function (value, row, index) {
-                            var str = "";
-                            str += "<a href='javascript:void(0)' class='editLink' uid='" + row.ID + "'>修改</a> &nbsp;&nbsp;";
-                            str += "<a href='javascript:void(0)' class='deletLink' uid='" + row.ID + "'>删除</a>";
-                            return str;
-                        }
                     }
                 ]],
                 toolbar: [{
@@ -67,58 +59,58 @@
                     text: '添加',
                     iconCls: 'icon-add',
                     handler: function () {
-                        //alert("dd");
+                        alert("dd");
                         //弹出一个添加的对话框
-                        addClickEvent();
+                        //addClickEvent();
                     }
-                }, {
-                    id: 'btnDelete',
-                    text: '删除',
-                    iconCls: 'icon-cancel',
-                    handler: function () {
-                        deleteEvent();
-                    }
-                }, {
-                    id: 'btnEdit',
-                    text: '修改',
-                    iconCls: 'icon-edit',
-                    handler: function () {
-                        //校验你是否只选中一个 用户
-                        var selectedRows = $('#tt').datagrid("getSelections");
-                        if (selectedRows.length != 1) {
-                            //error,question,info,warning.
-                            $.messager.alert("错误提醒", "请选中1行要修改数据！", "question");
-                            return;
-                        }
+                }],/*, {*/
+                //    id: 'btnDelete',
+                //    text: '删除',
+                //    iconCls: 'icon-cancel',
+                //    handler: function () {
+                //        deleteEvent();
+                //    }
+                //}, {
+                //    id: 'btnEdit',
+                //    text: '修改',
+                //    iconCls: 'icon-edit',
+                //    handler: function () {
+                //        //校验你是否只选中一个 用户
+                //        var selectedRows = $('#tt').datagrid("getSelections");
+                //        if (selectedRows.length != 1) {
+                //            //error,question,info,warning.
+                //            $.messager.alert("错误提醒", "请选中1行要修改数据！", "question");
+                //            return;
+                //        }
 
-                        editEvent(selectedRows[0].ID);
-                    }
-                }, {
-                    id: 'btnSetRole',
-                    text: '设置角色',
-                    iconCls: 'icon-redo',
-                    handler: function () {
-                        //判断是否选中一个用户进行角色设置。弹出一个设置角色的对话框出来。
-                        setRole();
-                    }
-                }, {
-                    id: 'btnSetAction',
-                    text: '设置特殊权限',
-                    iconCls: 'icon-redo',
-                    handler: function () {
-                        //判断是否选中一个用户进行角色设置。弹出一个设置角色的对话框出来。
-                        setAction();
-                    }
-                }],
+                //        editEvent(selectedRows[0].ID);
+                //    }
+                //}, {
+                //    id: 'btnSetRole',
+                //    text: '设置角色',
+                //    iconCls: 'icon-redo',
+                //    handler: function () {
+                //        //判断是否选中一个用户进行角色设置。弹出一个设置角色的对话框出来。
+                //        setRole();
+                //    }
+                //}, {
+                //    id: 'btnSetAction',
+                //    text: '设置特殊权限',
+                //    iconCls: 'icon-redo',
+                //    handler: function () {
+                //        //判断是否选中一个用户进行角色设置。弹出一个设置角色的对话框出来。
+                //        setAction();
+                //    }
+                //}],
                 onHeaderContextMenu: function (e, field) {
 
-                },
-                onLoadSuccess: function (data) {
-                    $(".editLink").click(function () {//
-                        editEvent($(this).attr("uid"));
-                        return false;
-                    });
                 }
+                //onLoadSuccess: function (data) {
+                //    $(".editLink").click(function () {//
+                //        editEvent($(this).attr("uid"));
+                //        return false;
+                //    });
+                //}
             });
         }
     </script>

@@ -7,5 +7,7 @@
   <object type="Glove.IOT.UI.Portal.Controllers.UserLoginController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="UserInfoService" ref="UserInfoService" />
   </object>
- 
+  <object type="Glove.IOT.UI.Portal.Controllers.ActionInfoController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="ActionInfoService" ref="ActionInfoService" />
+  </object>
 </objects>
