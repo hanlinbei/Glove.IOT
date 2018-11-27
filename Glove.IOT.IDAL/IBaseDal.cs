@@ -27,6 +27,11 @@ namespace Glove.IOT.IDAL
 
         //删除数据
         bool Delete(T entity);
-      
+
+        bool Delete(int id);
+
+        int DeleteListByLogical(List<int> ids);
+
+
     }
 }

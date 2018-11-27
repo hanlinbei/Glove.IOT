@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.EFDAL
 {
-    public class BaseDal<T>where T:class,new()
+    public class BaseDal<T>where T : class, new()
     {
         //DataModelContainer db = new DataModelContainer();
         //依赖抽象编程
@@ -73,11 +73,33 @@ namespace Glove.IOT.EFDAL
         //删除数据
         public bool Delete(T entity)
         {
-            Db.Entry(entity).State = EntityState.Deleted;
+            //Db.Entry(entity).State = EntityState.Deleted;
             //return Db.SaveChanges() > 0;
+            Db.Entry(entity).Property("DelFlag").CurrentValue = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
+            Db.Entry(entity).Property("DelFlag").IsModified = true;
             return true;
         }
 
+        public bool Delete(int id)
+        {
+            var entity = Db.Set<T>().Find(id);
+            //Db.Set<T>().Remove(entity);
+            Db.Entry(entity).Property("DelFlag").CurrentValue = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
+            Db.Entry(entity).Property("DelFlag").IsModified = true;
+            return true;
+        }
+
+        public int DeleteListByLogical(List<int> ids)
+        {
+            foreach (var id in ids)
+            {
+                var entity = Db.Set<T>().Find(id);
+                Db.Entry(entity).Property("DelFlag").CurrentValue = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
+                Db.Entry(entity).Property("DelFlag").IsModified = true;
+            }
+            return ids.Count;
+
+        }
 
     }
 }

@@ -15,6 +15,8 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            //MVC请求来了之后，根据请求地址，创建控制器工厂（spring.Net），控制器工厂创建控制器，执行方法
+            //Spring.Net
             base.OnActionExecuting(filterContext);
             var items = filterContext.RouteData.Values;
             #region 测试信息

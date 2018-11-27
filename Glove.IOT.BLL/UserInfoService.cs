@@ -13,6 +13,8 @@ namespace Glove.IOT.BLL
 {
     public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
+
+     
         #region
         //依赖接口编程
         //IUserInfoDal UserInfoDal = new UserInfoDal();

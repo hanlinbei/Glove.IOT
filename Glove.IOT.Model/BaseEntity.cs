@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.Model
 {
-    public class Class1
+    public abstract class BaseEntity
     {
+        public abstract short DelFlag { get; set; }
     }
 }

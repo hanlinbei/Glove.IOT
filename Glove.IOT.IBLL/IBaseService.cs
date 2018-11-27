@@ -26,5 +26,11 @@ namespace Glove.IOT.IBLL
 
         //删除数据
         bool Delete(T entity);
+
+        bool Delete(int id);
+
+        int DeleteList(List<int> ids);
+
+        int DeleteListByLogical(List<int> ids);
     }
 }

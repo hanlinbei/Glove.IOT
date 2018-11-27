@@ -34,7 +34,7 @@
                 width: 700,
                 height: 400,
                 fitColumns: true,
-                idField: 'ID',
+                idField: 'Id',
                 loadMsg: '正在加载用户的信息...',
                 pagination: true,
                 singleSelect: false,
@@ -64,14 +64,15 @@
                         //弹出一个添加的对话框
                         addClickEvent();
                     }
-                }],/*, {*/
-                //    id: 'btnDelete',
-                //    text: '删除',
-                //    iconCls: 'icon-cancel',
-                //    handler: function () {
-                //        deleteEvent();
-                //    }
-                //}, {
+                },{ 
+                    id: 'btnDelete',
+                    text: '删除',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        deleteEvent();
+                    }
+                }],
+                         //, {
                 //    id: 'btnEdit',
                 //    text: '修改',
                 //    iconCls: 'icon-edit',
@@ -113,6 +114,38 @@
                 //    });
                 //}
             });
+        }
+
+        //删除按钮被点击的时候执行
+        function deleteEvent() {
+            //第一步拿到 easyui里面的选中的项
+            var selectedRows = $('#tt').datagrid("getSelections");
+            if (selectedRows.length <= 0) {
+                //error,question,info,warning.
+                $.messager.alert("错误提醒", "请选中删除数据！", "question");
+                return;
+            }
+
+            var ids = "";
+        
+            // 把数据删除
+            for (var key in selectedRows) {
+                ids = ids + selectedRows[key].Id + ",";
+            }
+            //ids:     1,2,       4,5,6,
+            ids = ids.substr(0, ids.length - 1);
+            //alert(ids);
+            $.post("/UserInfo/Delete", { ids: ids }, function (data) {
+                if (data == "ok") {
+                    //刷新表格
+                    initTable();
+                } else {
+                    $.messager.alert("提醒消息", "败了", "error");
+                }
+
+            });
+
+
         }
 
         //当用户点击添加的时候，弹出一个添加的对话框

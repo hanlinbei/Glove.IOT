@@ -57,7 +57,34 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
         #endregion
 
+        #region 删除
+        public ActionResult Delete(string ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("请选中要删除的数据！");
+            }
+            //正常处理
+            string[] strIds = ids.Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
 
+            }
+            //UserInfoService.DeleteList(idList);
+            UserInfoService.DeleteListByLogical(idList);
+            return Content("ok");
+
+
+
+
+        }
+
+
+
+
+        #endregion
         #region create
         public ActionResult Create()
         {

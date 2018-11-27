@@ -51,6 +51,32 @@ namespace Glove.IOT.BLL
 
         }
 
+        public int DeleteListByLogical(List<int> ids)
+        {
+
+            CurrentDal.DeleteListByLogical(ids);
+            return DbSession.SaveChanges();
+
+        }
+        //批量删除
+        public int DeleteList(List<int> ids)
+        {
+            foreach (var id in ids)
+            {
+                CurrentDal.Delete(id);
+            }
+            return DbSession.SaveChanges();
+
+
+        }
+
+        public bool Delete(int id)
+        {
+            CurrentDal.Delete(id);
+            return DbSession.SaveChanges() > 0;
+
+        }
+
         //添加用户
         public T Add(T entity)
         {
