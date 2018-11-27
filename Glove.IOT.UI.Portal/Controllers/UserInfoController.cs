@@ -57,6 +57,22 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
         #endregion
 
+        #region 修改
+        public ActionResult Edit(int id)
+        {
+            ViewData.Model = UserInfoService.GetEntities(u => u.Id ==id).FirstOrDefault();
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult Edit(UserInfo userInfo)
+        {
+            UserInfoService.Update(userInfo);
+            return Content("ok");
+
+        }
+        #endregion
         #region 删除
         public ActionResult Delete(string ids)
         {
@@ -85,6 +101,7 @@ namespace Glove.IOT.UI.Portal.Controllers
 
 
         #endregion
+
         #region create
         public ActionResult Create()
         {

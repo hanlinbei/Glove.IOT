@@ -53,7 +53,18 @@
                         formatter: function (value, row, index) {
                             return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d H:m:s");
                         }
+                    },
+                    {
+                        field: 'ModfiedOn', title: '操作', width: 120,
+                        formatter:
+                            function (value, row, index) {
+                                var str = "";
+                                str += "<a href='javascript:void(0)'class='editLink' uid='" + row.Id + "'>修改</a>&nbsp;&nbsp;";
+                                str += "<a href='javascript:void(0)'class='deletLink' uid='" + row.Id + "'>删除</a>&nbsp;&nbsp;";
+                                return str;
+                            }
                     }
+
                 ]],
                 toolbar: [{
                     id: 'btnDownShelf',
@@ -64,28 +75,29 @@
                         //弹出一个添加的对话框
                         addClickEvent();
                     }
-                },{ 
+                },{
                     id: 'btnDelete',
                     text: '删除',
                     iconCls: 'icon-cancel',
                     handler: function () {
                         deleteEvent();
                     }
-                }],
-                         //, {
-                //    id: 'btnEdit',
-                //    text: '修改',
-                //    iconCls: 'icon-edit',
-                //    handler: function () {
-                //        //校验你是否只选中一个 用户
-                //        var selectedRows = $('#tt').datagrid("getSelections");
-                //        if (selectedRows.length != 1) {
-                //            //error,question,info,warning.
-                //            $.messager.alert("错误提醒", "请选中1行要修改数据！", "question");
-                //            return;
-                //        }
-
-                //        editEvent(selectedRows[0].ID);
+                }, {
+                    id: 'btnEdit',
+                    text: '修改',
+                    iconCls: 'icon-edit',
+                        handler: function () {
+                            //校验你是否只选中一个用户
+                            var selectedRows = $('#tt').datagrid("getSelections");
+                            if (selectedRows.length != 1) {
+                                //error,question,info,warning.
+                                $.messager.alert("错误提醒", "请选中1行修改数据！", "question");
+                                return;
+                            }
+                            editEvent(selectedRows[0].Id);
+                        }
+                    }],
+                         
                 //    }
                 //}, {
                 //    id: 'btnSetRole',
@@ -106,16 +118,56 @@
                 //}],
                 onHeaderContextMenu: function (e, field) {
 
+                },
+                onLoadSuccess: function (data) {
+                    $(".editLink").click(function () {//
+                        editEvent($(this).attr("uid"));
+                        return false;
+                    });
                 }
-                //onLoadSuccess: function (data) {
-                //    $(".editLink").click(function () {//
-                //        editEvent($(this).attr("uid"));
-                //        return false;
-                //    });
-                //}
             });
         }
 
+        //修改
+        function editEvent(id) {
+           
+            //给editFrame 的src属性做一个赋值
+            $("#editFrame").attr("src", "/UserInfo/Edit/" + id);
+            $("#editDialogDiv").css("display", "block");
+            $("#editDialogDiv").dialog({
+                title: "修改用户",
+                model: true,
+                width: 400,
+                height: 400,
+                collapsible: true,
+                minimizable: true,
+                maximizable: true,
+                resizable: true,
+                buttons: [{
+                    id: 'btnOk',
+                    text: '修改',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        $("#editFrame")[0].contentWindow.submitForm();
+                    }
+                }, {
+                    id: 'btnCancel',
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $("#editDialogDiv").dialog("close");
+
+                    }
+                }]
+
+
+            });
+        }
+        //修改成功之后由子容器来调用的
+        function afterEditSuccess() {
+            $("#editDialogDiv").dialog("close");
+            initTable();
+        }
         //删除按钮被点击的时候执行
         function deleteEvent() {
             //第一步拿到 easyui里面的选中的项
@@ -127,7 +179,7 @@
             }
 
             var ids = "";
-        
+
             // 把数据删除
             for (var key in selectedRows) {
                 ids = ids + selectedRows[key].Id + ",";
@@ -174,7 +226,7 @@
 
                         }
                     }]
-               
+
 
             });
 
@@ -204,7 +256,7 @@
     <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
     @*弹出来的添加的 对话框开始*@
     <div id="addDialogDiv">
-        @using (Ajax.BeginForm("Add","UserInfo",new AjaxOptions() { OnSuccess="afterAdd"}))
+        @using (Ajax.BeginForm("Add", "UserInfo", new AjaxOptions() { OnSuccess = "afterAdd" }))
         {
             <table class="t1">
                 <tr>
@@ -223,12 +275,20 @@
                     <td>昵称：</td>
                     <td><input type="text" name="ShowName" /></td>
                 </tr>
-           
+
 
             </table>
-         }
+        }
 
     </div>
     @*弹出来的添加对话框结束*@
+    @*弹出来的修改的 对话框开始*@
+    <div id="editDialogDiv">
+       <iframe id="editFrame" src="javascript:void(0)" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
+      
+
+    </div>
+    @*弹出来的修改对话框结束*@
 </body>
 </html>
+
