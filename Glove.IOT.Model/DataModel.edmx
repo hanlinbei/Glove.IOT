@@ -75,6 +75,8 @@
     <Property Name="HttpMethd" Type="nvarchar" Nullable="true" MaxLength="32" />
     <Property Name="ActionName" Type="nvarchar" Nullable="false" MaxLength="32" />
     <Property Name="IsMenu" Type="bit" Nullable="false" />
+    <Property Name="MenuIcon" Type="nvarchar" Nullable="true" MaxLength="512" />
+    <Property Name="Sort" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="R_UserInfo_ActionInfo">
     <Key>
@@ -255,6 +257,8 @@
           <Property Name="HttpMethd" Type="String" Nullable="true" MaxLength="32" />
           <Property Name="ActionName" Type="String" Nullable="false" MaxLength="32" />
           <Property Name="IsMenu" Type="Boolean" Nullable="false" />
+          <Property Name="MenuIcon" Type="String" Nullable="true" MaxLength="512" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="UserInfoRoleInfo">
           <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="*" />
@@ -355,6 +359,8 @@
           <ScalarProperty Name="HttpMethd" ColumnName="HttpMethd" />
           <ScalarProperty Name="ActionName" ColumnName="ActionName" />
           <ScalarProperty Name="IsMenu" ColumnName="IsMenu" />
+          <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

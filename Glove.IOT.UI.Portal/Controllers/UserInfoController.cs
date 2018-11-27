@@ -14,6 +14,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         // GET: UserInfo
         //UserInfoService UserInfoService = new UserInfoService();
         public IUserInfoService UserInfoService { get; set; }
+        #region 获取用户
         public ActionResult Index()
         {
             return View();
@@ -40,8 +41,24 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
+
+        #region 添加用户
+        public ActionResult Add(UserInfo userInfo)
+        {
+            userInfo.ModfiedOn = DateTime.Now;
+            userInfo.SubTime = DateTime.Now;
+            userInfo.DelFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+
+            UserInfoService.Add(userInfo);
+            return Content("Ok");
 
 
+        }
+        #endregion
+
+
+        #region create
         public ActionResult Create()
         {
             return View();
@@ -55,5 +72,6 @@ namespace Glove.IOT.UI.Portal.Controllers
             }
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }

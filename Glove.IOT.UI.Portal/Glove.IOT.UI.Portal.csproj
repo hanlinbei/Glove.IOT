@@ -187,7 +187,9 @@
     <Content Include="Config\controllers.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\dals.xml" />
+    <Content Include="Config\dals.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Config\services.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -195,6 +197,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\GoodTbStyle.css" />
     <Content Include="Content\Images\10.jpg" />
     <Content Include="Content\Images\7_7.jpg" />
     <Content Include="Content\Images\AVATAR.jpg" />
@@ -1591,6 +1594,7 @@
     <Content Include="Content\ligerui\Source\lib\ligerUI\skins\Silvery\images\layout\tabs-tools.gif" />
     <Content Include="Content\ligerui\Source\V1.1.9升级必看.txt" />
     <Content Include="Content\ligerui\Source\welcome.htm" />
+    <Content Include="Content\tableStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1646,7 +1650,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

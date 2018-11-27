@@ -139,7 +139,7 @@
     function f_open(url, title, icon) {
         var win = $.ligerDialog.open(
         {
-            height: 500, url: url, width: 600, showMax: true, showToggle: true, showMin: true, isResize: true, modal: false, title: title, slide: false, buttons: [
+            height: 500, url: url, width: 750, showMax: true, showToggle: true, showMin: true, isResize: true, modal: false, title: title, slide: false, buttons: [
               {
                   text: '确定', onclick: function (item, Dialog, index) {
                       win.hide();
@@ -155,6 +155,7 @@
     }
     //窗口里所有图标的数据
     var links = [
+            { icon: '/Content/Images/Home/3DSMAX.png', title: '用户列表', url: '/UserInfo/Index' },
             { icon: '/Content/Images/Home/3DSMAX.png', title: '填写周报', url: '../case/week.htm' },
             { icon: '/Content/Images/Home/3DSMAX.png', title: 'treegrid', url: '../grid/treegrid/treegrid.htm' },
             { icon: '/Content/Images/Home/3DSMAX.png', title: '多表头', url: '../grid/mulheader/grid2.htm' },

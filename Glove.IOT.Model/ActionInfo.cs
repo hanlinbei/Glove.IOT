@@ -31,6 +31,8 @@ namespace Glove.IOT.Model
         public string HttpMethd { get; set; }
         public string ActionName { get; set; }
         public bool IsMenu { get; set; }
+        public string MenuIcon { get; set; }
+        public int Sort { get; set; }
     
         public virtual ICollection<RoleInfo> RoleInfo { get; set; }
         public virtual ICollection<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
