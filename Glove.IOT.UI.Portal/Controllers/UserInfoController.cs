@@ -1,6 +1,7 @@
 ﻿using Glove.IOT.BLL;
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
+using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,16 +28,40 @@ namespace Glove.IOT.UI.Portal.Controllers
             int pageSize = int.Parse(Request["rows"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
             int total = 0;
+
+            //过滤的用户名 过滤备注schName schRemark
+            string schName = Request["schName"];
+            string schRemark = Request["schRemark"];
             short delflagNormal = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+            var queryParam = new UserQueryParam()
+            {
+                PageSize = pageSize,
+                PageIndex = pageIndex,
+                Total = 0,
+                SchName = schName,
+                SchRemark = schRemark
+            };
+
+            var pageData = UserInfoService.LoagPageData(queryParam);
+
+            var temp= pageData.Select( u =>new
+            {   u.Id,
+                u.UName,
+                u.Remark,
+                u.ShowName,
+                u.SubTime,
+                u.ModfiedOn,
+                u.Pwd
+            });
             //拿到当前页的数据
-            var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex,
-                                                         out total, u => u.DelFlag == delflagNormal, u => u.Id,
-                                                         true)
-                                                        .Select(
-                                                         u =>
-                                                         new { u.Id, u.UName, u.Remark, u.ShowName, u.SubTime, u.ModfiedOn, u.Pwd }
-                                                       );
-           var data = new { total = total, rows = pageData.ToList() };
+            //var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex,
+            //                                             out total, u => u.DelFlag == delflagNormal, u => u.Id,
+            //                                             true)
+            //                                            .Select(
+            //                                             u =>
+            //                                             new { u.Id, u.UName, u.Remark, u.ShowName, u.SubTime, u.ModfiedOn, u.Pwd }
+            //                                           );
+            var data = new { total = queryParam.Total, rows = temp.ToList() };
 
             return Json(data, JsonRequestBehavior.AllowGet);
 

@@ -24,10 +24,22 @@
             initTable();
 
             $("#addDialogDiv").css("display", "none");
-
+            bindSearchBtnClick();
         });
+
+        //绑定搜索查询事件
+        function bindSearchBtnClick() {
+            $("#btnSearch").click(function () {
+                var data = { schName: $("#txtSchName").val(), schRemark: $("#txtSchRemark").val() };
+                initTable(data);
+
+            });
+
+        }
+
+
         //初始化表格
-        function initTable() {
+        function initTable(queryParam) {
             $('#tt').datagrid({
                 url: '/UserInfo/GetAllUserInfos',//rows:一页有多少条，page：请求当前页
                 title: '用户信息列表',
@@ -41,7 +53,7 @@
                 pageSize: 10,
                 pageNumber: 1,
                 pageList: [10, 20, 30],
-                queryParams: {},//让表格在加载数据的时候，额外传输的数据。
+                queryParams: queryParam,//让表格在加载数据的时候，额外传输的数据。
                 columns: [[
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
                     { field: 'Id', title: '用户的编号', width: 80 },
@@ -49,7 +61,7 @@
                     { field: 'Pwd', title: '密码', width: 120 },
                     { field: 'Remark', title: '备注', width: 120 },
                     {
-                        field: 'SubTime', title: '提交时间', width: 120, align: 'right',
+                        field: 'SubTime', title: '提交时间', width: 150, align: 'left',
                         formatter: function (value, row, index) {
                             return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d H:m:s");
                         }
@@ -122,6 +134,17 @@
                 onLoadSuccess: function (data) {
                     $(".editLink").click(function () {//
                         editEvent($(this).attr("uid"));
+                        return false;
+                    });
+                    $(".deletLink").click(function () {//
+                        //校验你是否只选中一个用户
+                        var selectedRows = $('#tt').datagrid("getSelections");
+                        if (selectedRows.length != 1) {
+                            //error,question,info,warning.
+                            $.messager.alert("错误提醒", "请选中1行删除数据！", "question");
+                            return;
+                        }
+                        deleteEvent();
                         return false;
                     });
                 }
@@ -252,6 +275,12 @@
     </script>
 </head>
 <body>
+    <div>
+        用户名：<input type="text" id="txtSchName" name="txtSchName"/> 
+        备注：<input type="text" id="txtSchRemark"  name="txtSchRemark"/>
+        <input type="button" id="btnSearch" value="搜索"/>
+
+    </div>
     @*当前页面放表格数据的地方*@
     <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
     @*弹出来的添加的 对话框开始*@

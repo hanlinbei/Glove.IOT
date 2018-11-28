@@ -3,6 +3,7 @@ using Glove.IOT.EFDAL;
 using Glove.IOT.IBLL;
 using Glove.IOT.IDAL;
 using Glove.IOT.Model;
+using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Glove.IOT.BLL
     public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
 
-     
+
         #region
         //依赖接口编程
         //IUserInfoDal UserInfoDal = new UserInfoDal();
@@ -55,6 +56,28 @@ namespace Glove.IOT.BLL
 
         //}
         #endregion
+
+        public IQueryable<UserInfo> LoagPageData(UserQueryParam userQueryParam)
+        {
+            short normalFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+            var temp = DbSession.UserInfoDal.GetEntities(u => u.DelFlag == normalFlag);
+
+            //过滤
+            if (!string.IsNullOrEmpty(userQueryParam.SchName))
+            {
+                temp = temp.Where(u => u.UName.Contains(userQueryParam.SchName)).AsQueryable();
+            }
+            if (!string.IsNullOrEmpty(userQueryParam.SchRemark))
+            {
+                temp = temp.Where(u => u.Remark.Contains(userQueryParam.SchRemark)).AsQueryable();
+            }
+            userQueryParam.Total = temp.Count();
+
+            //分页
+            return temp.OrderBy(u => u.Id)
+                .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
+                .Take(userQueryParam.PageSize).AsQueryable();
+        }
 
     }
 }

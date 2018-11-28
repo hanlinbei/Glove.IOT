@@ -9,5 +9,6 @@ namespace Glove.IOT.IBLL
 {
     public partial interface IUserInfoService:IBaseService<UserInfo>
     {
+        IQueryable<UserInfo>  LoagPageData(Model.Param.UserQueryParam userQueryParam);
     }
 }
