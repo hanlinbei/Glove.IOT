@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/26/2018 13:09:15
+-- Date Created: 11/29/2018 11:06:04
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -46,8 +46,8 @@ GO
 IF OBJECT_ID(N'[dbo].[RoleInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[RoleInfo];
 GO
-IF OBJECT_ID(N'[dbo].[ActionInfoSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ActionInfoSet];
+IF OBJECT_ID(N'[dbo].[ActionInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionInfo];
 GO
 IF OBJECT_ID(N'[dbo].[R_UserInfo_ActionInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[R_UserInfo_ActionInfo];
@@ -90,8 +90,8 @@ CREATE TABLE [dbo].[RoleInfo] (
 );
 GO
 
--- Creating table 'ActionInfoSet'
-CREATE TABLE [dbo].[ActionInfoSet] (
+-- Creating table 'ActionInfo'
+CREATE TABLE [dbo].[ActionInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [SubTime] datetime  NOT NULL,
     [ModfiedOn] datetime  NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE [dbo].[ActionInfoSet] (
     [DelFlag] smallint  NOT NULL,
     [Url] nvarchar(512)  NOT NULL,
     [HttpMethd] nvarchar(32)  NULL,
-    [ActionName] nvarchar(32)  NOT NULL,
+    [ActionName] nvarchar(max)  NOT NULL,
     [IsMenu] bit  NOT NULL,
     [MenuIcon] nvarchar(512)  NULL,
     [Sort] int  NOT NULL
@@ -157,9 +157,9 @@ ADD CONSTRAINT [PK_RoleInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'ActionInfoSet'
-ALTER TABLE [dbo].[ActionInfoSet]
-ADD CONSTRAINT [PK_ActionInfoSet]
+-- Creating primary key on [Id] in table 'ActionInfo'
+ALTER TABLE [dbo].[ActionInfo]
+ADD CONSTRAINT [PK_ActionInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -219,7 +219,7 @@ GO
 ALTER TABLE [dbo].[ActionInfoRoleInfo]
 ADD CONSTRAINT [FK_ActionInfoRoleInfo_ActionInfo]
     FOREIGN KEY ([ActionInfo_Id])
-    REFERENCES [dbo].[ActionInfoSet]
+    REFERENCES [dbo].[ActionInfo]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -258,7 +258,7 @@ GO
 ALTER TABLE [dbo].[R_UserInfo_ActionInfo]
 ADD CONSTRAINT [FK_ActionInfoR_UserInfo_ActionInfo]
     FOREIGN KEY ([ActionInfoId])
-    REFERENCES [dbo].[ActionInfoSet]
+    REFERENCES [dbo].[ActionInfo]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO

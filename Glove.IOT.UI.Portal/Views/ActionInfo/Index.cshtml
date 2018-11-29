@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Glove.IOT.Model.UserInfo>
-
+﻿
 @{
     Layout = null;
 }
@@ -19,13 +18,30 @@
     <script src="~/Content/jquery-easyui-1.3.1/locale/easyui-lang-zh_CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/MyAjaxForm.js"></script>
+
     <script type="text/javascript">
         $(function () {
             initTable();
 
             $("#addDialogDiv").css("display", "none");
+            $("#editDialogDiv").css("display", "none");
+            $("#trIconUrl").css("display", "none");
+            //绑定搜索按钮
             bindSearchBtnClick();
+            //绑定菜单栏选项事件
+            bindCkbIsMenuClick();
+            //绑定上传图片按钮的点击事件
+            bindUploadBtnClick();
         });
+
+        //绑定菜单栏选项事件
+        function bindCkbIsMenuClick() {
+            $("#ckbIsMenu").change(function () {
+                //显示或者隐藏那个图标地址
+                $("#trIconUrl").toggle();
+            });
+        }
 
         //绑定搜索查询事件
         function bindSearchBtnClick() {
@@ -37,17 +53,33 @@
 
         }
 
+        //绑定一个上传图片的按钮点击事件
+        function bindUploadBtnClick() {
+            $("#btnUploadFile").click(function () {
+                $("#addDialogDiv form").ajaxSubmit({
+                    url: "/ActionInfo/UploadImage",
+                    type: "Post",
+                    success: function (data) {
+                        //把返回的url地址放到页面的隐藏域
+                        $("#MenuIcon").val(data);
+                        $("#uploadImg").html("<img src='" + data + "' style='width:100px;height:100px;' />");
+                    }
+                });
+            });
+        }
+
+
 
         //初始化表格
         function initTable(queryParam) {
             $('#tt').datagrid({
-                url: '/UserInfo/GetAllUserInfos',//rows:一页有多少条，page：请求当前页
-                title: '用户信息列表',
+                url: '/ActionInfo/GetAllActionInfos',//rows:一页有多少条，page：请求当前页
+                title: '权限信息列表',
                 width: 700,
                 height: 400,
                 fitColumns: true,
                 idField: 'Id',
-                loadMsg: '正在加载用户的信息...',
+                loadMsg: '正在加载权限的信息...',
                 pagination: true,
                 singleSelect: false,
                 pageSize: 10,
@@ -55,13 +87,34 @@
                 pageList: [10, 20, 30],
                 queryParams: queryParam,//让表格在加载数据的时候，额外传输的数据。
                 columns: [[
+                    //a.Id,
+                    //a.IsMenu,
+                    //a.Url,
+                    //a.Remark,
+                    //a.Sort,
+                    //a.SubTime,
+                    //a.ModfiedOn,
+                    //a.HttpMethd,
+                    //a.MenuIcon,
+                    //a.ActionName
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
-                    { field: 'Id', title: '用户的编号', width: 80 },
-                    { field: 'UName', title: '用户名', width: 120 },
-                    { field: 'Pwd', title: '密码', width: 120 },
+                    { field: 'Id', title: '编号', width: 80 },
+                    { field: 'ActionName', title: '权限名', width: 120 },
+                    { field: 'Sort', title: '排序', width: 120 },
+                    {
+                        field: 'IsMenu', title: '备注', width: 120,
+                        formatter: function (value, row, index) {
+                            return value ? "是" : "否";
+                        }},
+                    {
+                        field: 'MenuIcon', title: '菜单图片', width: 120,
+                        formatter: function (value, row, index) {
+                            return "<img src='" + value+"'width='20px'height='20px'/>";
+                        }
+                    },
                     { field: 'Remark', title: '备注', width: 120 },
                     {
-                        field: 'SubTime', title: '提交时间', width: 150, align: 'left',
+                        field: 'SubTime', title: '提交时间', width: 200, align: 'left',
                         formatter: function (value, row, index) {
                             return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
                         }
@@ -99,7 +152,7 @@
                     text: '修改',
                     iconCls: 'icon-edit',
                         handler: function () {
-                            //校验你是否只选中一个用户
+                            //校验你是否只选中一个权限
                             var selectedRows = $('#tt').datagrid("getSelections");
                             if (selectedRows.length != 1) {
                                 //error,question,info,warning.
@@ -109,25 +162,8 @@
                             editEvent(selectedRows[0].Id);
                         }
                     }],
-                         
-                //    }
-                //}, {
-                //    id: 'btnSetRole',
-                //    text: '设置角色',
-                //    iconCls: 'icon-redo',
-                //    handler: function () {
-                //        //判断是否选中一个用户进行角色设置。弹出一个设置角色的对话框出来。
-                //        setRole();
-                //    }
-                //}, {
-                //    id: 'btnSetAction',
-                //    text: '设置特殊权限',
-                //    iconCls: 'icon-redo',
-                //    handler: function () {
-                //        //判断是否选中一个用户进行角色设置。弹出一个设置角色的对话框出来。
-                //        setAction();
-                //    }
-                //}],
+
+         
                 onHeaderContextMenu: function (e, field) {
 
                 },
@@ -137,7 +173,7 @@
                         return false;
                     });
                     $(".deletLink").click(function () {//
-                        //校验你是否只选中一个用户
+                        //校验你是否只选中一个权限
                         var selectedRows = $('#tt').datagrid("getSelections");
                         if (selectedRows.length != 1) {
                             //error,question,info,warning.
@@ -153,12 +189,12 @@
 
         //修改
         function editEvent(id) {
-           
+
             //给editFrame 的src属性做一个赋值
-            $("#editFrame").attr("src", "/UserInfo/Edit/" + id);
+            $("#editFrame").attr("src", "/ActionInfo/Edit/" + id);
             $("#editDialogDiv").css("display", "block");
             $("#editDialogDiv").dialog({
-                title: "修改用户",
+                title: "修改权限",
                 model: true,
                 width: 400,
                 height: 400,
@@ -210,7 +246,7 @@
             //ids:     1,2,       4,5,6,
             ids = ids.substr(0, ids.length - 1);
             //alert(ids);
-            $.post("/UserInfo/Delete", { ids: ids }, function (data) {
+            $.post("/ActionInfo/Delete", { ids: ids }, function (data) {
                 if (data == "ok") {
                     //刷新表格
                     initTable();
@@ -223,11 +259,11 @@
 
         }
 
-        //当用户点击添加的时候，弹出一个添加的对话框
+        //当权限点击添加的时候，弹出一个添加的对话框
         function addClickEvent() {
             $("#addDialogDiv").css("display", "block");
             $("#addDialogDiv").dialog({
-                title: "添加用户",
+                title: "添加权限",
                 model: true,
                 width: 400,
                 height: 400,
@@ -276,45 +312,73 @@
 </head>
 <body>
     <div>
-        用户名：<input type="text" id="txtSchName" name="txtSchName"/> 
-        备注：<input type="text" id="txtSchRemark"  name="txtSchRemark"/>
-        <input type="button" id="btnSearch" value="搜索"/>
+        权限名：<input type="text" id="txtSchName" name="txtSchName" />
+        备注：<input type="text" id="txtSchRemark" name="txtSchRemark" />
+        <input type="button" id="btnSearch" value="搜索" />
 
     </div>
     @*当前页面放表格数据的地方*@
     <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
     @*弹出来的添加的 对话框开始*@
     <div id="addDialogDiv">
-        @using (Ajax.BeginForm("Add", "UserInfo", new AjaxOptions() { OnSuccess = "afterAdd" }))
+        @using (Ajax.BeginForm("Add", "ActionInfo", new AjaxOptions() { OnSuccess = "afterAdd" }))
         {
             <table class="t1">
                 <tr>
-                    <td>用户名：</td>
-                    <td><input type="text" name="UName" /></td>
+                    <td>权限名：</td>
+                    <td><input type="text" name="ActionName" /></td>
                 </tr>
                 <tr>
-                    <td>密码：</td>
-                    <td><input type="text" name="Pwd" /></td>
+                    <td>URL：</td>
+                    <td><input type="text" name="Url" /></td>
+                </tr>
+
+                <tr>
+                    <td>Http方法类型：</td>
+                    <td>
+                        <select name="HttpMethd">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>是否是菜单：</td>
+                    <td><input type="checkbox" id="ckbIsMenu" value="true"  name="IsMenu" /></td>
+
+                </tr>
+                <tr id="trIconUrl">
+                    <td>菜单图标的地址：</td>
+                    <td>
+                        <input type="hidden"  id="MenuIcon"  name="MenuIcon" />
+                        <input type="file"  id="fileMenuIcon"  name="fileMenuIcon" />
+                        <input type="button"  value="上传"  id="btnUploadFile" />
+                        <div id="uploadImg">
+
+
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序：</td>
+                    <td><input type="text" name="Sort" /></td>
                 </tr>
                 <tr>
                     <td>备注：</td>
                     <td><input type="text" name="Remark" /></td>
                 </tr>
-                <tr>
-                    <td>昵称：</td>
-                    <td><input type="text" name="ShowName" /></td>
-                </tr>
 
 
             </table>
-        }
+         }
 
     </div>
     @*弹出来的添加对话框结束*@
     @*弹出来的修改的 对话框开始*@
     <div id="editDialogDiv">
-       <iframe id="editFrame" src="javascript:void(0)" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
-      
+        <iframe id="editFrame" src="javascript:void(0)" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
+
 
     </div>
     @*弹出来的修改对话框结束*@

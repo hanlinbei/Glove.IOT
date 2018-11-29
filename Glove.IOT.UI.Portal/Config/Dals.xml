@@ -12,6 +12,7 @@
   </object>
   <object name="UserInfoDal" type="Glove.IOT.EFDAL.UserInfoDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
-
+  <object name="ActionInfoDal" type="Glove.IOT.EFDAL.ActionInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
 
 </objects>

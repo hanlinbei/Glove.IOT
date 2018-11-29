@@ -8,7 +8,7 @@
   <EntityContainer Name="DataModelStoreContainer">
     <EntitySet Name="UserInfo" EntityType="DataModel.Store.UserInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RoleInfo" EntityType="DataModel.Store.RoleInfo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ActionInfoSet" EntityType="DataModel.Store.ActionInfoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ActionInfo" EntityType="DataModel.Store.ActionInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="R_UserInfo_ActionInfo" EntityType="DataModel.Store.R_UserInfo_ActionInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserInfoExt" EntityType="DataModel.Store.UserInfoExt" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserInfoRoleInfo" EntityType="DataModel.Store.UserInfoRoleInfo" store:Type="Tables" Schema="dbo" />
@@ -22,7 +22,7 @@
       <End Role="UserInfoRoleInfo" EntitySet="UserInfoRoleInfo" />
     </AssociationSet>
     <AssociationSet Name="FK_ActionInfoRoleInfo_ActionInfo" Association="DataModel.Store.FK_ActionInfoRoleInfo_ActionInfo">
-      <End Role="ActionInfo" EntitySet="ActionInfoSet" />
+      <End Role="ActionInfo" EntitySet="ActionInfo" />
       <End Role="ActionInfoRoleInfo" EntitySet="ActionInfoRoleInfo" />
     </AssociationSet>
     <AssociationSet Name="FK_ActionInfoRoleInfo_RoleInfo" Association="DataModel.Store.FK_ActionInfoRoleInfo_RoleInfo">
@@ -34,7 +34,7 @@
       <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
     </AssociationSet>
     <AssociationSet Name="ActionInfoR_UserInfo_ActionInfo" Association="DataModel.Store.ActionInfoR_UserInfo_ActionInfo">
-      <End Role="ActionInfo" EntitySet="ActionInfoSet" />
+      <End Role="ActionInfo" EntitySet="ActionInfo" />
       <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
     </AssociationSet>
   </EntityContainer>
@@ -62,7 +62,7 @@
     <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="64" />
     <Property Name="DelFlag" Type="smallint" Nullable="false" DefaultValue="0" />
   </EntityType>
-  <EntityType Name="ActionInfoSet">
+  <EntityType Name="ActionInfo">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -73,7 +73,7 @@
     <Property Name="DelFlag" Type="smallint" Nullable="false" DefaultValue="0" />
     <Property Name="Url" Type="nvarchar" Nullable="false" MaxLength="512" />
     <Property Name="HttpMethd" Type="nvarchar" Nullable="true" MaxLength="32" />
-    <Property Name="ActionName" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="ActionName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IsMenu" Type="bit" Nullable="false" />
     <Property Name="MenuIcon" Type="nvarchar" Nullable="true" MaxLength="512" />
     <Property Name="Sort" Type="int" Nullable="false" />
@@ -128,7 +128,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ActionInfoR_UserInfo_ActionInfo">
-    <End Role="ActionInfo" Type="DataModel.Store.ActionInfoSet" Multiplicity="1" />
+    <End Role="ActionInfo" Type="DataModel.Store.ActionInfo" Multiplicity="1" />
     <End Role="R_UserInfo_ActionInfo" Type="DataModel.Store.R_UserInfo_ActionInfo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ActionInfo">
@@ -164,7 +164,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_ActionInfoRoleInfo_ActionInfo">
-    <End Role="ActionInfo" Type="DataModel.Store.ActionInfoSet" Multiplicity="1" />
+    <End Role="ActionInfo" Type="DataModel.Store.ActionInfo" Multiplicity="1" />
     <End Role="ActionInfoRoleInfo" Type="DataModel.Store.ActionInfoRoleInfo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ActionInfo">
@@ -194,13 +194,13 @@
         <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserInfo" EntityType="DataModel.UserInfo" />
           <EntitySet Name="RoleInfo" EntityType="DataModel.RoleInfo" />
-          <EntitySet Name="ActionInfoSet" EntityType="DataModel.ActionInfo" />
+          <EntitySet Name="ActionInfo" EntityType="DataModel.ActionInfo" />
           <AssociationSet Name="UserInfoRoleInfo" Association="DataModel.UserInfoRoleInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="RoleInfo" EntitySet="RoleInfo" />
           </AssociationSet>
           <AssociationSet Name="ActionInfoRoleInfo" Association="DataModel.ActionInfoRoleInfo">
-            <End Role="ActionInfo" EntitySet="ActionInfoSet" />
+            <End Role="ActionInfo" EntitySet="ActionInfo" />
             <End Role="RoleInfo" EntitySet="RoleInfo" />
           </AssociationSet>
           <EntitySet Name="R_UserInfo_ActionInfo" EntityType="DataModel.R_UserInfo_ActionInfo" />
@@ -209,7 +209,7 @@
             <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
           </AssociationSet>
           <AssociationSet Name="ActionInfoR_UserInfo_ActionInfo" Association="DataModel.ActionInfoR_UserInfo_ActionInfo">
-            <End Role="ActionInfo" EntitySet="ActionInfoSet" />
+            <End Role="ActionInfo" EntitySet="ActionInfo" />
             <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
           </AssociationSet>
           <EntitySet Name="UserInfoExt" EntityType="DataModel.UserInfoExt" />
@@ -255,7 +255,7 @@
           <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="DataModel.ActionInfoR_UserInfo_ActionInfo" FromRole="ActionInfo" ToRole="R_UserInfo_ActionInfo" />
           <Property Name="Url" Type="String" Nullable="false" MaxLength="512" />
           <Property Name="HttpMethd" Type="String" Nullable="true" MaxLength="32" />
-          <Property Name="ActionName" Type="String" Nullable="false" MaxLength="32" />
+          <Property Name="ActionName" Type="String" Nullable="false" />
           <Property Name="IsMenu" Type="Boolean" Nullable="false" />
           <Property Name="MenuIcon" Type="String" Nullable="true" MaxLength="512" />
           <Property Name="Sort" Type="Int32" Nullable="false" />
@@ -347,9 +347,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ActionInfoSet">
+    <EntitySetMapping Name="ActionInfo">
       <EntityTypeMapping TypeName="IsTypeOf(DataModel.ActionInfo)">
-        <MappingFragment StoreEntitySet="ActionInfoSet">
+        <MappingFragment StoreEntitySet="ActionInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
           <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />

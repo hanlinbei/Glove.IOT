@@ -1643,6 +1643,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\MyAjaxForm.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1664,10 +1665,12 @@
     <Content Include="Views\Home\TreeIndex.cshtml" />
     <Content Include="Views\UserInfo\Index.cshtml" />
     <Content Include="Views\UserInfo\Edit.cshtml" />
+    <Content Include="Views\ActionInfo\Index.cshtml" />
+    <Content Include="Views\ActionInfo\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ActionInfo\" />
+    <Folder Include="UploadFiles\UploadImgs\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

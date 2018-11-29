@@ -7,5 +7,7 @@
    <!---<constructor-arg index="0" ref="DbSession" />-->
   </object>
   <object name="ActionInfoService" type="Glove.IOT.BLL.ActionInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="ActionInfoDal" />
 	</object>
 </objects>
