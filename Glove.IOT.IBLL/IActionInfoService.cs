@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.IBLL
 {
-    public partial interface IUserInfoService:IBaseService<UserInfo>
+    public partial interface IActionInfoService:IBaseService<ActionInfo>
     {
-        IQueryable<UserInfo>  LoagPageData(Model.Param.UserQueryParam userQueryParam);
-
         bool SetRole(int userId, List<int> roleIds);
     }
 }

@@ -47,6 +47,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="IBaseService.cs" />
+    <Compile Include="IActionInfoService.cs" />
     <Compile Include="IUserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

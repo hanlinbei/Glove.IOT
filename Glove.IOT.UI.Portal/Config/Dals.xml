@@ -14,5 +14,7 @@
   </object>
   <object name="ActionInfoDal" type="Glove.IOT.EFDAL.ActionInfoDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
+  <object name="RoleInfoDal" type="Glove.IOT.EFDAL.RoleInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
 
 </objects>

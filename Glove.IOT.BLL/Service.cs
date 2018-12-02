@@ -43,7 +43,7 @@ namespace Glove.IOT.BLL
 
     public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
-      
+       
     }
 
     public partial class UserInfoExtService : BaseService<UserInfoExt>, IUserInfoExtService

@@ -12,6 +12,7 @@ namespace Glove.IOT.UI.Portal.Controllers
     {
         // GET: ActionInfo
         public IActionInfoService ActionInfoService { get; set; }
+        public IRoleInfoService RoleInfoService { get; set; }
         short delflagNormal = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
 
         public ActionResult Index()
@@ -116,5 +117,39 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Content(path);
         }
         #endregion
+
+        #region 设置角色
+        public ActionResult SetRole(int id)
+        {
+            //当前要设置角色的用户
+            int userId = id;
+            ActionInfo actionInfo = ActionInfoService.GetEntities(u => u.Id == id).FirstOrDefault();
+            //把所有的角色发送到前台
+            ViewBag.AllRoles = RoleInfoService.GetEntities(u => u.DelFlag == delflagNormal).ToList();
+            //用户已经关联的角色发送到前台
+            ViewBag.ExitsRoles = (from r in actionInfo.RoleInfo
+                                  select r.Id).ToList();
+            return View(actionInfo);
+
+        }
+        #endregion
+        //给用户设置角色
+        public ActionResult ProcessSetRole(int UId)
+        {
+            //第一：当前用户的id ----uid
+            //第二：所有打上对勾的角色 ----list
+            List<int> setRoleIdList = new List<int>();
+            foreach (var key in Request.Form.AllKeys)
+            {
+                if (key.StartsWith("ckb_"))
+                {
+                    int roleId = int.Parse(key.Replace("ckb_", ""));
+                    setRoleIdList.Add(roleId);
+                }
+            }
+            ActionInfoService.SetRole(UId, setRoleIdList);
+            return Content("Ok");
+
+        }
     }
 }

@@ -10,4 +10,8 @@
     <property name="DbSession" ref="DbSession" />
     <property name="CurrentDal" ref="ActionInfoDal" />
 	</object>
+  <object name="RoleInfoService" type="Glove.IOT.BLL.RoleInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="RoleInfoDal" />
+  </object>
 </objects>

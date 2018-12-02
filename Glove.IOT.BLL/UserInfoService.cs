@@ -57,6 +57,7 @@ namespace Glove.IOT.BLL
         //}
         #endregion
 
+        #region 多条件查询
         public IQueryable<UserInfo> LoagPageData(UserQueryParam userQueryParam)
         {
             short normalFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
@@ -77,6 +78,21 @@ namespace Glove.IOT.BLL
             return temp.OrderBy(u => u.Id)
                 .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
                 .Take(userQueryParam.PageSize).AsQueryable();
+        }
+        #endregion
+        //设置角色
+        public bool SetRole(int userId, List<int> roleIds)
+        {
+            var user = DbSession.UserInfoDal.GetEntities(u => u.Id == userId).FirstOrDefault();
+            user.RoleInfo.Clear();//全剁掉
+
+            var allRoles = DbSession.RoleInfoDal.GetEntities(r => roleIds.Contains(r.Id));
+            foreach (var roleInfo in allRoles)
+            {
+                user.RoleInfo.Add(roleInfo);//加最新的角色
+            }
+            DbSession.SaveChanges();
+            return true;
         }
 
     }

@@ -27,7 +27,6 @@
             $("#addDialogDiv").css("display", "none");
             $("#editDialogDiv").css("display", "none");
             $("#trIconUrl").css("display", "none");
-            $("#setRoleDialogDiv").css("display", "none");
             //绑定搜索按钮
             bindSearchBtnClick();
             //绑定菜单栏选项事件
@@ -74,35 +73,29 @@
         //初始化表格
         function initTable(queryParam) {
             $('#tt').datagrid({
-                url: '/ActionInfo/GetAllActionInfos',//rows:一页有多少条，page：请求当前页
-                title: '权限信息列表',
+                url: '/RoleInfo/GetAllRoleInfos',//rows:一页有多少条，page：请求当前页
+                title: '角色信息列表',
                 width: 700,
                 height: 400,
                 fitColumns: true,
                 idField: 'Id',
-                loadMsg: '正在加载权限的信息...',
+                loadMsg: '正在加载角色的信息...',
                 pagination: true,
                 singleSelect: false,
                 pageSize: 10,
                 pageNumber: 1,
                 pageList: [10, 20, 30],
                 queryParams: queryParam,//让表格在加载数据的时候，额外传输的数据。
-                columns: [[        
+                columns: [[
+                    //a.Id,
+                    //a.RoleName,
+                    //a.Remark,
+                    //a.SubTime,
+                    //a.ModfiedOn,
+                    //a.DelFlag,
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
                     { field: 'Id', title: '编号', width: 80 },
-                    { field: 'ActionName', title: '权限名', width: 120 },
-                    { field: 'Sort', title: '排序', width: 120 },
-                    {
-                        field: 'IsMenu', title: '备注', width: 120,
-                        formatter: function (value, row, index) {
-                            return value ? "是" : "否";
-                        }},
-                    {
-                        field: 'MenuIcon', title: '菜单图片', width: 120,
-                        formatter: function (value, row, index) {
-                            return "<img src='" + value+"'width='20px'height='20px'/>";
-                        }
-                    },
+                    { field: 'RoleName', title: '角色名', width: 120 },
                     { field: 'Remark', title: '备注', width: 120 },
                     {
                         field: 'SubTime', title: '提交时间', width: 200, align: 'left',
@@ -143,7 +136,7 @@
                     text: '修改',
                     iconCls: 'icon-edit',
                         handler: function () {
-                            //校验你是否只选中一个权限
+                            //校验你是否只选中一个角色
                             var selectedRows = $('#tt').datagrid("getSelections");
                             if (selectedRows.length != 1) {
                                 //error,question,info,warning.
@@ -152,17 +145,9 @@
                             }
                             editEvent(selectedRows[0].Id);
                         }
-                    },{
-                        id: 'btnSetRole',
-                        text: '设置角色',
-                        iconCls: 'icon-redo',
-                        handler: function () {
-                            //判断是否选中一个用户进行角色设置。弹出一个设置角色的对话框出来。
-                            setRole();
-                        }
                     }],
 
-         
+
                 onHeaderContextMenu: function (e, field) {
 
                 },
@@ -172,7 +157,7 @@
                         return false;
                     });
                     $(".deletLink").click(function () {//
-                        //校验你是否只选中一个权限
+                        //校验你是否只选中一个角色
                         var selectedRows = $('#tt').datagrid("getSelections");
                         if (selectedRows.length != 1) {
                             //error,question,info,warning.
@@ -186,53 +171,6 @@
             });
         }
 
-        //设置用户成功之后关闭对话框
-        function afterSetRole() {
-            $("#setRoleDialogDiv").dialog("close");
-        }
-        //设置权限角色
-        function setRole() {
-            //校验你是否只选中一个用户
-            var selectedRows = $('#tt').datagrid("getSelections");
-            if (selectedRows.length != 1) {
-                //error,question,info,warning.
-                $.messager.alert("错误提醒", "请选中一个用户进行设置角色！", "question");
-                return;
-            }
-            $("#setRoleFrame").attr("src", "/ActionInfo/SetRole/" + selectedRows[0].Id);
-            //弹出设置角色对话框
-            $("#setRoleDialogDiv").css("display", "block");
-            $("#setRoleDialogDiv").dialog({
-                title: "设置权限角色",
-                model: true,
-                width: 400,
-                height: 400,
-                collapsible: true,
-                minimizable: true,
-                maximizable: true,
-                resizable: true,
-                buttons: [{
-                    id: 'btnOk',
-                    text: '设置',
-                    iconCls: 'icon-add',
-                    handler: function () {
-                        $("#setRoleFrame")[0].contentWindow.submitForm();
-                    }
-                }, {
-                    id: 'btnCancel',
-                    text: '取消',
-                    iconCls: 'icon-cancel',
-                    handler: function () {
-                        $("#setRoleDialogDiv").dialog("close");
-
-                    }
-                }]
-
-
-            });
-
-        }
-
         //修改
         function editEvent(id) {
 
@@ -240,7 +178,7 @@
             $("#editFrame").attr("src", "/ActionInfo/Edit/" + id);
             $("#editDialogDiv").css("display", "block");
             $("#editDialogDiv").dialog({
-                title: "修改权限",
+                title: "修改角色",
                 model: true,
                 width: 400,
                 height: 400,
@@ -305,11 +243,11 @@
 
         }
 
-        //当权限点击添加的时候，弹出一个添加的对话框
+        //当角色点击添加的时候，弹出一个添加的对话框
         function addClickEvent() {
             $("#addDialogDiv").css("display", "block");
             $("#addDialogDiv").dialog({
-                title: "添加权限",
+                title: "添加角色",
                 model: true,
                 width: 400,
                 height: 400,
@@ -358,7 +296,7 @@
 </head>
 <body>
     <div>
-        权限名：<input type="text" id="txtSchName" name="txtSchName" />
+        角色名：<input type="text" id="txtSchName" name="txtSchName" />
         备注：<input type="text" id="txtSchRemark" name="txtSchRemark" />
         <input type="button" id="btnSearch" value="搜索" />
 
@@ -367,48 +305,12 @@
     <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
     @*弹出来的添加的 对话框开始*@
     <div id="addDialogDiv">
-        @using (Ajax.BeginForm("Add", "ActionInfo", new AjaxOptions() { OnSuccess = "afterAdd" }))
+        @using (Ajax.BeginForm("Add", "RoleInfo", new AjaxOptions() { OnSuccess = "afterAdd" }))
         {
             <table class="t1">
                 <tr>
-                    <td>权限名：</td>
-                    <td><input type="text" name="ActionName" /></td>
-                </tr>
-                <tr>
-                    <td>URL：</td>
-                    <td><input type="text" name="Url" /></td>
-                </tr>
-
-                <tr>
-                    <td>Http方法类型：</td>
-                    <td>
-                        <select name="HttpMethd">
-                            <option value="GET">GET</option>
-                            <option value="POST">POST</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>是否是菜单：</td>
-                    <td><input type="checkbox" id="ckbIsMenu" value="true" name="IsMenu" /></td>
-
-                </tr>
-                <tr id="trIconUrl">
-                    <td>菜单图标的地址：</td>
-                    <td>
-                        <input type="hidden" id="MenuIcon" name="MenuIcon" />
-                        <input type="file" id="fileMenuIcon" name="fileMenuIcon" />
-                        <input type="button" value="上传" id="btnUploadFile" />
-                        <div id="uploadImg">
-
-
-
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>排序：</td>
-                    <td><input type="text" name="Sort" /></td>
+                    <td>角色名：</td>
+                    <td><input type="text" name="RoleName" /></td>
                 </tr>
                 <tr>
                     <td>备注：</td>
@@ -428,11 +330,7 @@
 
     </div>
     @*弹出来的修改对话框结束*@
-    @*弹出来的设置角色的 对话框开始*@
-    <div id="setRoleDialogDiv">
-        <iframe id="setRoleFrame" src="javascript:void(0)" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
-    </div>
-    @*弹出来的设置角色对话框结束*@
 </body>
 </html>
+
 
