@@ -26,6 +26,7 @@
             $("#addDialogDiv").css("display", "none");
             $("#editDialogDiv").css("display", "none");
             $("#setRoleDialogDiv").css("display", "none");
+            $("#setActionDialogDiv").css("display", "none");
             bindSearchBtnClick();
         });
 
@@ -118,18 +119,16 @@
                             //判断是否选中一个用户进行角色设置。弹出一个设置角色的对话框出来。
                             setRole();
                         }
-                   }],
-                         
-                //    }
-                //}, {
-                //    id: 'btnSetAction',
-                //    text: '设置特殊权限',
-                //    iconCls: 'icon-redo',
-                //    handler: function () {
-                //        //判断是否选中一个用户进行角色设置。弹出一个设置角色的对话框出来。
-                //        setAction();
-                //    }
-                //}],
+                    }, {
+                        id: 'btnSetAction',
+                        text: '设置特殊权限',
+                        iconCls: 'icon-redo',
+                        handler: function () {
+                            //判断是否选中一个用户进行特殊权限设置。弹出一个设置特殊权限的对话框出来。
+                            setAction();
+                        }
+                    }],
+        
                 onHeaderContextMenu: function (e, field) {
 
                 },
@@ -151,6 +150,32 @@
                     });
                 }
             });
+        }
+
+        //设置特殊权限
+        function setAction() {
+            //校验你是否只选中一个用户
+            var selectedRows = $('#tt').datagrid("getSelections");
+            if (selectedRows.length != 1) {
+                //error,question,info,warning.
+                $.messager.alert("错误提醒", "请选中一个用户进行设置特殊权限！", "question");
+                return;
+            }
+            $("#setActionFrame").attr("src", "/UserInfo/SetAction/" + selectedRows[0].Id);
+            //弹出设置特殊权限对话框
+            $("#setActionDialogDiv").css("display", "block");
+            $("#setActionDialogDiv").dialog({
+                title: "设置用户特殊权限",
+                model: true,
+                width: 600,
+                height: 500,
+                collapsible: true,
+                minimizable: true,
+                maximizable: true,
+                resizable: true
+            });
+
+
         }
         //设置用户成功之后关闭对话框
         function afterSetRole() {
@@ -354,7 +379,7 @@
 
 
             </table>
-         }
+        }
 
     </div>
     @*弹出来的添加对话框结束*@
@@ -370,6 +395,11 @@
         <iframe id="setRoleFrame" src="javascript:void(0)" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
     </div>
     @*弹出来的设置角色对话框结束*@
+    @*弹出来的设置特殊权限的 对话框开始*@
+    <div id="setActionDialogDiv">
+        <iframe id="setActionFrame" src="javascript:void(0)" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
+    </div>
+    @*弹出来的设置特殊权限对话框结束*@
 </body>
 </html>
 

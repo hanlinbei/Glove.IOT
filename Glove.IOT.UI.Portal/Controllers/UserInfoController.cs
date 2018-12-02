@@ -17,6 +17,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         //UserInfoService UserInfoService = new UserInfoService();
         public IUserInfoService UserInfoService { get; set; }
         public IRoleInfoService RoleInfoService { get; set; }
+        public IActionInfoService ActionInfoService { get; set; }
+        public IR_UserInfo_ActionInfoService R_UserInfo_ActionInfoService { get; set; }
         #region 获取用户
         public ActionResult Index()
         {
@@ -159,7 +161,6 @@ namespace Glove.IOT.UI.Portal.Controllers
             return View(user);
 
         }
-        #endregion
         //给用户设置角色
         public ActionResult ProcessSetRole(int UId)
         {
@@ -178,5 +179,50 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Content("Ok");
 
         }
+        #endregion
+
+        #region 设置特殊权限
+        public ActionResult SetAction(int id)
+        {
+            ViewBag.User = UserInfoService.GetEntities(u => u.Id == id).FirstOrDefault();
+            ViewData.Model = ActionInfoService.GetEntities(a => a.DelFlag == delflagNormal).ToList();
+            return View();
+
+
+        }
+        //做一个删除特殊权限
+        public ActionResult DeleteUserAction(int UId,int ActionId)
+        {
+            R_UserInfo_ActionInfo rUserAction = R_UserInfo_ActionInfoService.GetEntities(r => r.ActionInfoId == ActionId && r.UserInfoId == UId).FirstOrDefault();
+            if (rUserAction != null)
+            {
+                //rUserAction.DelFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
+                R_UserInfo_ActionInfoService.DeleteListByLogical(new List<int>() { rUserAction.Id });
+            }
+            return Content("Ok");
+        }
+        //设置当前用户的特殊权限
+        public ActionResult SetUserAction(int UId, int ActionId, int Value)
+        {
+            R_UserInfo_ActionInfo rUserAction = R_UserInfo_ActionInfoService.GetEntities(r =>
+            r.ActionInfoId == ActionId && r.UserInfoId == UId && r.DelFlag == delflagNormal).FirstOrDefault();
+            if (rUserAction != null)
+            {
+                rUserAction.HasPermission = Value == 1 ? true : false;
+                R_UserInfo_ActionInfoService.Update(rUserAction);
+            }
+            else
+            {
+                R_UserInfo_ActionInfo rUserInfoActionInfo = new R_UserInfo_ActionInfo();
+                rUserInfoActionInfo.ActionInfoId = ActionId;
+                rUserInfoActionInfo.UserInfoId = UId;
+                rUserInfoActionInfo.HasPermission = Value == 1 ? true : false;
+                rUserInfoActionInfo.DelFlag = delflagNormal;
+                R_UserInfo_ActionInfoService.Add(rUserInfoActionInfo);
+            }
+            return Content("Ok");
+        }
+
+        #endregion
     }
 }

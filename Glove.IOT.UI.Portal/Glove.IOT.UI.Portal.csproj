@@ -48,9 +48,6 @@
     <Reference Include="Common.Logging">
       <HintPath>..\packages\Spring.Net\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\Log4Net\log4net.dll</HintPath>
     </Reference>
@@ -1675,6 +1672,7 @@
     <Content Include="Views\RoleInfo\Index.cshtml" />
     <Content Include="Views\UserInfo\SetRole.cshtml" />
     <Content Include="Views\ActionInfo\SetRole.cshtml" />
+    <Content Include="Views\UserInfo\SetAction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

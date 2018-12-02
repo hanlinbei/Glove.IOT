@@ -87,12 +87,6 @@
                 pageList: [10, 20, 30],
                 queryParams: queryParam,//让表格在加载数据的时候，额外传输的数据。
                 columns: [[
-                    //a.Id,
-                    //a.RoleName,
-                    //a.Remark,
-                    //a.SubTime,
-                    //a.ModfiedOn,
-                    //a.DelFlag,
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
                     { field: 'Id', title: '编号', width: 80 },
                     { field: 'RoleName', title: '角色名', width: 120 },
@@ -326,8 +320,6 @@
     @*弹出来的修改的 对话框开始*@
     <div id="editDialogDiv">
         <iframe id="editFrame" src="javascript:void(0)" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
-
-
     </div>
     @*弹出来的修改对话框结束*@
 </body>
