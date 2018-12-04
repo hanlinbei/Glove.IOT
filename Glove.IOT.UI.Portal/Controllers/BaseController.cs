@@ -19,10 +19,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             //Spring.Net
             base.OnActionExecuting(filterContext);
             var items = filterContext.RouteData.Values;
-            #region 测试信息
-            //TODO：测试结束之后删除 return
-            return;
-            #endregion
+          
 
             if (IsCheckuserLogin)
             {

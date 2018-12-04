@@ -6,16 +6,24 @@
     <property name="RoleInfoService" ref="RoleInfoService" />
     <property name="ActionInfoService" ref="ActionInfoService" />
     <property name="R_UserInfo_ActionInfoService" ref="R_UserInfo_ActionInfoService" />
-    
   </object>
+  
   <object type="Glove.IOT.UI.Portal.Controllers.UserLoginController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="UserInfoService" ref="UserInfoService" />
   </object>
+  
   <object type="Glove.IOT.UI.Portal.Controllers.ActionInfoController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="ActionInfoService" ref="ActionInfoService" />
     <property name="RoleInfoService" ref="RoleInfoService" />
   </object>
+  
   <object type="Glove.IOT.UI.Portal.Controllers.RoleInfoController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="RoleInfoService" ref="RoleInfoService" />
   </object>
+  
+    <object type="Glove.IOT.UI.Portal.Controllers.HomeController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="UserInfoService" ref="UserInfoService" />
+    <property name="ActionInfoService" ref="ActionInfoService" />
+  </object>
+
 </objects>

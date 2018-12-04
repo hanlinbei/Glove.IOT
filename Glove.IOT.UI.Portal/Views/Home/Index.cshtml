@@ -1,4 +1,5 @@
-﻿
+﻿@using Glove.IOT.Model
+@using System.Text
 @{
     //ViewBag.Title = "Index";
     Layout = null;
@@ -119,7 +120,6 @@
         <img src="/Content/Images/big.png" style="float: right;" />
     </div>
     <!----------------------网页的头部  结束------------------------->
-
     <!----------------------网页的工作区域  开始------------------------->
     <div id="layout1">
         <div position="center" style="overflow: hidden; background: url(/Content/Images/7_7.jpg) no-repeat  center center;">
@@ -153,23 +153,35 @@
         }
         return win;
     }
+    @{
+        List<ActionInfo> menus = ViewBag.AllMenu;
+        StringBuilder sb = new StringBuilder();
+        foreach (var actionInfo in menus)
+        {
+            sb.Append("{");
+            sb.AppendFormat("icon:'{0}',title:'{1}',url:'{2}'", actionInfo.MenuIcon, actionInfo.ActionName, actionInfo.Url);
+            sb.Append("},");
+        }
+        string str = sb.ToString().TrimEnd(',');
+    }
     //窗口里所有图标的数据
     var links = [
-            { icon: '/Content/Images/Home/3DSMAX.png', title: '用户列表', url: '/UserInfo/Index' },
-            { icon: '/Content/Images/Home/3DSMAX.png', title: '权限列表', url: '/ActionInfo/Index' },
-            { icon: '/Content/Images/Home/3DSMAX.png', title: '角色列表', url: '/RoleInfo/Index' },
-            { icon: '/Content/Images/Home/3DSMAX.png', title: '填写周报', url: '../case/week.htm' },
-            { icon: '/Content/Images/Home/3DSMAX.png', title: 'treegrid', url: '../grid/treegrid/treegrid.htm' },
-            { icon: '/Content/Images/Home/3DSMAX.png', title: '多表头', url: '../grid/mulheader/grid2.htm' },
-            { icon: '/Content/Images/Home/Program Files Folder.png', title: '固定列', url: '../grid/frozen/frozengrid.htm' },
-            { icon: '/Content/Images/Home/Program Files Folder.png', title: '可拖动', url: '../base/drag.htm' },
-            { icon: '/Content/Images/Home/Alien Folder.png', title: '树', url: '../tree/draggable.htm' },
-            { icon: '/Content/Images/Home/Xp-G5 006.png', title: '下拉框', url: '../comboBox/comboBoxGrid.htm' },
-            { icon: '/Content/Images/Home/Xp-G5 006.png', title: '下拉框', url: '../comboBox/comboBoxGrid.htm' },
-            { icon: '/Content/Images/Home/Alien Folder.png', title: 'layout', url: '../layout/layoutFullHeight.htm' },
-             { icon: '/Content/Images/Home/Alien Folder.png', title: 'menu', url: '../menu/menubar.htm' },
-             { icon: '/Content/Images/Home/Xp-G5 006.png', title: 'tab', url: '../tab/tabHtml.htm' },
-             { icon: '/Content/Images/Home/3DSMAX.png', title: '分组', url: '../grid/groupable/checkbox.htm' }
+                @Html.Raw(str)
+            //{ icon: '/Content/Images/Home/3DSMAX.png', title: '用户列表', url: '/UserInfo/Index' },
+            //{ icon: '/Content/Images/Home/3DSMAX.png', title: '权限列表', url: '/ActionInfo/Index' },
+            //{ icon: '/Content/Images/Home/3DSMAX.png', title: '角色列表', url: '/RoleInfo/Index' },
+            //{ icon: '/Content/Images/Home/3DSMAX.png', title: '填写周报', url: '../case/week.htm' },
+            //{ icon: '/Content/Images/Home/3DSMAX.png', title: 'treegrid', url: '../grid/treegrid/treegrid.htm' },
+            //{ icon: '/Content/Images/Home/3DSMAX.png', title: '多表头', url: '../grid/mulheader/grid2.htm' },
+            //{ icon: '/Content/Images/Home/Program Files Folder.png', title: '固定列', url: '../grid/frozen/frozengrid.htm' },
+            //{ icon: '/Content/Images/Home/Program Files Folder.png', title: '可拖动', url: '../base/drag.htm' },
+            //{ icon: '/Content/Images/Home/Alien Folder.png', title: '树', url: '../tree/draggable.htm' },
+            //{ icon: '/Content/Images/Home/Xp-G5 006.png', title: '下拉框', url: '../comboBox/comboBoxGrid.htm' },
+            //{ icon: '/Content/Images/Home/Xp-G5 006.png', title: '下拉框', url: '../comboBox/comboBoxGrid.htm' },
+            //{ icon: '/Content/Images/Home/Alien Folder.png', title: 'layout', url: '../layout/layoutFullHeight.htm' },
+            // { icon: '/Content/Images/Home/Alien Folder.png', title: 'menu', url: '../menu/menubar.htm' },
+            // { icon: '/Content/Images/Home/Xp-G5 006.png', title: 'tab', url: '../tab/tabHtml.htm' },
+            // { icon: '/Content/Images/Home/3DSMAX.png', title: '分组', url: '../grid/groupable/checkbox.htm' }
     ];
     //窗口发生变化的时候图标自适应
     function onResize() {
@@ -213,6 +225,7 @@
     $(window).resize(onResize);
     $.ligerui.win.removeTaskbar = function () { }; //不允许移除
     $.ligerui.win.createTaskbar(); //页面加载时创建任务栏
+
 
     linksInit();
     onResize();

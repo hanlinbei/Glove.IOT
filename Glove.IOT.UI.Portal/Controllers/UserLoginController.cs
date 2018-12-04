@@ -52,11 +52,13 @@ namespace Glove.IOT.UI.Portal.Controllers
             //第二步：处理验证用户名密码
             string name = Request["LoginCode"];
             string pwd = Request["LoginPwd"];
+            Md5Helper md5 = new Md5Helper();
+            pwd = md5.GetMd5(pwd);
             short delNormal = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
-            var userInfo=
+            var userInfo =
                 UserInfoService.GetEntities(u => u.UName == name && u.Pwd == pwd && u.DelFlag == delNormal)
                 .FirstOrDefault();
-
+            
             if (userInfo == null)//没有查询出数据来
             {
                 return Content("用户名密码错误！会登录吗");
@@ -71,8 +73,8 @@ namespace Glove.IOT.UI.Portal.Controllers
             Response.Cookies["userLoginId"].Value = userLoginId;
 
             //如果正确跳转到首页
-            return RedirectToAction("Index", "Home");
-            //return Content("OK");
+            //return RedirectToAction("Index", "Home");
+            return Content("OK");
         }
         #endregion
 

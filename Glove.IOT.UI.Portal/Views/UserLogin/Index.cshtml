@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     //ViewBag.Title = "Index";
     Layout = null;
 }
@@ -176,89 +175,89 @@
 </head>
 <body style="padding: 10px">
     @using (Ajax.BeginForm("ProcessLogin", "UserLogin", new AjaxOptions() { OnSuccess = "afterLogin" }))
-    {
-    <div id="login">
-        <div id="loginlogo">
-        </div>
-        <div id="loginpanel">
-            <div class="panel-h">
+     {
+        <div id="login">
+            <div id="loginlogo">
             </div>
-            <div class="panel-c">
-                <div class="panel-c-l">
-
-                    <table cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <td align="left" colspan="2">
-                                    <h3>
-                                        请使用管理系统账号登录
-                                    </h3>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    账号：
-                                </td>
-                                <td align="left">
-                                    <input type="text" name="LoginCode" id="LoginCode" class="login-text" />
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    密码：
-                                </td>
-                                <td align="left">
-                                    <input type="password" name="LoginPwd" id="LoginPwd" value="123" class="login-text" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    验证码：
-                                </td>
-                                <td align="left">
-                                    <input type="text" class="login-text" id="code" name="vCode" value="1" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <img id="imgCode" src="/UserLogin/ShowVCode?id=2" style="float: left; height: 24px;" />
-                                    <div style="float: left; margin-left: 5px; margin-top: 10px;">
-                                        <a href="javascript:void(0)" onclick="changeCheckCode();return false;">看不清，换一张</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" colspan="2">
-                                    <input type="submit" id="btnLogin" value="登录" class="login-btn" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div id="loginpanel">
+                <div class="panel-h">
                 </div>
-                <div class="panel-c-r">
-                    <p>
-                        请从左侧输入登录账号和密码登录
-                    </p>
-                    <p>
-                        如果遇到系统问题，请联系网络管理员。
-                    </p>
-                    <p>
-                        如果没有账号，请联系网站管理员。
-                    </p>
-                    <p>
-                        ......
-                    </p>
+                <div class="panel-c">
+                    <div class="panel-c-l">
+
+                        <table cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td align="left" colspan="2">
+                                        <h3>
+                                            请使用管理系统账号登录
+                                        </h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        账号：
+                                    </td>
+                                    <td align="left">
+                                        <input type="text" name="LoginCode" id="LoginCode" class="login-text" />
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        密码：
+                                    </td>
+                                    <td align="left">
+                                        <input type="password" name="LoginPwd" id="LoginPwd" value="123" class="login-text" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        验证码：
+                                    </td>
+                                    <td align="left">
+                                        <input type="text" class="login-text" id="code" name="vCode" value="1" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <img id="imgCode" src="/UserLogin/ShowVCode?id=2" style="float: left; height: 24px;" />
+                                        <div style="float: left; margin-left: 5px; margin-top: 10px;">
+                                            <a href="javascript:void(0)" onclick="changeCheckCode();return false;">看不清，换一张</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <input type="submit" id="btnLogin" value="登录" class="login-btn" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-c-r">
+                        <p>
+                            请从左侧输入登录账号和密码登录
+                        </p>
+                        <p>
+                            如果遇到系统问题，请联系网络管理员。
+                        </p>
+                        <p>
+                            如果没有账号，请联系网站管理员。
+                        </p>
+                        <p>
+                            ......
+                        </p>
+                    </div>
+                </div>
+                <div class="panel-f">
                 </div>
             </div>
-            <div class="panel-f">
+            <div id="logincopyright">
+                Copyright  2018 杭州展晖科技有限公司
             </div>
         </div>
-        <div id="logincopyright">
-            Copyright  2018 杭州展晖科技有限公司
-        </div>
-    </div>
-    }
+     }
 </body>
 </html>

@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.BLL;
+using Glove.IOT.Common;
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
@@ -75,6 +76,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         #region 添加用户
         public ActionResult Add(UserInfo userInfo)
         {
+            //MD5加密
+            Md5Helper md5 = new Md5Helper();
+            userInfo.Pwd = md5.GetMd5(userInfo.Pwd);
             userInfo.ModfiedOn = DateTime.Now;
             userInfo.SubTime = DateTime.Now;
             userInfo.DelFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
