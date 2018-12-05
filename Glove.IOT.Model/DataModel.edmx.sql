@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/02/2018 21:20:43
+-- Date Created: 12/05/2018 21:33:00
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -70,12 +70,12 @@ GO
 CREATE TABLE [dbo].[UserInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [UName] nvarchar(32)  NULL,
-    [Pwd] nvarchar(32)  NOT NULL,
-    [ShowName] nvarchar(64)  NOT NULL,
+    [UCode] nvarchar(32)  NOT NULL,
     [DelFlag] smallint  NOT NULL,
-    [Remark] nvarchar(64)  NULL,
     [ModfiedOn] datetime  NOT NULL,
-    [SubTime] datetime  NOT NULL
+    [SubTime] datetime  NOT NULL,
+    [Pwd] nvarchar(64)  NOT NULL,
+    [Remark] nvarchar(256)  NULL
 );
 GO
 

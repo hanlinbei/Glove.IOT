@@ -1,10 +1,9 @@
-﻿
+﻿ 
 using Glove.IOT.DALFactory;
 using Glove.IOT.EFDAL;
 using Glove.IOT.IBLL;
 using Glove.IOT.IDAL;
 using Glove.IOT.Model;
-using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace Glove.IOT.BLL
         {
 		  // public override void SetCurrentDal()
 		  // {
-				//CurrentDal = this.DbSession.ActionInfoDal;
+				////CurrentDal = this.DbSession.ActionInfoDal;
 		  // }
 	    
 		}
@@ -27,7 +26,7 @@ namespace Glove.IOT.BLL
         {
 		  // public override void SetCurrentDal()
 		  // {
-				//CurrentDal = this.DbSession.R_UserInfo_ActionInfoDal;
+				////CurrentDal = this.DbSession.R_UserInfo_ActionInfoDal;
 		  // }
 	    
 		}
@@ -36,25 +35,28 @@ namespace Glove.IOT.BLL
         {
 		  // public override void SetCurrentDal()
 		  // {
-				//CurrentDal = this.DbSession.RoleInfoDal;
+				////CurrentDal = this.DbSession.RoleInfoDal;
 		  // }
 	    
 		}
-
-    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
-    {
-       
-    }
-
-    public partial class UserInfoExtService : BaseService<UserInfoExt>, IUserInfoExtService
+	
+	    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
         {
 		  // public override void SetCurrentDal()
 		  // {
-				//CurrentDal = this.DbSession.UserInfoExtDal;
+				////CurrentDal = this.DbSession.UserInfoDal;
 		  // }
 	    
 		}
-
+	
+	    public partial class UserInfoExtService : BaseService<UserInfoExt>, IUserInfoExtService
+        {
+		  // public override void SetCurrentDal()
+		  // {
+				////CurrentDal = this.DbSession.UserInfoExtDal;
+		  // }
+	    
+		}
 
 
 }

@@ -44,12 +44,12 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UName" Type="nvarchar" Nullable="true" MaxLength="32" />
-    <Property Name="Pwd" Type="nvarchar" Nullable="false" MaxLength="32" />
-    <Property Name="ShowName" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="UCode" Type="nvarchar" Nullable="false" MaxLength="32" />
     <Property Name="DelFlag" Type="smallint" Nullable="false" DefaultValue="0" />
-    <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="64" />
     <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="Pwd" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="256" />
   </EntityType>
   <EntityType Name="RoleInfo">
     <Key>
@@ -220,14 +220,14 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UName" Type="String" Nullable="true" MaxLength="32" />
-          <Property Name="Pwd" Type="String" Nullable="false" MaxLength="32" />
-          <Property Name="ShowName" Type="String" Nullable="false" MaxLength="64" />
+          <Property Name="UCode" Type="String" Nullable="false" MaxLength="32" />
           <Property Name="DelFlag" Type="Int16" Nullable="false" DefaultValue="0" />
           <NavigationProperty Name="RoleInfo" Relationship="DataModel.UserInfoRoleInfo" FromRole="UserInfo" ToRole="RoleInfo" />
           <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="DataModel.UserInfoR_UserInfo_ActionInfo" FromRole="UserInfo" ToRole="R_UserInfo_ActionInfo" />
-          <Property Name="Remark" Type="String" Nullable="true" MaxLength="64" />
           <Property Name="ModfiedOn" Type="DateTime" Nullable="false" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" />
+          <Property Name="Pwd" Type="String" Nullable="false" MaxLength="64" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="256" />
         </EntityType>
         <EntityType Name="RoleInfo">
           <Key>
@@ -326,12 +326,12 @@
         <MappingFragment StoreEntitySet="UserInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UName" ColumnName="UName" />
-          <ScalarProperty Name="Pwd" ColumnName="Pwd" />
-          <ScalarProperty Name="ShowName" ColumnName="ShowName" />
+          <ScalarProperty Name="UCode" ColumnName="UCode" />
           <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
           <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

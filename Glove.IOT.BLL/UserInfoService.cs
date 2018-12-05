@@ -68,10 +68,7 @@ namespace Glove.IOT.BLL
             {
                 temp = temp.Where(u => u.UName.Contains(userQueryParam.SchName)).AsQueryable();
             }
-            if (!string.IsNullOrEmpty(userQueryParam.SchRemark))
-            {
-                temp = temp.Where(u => u.Remark.Contains(userQueryParam.SchRemark)).AsQueryable();
-            }
+        
             userQueryParam.Total = temp.Count();
 
             //分页

@@ -27,7 +27,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
-
+        
         public ActionResult GetAllUserInfos()
         {
             //jquery easyui:table:{total:32,row:[{},{}]}
@@ -35,18 +35,14 @@ namespace Glove.IOT.UI.Portal.Controllers
             int pageSize = int.Parse(Request["rows"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
             //int total = 0;
-
             //过滤的用户名 过滤备注schName schRemark
-            string schName = Request["schName"];
-            string schRemark = Request["schRemark"];
+
            
             var queryParam = new UserQueryParam()
             {
                 PageSize = pageSize,
                 PageIndex = pageIndex,
                 Total = 0,
-                SchName = schName,
-                SchRemark = schRemark
             };
 
             var pageData = UserInfoService.LoagPageData(queryParam);
@@ -54,8 +50,6 @@ namespace Glove.IOT.UI.Portal.Controllers
             var temp= pageData.Select( u =>new
             {   u.Id,
                 u.UName,
-                u.Remark,
-                u.ShowName,
                 u.SubTime,
                 u.ModfiedOn,
                 u.Pwd
@@ -79,7 +73,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult Add(UserInfo userInfo)
         {
             //MD5加密
-         
+            userInfo.UCode = "2";
+            userInfo.Remark = "3";
             userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
             userInfo.ModfiedOn = DateTime.Now;
             userInfo.SubTime = DateTime.Now;

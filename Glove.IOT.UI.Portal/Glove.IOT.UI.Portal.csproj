@@ -1597,6 +1597,7 @@
     <Content Include="Content\ligerui\Source\V1.1.9升级必看.txt" />
     <Content Include="Content\ligerui\Source\welcome.htm" />
     <Content Include="Content\tableStyle.css" />
+    <Content Include="Error.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -24,12 +24,12 @@ namespace Glove.IOT.Model
     
         public int Id { get; set; }
         public string UName { get; set; }
-        public string Pwd { get; set; }
-        public string ShowName { get; set; }
+        public string UCode { get; set; }
         public short DelFlag { get; set; }
-        public string Remark { get; set; }
         public System.DateTime ModfiedOn { get; set; }
         public System.DateTime SubTime { get; set; }
+        public string Pwd { get; set; }
+        public string Remark { get; set; }
     
         public virtual ICollection<RoleInfo> RoleInfo { get; set; }
         public virtual ICollection<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
