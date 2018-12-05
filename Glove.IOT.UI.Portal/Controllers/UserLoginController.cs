@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.Common;
+using Glove.IOT.Common.Md5;
 using Glove.IOT.IBLL;
 using Glove.IOT.UI.Portal.Models;
 using System;
@@ -15,6 +16,7 @@ namespace Glove.IOT.UI.Portal.Controllers
     
         // GET: UserLogin
         public IUserInfoService UserInfoService { get; set; }
+        public IMd5Helper Md5Helper { get; set; }
         public ActionResult Index()
         {
             return View();
@@ -52,8 +54,8 @@ namespace Glove.IOT.UI.Portal.Controllers
             //第二步：处理验证用户名密码
             string name = Request["LoginCode"];
             string pwd = Request["LoginPwd"];
-            Md5Helper md5 = new Md5Helper();
-            pwd = md5.GetMd5(pwd);
+           
+            pwd = Md5Helper.GetMd5(pwd);
             short delNormal = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
             var userInfo =
                 UserInfoService.GetEntities(u => u.UName == name && u.Pwd == pwd && u.DelFlag == delNormal)

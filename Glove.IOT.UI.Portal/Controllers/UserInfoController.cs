@@ -1,5 +1,6 @@
 ﻿using Glove.IOT.BLL;
 using Glove.IOT.Common;
+using Glove.IOT.Common.Md5;
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
@@ -20,6 +21,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IRoleInfoService RoleInfoService { get; set; }
         public IActionInfoService ActionInfoService { get; set; }
         public IR_UserInfo_ActionInfoService R_UserInfo_ActionInfoService { get; set; }
+        public IMd5Helper Md5Helper { get; set; }
         #region 获取用户
         public ActionResult Index()
         {
@@ -77,8 +79,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult Add(UserInfo userInfo)
         {
             //MD5加密
-            Md5Helper md5 = new Md5Helper();
-            userInfo.Pwd = md5.GetMd5(userInfo.Pwd);
+         
+            userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
             userInfo.ModfiedOn = DateTime.Now;
             userInfo.SubTime = DateTime.Now;
             userInfo.DelFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;

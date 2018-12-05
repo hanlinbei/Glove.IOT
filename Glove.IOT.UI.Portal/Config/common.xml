@@ -4,6 +4,7 @@
   <object name="CacheWriter"
           type="Glove.IOT.Common.Cache.HttpRuntimeCacheWriter, Glove.IOT.Common" singleton="false" >
   </object>
+
   <!--启用了memcached分布式缓存的配置-->
   <!--<object name="CacheWriter" 
           type="Glove.IOT.Common.Cache.MemcacheWriter, Glove.IOT.Common" singleton="false" >
@@ -12,5 +13,8 @@
            type="Glove.IOT.Common.Cache.CacheHelper, Glove.IOT.Common" singleton="false" >
     <property name="CacheWriter" ref="CacheWriter" />
   </object>
- 
+  
+  <object name="Md5Helper"
+           type="Glove.IOT.Common.Md5.Md5Helper, Glove.IOT.Common" singleton="false" >
+  </object>
 </objects>

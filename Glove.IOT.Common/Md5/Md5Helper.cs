@@ -5,9 +5,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glove.IOT.Common
+namespace Glove.IOT.Common.Md5
 {
-    public class Md5Helper
+    public class Md5Helper:IMd5Helper
     {
         public string GetMd5(string txt)
         {
