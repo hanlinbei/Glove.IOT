@@ -1785,6 +1785,7 @@
     <Content Include="Scripts\MyAjaxForm.js" />
     <None Include="Scripts\_references.js" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
+    <Content Include="Views\UserInfo\Personnel_management.cshtml" />
     <None Include="Views\UserInfo\t.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

@@ -299,15 +299,25 @@ body{
 #aside .layui-nav-tree .layui-nav-item a {
     text-decoration:none;
 }
-#main .navigation{
+#main {
     position: relative;
+    top: 70px;
+    left:200px;
+    width: calc(100% - 200px); /*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
+}
+    #main .navigation {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        /*    position: relative;
     top: 0px;
     margin-left:200px;
-    margin-top:70px;  
-    width:calc(100% - 200px);/*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
-    height: 50px;
-    border-bottom: 1px solid #999;
-}
+    margin-top:70px;  */
+        width: 100%;
+        /*width:calc(100% - 200px);/*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
+        height: 50px;
+        border-bottom: 1px solid #999;
+    }
 #main .layui-breadcrumb{
     margin: 0px 20px;
     line-height: 50px;
@@ -324,15 +334,68 @@ body{
     font-size:16px;
     vertical-align:middle;
 }
-#main .index .index-button{
-   margin-top: 5px; 
-   margin-left: 220px;
-   width:calc(100% - 220px);
-}
-#main .index .index-button .layui-btn{
+    #main .button {
+        position: absolute;
+        top: 50px;
+        left: 0px;
+        width: 100%;
+        height: 50px;
+        padding: 5px 20px;
+    }
+#main .button .layui-btn{
     padding: 0;
     font-size: 14px;
 }
+#main .table {
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    width: 100%;
+    padding: 5px 20px;
+}
+#main .table .table-title {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    width: 200px;
+    font-size: 30px;
+    z-index: 3000;
+}
+#main .table .tck {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 40%;
+    margin: auto;
+    height: 450px;
+    width: 700px;
+    background-color: #fff;
+    padding: 10px 20px;
+    z-index: 3001;
+}
+#main .table .tck .layui-form-label {
+    width: 100px;
+}
+#main .table .tck .tck-top {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #eee;
+    font-size: 20px;
+    width: inherit;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    line-height: 40px;
+}
+#main .table .tck .tck-content {
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    width: inherit;
+    padding: 10px 20px;
+}
+
 
 #footer{
     position: fixed; 
@@ -345,6 +408,7 @@ body{
     background-color: #393d49;
     color:#fff;
     border-left: 1px solid #999; 
+    z-index: 3100;
 }
 .w{
     margin: 0 10px;

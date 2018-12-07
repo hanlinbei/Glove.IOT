@@ -32,7 +32,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             //jquery easyui:table:{total:32,row:[{},{}]}
             // easyui:table 在初始化的时候自动发送以下俩个参数值
-            int pageSize = int.Parse(Request["rows"] ?? "10");
+            int pageSize = int.Parse(Request["limit"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
             //int total = 0;
             //过滤的用户名 过滤备注schName schRemark
@@ -229,6 +229,14 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         #endregion
         public ActionResult t()
+        {
+            return View();
+        }
+        public ActionResult indexUI()
+        {
+            return View();
+        }
+        public ActionResult Personnel_management()
         {
             return View();
         }

@@ -14,3 +14,8 @@ layui.use('element',function () {
     });
 
 })
+$(document).ready(function () {
+    $(".tck-close").click(function () {
+        $(".tck").hide();
+    });
+});
