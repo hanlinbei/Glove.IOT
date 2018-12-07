@@ -61,7 +61,8 @@ namespace Glove.IOT.BLL
         public IQueryable<UserInfo> LoagPageData(UserQueryParam userQueryParam)
         {
             short normalFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
-            var temp = DbSession.UserInfoDal.GetEntities(u => u.DelFlag == normalFlag);
+            var temp = DbSession.UserInfoDal.GetEntities(u => (u.DelFlag == 0 || u.DelFlag == 1));
+           
 
             //过滤
             if (!string.IsNullOrEmpty(userQueryParam.SchName))

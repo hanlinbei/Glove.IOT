@@ -50,9 +50,12 @@ namespace Glove.IOT.UI.Portal.Controllers
             var temp= pageData.Select( u =>new
             {   u.Id,
                 u.UName,
+                u.UCode,
                 u.SubTime,
                 u.ModfiedOn,
-                u.Pwd
+                u.Pwd,
+                u.Remark,
+                u.DelFlag
             });
             //拿到当前页的数据
             //var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex,
@@ -62,7 +65,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             //                                             u =>
             //                                             new { u.Id, u.UName, u.Remark, u.ShowName, u.SubTime, u.ModfiedOn, u.Pwd }
             //                                           );
-            var data = new { total = queryParam.Total, rows = temp.ToList() };
+            var data = new { code = 0, msg = "", count = queryParam.Total, data = temp.ToList() };
 
             return Json(data, JsonRequestBehavior.AllowGet);
 
@@ -225,5 +228,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
 
         #endregion
+        public ActionResult t()
+        {
+            return View();
+        }
     }
 }

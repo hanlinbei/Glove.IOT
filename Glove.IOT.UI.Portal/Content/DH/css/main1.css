@@ -1,0 +1,265 @@
+/*
+    bootstrap扩展
+*/
+.btn-glove { 
+    color: #ffffff; 
+    background-color: #E92322; 
+    border-color: #DB3B43; 
+  } 
+   
+  .btn-glove:hover, 
+  .btn-glove:focus, 
+  .btn-glove:active, 
+  .btn-glove.active, 
+  .open .dropdown-toggle.btn-glove { 
+    color: #ffffff; 
+    background-color: #E92322; 
+    border-color: #DB3B43; 
+  } 
+   
+  .btn-glove:active, 
+  .btn-glove.active, 
+  .open .dropdown-toggle.btn-glove { 
+    background-image: none; 
+  } 
+   
+  .btn-glove.disabled, 
+  .btn-glove[disabled], 
+  fieldset[disabled] .btn-glove, 
+  .btn-glove.disabled:hover, 
+  .btn-glove[disabled]:hover, 
+  fieldset[disabled] .btn-glove:hover, 
+  .btn-glove.disabled:focus, 
+  .btn-glove[disabled]:focus, 
+  fieldset[disabled] .btn-glove:focus, 
+  .btn-glove.disabled:active, 
+  .btn-glove[disabled]:active, 
+  fieldset[disabled] .btn-glove:active, 
+  .btn-glove.disabled.active, 
+  .btn-glove[disabled].active, 
+  fieldset[disabled] .btn-glove.active { 
+    background-color: #E92322; 
+    border-color: #DB3B43; 
+  } 
+   
+.btn-glove .badge { 
+color: #E92322; 
+background-color: #ffffff; 
+}
+
+.navbar-glove {
+    background-color: #3A4EAF;
+    border-color: #f5f5f5; 
+    padding: 0 50px 0 10px;/*自己添加的*/
+}
+.navbar-glove .navbar-brand {
+    color: #777;
+    height: 80px;
+}
+.navbar-glove .navbar-brand:hover,
+.navbar-glove .navbar-brand:focus {
+color: #5e5e5e;
+background-color: transparent;
+}
+.navbar-glove .navbar-text {
+color: #777;
+}
+.navbar-glove .navbar-nav > li > a {
+color: #ddd;
+line-height: 36px;
+font-size: 20px;
+}
+.navbar-glove .navbar-nav > li > a:hover,
+.navbar-glove .navbar-nav > li > a:focus {
+    color: #fff;
+    background-color: transparent;
+    border-bottom: 1px solid #fff;
+}
+.navbar-glove .navbar-nav > .active > a,
+.navbar-glove .navbar-nav > .active > a:hover,
+.navbar-glove .navbar-nav > .active > a:focus {
+    color: #555;
+    background-color: transparent;
+    border-bottom: 2px solid #e92322;
+}
+.navbar-glove .navbar-nav > .disabled > a,
+.navbar-glove .navbar-nav > .disabled > a:hover,
+.navbar-glove .navbar-nav > .disabled > a:focus {
+color: #ccc;
+background-color: transparent;
+}
+.navbar-glove .navbar-toggle {
+    border-color: #ddd;
+    margin-top: 23px;
+    margin-bottom: 23px;
+}
+.navbar-glove .navbar-toggle:hover,
+.navbar-glove .navbar-toggle:focus {
+background-color: #ddd;
+}
+.navbar-glove .navbar-toggle .icon-bar {
+background-color: #FFF;
+}
+.navbar-glove .navbar-collapse,
+.navbar-glove .navbar-form {
+border-color: #e7e7e7;
+}
+.navbar-glove .navbar-nav > .open > a,
+.navbar-glove .navbar-nav > .open > a:hover,
+.navbar-glove .navbar-nav > .open > a:focus {
+color: #555;
+background-color: #e7e7e7;
+}
+@media (max-width: 767px) {
+.navbar-glove .navbar-nav .open .dropdown-menu > li > a {
+    color: #777;
+}
+.navbar-glove .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-glove .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #333;
+    background-color: transparent;
+}
+.navbar-glove .navbar-nav .open .dropdown-menu > .active > a,
+.navbar-glove .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar-glove .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+}
+.navbar-glove .navbar-nav .open .dropdown-menu > .disabled > a,
+.navbar-glove .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+.navbar-glove .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #ccc;
+    background-color: transparent;
+}
+}
+.navbar-glove .navbar-link {
+color: #777;
+}
+.navbar-glove .navbar-link:hover {
+color: #333;
+}
+.navbar-glove .btn-link {
+color: #777;
+}
+.navbar-glove .btn-link:hover,
+.navbar-glove .btn-link:focus {
+color: #333;
+}
+.navbar-glove .btn-link[disabled]:hover,
+fieldset[disabled] .navbar-glove .btn-link:hover,
+.navbar-glove .btn-link[disabled]:focus,
+fieldset[disabled] .navbar-glove .btn-link:focus {
+color: #ccc;
+}
+/*
+    公共样式
+*/
+body{
+    font-family: Microsoft Yahei;/*此处应该有很多备用字体以防万一*/
+    background-color: #fff;
+}
+/*字体图标设置 字体图标就是制作一种字体但都是图标 优点：容量小 矢量 可以改变颜色大小*/
+@font-face{
+    font-family: 'iconfont';/*自己定义一个名为 微金所 的字体*/
+    src:url('../font/iconfont/iconfont.eot');
+    src: url('../font/iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../font/iconfont/iconfont.woff') format('woff'),
+    url('../font/iconfont/iconfont.ttf') format('truetype'),
+    url('../font/iconfont/iconfont.svg') format('svg');
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:24px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon-navigation{
+    font-size: 30px;
+    color: #FFFFFF;
+    float: right;
+    vertical-align:middle;
+}
+.icon-telephone{
+    font-size: 20px;
+    color: #FFFFFF; 
+    vertical-align:middle;
+}
+.icon-vline{
+    font-size: 28px;
+    color: #FFFFFF; 
+    vertical-align:middle;
+}
+.icon-bell{
+    font-size: 24px;
+    color: #FFFFFF;
+    vertical-align:middle;
+}
+.icon-user{
+    font-size: 24px;
+    color: #FFFFFF;
+    vertical-align:middle;
+}
+/*
+    头部区域
+*/
+#header{
+    height: 70px;
+    line-height: 70px;
+    background-color: #3A4EAF;
+}
+
+#header .topbar-left{
+    vertical-align:middle; 
+    padding: 10px 0;
+}
+#header .topbar-left__alignmen{
+    vertical-align:middle;  
+}
+#header .topbar-left .topbar-left__font-size-l{
+    font-size: 22px;
+    color: #FFFFFF; 
+    font-weight: bold;
+    vertical-align:middle;
+}
+#header .topbar-middle{
+    font-size: 16px;
+    color: #FFFFFF; 
+    padding: 0 0 0 30px;   
+}
+#header .topbar-middle__alignment{
+    vertical-align:middle;
+}
+#header .topbar-middle img{
+    display: none;
+    position: absolute;
+    margin-left: 2px;
+    top: 46px;
+    z-index: 2000;
+}
+#header .topbar-middle__link:hover  img{
+    display: block;
+}
+.content
+{
+    overflow: hidden;
+    position: absolute;
+    top: 80px; 
+    bottom: 0px;
+    left: 200px;
+    right: 0px;
+    padding: 0px 10px;
+    overflow: auto;
+}
+.sideNav
+{
+    padding: 10px 5px;
+    position: absolute;
+    left: 0px;
+    top: 80px;
+    bottom: 0px;
+    width: 200px; 
+    background-color: #fff;
+    border-right: 1px solid #cacaca; 
+    z-index: 1020;
+}
