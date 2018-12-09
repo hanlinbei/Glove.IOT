@@ -1814,6 +1814,10 @@
     <Content Include="Views\UserInfo\SetRole.cshtml" />
     <Content Include="Views\ActionInfo\SetRole.cshtml" />
     <Content Include="Views\UserInfo\SetAction.cshtml" />
+    <Content Include="Views\UserInfo\tck_ry_bj.cshtml">
+      <BrowseToURL>~/UserInfo/tck</BrowseToURL>
+    </Content>
+    <Content Include="Views\UserInfo\tck_ry_tj.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

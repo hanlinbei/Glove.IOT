@@ -305,19 +305,19 @@ body{
     left:200px;
     width: calc(100% - 200px); /*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
 }
-    #main .navigation {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        /*    position: relative;
+#main .navigation {
+    position: absolute;
     top: 0px;
-    margin-left:200px;
-    margin-top:70px;  */
-        width: 100%;
-        /*width:calc(100% - 200px);/*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
-        height: 50px;
-        border-bottom: 1px solid #999;
-    }
+    left: 0px;
+    /*    position: relative;
+top: 0px;
+margin-left:200px;
+margin-top:70px;  */
+    width: 100%;
+    /*width:calc(100% - 200px);/*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
+    height: 50px;
+    border-bottom: 1px solid #999;
+}
 #main .layui-breadcrumb{
     margin: 0px 20px;
     line-height: 50px;
@@ -334,34 +334,36 @@ body{
     font-size:16px;
     vertical-align:middle;
 }
-    #main .button {
-        position: absolute;
-        top: 50px;
-        left: 0px;
-        width: 100%;
-        height: 50px;
-        padding: 5px 20px;
-    }
-#main .button .layui-btn{
+#main .button {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    width: 100%;
+    height: 50px;
+    padding: 5px 20px;
+}
+#main .button .layui-btn {
     padding: 0;
     font-size: 14px;
+    margin: 0 10px;
 }
 #main .table {
     position: absolute;
     top: 100px;
     left: 0px;
     width: 100%;
-    padding: 5px 20px;
+    padding: 0px 20px;
 }
 #main .table .table-title {
     position: absolute;
-    top: 20px;
+    top: 15px;
     left: 40px;
     width: 200px;
     font-size: 30px;
     z-index: 3000;
 }
-#main .table .tck {
+
+    /*#main .table .tck {
     display: none;
     position: fixed;
     top: 20%;
@@ -394,10 +396,8 @@ body{
     left: 0px;
     width: inherit;
     padding: 10px 20px;
-}
-
-
-#footer{
+}*/
+    #footer{
     position: fixed; 
     left: 200px; 
     right: 0; 
@@ -409,7 +409,4 @@ body{
     color:#fff;
     border-left: 1px solid #999; 
     z-index: 3100;
-}
-.w{
-    margin: 0 10px;
 }

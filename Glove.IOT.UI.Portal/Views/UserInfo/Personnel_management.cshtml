@@ -50,7 +50,7 @@
                         <li>
                             <span class="topbar-middle__link">
                                 <span class="topbar-middle__alignment">微信小程序二维码</span>
-                                <img src="img/c_06.jpg" height="140" width="124" alt="二维码">
+                                <img src="~/Content/DH/img/c_06.jpg" height="140" width="124" alt="二维码">
                             </span>
                         </li>
                     </ul>
@@ -127,29 +127,29 @@
         <!-- 该页面的主要内容 -->
         <div class="button">
             <div class="row">
-                <a href="#">
+               
                     <button class="layui-btn layui-btn-normal col-xs-1 w">
                         <i class="iconfont icon-add">&#xe726;</i>
-                        添加设备
+                        添加人员
                     </button>
-                </a>
+               
                 <a href="#">
                     <button class="layui-btn layui-btn-danger col-xs-1 w">
                         <i class="iconfont icon-delete">&#xe62f;</i>
-                        删除设备
+                        删除人员
                     </button>
                 </a>
                 <a href="#">
                     <button class="layui-btn layui-btn-warm col-xs-1 w">
                         <i class="iconfont icon-modify">&#xe6b8;</i>
-                        修改设备
+                        修改人员
                     </button>
                 </a>
                 <span class="col-xs-7"></span>
                 <a href="#">
                     <button class="layui-btn col-xs-1 w">
                         <i class="iconfont icon-seek">&#xe618;</i>
-                        查找设备
+                        查找人员
                     </button>
                 </a>
             </div>
@@ -159,59 +159,7 @@
                 人员管理
             </div>
             <table id="demo" lay-filter="test"></table>
-            <div class="tck">
-            <div class="tck-top">
-                员工编辑
-                <i class="layui-icon layui-icon-close tck-close" style="font-size: 25px; float:right; text-align:center;"></i>
-            </div>
-            <div class="tck-content">
-                <form class="layui-form" action="">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">员工名字：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="UName" required lay-verify="required" placeholder="只允许输入英文+数字" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">员工编码：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="UCode" required lay-verify="required" placeholder="请输入员工编码" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">角色类型：</label>
-                    <div class="layui-input-block">
-                        <select name="Remark" lay-verify="required">
-                            <option value="0">操作工</option>
-                            <option value="1">组长</option>
-                            <option value="2">超级管理员</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">描述：</label>
-                        <div class="layui-input-block">
-                            <textarea name="BZ" placeholder="请输入内容" class="layui-textarea"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">角色状态：</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="DelFlag" value="1" title="有效" checked>
-                        <input type="radio" name="DelFlag" value="0" title="无效">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    </div>
-                </div>
-                </form>
-            </div>
-        </div>
+
         </div>
 
     </section>
@@ -266,13 +214,14 @@
                     alert("查看");
                     $("#tck").show();
                 } else if (layEvent === 'del') { //删除
-                    layer.confirm('真的删除行么', function (index) {
+                    layer.confirm('确定删除？', function (index) {
                         obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                         layer.close(index);
                         //向服务端发送删除指令
                     });
                 } else if (layEvent === 'edit') { //编辑
-                    $(".tck").show();
+                   // $(".tck").show();
+                    tck_show('员工编辑', 'tck_ry_bj', 500, 450, obj.data);
                     //同步更新缓存对应的值
                     /*obj.update({
                         UName: '123'
@@ -286,6 +235,7 @@
                 console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
             });
         });
+        
     </script>
     <script src="~/Content/DH/js/3.js"></script>
 </body>

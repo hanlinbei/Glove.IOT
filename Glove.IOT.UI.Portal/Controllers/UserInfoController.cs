@@ -240,5 +240,13 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult tck_ry_bj()
+        {
+            return View();
+        }
+        public ActionResult tck_ry_tj()
+        {
+            return View();
+        }
     }
 }
