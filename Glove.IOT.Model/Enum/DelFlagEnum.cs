@@ -11,10 +11,12 @@ namespace Glove.IOT.Model.Enum
         /// <summary>
         /// 正常未删除状态
         /// </summary>
-        Normal=0,
+        UNormal = 0,//无效
+        Normal = 1,//有效
+
         /// <summary>
         /// 已经删除状态
         /// </summary>
-        Deleted=1
+        Deleted=2
     }
 }

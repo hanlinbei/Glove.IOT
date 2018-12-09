@@ -1,0 +1,413 @@
+/*
+    bootstrap扩展
+*/
+.btn-glove { 
+    color: #ffffff; 
+    background-color: #E92322; 
+    border-color: #DB3B43; 
+  } 
+   
+  .btn-glove:hover, 
+  .btn-glove:focus, 
+  .btn-glove:active, 
+  .btn-glove.active, 
+  .open .dropdown-toggle.btn-glove { 
+    color: #ffffff; 
+    background-color: #E92322; 
+    border-color: #DB3B43; 
+  } 
+   
+  .btn-glove:active, 
+  .btn-glove.active, 
+  .open .dropdown-toggle.btn-glove { 
+    background-image: none; 
+  } 
+   
+  .btn-glove.disabled, 
+  .btn-glove[disabled], 
+  fieldset[disabled] .btn-glove, 
+  .btn-glove.disabled:hover, 
+  .btn-glove[disabled]:hover, 
+  fieldset[disabled] .btn-glove:hover, 
+  .btn-glove.disabled:focus, 
+  .btn-glove[disabled]:focus, 
+  fieldset[disabled] .btn-glove:focus, 
+  .btn-glove.disabled:active, 
+  .btn-glove[disabled]:active, 
+  fieldset[disabled] .btn-glove:active, 
+  .btn-glove.disabled.active, 
+  .btn-glove[disabled].active, 
+  fieldset[disabled] .btn-glove.active { 
+    background-color: #E92322; 
+    border-color: #DB3B43; 
+  } 
+   
+.btn-glove .badge { 
+color: #E92322; 
+background-color: #ffffff; 
+}
+
+.navbar-glove {
+    background-color: #393d49;
+    border: none; 
+    padding: 0 50px 0 10px;/*自己添加的*/
+}
+.navbar-glove .navbar-brand {
+    color: #777;
+    height: 70px;
+}
+.navbar-glove .navbar-brand:hover,
+.navbar-glove .navbar-brand:focus {
+color: #5e5e5e;
+background-color: transparent;
+}
+.navbar-glove .navbar-text {
+color: #777;
+}
+.navbar-glove .navbar-nav > li > a {
+color: #ddd;
+line-height: 36px;
+font-size: 20px;
+}
+.navbar-glove .navbar-nav > li > a:hover,
+.navbar-glove .navbar-nav > li > a:focus {
+    color: #fff;
+    background-color: transparent;
+    border-bottom: 1px solid #fff;
+}
+.navbar-glove .navbar-nav > .active > a,
+.navbar-glove .navbar-nav > .active > a:hover,
+.navbar-glove .navbar-nav > .active > a:focus {
+    color: #555;
+    background-color: transparent;
+    border-bottom: 2px solid #e92322;
+}
+.navbar-glove .navbar-nav > .disabled > a,
+.navbar-glove .navbar-nav > .disabled > a:hover,
+.navbar-glove .navbar-nav > .disabled > a:focus {
+color: #ccc;
+background-color: transparent;
+}
+.navbar-glove .navbar-toggle {
+    border-color: #ddd;
+    margin-top: 23px;
+    margin-bottom: 23px;
+}
+.navbar-glove .navbar-toggle:hover,
+.navbar-glove .navbar-toggle:focus {
+background-color: #ddd;
+}
+.navbar-glove .navbar-toggle .icon-bar {
+background-color: #FFF;
+}
+.navbar-glove .navbar-collapse,
+.navbar-glove .navbar-form {
+border-color: #e7e7e7;
+}
+.navbar-glove .navbar-nav > .open > a,
+.navbar-glove .navbar-nav > .open > a:hover,
+.navbar-glove .navbar-nav > .open > a:focus {
+color: #555;
+background-color: #e7e7e7;
+}
+@media (max-width: 767px) {
+.navbar-glove .navbar-nav .open .dropdown-menu > li > a {
+    color: #777;
+}
+.navbar-glove .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-glove .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #333;
+    background-color: transparent;
+}
+.navbar-glove .navbar-nav .open .dropdown-menu > .active > a,
+.navbar-glove .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar-glove .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+}
+.navbar-glove .navbar-nav .open .dropdown-menu > .disabled > a,
+.navbar-glove .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+.navbar-glove .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #ccc;
+    background-color: transparent;
+}
+}
+.navbar-glove .navbar-link {
+color: #777;
+}
+.navbar-glove .navbar-link:hover {
+color: #333;
+}
+.navbar-glove .btn-link {
+color: #777;
+}
+.navbar-glove .btn-link:hover,
+.navbar-glove .btn-link:focus {
+color: #333;
+}
+.navbar-glove .btn-link[disabled]:hover,
+fieldset[disabled] .navbar-glove .btn-link:hover,
+.navbar-glove .btn-link[disabled]:focus,
+fieldset[disabled] .navbar-glove .btn-link:focus {
+color: #ccc;
+}
+/*
+    公共样式
+*/
+body{
+    font-family: Microsoft Yahei;/*此处应该有很多备用字体以防万一*/
+    background-color: #eaeaea;
+}
+/*字体图标设置 字体图标就是制作一种字体但都是图标 优点：容量小 矢量 可以改变颜色大小*/
+@font-face{
+    font-family: 'iconfont';/*自己定义一个名为 微金所 的字体*/
+    src:url('../font/iconfont/iconfont.eot');
+    src: url('../font/iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../font/iconfont/iconfont.woff') format('woff'),
+    url('../font/iconfont/iconfont.ttf') format('truetype'),
+    url('../font/iconfont/iconfont.svg') format('svg');
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:24px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon-navigation{
+    font-size: 30px;
+    color: #fff;
+    float: right;
+    vertical-align:middle;
+}
+.icon-telephone{
+    font-size: 20px;
+    color: #fff; 
+    vertical-align:middle;
+}
+.icon-vline{
+    font-size: 28px;
+    color: #fff; 
+    vertical-align:middle;
+}
+.icon-bell{
+    font-size: 24px;
+    color: #fff;
+    vertical-align:middle;
+}
+.icon-user{
+    font-size: 24px;
+    color: #fff;
+    vertical-align:middle;
+}
+.icon-aside-top-user{
+    font-size: 50px;
+    color: #fff;
+    vertical-align:middle; 
+}
+.icon-add{
+    font-size: 20px;
+    color: #fff; 
+    vertical-align:middle;
+}
+.icon-delete{
+    font-size: 18px;
+    color: #fff; 
+    vertical-align:middle;
+}
+.icon-modify{
+    font-size: 20px;
+    color: #fff; 
+    vertical-align:middle;
+}
+.icon-seek{
+    font-size: 18px;
+    color: #fff; 
+    vertical-align:middle;
+}
+/*
+    头部区域
+*/
+#header{
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height: 70px;
+    line-height: 70px;
+    background-color: #393d49;
+}
+#header .topbar-left{
+    vertical-align:middle; 
+    padding: 10px 0;
+}
+#header .topbar-left__alignmen{
+    vertical-align:middle;  
+}
+#header .topbar-left .topbar-left__font-size-l{
+    font-size: 22px;
+    color: #FFFFFF; 
+    font-weight: bold;
+    vertical-align:middle;
+}
+#header .topbar-middle{
+    font-size: 14px;
+    color: #FFFFFF; 
+    padding: 0 0 0 30px;   
+}
+#header .topbar-middle__alignment{
+    vertical-align:middle;
+}
+#header .topbar-middle img{
+    display: none;
+    position: absolute;
+    margin-left: -5px;
+    top: 46px;
+    z-index: 2000;
+}
+#header .topbar-middle__link:hover  img{
+    display: block;
+}
+#aside .aside-top{
+    position:fixed;
+    left:0;
+    top:71px;
+    height: 99px;
+    width: 200px;
+    background-color: #393d49;
+    color:#fff;
+    line-height: 100px;
+    vertical-align:middle;
+    border-top:1px solid #999;
+    border-bottom:1px solid #999;
+    float: left;
+}
+#aside .aside-top__username{
+    font-size:36px;
+}
+/*#aside .aside-top__usericon{
+    float:left;
+    width:75px;
+    border:none;
+}*/
+.layui-nav-side{
+    top: 170px; 
+}
+#aside .layui-nav-tree .layui-nav-child a:hover{
+    text-decoration:none;
+}
+#aside .layui-nav-tree .layui-nav-item a {
+    text-decoration:none;
+}
+#main {
+    position: relative;
+    top: 70px;
+    left:200px;
+    width: calc(100% - 200px); /*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
+}
+#main .navigation {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    /*    position: relative;
+top: 0px;
+margin-left:200px;
+margin-top:70px;  */
+    width: 100%;
+    /*width:calc(100% - 200px);/*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
+    height: 50px;
+    border-bottom: 1px solid #999;
+}
+#main .layui-breadcrumb{
+    margin: 0px 20px;
+    line-height: 50px;
+}
+#main .layui-breadcrumb a{
+    font-size: 20px;
+    color:#999;
+    text-decoration:none;
+    vertical-align:middle;
+}
+#main .layui-breadcrumb span[lay-separator] {
+    margin: 0 14px;
+    color: #999;
+    font-size:16px;
+    vertical-align:middle;
+}
+#main .button {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    width: 100%;
+    height: 50px;
+    padding-top: 10px;
+    padding-left: 25px;
+}
+#main .button .layui-btn {
+    padding: 0;
+    font-size: 14px;
+    margin: 0 10px;
+}
+#main .table {
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    width: 100%;
+    padding: 0px 20px;
+}
+#main .table .table-title {
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    width: 200px;
+    font-size: 30px;
+    z-index: 3000;
+}
+
+    /*#main .table .tck {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 40%;
+    margin: auto;
+    height: 450px;
+    width: 700px;
+    background-color: #fff;
+    padding: 10px 20px;
+    z-index: 3001;
+}
+#main .table .tck .layui-form-label {
+    width: 100px;
+}
+#main .table .tck .tck-top {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #eee;
+    font-size: 20px;
+    width: inherit;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    line-height: 40px;
+}
+#main .table .tck .tck-content {
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    width: inherit;
+    padding: 10px 20px;
+}*/
+#footer{
+    position: fixed; 
+    left: 200px; 
+    right: 0; 
+    bottom: 0; 
+    height: 30px; 
+    line-height: 30px; 
+    padding: 0 20px; 
+    background-color: #393d49;
+    color:#fff;
+    border-left: 1px solid #999; 
+    z-index: 3100;
+}

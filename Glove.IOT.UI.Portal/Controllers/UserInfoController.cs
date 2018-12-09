@@ -33,7 +33,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             //jquery easyui:table:{total:32,row:[{},{}]}
             // easyui:table 在初始化的时候自动发送以下俩个参数值
-            int pageSize = int.Parse(Request["rows"] ?? "10");
+            int pageSize = int.Parse(Request["limit"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
             //int total = 0;
             //过滤的用户名 过滤备注schName schRemark
@@ -63,6 +63,7 @@ namespace Glove.IOT.UI.Portal.Controllers
 
 
 
+
             //拿到当前页的数据
             //var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex,
             //                                             out total, u => u.DelFlag == delflagNormal, u => u.Id,
@@ -71,7 +72,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             //                                             u =>
             //                                             new { u.Id, u.UName, u.Remark, u.ShowName, u.SubTime, u.ModfiedOn, u.Pwd }
             //                                           );
-            var data = new { total = queryParam.Total, rows = pageData.ToList() };
+
 
             return Json(data, JsonRequestBehavior.AllowGet);
 
@@ -82,12 +83,12 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult Add(UserInfo userInfo)
         {
             //MD5加密
-            userInfo.UCode = "2";
-            userInfo.Remark = "3";
-            userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
+            //userInfo.UCode = "2";
+            //userInfo.Remark = "3";
+            //userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
             userInfo.ModfiedOn = DateTime.Now;
             userInfo.SubTime = DateTime.Now;
-            userInfo.DelFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+            //userInfo.DelFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
 
             UserInfoService.Add(userInfo);
             return Content("Ok");
@@ -97,7 +98,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         #endregion
 
         #region 修改
-        public ActionResult Edit(int id)
+        /*public ActionResult Edit(int id)
         {
             ViewData.Model = UserInfoService.GetEntities(u => u.Id ==id).FirstOrDefault();
             return View();
@@ -110,6 +111,13 @@ namespace Glove.IOT.UI.Portal.Controllers
             UserInfoService.Update(userInfo);
             return Content("ok");
 
+        }*/
+        public ActionResult Edit(UserInfo userInfo)
+        {
+            userInfo.ModfiedOn = DateTime.Now;
+            userInfo.SubTime = DateTime.Now;
+            UserInfoService.Update(userInfo);
+            return Content("ok");
         }
         #endregion
         #region 删除
@@ -129,7 +137,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             }
             //UserInfoService.DeleteList(idList);
             UserInfoService.DeleteListByLogical(idList);
-            return Content("ok");
+            return Content("del ok");
 
 
 
@@ -262,5 +270,25 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
 
         #endregion
+        public ActionResult t()
+        {
+            return View();
+        }
+        public ActionResult indexUI()
+        {
+            return View();
+        }
+        public ActionResult Personnel_management()
+        {
+            return View();
+        }
+        public ActionResult tck_ry_bj()
+        {
+            return View();
+        }
+        public ActionResult tck_ry_tj()
+        {
+            return View();
+        }
     }
 }
