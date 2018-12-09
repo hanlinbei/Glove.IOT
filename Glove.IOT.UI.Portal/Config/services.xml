@@ -18,6 +18,10 @@
     <property name="DbSession" ref="DbSession" />
     <property name="CurrentDal" ref="R_UserInfo_ActionInfoDal" />
   </object>
+  <object name="R_UserInfo_RoleInfoService" type="Glove.IOT.BLL.R_UserInfo_RoleInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="R_UserInfo_RoleInfoDal" />
+  </object>
 
-  
+
 </objects>

@@ -1,4 +1,5 @@
-﻿using Glove.IOT.Model;
+﻿using Glove.IOT.Common;
+using Glove.IOT.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Glove.IOT.IBLL
     public partial interface IUserInfoService:IBaseService<UserInfo>
     {
         IQueryable<UserInfo>  LoagPageData(Model.Param.UserQueryParam userQueryParam);
+        IQueryable<UserInfoRoleInfo> LoagUserPageData(Model.Param.UserQueryParam userQueryParam);
 
         bool SetRole(int userId, List<int> roleIds);
     }

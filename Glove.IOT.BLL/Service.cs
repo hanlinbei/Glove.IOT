@@ -15,46 +15,31 @@ namespace Glove.IOT.BLL
 	
 	    public partial class ActionInfoService : BaseService<ActionInfo>, IActionInfoService
         {
-		  // public override void SetCurrentDal()
-		  // {
-				////CurrentDal = this.DbSession.ActionInfoDal;
-		  // }
+	
 	    
 		}
 	
 	    public partial class R_UserInfo_ActionInfoService : BaseService<R_UserInfo_ActionInfo>, IR_UserInfo_ActionInfoService
         {
-		  // public override void SetCurrentDal()
-		  // {
-				////CurrentDal = this.DbSession.R_UserInfo_ActionInfoDal;
-		  // }
+	
+	    
+		}
+	
+	    public partial class R_UserInfo_RoleInfoService : BaseService<R_UserInfo_RoleInfo>, IR_UserInfo_RoleInfoService
+        {
+	
 	    
 		}
 	
 	    public partial class RoleInfoService : BaseService<RoleInfo>, IRoleInfoService
         {
-		  // public override void SetCurrentDal()
-		  // {
-				////CurrentDal = this.DbSession.RoleInfoDal;
-		  // }
+	
 	    
 		}
 	
 	    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
         {
-		  // public override void SetCurrentDal()
-		  // {
-				////CurrentDal = this.DbSession.UserInfoDal;
-		  // }
-	    
-		}
 	
-	    public partial class UserInfoExtService : BaseService<UserInfoExt>, IUserInfoExtService
-        {
-		  // public override void SetCurrentDal()
-		  // {
-				////CurrentDal = this.DbSession.UserInfoExtDal;
-		  // }
 	    
 		}
 

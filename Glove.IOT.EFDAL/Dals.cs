@@ -22,17 +22,17 @@ namespace Glove.IOT.EFDAL
 
 	}
 	
+	public partial class R_UserInfo_RoleInfoDal:BaseDal<R_UserInfo_RoleInfo>,IR_UserInfo_RoleInfoDal
+    {
+
+	}
+	
 	public partial class RoleInfoDal:BaseDal<RoleInfo>,IRoleInfoDal
     {
 
 	}
 	
 	public partial class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
-    {
-
-	}
-	
-	public partial class UserInfoExtDal:BaseDal<UserInfoExt>,IUserInfoExtDal
     {
 
 	}

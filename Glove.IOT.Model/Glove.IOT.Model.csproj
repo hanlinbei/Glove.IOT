@@ -77,10 +77,10 @@
     <Compile Include="R_UserInfo_ActionInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserInfo.cs">
+    <Compile Include="R_UserInfo_RoleInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserInfoExt.cs">
+    <Compile Include="UserInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

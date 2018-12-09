@@ -1,4 +1,5 @@
-﻿using Glove.IOT.DALFactory;
+﻿using Glove.IOT.Common;
+using Glove.IOT.DALFactory;
 using Glove.IOT.EFDAL;
 using Glove.IOT.IBLL;
 using Glove.IOT.IDAL;
@@ -61,15 +62,19 @@ namespace Glove.IOT.BLL
         public IQueryable<UserInfo> LoagPageData(UserQueryParam userQueryParam)
         {
             short normalFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+
             var temp = DbSession.UserInfoDal.GetEntities(u => (u.DelFlag == 0 || u.DelFlag == 1));
-           
+
+       
+            //var date=from t1 in DbSession.UserInfoDal
+        
 
             //过滤
-            if (!string.IsNullOrEmpty(userQueryParam.SchName))
-            {
-                temp = temp.Where(u => u.UName.Contains(userQueryParam.SchName)).AsQueryable();
-            }
-        
+            //if (!string.IsNullOrEmpty(userQueryParam.SchName))
+            //{
+            //    temp = temp.Where(u => u.UName.Contains(userQueryParam.SchName)).AsQueryable();
+            //}
+
             userQueryParam.Total = temp.Count();
 
             //分页
@@ -78,18 +83,50 @@ namespace Glove.IOT.BLL
                 .Take(userQueryParam.PageSize).AsQueryable();
         }
         #endregion
+
+
+        #region 内连接查询
+        public IQueryable<UserInfoRoleInfo> LoagUserPageData(UserQueryParam userQueryParam)
+        {
+            short normalFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+            DataModelContainer model = new DataModelContainer();
+            //内连接查询
+            var query = from t1 in model.UserInfo
+                        join t2 in model.R_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
+                        join t3 in model.RoleInfo on t2.RoleInfoId equals t3.Id
+                        where (t2.DelFlag == normalFlag && t1.DelFlag == normalFlag && t3.DelFlag == normalFlag)
+                        select new UserInfoRoleInfo
+                        {
+                            Id = t1.Id,
+                            UName = t1.UName,
+                            UCode = t1.UCode,
+                            RoleName = t3.RoleName
+                        };
+
+            return query.OrderBy(u=>u.Id)
+                  .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
+                .Take(userQueryParam.PageSize).AsQueryable();
+
+
+
+
+        }
+
+
+
+        #endregion
+
         //设置角色
         public bool SetRole(int userId, List<int> roleIds)
         {
-            var user = DbSession.UserInfoDal.GetEntities(u => u.Id == userId).FirstOrDefault();
-            user.RoleInfo.Clear();//全剁掉
-
-            var allRoles = DbSession.RoleInfoDal.GetEntities(r => roleIds.Contains(r.Id));
-            foreach (var roleInfo in allRoles)
-            {
-                user.RoleInfo.Add(roleInfo);//加最新的角色
-            }
-            DbSession.SaveChanges();
+            //var user = DbSession.UserInfoDal.GetEntities(u => u.Id == userId).FirstOrDefault();
+            //user.R_UserInfo_RoleInfo.Clear();//全剁掉
+            //var allRoles = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => roleIds.Contains(r.Id));
+            //foreach (var roleInfo in allRoles)
+            //{
+            //    user.R_UserInfo_RoleInfo.Add(roleInfo);//加最新的角色
+            //}
+            //DbSession.SaveChanges();
             return true;
         }
 
