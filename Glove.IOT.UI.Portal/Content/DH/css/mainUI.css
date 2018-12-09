@@ -340,7 +340,8 @@ margin-top:70px;  */
     left: 0px;
     width: 100%;
     height: 50px;
-    padding: 5px 20px;
+    padding-top: 10px;
+    padding-left: 25px;
 }
 #main .button .layui-btn {
     padding: 0;
@@ -397,7 +398,7 @@ margin-top:70px;  */
     width: inherit;
     padding: 10px 20px;
 }*/
-    #footer{
+#footer{
     position: fixed; 
     left: 200px; 
     right: 0; 

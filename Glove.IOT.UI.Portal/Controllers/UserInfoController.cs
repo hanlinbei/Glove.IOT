@@ -76,12 +76,12 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult Add(UserInfo userInfo)
         {
             //MD5加密
-            userInfo.UCode = "2";
-            userInfo.Remark = "3";
-            userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
+            //userInfo.UCode = "2";
+            //userInfo.Remark = "3";
+            //userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
             userInfo.ModfiedOn = DateTime.Now;
             userInfo.SubTime = DateTime.Now;
-            userInfo.DelFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+            //userInfo.DelFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
 
             UserInfoService.Add(userInfo);
             return Content("Ok");
@@ -91,7 +91,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         #endregion
 
         #region 修改
-        public ActionResult Edit(int id)
+        /*public ActionResult Edit(int id)
         {
             ViewData.Model = UserInfoService.GetEntities(u => u.Id ==id).FirstOrDefault();
             return View();
@@ -104,6 +104,13 @@ namespace Glove.IOT.UI.Portal.Controllers
             UserInfoService.Update(userInfo);
             return Content("ok");
 
+        }*/
+        public ActionResult Edit(UserInfo userInfo)
+        {
+            userInfo.ModfiedOn = DateTime.Now;
+            userInfo.SubTime = DateTime.Now;
+            UserInfoService.Update(userInfo);
+            return Content("ok");
         }
         #endregion
         #region 删除
@@ -123,7 +130,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             }
             //UserInfoService.DeleteList(idList);
             UserInfoService.DeleteListByLogical(idList);
-            return Content("ok");
+            return Content("del ok");
 
 
 

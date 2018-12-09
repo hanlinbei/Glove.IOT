@@ -127,38 +127,32 @@
         <!-- 该页面的主要内容 -->
         <div class="button">
             <div class="row">
-               
-                    <button class="layui-btn layui-btn-normal col-xs-1 w">
-                        <i class="iconfont icon-add">&#xe726;</i>
-                        添加人员
-                    </button>
-               
-                <a href="#">
-                    <button class="layui-btn layui-btn-danger col-xs-1 w">
-                        <i class="iconfont icon-delete">&#xe62f;</i>
-                        删除人员
-                    </button>
-                </a>
-                <a href="#">
-                    <button class="layui-btn layui-btn-warm col-xs-1 w">
-                        <i class="iconfont icon-modify">&#xe6b8;</i>
-                        修改人员
-                    </button>
-                </a>
-                <span class="col-xs-7"></span>
-                <a href="#">
-                    <button class="layui-btn col-xs-1 w">
-                        <i class="iconfont icon-seek">&#xe618;</i>
-                        查找人员
-                    </button>
-                </a>
+                <button class="layui-btn layui-btn-normal col-xs-1" name="添加人员">
+                    <i class="iconfont icon-add">&#xe726;</i>
+                    添加人员
+                </button>
+                <button class="layui-btn layui-btn-danger col-xs-1">
+                    <i class="iconfont icon-delete">&#xe62f;</i>
+                    删除人员
+                </button>
+                <!--
+                <button class="layui-btn layui-btn-warm col-xs-1">
+                    <i class="iconfont icon-modify">&#xe6b8;</i>
+                    修改人员
+                </button>
+                    -->
+                <span class="col-xs-8"></span>
+                <button class="layui-btn col-xs-1">
+                    <i class="iconfont icon-seek">&#xe618;</i>
+                    查找人员
+                </button>
             </div>
         </div>
         <div class="table">
             <div class="table-title">
                 人员管理
             </div>
-            <table id="demo" lay-filter="test"></table>
+            <table id="table_ry" lay-filter="table_ry" lay-data="{id: 'idTest'}"></table>
 
         </div>
 
@@ -176,66 +170,7 @@
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
     <script>
-        layui.use('table', function () {
-            var table = layui.table;
-
-            //第一个实例
-            table.render({
-                elem: '#demo'
-                , height: 550
-                , url: '/UserInfo/GetAllUserInfos' //数据接口
-                , title: "人员管理"
-                , page: true //开启分页
-                , limit: 10
-                , limits: [5, 10, 15, 20]
-                , cols: [[ //表头
-                    { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
-                    , { field: 'Id', title: '序号', minWidth: 100, sort: true, align: 'center' }
-                    , { field: 'UCode', title: '角色编码', minWidth: 100, align: 'center' }
-                    , { field: 'UName', title: '姓名', minWidth: 100, sort: true, align: 'center' }
-                    , { field: 'Remark', title: '角色名', minWidth: 200, align: 'center' }
-                    , { field: 'DelFlag', title: '角色状态', minWidth: 100, align: 'center' }
-                    , { fixed: 'right', title: '操作', minWidth: 150, align: 'center', toolbar: '#barDemo' }
-                ]]
-                , toolbar: true
-                , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
-                    console.log(res);
-                    console.log(curr);
-                    console.log(count);
-                }
-                , skin: 'line'
-            });
-            table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-                var data = obj.data; //获得当前行数据
-                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-                var tr = obj.tr; //获得当前行 tr 的DOM对象
-
-                if (layEvent === 'detail') { //查看
-                    alert("查看");
-                    $("#tck").show();
-                } else if (layEvent === 'del') { //删除
-                    layer.confirm('确定删除？', function (index) {
-                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                        layer.close(index);
-                        //向服务端发送删除指令
-                    });
-                } else if (layEvent === 'edit') { //编辑
-                   // $(".tck").show();
-                    tck_show('员工编辑', 'tck_ry_bj', 500, 450, obj.data);
-                    //同步更新缓存对应的值
-                    /*obj.update({
-                        UName: '123'
-                        , title: 'xxx'
-                    });*/
-                }
-            });
-            table.on('checkbox(test)', function (obj) {
-                console.log(obj.checked); //当前是否选中状态
-                console.log(obj.data); //选中行的相关数据
-                console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
-            });
-        });
-        
+       
     </script>
     <script src="~/Content/DH/js/3.js"></script>
 </body>

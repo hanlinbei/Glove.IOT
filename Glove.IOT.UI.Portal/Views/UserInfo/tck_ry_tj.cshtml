@@ -30,14 +30,8 @@
             background-color: #fff;
             padding: 20px 30px;
         }
-
         .layui-form-label {
             width: 100px;
-        }
-
-        .layui-layer-btn .layui-layer-btn0 { /*弹窗确定按钮颜色*/
-            background-color: #009688;
-            border-color: #009688;
         }
     </style>
 </head>
@@ -49,53 +43,53 @@
             <i class="layui-icon layui-icon-close tck-close" style="font-size: 25px; float:right; text-align:center;"></i>
         </div>-->
         <div class="tck-content">
-            <form class="layui-form" action="">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">员工名字：</label>
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">员工名字：</label>
+                <div class="layui-input-block">
+                    <input  type="text" name="UName" required lay-verify="required" placeholder="只允许输入英文+数字" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">员工编码：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="UCode" required lay-verify="required" placeholder="请输入员工编码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色类型：</label>
+                <div class="layui-input-block">
+                    <select id="tj_select" name="Remark" lay-verify="required">
+                        <option value="操作工">操作工</option>
+                        <option value="组长">组长</option>
+                        <option value="超级管理员">超级管理员</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">描述：</label>
                     <div class="layui-input-block">
-                        <input  type="text" name="UName" required lay-verify="required" placeholder="只允许输入英文+数字" autocomplete="off" class="layui-input Username">
+                        <textarea name="Pwd" placeholder="请输入内容" class="layui-textarea"></textarea>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">员工编码：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="UCode" required lay-verify="required" placeholder="请输入员工编码" autocomplete="off" class="layui-input Usercode">
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色状态：</label>
+                <div class="layui-input-block Userdelflag">
+                    <input type="radio" name="DelFlag" value="1" title="有效">
+                    <input type="radio" name="DelFlag" value="0" title="无效">
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">角色类型：</label>
-                    <div class="layui-input-block Userremark">
-                        <select name="Remark" lay-verify="required">
-                            <option value="0">操作工</option>
-                            <option value="1">组长</option>
-                            <option value="2">超级管理员</option>
-                        </select>
-                    </div>
+            </div>
+            <!--
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
-                <div class="layui-form-item">
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">描述：</label>
-                        <div class="layui-input-block">
-                            <textarea name="BZ" placeholder="请输入内容" class="layui-textarea Userpwd"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">角色状态：</label>
-                    <div class="layui-input-block Userdelflag">
-                        <input type="radio" name="DelFlag" value="1" title="有效">
-                        <input type="radio" name="DelFlag" value="0" title="无效">
-                    </div>
-                </div>
-                <!--
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    </div>
-                </div>
-                    -->
-            </form>
+            </div>
+                -->
+        </form>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
