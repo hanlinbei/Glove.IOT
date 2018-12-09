@@ -1,0 +1,743 @@
+2018-12-08 16:01:18,969 [9] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Glove.IOT.UI.Portal.Controllers.HomeController.LoadUserMenu() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\HomeController.cs:行号 30
+   在 Glove.IOT.UI.Portal.Controllers.HomeController.Index() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\HomeController.cs:行号 20
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 16:14:40,086 [8] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Glove.IOT.UI.Portal.Controllers.HomeController.LoadUserMenu() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\HomeController.cs:行号 30
+   在 Glove.IOT.UI.Portal.Controllers.HomeController.Index() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\HomeController.cs:行号 20
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 16:19:09,198 [8] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Glove.IOT.UI.Portal.Controllers.HomeController.LoadUserMenu() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\HomeController.cs:行号 30
+   在 Glove.IOT.UI.Portal.Controllers.HomeController.Index() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\HomeController.cs:行号 20
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 16:51:49,379 [6] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Glove.IOT.UI.Portal.Controllers.HomeController.LoadUserMenu() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\HomeController.cs:行号 30
+   在 Glove.IOT.UI.Portal.Controllers.HomeController.Index() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\HomeController.cs:行号 20
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 18:01:20,061 [118] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ASP._Page_Views_Home_Index_cshtml.Execute() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Views\Home\Index.cshtml:行号 159
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.StartPage.RunPage()
+   在 System.Web.WebPages.StartPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 18:04:31,078 [67] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ASP._Page_Views_Home_Index_cshtml.Execute() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Views\Home\Index.cshtml:行号 159
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.StartPage.RunPage()
+   在 System.Web.WebPages.StartPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 18:04:53,443 [67] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ASP._Page_Views_Home_Index_cshtml.Execute() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Views\Home\Index.cshtml:行号 159
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.StartPage.RunPage()
+   在 System.Web.WebPages.StartPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 18:07:47,791 [67] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ASP._Page_Views_Home_Index_cshtml.Execute() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Views\Home\Index.cshtml:行号 159
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.StartPage.RunPage()
+   在 System.Web.WebPages.StartPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 18:15:02,618 [67] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ASP._Page_Views_UserInfo_SetRole_cshtml.Execute() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Views\UserInfo\SetRole.cshtml:行号 48
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.StartPage.RunPage()
+   在 System.Web.WebPages.StartPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 18:15:02,994 [67] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ASP._Page_Views_UserInfo_SetRole_cshtml.Execute() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Views\UserInfo\SetRole.cshtml:行号 48
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.StartPage.RunPage()
+   在 System.Web.WebPages.StartPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 18:25:42,385 [67] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ASP._Page_Views_UserInfo_SetRole_cshtml.Execute() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Views\UserInfo\SetRole.cshtml:行号 48
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.StartPage.RunPage()
+   在 System.Web.WebPages.StartPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 18:52:07,428 [13] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 18:56:20,254 [6] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 18:57:09,130 [12] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 18:58:56,238 [11] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 19:09:25,133 [13] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 19:22:08,270 [13] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 19:24:20,317 [13] ERROR Demo - System.InvalidOperationException: 操作失败: 无法更改关系，因为一个或多个外键属性不可以为 null。对关系作出更改后，会将相关的外键属性设置为 null 值。如果外键不支持 null 值，则必须定义新的关系，必须向外键属性分配另一个非 null 值，或必须删除无关的对象。
+   在 System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 Glove.IOT.DALFactory.DbSession.SaveChanges() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.DALFactory\DbSession.cs:行号 25
+   在 Glove.IOT.BLL.UserInfoService.SetRole(Int32 userId, List`1 roleIds) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.BLL\UserInfoService.cs:行号 91
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 185
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 19:24:26,331 [13] ERROR Demo - System.InvalidOperationException: 操作失败: 无法更改关系，因为一个或多个外键属性不可以为 null。对关系作出更改后，会将相关的外键属性设置为 null 值。如果外键不支持 null 值，则必须定义新的关系，必须向外键属性分配另一个非 null 值，或必须删除无关的对象。
+   在 System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 Glove.IOT.DALFactory.DbSession.SaveChanges() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.DALFactory\DbSession.cs:行号 25
+   在 Glove.IOT.BLL.UserInfoService.SetRole(Int32 userId, List`1 roleIds) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.BLL\UserInfoService.cs:行号 91
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 185
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 19:24:29,917 [13] ERROR Demo - System.InvalidOperationException: 操作失败: 无法更改关系，因为一个或多个外键属性不可以为 null。对关系作出更改后，会将相关的外键属性设置为 null 值。如果外键不支持 null 值，则必须定义新的关系，必须向外键属性分配另一个非 null 值，或必须删除无关的对象。
+   在 System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 Glove.IOT.DALFactory.DbSession.SaveChanges() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.DALFactory\DbSession.cs:行号 25
+   在 Glove.IOT.BLL.UserInfoService.SetRole(Int32 userId, List`1 roleIds) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.BLL\UserInfoService.cs:行号 91
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 185
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 20:48:23,837 [41] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 20:49:27,128 [41] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 20:49:53,811 [41] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 189
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 20:50:02,339 [41] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 189
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 20:51:54,048 [7] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 21:01:15,293 [8] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 21:10:41,634 [16] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 21:11:25,949 [16] ERROR Demo - System.InvalidOperationException: 操作失败: 无法更改关系，因为一个或多个外键属性不可以为 null。对关系作出更改后，会将相关的外键属性设置为 null 值。如果外键不支持 null 值，则必须定义新的关系，必须向外键属性分配另一个非 null 值，或必须删除无关的对象。
+   在 System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 Glove.IOT.DALFactory.DbSession.SaveChanges() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.DALFactory\DbSession.cs:行号 25
+   在 Glove.IOT.BLL.BaseService`1.Add(T entity) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.BLL\BaseService.cs:行号 84
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 196
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 21:11:39,006 [16] ERROR Demo - System.InvalidOperationException: 操作失败: 无法更改关系，因为一个或多个外键属性不可以为 null。对关系作出更改后，会将相关的外键属性设置为 null 值。如果外键不支持 null 值，则必须定义新的关系，必须向外键属性分配另一个非 null 值，或必须删除无关的对象。
+   在 System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 Glove.IOT.DALFactory.DbSession.SaveChanges() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.DALFactory\DbSession.cs:行号 25
+   在 Glove.IOT.BLL.BaseService`1.Add(T entity) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.BLL\BaseService.cs:行号 84
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 196
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 21:12:51,892 [16] ERROR Demo - System.InvalidOperationException: 操作失败: 无法更改关系，因为一个或多个外键属性不可以为 null。对关系作出更改后，会将相关的外键属性设置为 null 值。如果外键不支持 null 值，则必须定义新的关系，必须向外键属性分配另一个非 null 值，或必须删除无关的对象。
+   在 System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 Glove.IOT.DALFactory.DbSession.SaveChanges() 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.DALFactory\DbSession.cs:行号 25
+   在 Glove.IOT.BLL.BaseService`1.Add(T entity) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.BLL\BaseService.cs:行号 84
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 196
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 21:13:29,437 [10] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 21:39:46,720 [7] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 21:40:17,297 [7] ERROR Demo - System.ArgumentException: 类型“R_UserInfo_RoleInfo”的属性“DelFlag”不是基元或复杂属性。Property 方法只能用于基元或复杂属性。请使用 Reference 或 Collection 方法。
+   在 System.Data.Entity.Internal.InternalEntityEntry.Property(InternalPropertyEntry parentProperty, String propertyName, IList`1 properties, Type requestedType, Boolean requireComplex)
+   在 System.Data.Entity.Internal.InternalEntityEntry.Property(String property, Type requestedType, Boolean requireComplex)
+   在 System.Data.Entity.Infrastructure.DbEntityEntry`1.Property(String propertyName)
+   在 Glove.IOT.EFDAL.BaseDal`1.Delete(Int32 id) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.EFDAL\BaseDal.cs:行号 109
+   在 Glove.IOT.BLL.BaseService`1.Delete(Int32 id) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.BLL\BaseService.cs:行号 75
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 177
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 21:41:10,996 [12] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 21:44:54,848 [8] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 21:52:58,433 [7] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 22:24:13,733 [7] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: entity
+   在 System.Data.Entity.ModelConfiguration.Utilities.RuntimeFailureMethods.Requires(Boolean condition, String userMessage, String conditionText)
+   在 System.Data.Entity.DbContext.Entry[TEntity](TEntity entity)
+   在 Glove.IOT.EFDAL.BaseDal`1.Delete(Int32 id) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.EFDAL\BaseDal.cs:行号 109
+   在 Glove.IOT.BLL.BaseService`1.Delete(Int32 id) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.BLL\BaseService.cs:行号 75
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 178
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 22:24:27,951 [7] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: entity
+   在 System.Data.Entity.ModelConfiguration.Utilities.RuntimeFailureMethods.Requires(Boolean condition, String userMessage, String conditionText)
+   在 System.Data.Entity.DbContext.Entry[TEntity](TEntity entity)
+   在 Glove.IOT.EFDAL.BaseDal`1.Delete(Int32 id) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.EFDAL\BaseDal.cs:行号 109
+   在 Glove.IOT.BLL.BaseService`1.Delete(Int32 id) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.BLL\BaseService.cs:行号 75
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.ProcessSetRole(Int32 UId) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 178
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-08 22:41:10,352 [9] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
+2018-12-08 23:08:57,864 [7] ERROR Demo - System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic, CacheInternal cache)
+   在 System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   在 System.Web.Caching.AspNetCache.Insert(String key, Object item, CacheInsertOptions options)
+   在 System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.AddCache(String key, Object value, DateTime expDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 14
+   在 Glove.IOT.Common.Cache.HttpRuntimeCacheWriter.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\HttpRuntimeCacheWriter.cs:行号 35
+   在 Glove.IOT.Common.Cache.CacheHelper.SetCache(String key, Object value, DateTime extDate) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.Common\Cache\CacheHelper.cs:行号 40
+   在 Glove.IOT.UI.Portal.Controllers.BaseController.OnActionExecuting(ActionExecutingContext filterContext) 位置 E:\研究生\项目\Glove.IOT\Glove.IOT.UI.Portal\Controllers\BaseController.cs:行号 44
+   在 System.Web.Mvc.Controller.System.Web.Mvc.IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__0(AsyncCallback asyncCallback, Object asyncState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)
