@@ -62,7 +62,8 @@ namespace Glove.IOT.BLL
                         where (t2.StatusFlag !=delFlag && t3.StatusFlag != delFlag)
                         select new UserInfoRoleInfo
                         {
-                            Id = t1.Id,
+                            UId = t1.Id,
+                            RId = t3.Id,
                             UCode = t1.UCode,
                             UName = t1.UName,
                             RoleName = t3.RoleName,
@@ -71,7 +72,7 @@ namespace Glove.IOT.BLL
                         };
             userQueryParam.Total = query.Count();
 
-            return query.OrderBy(u=>u.Id)
+            return query.OrderBy(u=>u.UId)
                   .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
                   .Take(userQueryParam.PageSize).AsQueryable();
 
