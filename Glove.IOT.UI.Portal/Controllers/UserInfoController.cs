@@ -34,15 +34,19 @@ namespace Glove.IOT.UI.Portal.Controllers
             // easyui:table 在初始化的时候自动发送以下俩个参数值
             int pageSize = int.Parse(Request["limit"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
+            string schName = Request["SchName"];
+            string schRemark = Request["SchName"];
             //int total = 0;
             //过滤的用户名 过滤备注schName schRemark
 
-           
+
             var queryParam = new UserQueryParam()
             {
                 PageSize = pageSize,
                 PageIndex = pageIndex,
                 Total = 0,
+                SchName = schName,
+                SchRemark = schRemark,
             };
 
             var pageData = UserInfoService.LoagPageData(queryParam);
