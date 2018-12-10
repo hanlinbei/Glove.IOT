@@ -171,9 +171,10 @@ function tck_show_ry_tj(title, url, w, h, data) {
             xhr.open('POST', "/UserInfo/Add");
             xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');         
             xhr.send('UName=' + res.UName
+                + '&Pwd=' + res.Pwd
                 + '&UCode=' + res.UCode
                 + '&Remark=' + res.Remark
-                + '&Pwd=' + res.Pwd
+                + '&RoleName=' + res.RoleName
                 + '&StatusFlag=' + res.StatusFlag);
             //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
             //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
@@ -200,8 +201,9 @@ function callbackdata(index) {//获取弹窗用户输入的数据
     var data = {
         UName: $('input[name="UName"]').val(),
         UCode: $('input[name="UCode"]').val(),
-        Remark: $('select[name="Remark"] option:selected').val(),
-        Pwd: $('textarea[name="Pwd"]').val(),
+        RoleName: $('select[name="RoleName"] option:selected').val(),
+        Pwd: $('input[name="Pwd"]').val(),
+        Remark: $('textarea[name="Remark"]').val(),
         StatusFlag: $('input[name="StatusFlag"]:checked').val()
     }
     return data;

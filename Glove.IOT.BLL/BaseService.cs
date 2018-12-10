@@ -116,6 +116,8 @@ namespace Glove.IOT.BLL
             DbSession.SaveChanges();
             return entity;
         }
+    
+
 
         /// <summary>
         /// 更新数据

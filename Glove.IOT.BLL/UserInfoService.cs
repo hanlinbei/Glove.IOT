@@ -68,7 +68,6 @@ namespace Glove.IOT.BLL
                             UName = t1.UName,
                             RoleName = t3.RoleName,
                             StatusFlag=t1.StatusFlag
-
                         };
             userQueryParam.Total = query.Count();
 

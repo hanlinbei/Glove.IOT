@@ -71,8 +71,8 @@ namespace Glove.IOT.UI.Portal.Controllers
             //userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
             userInfo.SubTime = DateTime.Now;
             //userInfo.StatusFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
-
-            UserInfoService.Add(userInfo);
+            int insertedUserId = UserInfoService.Add(userInfo).Id;
+            ProcessSetRole(insertedUserId);
             return Content("Ok");
 
 
@@ -177,8 +177,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="UId">用户Id</param>
         /// <returns>OK</returns>
-        public ActionResult ProcessSetRole(int UId)
-        {
+         void ProcessSetRole(int UId)
+         {
             //第一：当前用户的id ----uid
             //第二：当前用户在角色关联表中的ID
             UserInfo user = UserInfoService.GetEntities(u => u.Id == UId).FirstOrDefault();
@@ -217,8 +217,6 @@ namespace Glove.IOT.UI.Portal.Controllers
                 R_UserInfo_RoleInfoService.Add(rUserInfoRoleInfo);
               
             }
-            
-            return Content("Ok");
 
         }
 
