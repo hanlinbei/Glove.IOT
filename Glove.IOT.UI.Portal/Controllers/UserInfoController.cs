@@ -14,81 +14,73 @@ namespace Glove.IOT.UI.Portal.Controllers
 {
     public class UserInfoController : Controller
     {
-        short delflagNormal = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+        readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
         // GET: UserInfo
         //UserInfoService UserInfoService = new UserInfoService();
         public IUserInfoService UserInfoService { get; set; }
         public IRoleInfoService RoleInfoService { get; set; }
         public IActionInfoService ActionInfoService { get; set; }
         public IR_UserInfo_ActionInfoService R_UserInfo_ActionInfoService { get; set; }
+        public IR_UserInfo_RoleInfoService R_UserInfo_RoleInfoService { get; set; }
         public IMd5Helper Md5Helper { get; set; }
-        #region 获取用户
+        /// <summary>
+        /// 用户起始视图
+        /// </summary>
+        /// <returns>用户视图</returns>
         public ActionResult Index()
         {
             return View();
         }
         
+        /// <summary>
+        /// 获取用户所有信息
+        /// </summary>
+        /// <returns>Json数据</returns>
         public ActionResult GetAllUserInfos()
         {
             //jquery easyui:table:{total:32,row:[{},{}]}
             // easyui:table 在初始化的时候自动发送以下俩个参数值
-            int pageSize = int.Parse(Request["rows"] ?? "10");
+            int pageSize = int.Parse(Request["limit"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
-            //int total = 0;
             //过滤的用户名 过滤备注schName schRemark
 
-           
             var queryParam = new UserQueryParam()
             {
                 PageSize = pageSize,
                 PageIndex = pageIndex,
                 Total = 0,
             };
-
-            var pageData = UserInfoService.LoagPageData(queryParam);
-
-            var temp= pageData.Select( u =>new
-            {   u.Id,
-                u.UName,
-                u.SubTime,
-                u.ModfiedOn,
-                u.Pwd
-            });
-            //拿到当前页的数据
-            //var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex,
-            //                                             out total, u => u.DelFlag == delflagNormal, u => u.Id,
-            //                                             true)
-            //                                            .Select(
-            //                                             u =>
-            //                                             new { u.Id, u.UName, u.Remark, u.ShowName, u.SubTime, u.ModfiedOn, u.Pwd }
-            //                                           );
-            var data = new { total = queryParam.Total, rows = temp.ToList() };
-
+         
+            var pageData = UserInfoService.LoagUserPageData(queryParam).ToList();
+            var data = new { code=0,msg="",count = queryParam.Total, data = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
-        #endregion
 
-        #region 添加用户
+
+        /// <summary>
+        /// 添加用户
+        /// </summary>
+        /// <param name="userInfo">前端用户信息</param>
+        /// <returns>OK</returns>
         public ActionResult Add(UserInfo userInfo)
         {
             //MD5加密
-            userInfo.UCode = "2";
-            userInfo.Remark = "3";
-            userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
-            userInfo.ModfiedOn = DateTime.Now;
+            //userInfo.UCode = "2";
+            //userInfo.Remark = "3";
+            //userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
             userInfo.SubTime = DateTime.Now;
-            userInfo.DelFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+            //userInfo.StatusFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
 
             UserInfoService.Add(userInfo);
             return Content("Ok");
 
 
         }
-        #endregion
 
-        #region 修改
-        public ActionResult Edit(int id)
+
+   
+        /*public ActionResult Edit(int id)
         {
             ViewData.Model = UserInfoService.GetEntities(u => u.Id ==id).FirstOrDefault();
             return View();
@@ -101,9 +93,25 @@ namespace Glove.IOT.UI.Portal.Controllers
             UserInfoService.Update(userInfo);
             return Content("ok");
 
+        }*/
+
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns>ok</returns>
+        public ActionResult Edit(UserInfo userInfo)
+        {
+            userInfo.SubTime = DateTime.Now;
+            UserInfoService.Update(userInfo);
+            return Content("ok");
         }
-        #endregion
-        #region 删除
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="ids">用户id</param>
+        /// <returns>del ok</returns>
         public ActionResult Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -120,17 +128,13 @@ namespace Glove.IOT.UI.Portal.Controllers
             }
             //UserInfoService.DeleteList(idList);
             UserInfoService.DeleteListByLogical(idList);
-            return Content("ok");
+            return Content("del ok");
 
 
 
 
         }
 
-
-
-
-        #endregion
 
         #region create
         public ActionResult Create()
@@ -148,25 +152,49 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
         #endregion
 
-        #region 设置角色
+        /// <summary>
+        /// 设置角色
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <returns>当前已存在的角色</returns>
         public ActionResult SetRole(int id)
         {
             //当前要设置角色的用户
             int userId = id;
             UserInfo user = UserInfoService.GetEntities(u => u.Id == id).FirstOrDefault();
             //把所有的角色发送到前台
-            ViewBag.AllRoles = RoleInfoService.GetEntities(u => u.DelFlag == delflagNormal).ToList();
+            ViewBag.AllRoles = RoleInfoService.GetEntities(u => u.StatusFlag == delFlag).ToList();
             //用户已经关联的角色发送到前台
-            ViewBag.ExitsRoles = (from r in user.RoleInfo
-                                  select r.Id).ToList();
+            ViewBag.ExitsRoles = (from r in user.R_UserInfo_RoleInfo
+                                  where r.StatusFlag==delFlag
+                                  select r.RoleInfoId).ToList();
             return View(user);
 
         }
-        //给用户设置角色
+
+        /// <summary>
+        /// 给用户设置角色
+        /// </summary>
+        /// <param name="UId">用户Id</param>
+        /// <returns>OK</returns>
         public ActionResult ProcessSetRole(int UId)
         {
             //第一：当前用户的id ----uid
-            //第二：所有打上对勾的角色 ----list
+            //第二：当前用户在角色关联表中的ID
+            UserInfo user = UserInfoService.GetEntities(u => u.Id == UId).FirstOrDefault();
+            var allUserInfoIds = (from r in user.R_UserInfo_RoleInfo
+                                  where r.UserInfoId == UId && r.StatusFlag == delFlag
+                                  select r.Id).ToList();
+
+            for (int i = 0; i < allUserInfoIds.Count(); i++)
+            {
+                int userInfoId = Convert.ToInt32(allUserInfoIds[i]);
+                var rUserRole = R_UserInfo_RoleInfoService.GetEntities(r =>
+                r.Id== userInfoId).FirstOrDefault();
+                R_UserInfo_RoleInfoService.Delete(rUserRole);
+             }
+
+            //第三：所有打上对勾的角色 ----list
             List<int> setRoleIdList = new List<int>();
             foreach (var key in Request.Form.AllKeys)
             {
@@ -176,17 +204,30 @@ namespace Glove.IOT.UI.Portal.Controllers
                     setRoleIdList.Add(roleId);
                 }
             }
-            UserInfoService.SetRole(UId, setRoleIdList);
+
+
+            for (int i = 0; i < setRoleIdList.Count; i++)
+            {
+                int roleId = Convert.ToInt32(setRoleIdList[i]);
+               
+                R_UserInfo_RoleInfo rUserInfoRoleInfo = new R_UserInfo_RoleInfo();
+                rUserInfoRoleInfo.UserInfoId = UId;
+                rUserInfoRoleInfo.RoleInfoId = roleId;
+                rUserInfoRoleInfo.StatusFlag = delFlag;
+                R_UserInfo_RoleInfoService.Add(rUserInfoRoleInfo);
+              
+            }
+            
             return Content("Ok");
 
         }
-        #endregion
+
 
         #region 设置特殊权限
         public ActionResult SetAction(int id)
         {
             ViewBag.User = UserInfoService.GetEntities(u => u.Id == id).FirstOrDefault();
-            ViewData.Model = ActionInfoService.GetEntities(a => a.DelFlag == delflagNormal).ToList();
+            ViewData.Model = ActionInfoService.GetEntities(a => a.StatusFlag == delFlag).ToList();
             return View();
 
 
@@ -197,7 +238,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             R_UserInfo_ActionInfo rUserAction = R_UserInfo_ActionInfoService.GetEntities(r => r.ActionInfoId == ActionId && r.UserInfoId == UId).FirstOrDefault();
             if (rUserAction != null)
             {
-                //rUserAction.DelFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
+                //rUserAction.StatusFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
                 R_UserInfo_ActionInfoService.DeleteListByLogical(new List<int>() { rUserAction.Id });
             }
             return Content("Ok");
@@ -206,7 +247,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult SetUserAction(int UId, int ActionId, int Value)
         {
             R_UserInfo_ActionInfo rUserAction = R_UserInfo_ActionInfoService.GetEntities(r =>
-            r.ActionInfoId == ActionId && r.UserInfoId == UId && r.DelFlag == delflagNormal).FirstOrDefault();
+            r.ActionInfoId == ActionId && r.UserInfoId == UId && r.StatusFlag == delFlag).FirstOrDefault();
             if (rUserAction != null)
             {
                 rUserAction.HasPermission = Value == 1 ? true : false;
@@ -218,12 +259,37 @@ namespace Glove.IOT.UI.Portal.Controllers
                 rUserInfoActionInfo.ActionInfoId = ActionId;
                 rUserInfoActionInfo.UserInfoId = UId;
                 rUserInfoActionInfo.HasPermission = Value == 1 ? true : false;
-                rUserInfoActionInfo.DelFlag = delflagNormal;
+                rUserInfoActionInfo.StatusFlag = delFlag;
                 R_UserInfo_ActionInfoService.Add(rUserInfoActionInfo);
             }
             return Content("Ok");
         }
 
         #endregion
+
+
+
+
+
+        public ActionResult t()
+        {
+            return View();
+        }
+        public ActionResult indexUI()
+        {
+            return View();
+        }
+        public ActionResult Personnel_management()
+        {
+            return View();
+        }
+        public ActionResult tck_ry_bj()
+        {
+            return View();
+        }
+        public ActionResult tck_ry_tj()
+        {
+            return View();
+        }
     }
 }

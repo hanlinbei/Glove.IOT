@@ -59,15 +59,11 @@
                 queryParams: queryParam,//让表格在加载数据的时候，额外传输的数据。
                 columns: [[
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
-                    { field: 'Id', title: '用户的编号', width: 80 },
-                    { field: 'UName', title: '用户名', width: 120 },
-                    { field: 'Pwd', title: '密码', width: 120 },
-                    {
-                        field: 'SubTime', title: '提交时间', width: 150, align: 'left',
-                        formatter: function (value, row, index) {
-                            return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
-                        }
-                    },
+                    { field: 'Id', title: '序号', width: 80 },
+                    { field: 'UCode', title: '工号', width: 80 },
+                    { field: 'UName', title: '姓名', width: 120 },
+                    { field: 'RoleName', title: '角色名', width: 120 },
+                    { field: 'StatusFlag', title: '角色状态', width: 120 },
                     {
                         field: 'ModfiedOn', title: '操作', width: 120,
                         formatter:

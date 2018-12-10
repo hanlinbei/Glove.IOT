@@ -12,13 +12,22 @@ namespace Glove.IOT.UI.Portal.Controllers
     {
         // GET: RoleInfo
         public IRoleInfoService RoleInfoService { get; set; }
-        short delflagNormal = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+        readonly short statusFlagNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
+        readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
 
+        /// <summary>
+        /// 角色起始视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
-        #region load roleInfos
+
+       /// <summary>
+       /// 加载角色信息
+       /// </summary>
+       /// <returns>Json数据</returns>
         public ActionResult GetAllRoleInfos()
         {
             //jquery easyui:table:{total:32,row:[{},{}]}
@@ -29,7 +38,7 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             //拿到当前页的数据
             var temp = RoleInfoService.GetPageEntities(pageSize, pageIndex,
-                                                         out total, u => u.DelFlag == delflagNormal, u => u.Id,
+                                                         out total, u => u.StatusFlag !=delFlag, u => u.Id,
                                                          true);
             var tempData = temp.Select(a => new
             {
@@ -37,8 +46,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 a.RoleName,
                 a.Remark,
                 a.SubTime,
-                a.ModfiedOn,
-                a.DelFlag
+                a.StatusFlag
                
             });
 
@@ -46,19 +54,20 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
-        #endregion
 
-        #region Add
-
+        /// <summary>
+        /// 添加角色信息
+        /// </summary>
+        /// <param name="roleInfo">前端传来的角色信息</param>
+        /// <returns>OK</returns>
         public ActionResult Add(RoleInfo roleInfo)
         {
-            roleInfo.DelFlag = delflagNormal;
-            roleInfo.ModfiedOn = DateTime.Now;
+            roleInfo.StatusFlag = statusFlagNormal;
             roleInfo.SubTime = DateTime.Now;
             RoleInfoService.Add(roleInfo);
             return Content("Ok");
 
         }
-        #endregion
+       
     }
 }

@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Glove.IOT.Common\Glove.IOT.Common.csproj">
+      <Project>{AEE3CFE4-0194-4B0F-8DA8-A6FA883299BB}</Project>
+      <Name>Glove.IOT.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glove.IOT.DALFactory\Glove.IOT.DALFactory.csproj">
       <Project>{090AD518-11E3-4688-B9D7-E82DB7DB8273}</Project>
       <Name>Glove.IOT.DALFactory</Name>

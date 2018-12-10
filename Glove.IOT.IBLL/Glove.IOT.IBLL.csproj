@@ -52,6 +52,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Glove.IOT.Common\Glove.IOT.Common.csproj">
+      <Project>{AEE3CFE4-0194-4B0F-8DA8-A6FA883299BB}</Project>
+      <Name>Glove.IOT.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glove.IOT.Model\Glove.IOT.Model.csproj">
       <Project>{61203463-03BB-4B9D-927B-75B0C9272B76}</Project>
       <Name>Glove.IOT.Model</Name>

@@ -18,14 +18,28 @@ namespace Glove.IOT.EFDAL
         {
             get { return DbContextFactory.GetCurrentDbContext(); }
         }
-        //查询所有用户
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="whereLambda">查询条件</param>
+        /// <returns></returns>
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
 
             return Db.Set<T>().Where(whereLambda).AsQueryable();
 
         }
-
+        /// <summary>
+        /// 分页操作
+        /// </summary>
+        /// <typeparam name="S"></typeparam>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="total"></param>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderByLambda"></param>
+        /// <param name="isAsc"></param>
+        /// <returns></returns>
         public IQueryable<T> GetPageEntities<S>(int pageSize, int pageIndex, out int total,
                                                Expression<Func<T, bool>> whereLambda,
                                                Expression<Func<T, S>> orderByLambda,
@@ -54,7 +68,11 @@ namespace Glove.IOT.EFDAL
 
 
         }
-        //添加用户
+        /// <summary>
+        /// 添加一条记录
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public T Add(T entity)
         {
             Db.Set<T>().Add(entity);
@@ -70,13 +88,17 @@ namespace Glove.IOT.EFDAL
             return true;
         }
 
-        //删除数据
+        /// <summary>
+        /// 逻辑删除一条记录
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public bool Delete(T entity)
         {
             //Db.Entry(entity).State = EntityState.Deleted;
             //return Db.SaveChanges() > 0;
-            Db.Entry(entity).Property("DelFlag").CurrentValue = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
-            Db.Entry(entity).Property("DelFlag").IsModified = true;
+            Db.Entry(entity).Property("StatusFlag").CurrentValue = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
+            Db.Entry(entity).Property("StatusFlag").IsModified = true;
             return true;
         }
 
@@ -84,8 +106,8 @@ namespace Glove.IOT.EFDAL
         {
             var entity = Db.Set<T>().Find(id);
             //Db.Set<T>().Remove(entity);
-            Db.Entry(entity).Property("DelFlag").CurrentValue = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
-            Db.Entry(entity).Property("DelFlag").IsModified = true;
+            Db.Entry(entity).Property("StatusFlag").CurrentValue = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
+            Db.Entry(entity).Property("StatusFlag").IsModified = true;
             return true;
         }
 
@@ -94,8 +116,8 @@ namespace Glove.IOT.EFDAL
             foreach (var id in ids)
             {
                 var entity = Db.Set<T>().Find(id);
-                Db.Entry(entity).Property("DelFlag").CurrentValue = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
-                Db.Entry(entity).Property("DelFlag").IsModified = true;
+                Db.Entry(entity).Property("StatusFlag").CurrentValue = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
+                Db.Entry(entity).Property("StatusFlag").IsModified = true;
             }
             return ids.Count;
 

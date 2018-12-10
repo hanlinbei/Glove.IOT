@@ -6,6 +6,7 @@
     <property name="RoleInfoService" ref="RoleInfoService" />
     <property name="ActionInfoService" ref="ActionInfoService" />
     <property name="R_UserInfo_ActionInfoService" ref="R_UserInfo_ActionInfoService" />
+    <property name="R_UserInfo_RoleInfoService" ref="R_UserInfo_RoleInfoService" />
     <property name="Md5Helper" ref="Md5Helper" />
   </object>
   

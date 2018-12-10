@@ -34,14 +34,28 @@ namespace Glove.IOT.BLL
         //}
         //public abstract void SetCurrentDal();//抽象方法要求子类必须实现
 
-        //查询
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="whereLambda">表达式条件</param>
+        /// <returns>查询结果</returns>
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
             return CurrentDal.GetEntities(whereLambda);
 
         }
 
-
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="S"></typeparam>
+        /// <param name="pageSize">一页存放多少条</param>
+        /// <param name="pageIndex">第几页</param>
+        /// <param name="total">数据总条数</param>
+        /// <param name="whereLambda">表达式条件</param>
+        /// <param name="orderByLambda">排序条件</param>
+        /// <param name="isAsc">升序</param>
+        /// <returns>查询结果</returns>
         public IQueryable<T> GetPageEntities<S>(int pageSize, int pageIndex, out int total,
                                                Expression<Func<T, bool>> whereLambda,
                                                Expression<Func<T, S>> orderByLambda,
@@ -50,7 +64,11 @@ namespace Glove.IOT.BLL
             return CurrentDal.GetPageEntities(pageSize, pageIndex, out total, whereLambda, orderByLambda, isAsc);
 
         }
-
+        /// <summary>
+        /// 批量逻辑删除
+        /// </summary>
+        /// <param name="ids">多个od</param>
+        /// <returns>true</returns>
         public int DeleteListByLogical(List<int> ids)
         {
 
@@ -58,7 +76,12 @@ namespace Glove.IOT.BLL
             return DbSession.SaveChanges();
 
         }
-        //批量删除
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="ids">多个id</param>
+        /// <returns>true</returns>
         public int DeleteList(List<int> ids)
         {
             foreach (var id in ids)
@@ -70,6 +93,11 @@ namespace Glove.IOT.BLL
 
         }
 
+        /// <summary>
+        /// 单个删除
+        /// </summary>
+        /// <param name="id">ID</param>
+        /// <returns>true</returns>
         public bool Delete(int id)
         {
             CurrentDal.Delete(id);
@@ -77,7 +105,11 @@ namespace Glove.IOT.BLL
 
         }
 
-        //添加用户
+        /// <summary>
+        /// 添加数据
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <returns>实体</returns>
         public T Add(T entity)
         {
              CurrentDal.Add(entity);
@@ -85,7 +117,11 @@ namespace Glove.IOT.BLL
             return entity;
         }
 
-        //更新用户数据
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <returns>true</returns>
         public bool Update(T entity)
         {
              CurrentDal.Update(entity);
@@ -93,7 +129,11 @@ namespace Glove.IOT.BLL
         }
 
 
-        //删除数据
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <returns>true</returns>
         public bool Delete(T entity)
         {
              CurrentDal.Delete(entity);
