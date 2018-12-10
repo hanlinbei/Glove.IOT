@@ -42,13 +42,12 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UName" Type="nvarchar" Nullable="true" MaxLength="32" />
     <Property Name="UCode" Type="nvarchar" Nullable="false" MaxLength="32" />
-    <Property Name="DelFlag" Type="smallint" Nullable="false" DefaultValue="0" />
-    <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
-    <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="UName" Type="nvarchar" Nullable="true" MaxLength="32" />
     <Property Name="Pwd" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="0" />
     <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="256" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="RoleInfo">
     <Key>
@@ -56,26 +55,24 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="32" />
-    <Property Name="SubTime" Type="datetime" Nullable="false" />
-    <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
+    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="0" />
     <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="64" />
-    <Property Name="DelFlag" Type="smallint" Nullable="false" DefaultValue="0" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="ActionInfo">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="SubTime" Type="datetime" Nullable="false" />
-    <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
+    <Property Name="ActionName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="64" />
-    <Property Name="DelFlag" Type="smallint" Nullable="false" DefaultValue="0" />
     <Property Name="Url" Type="nvarchar" Nullable="false" MaxLength="512" />
     <Property Name="HttpMethd" Type="nvarchar" Nullable="true" MaxLength="32" />
-    <Property Name="ActionName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IsMenu" Type="bit" Nullable="false" />
     <Property Name="MenuIcon" Type="nvarchar" Nullable="true" MaxLength="512" />
     <Property Name="Sort" Type="int" Nullable="false" />
+    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="0" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="R_UserInfo_ActionInfo">
     <Key>
@@ -85,7 +82,7 @@
     <Property Name="HasPermission" Type="bit" Nullable="false" />
     <Property Name="UserInfoId" Type="int" Nullable="false" />
     <Property Name="ActionInfoId" Type="int" Nullable="false" />
-    <Property Name="DelFlag" Type="smallint" Nullable="false" DefaultValue="0" />
+    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="0" />
   </EntityType>
   <EntityType Name="R_UserInfo_RoleInfo">
     <Key>
@@ -94,7 +91,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserInfoId" Type="int" Nullable="false" />
     <Property Name="RoleInfoId" Type="int" Nullable="false" />
-    <Property Name="DelFlag" Type="smallint" Nullable="false" DefaultValue="0" />
+    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="0" />
   </EntityType>
   <EntityType Name="ActionInfoRoleInfo">
     <Key>
@@ -212,14 +209,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UName" Type="String" Nullable="true" MaxLength="32" />
           <Property Name="UCode" Type="String" Nullable="false" MaxLength="32" />
-          <Property Name="DelFlag" Type="Int16" Nullable="false" DefaultValue="0" />
-          <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="DataModel.UserInfoR_UserInfo_ActionInfo" FromRole="UserInfo" ToRole="R_UserInfo_ActionInfo" />
-          <Property Name="ModfiedOn" Type="DateTime" Nullable="false" />
-          <Property Name="SubTime" Type="DateTime" Nullable="false" />
+          <Property Name="UName" Type="String" Nullable="true" MaxLength="32" />
           <Property Name="Pwd" Type="String" Nullable="false" MaxLength="64" />
+          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="0" />
+          <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="DataModel.UserInfoR_UserInfo_ActionInfo" FromRole="UserInfo" ToRole="R_UserInfo_ActionInfo" />
           <Property Name="Remark" Type="String" Nullable="true" MaxLength="256" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="R_UserInfo_RoleInfo" Relationship="DataModel.UserInfoR_UserInfo_RoleInfo" FromRole="UserInfo" ToRole="R_UserInfo_RoleInfo" />
         </EntityType>
         <EntityType Name="RoleInfo">
@@ -229,29 +225,27 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="ActionInfo" Relationship="DataModel.ActionInfoRoleInfo" FromRole="RoleInfo" ToRole="ActionInfo" />
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="32" />
-          <Property Name="SubTime" Type="DateTime" Nullable="false" />
-          <Property Name="ModfiedOn" Type="DateTime" Nullable="false" />
+          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="0" />
           <Property Name="Remark" Type="String" Nullable="true" MaxLength="64" />
-          <Property Name="DelFlag" Type="Int16" Nullable="false" DefaultValue="0" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="R_UserInfo_RoleInfo" Relationship="DataModel.RoleInfoR_UserInfo_RoleInfo" FromRole="RoleInfo" ToRole="R_UserInfo_RoleInfo" />
         </EntityType>
         <EntityType Name="ActionInfo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubTime" Type="DateTime" Nullable="false" />
-          <Property Name="ModfiedOn" Type="DateTime" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Name="ActionName" Type="String" Nullable="false" />
           <Property Name="Remark" Type="String" Nullable="true" MaxLength="64" />
-          <Property Name="DelFlag" Type="Int16" Nullable="false" DefaultValue="0" />
           <NavigationProperty Name="RoleInfo" Relationship="DataModel.ActionInfoRoleInfo" FromRole="ActionInfo" ToRole="RoleInfo" />
           <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="DataModel.ActionInfoR_UserInfo_ActionInfo" FromRole="ActionInfo" ToRole="R_UserInfo_ActionInfo" />
           <Property Name="Url" Type="String" Nullable="false" MaxLength="512" />
           <Property Name="HttpMethd" Type="String" Nullable="true" MaxLength="32" />
-          <Property Name="ActionName" Type="String" Nullable="false" />
           <Property Name="IsMenu" Type="Boolean" Nullable="false" />
           <Property Name="MenuIcon" Type="String" Nullable="true" MaxLength="512" />
           <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="0" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" />
         </EntityType>
         <Association Name="ActionInfoRoleInfo">
           <End Type="DataModel.ActionInfo" Role="ActionInfo" Multiplicity="*" />
@@ -267,7 +261,7 @@
           <Property Name="UserInfoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ActionInfo" Relationship="DataModel.ActionInfoR_UserInfo_ActionInfo" FromRole="R_UserInfo_ActionInfo" ToRole="ActionInfo" />
           <Property Name="ActionInfoId" Type="Int32" Nullable="false" />
-          <Property Name="DelFlag" Type="Int16" Nullable="false" DefaultValue="0" />
+          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="0" />
         </EntityType>
         <Association Name="UserInfoR_UserInfo_ActionInfo">
           <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="1" />
@@ -302,7 +296,7 @@
           <Property Name="UserInfoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RoleInfo" Relationship="DataModel.RoleInfoR_UserInfo_RoleInfo" FromRole="R_UserInfo_RoleInfo" ToRole="RoleInfo" />
           <Property Name="RoleInfoId" Type="Int32" Nullable="false" />
-          <Property Name="DelFlag" Type="Int16" Nullable="false" DefaultValue="0" />
+          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="0" />
         </EntityType>
         <Association Name="UserInfoR_UserInfo_RoleInfo">
           <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="1" />
@@ -338,13 +332,12 @@
       <EntityTypeMapping TypeName="IsTypeOf(DataModel.UserInfo)">
         <MappingFragment StoreEntitySet="UserInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="UName" ColumnName="UName" />
           <ScalarProperty Name="UCode" ColumnName="UCode" />
-          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="UName" ColumnName="UName" />
           <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
           <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -353,10 +346,9 @@
         <MappingFragment StoreEntitySet="RoleInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
           <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -364,16 +356,15 @@
       <EntityTypeMapping TypeName="IsTypeOf(DataModel.ActionInfo)">
         <MappingFragment StoreEntitySet="ActionInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
           <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
           <ScalarProperty Name="Url" ColumnName="Url" />
           <ScalarProperty Name="HttpMethd" ColumnName="HttpMethd" />
-          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
           <ScalarProperty Name="IsMenu" ColumnName="IsMenu" />
           <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
           <ScalarProperty Name="Sort" ColumnName="Sort" />
+          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -384,7 +375,7 @@
           <ScalarProperty Name="HasPermission" ColumnName="HasPermission" />
           <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
           <ScalarProperty Name="ActionInfoId" ColumnName="ActionInfoId" />
-          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -394,7 +385,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
           <ScalarProperty Name="RoleInfoId" ColumnName="RoleInfoId" />
-          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -29,10 +29,10 @@ layui.use('table', function () {//打开网页刷新表格
         , cols: [[ //表头
             { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             , { field: 'Id', title: '序号', minWidth: 100, sort: true, align: 'center' }
-            , { field: 'UCode', title: '角色编码', minWidth: 100, align: 'center' }
+            , { field: 'UCode', title: '工号', minWidth: 100, align: 'center' }
             , { field: 'UName', title: '姓名', minWidth: 100, sort: true, align: 'center' }
-            , { field: 'Remark', title: '角色名', minWidth: 200, align: 'center' }
-            , { field: 'DelFlag', title: '角色状态', minWidth: 100, align: 'center' }
+            , { field: 'RoleName', title: '角色名', minWidth: 200, align: 'center' }
+            , { field: 'StatusFlag', title: '角色状态', minWidth: 100, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 150, align: 'center', toolbar: '#barDemo' }
         ]]
         , toolbar: true
@@ -102,9 +102,9 @@ function tck_show_ry_bj(title, url, w, h, data) {
                 + '&UCode=' + res.UCode
                 + '&Remark=' + res.Remark
                 + '&Pwd=' + res.Pwd
-                + '&DelFlag=' + res.DelFlag
+                + '&StatusFlag=' + res.StatusFlag
                 + '&Id=' + data.Id);//多发一个id数据
-            //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&DelFlag=${res.DelFlag}`)//反单引号 模板字符串
+            //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
             xhr.onreadystatechange = function () {
                 if (this.readyState !== 4) return;
                 console.log(this.responseText);
@@ -119,7 +119,7 @@ function tck_show_ry_bj(title, url, w, h, data) {
             var body = layer.getChildFrame('body', index);
             $(body).find("input").eq(0).val(data.UName);//读取父页面的姓名
             $(body).find("input").eq(1).val(data.UCode);//读取父页面的角色编码
-            switch (data.Remark) {//读取父页面的角色类型
+            switch (data.RoleName) {//读取父页面的角色类型
                 case "超级管理员":
                     $(body).find("select").val("超级管理员");
                     break;
@@ -134,7 +134,7 @@ function tck_show_ry_bj(title, url, w, h, data) {
                     break;
             }
             $(body).find("textarea").val(data.Pwd);//读取父页面的描述 
-            if (data.DelFlag === 0) {//读取父页面的角色状态
+            if (data.StatusFlag === 0) {//读取父页面的角色状态
                 $(body).find("input").eq(3).attr('checked', false);
                 $(body).find("input").eq(4).attr('checked', true);
             }
@@ -174,9 +174,9 @@ function tck_show_ry_tj(title, url, w, h, data) {
                 + '&UCode=' + res.UCode
                 + '&Remark=' + res.Remark
                 + '&Pwd=' + res.Pwd
-                + '&DelFlag=' + res.DelFlag);
+                + '&StatusFlag=' + res.StatusFlag);
             //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
-            //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&DelFlag=${res.DelFlag}`)//反单引号 模板字符串
+            //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
             xhr.onreadystatechange = function () {
                 if (this.readyState !== 4) return;
                 console.log(this.responseText);
@@ -202,7 +202,7 @@ function callbackdata(index) {//获取弹窗用户输入的数据
         UCode: $('input[name="UCode"]').val(),
         Remark: $('select[name="Remark"] option:selected').val(),
         Pwd: $('textarea[name="Pwd"]').val(),
-        DelFlag: $('input[name="DelFlag"]:checked').val()
+        StatusFlag: $('input[name="StatusFlag"]:checked').val()
     }
     return data;
 }
@@ -227,7 +227,7 @@ function updatatable(elem, height, url, title, page, limit) {//表格重载
             , { field: 'UCode', title: '角色编码', minWidth: 100, align: 'center' }
             , { field: 'UName', title: '姓名', minWidth: 100, sort: true, align: 'center' }
             , { field: 'Remark', title: '角色名', minWidth: 200, align: 'center' }
-            , { field: 'DelFlag', title: '角色状态', minWidth: 100, align: 'center' }
+            , { field: 'StatusFlag', title: '角色状态', minWidth: 100, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 150, align: 'center', toolbar: '#barDemo' }
         ]]
         , toolbar: true

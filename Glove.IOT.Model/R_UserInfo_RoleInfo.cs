@@ -17,13 +17,13 @@ namespace Glove.IOT.Model
     {
         public R_UserInfo_RoleInfo()
         {
-            this.DelFlag = 0;
+            this.StatusFlag = 0;
         }
     
         public int Id { get; set; }
         public int UserInfoId { get; set; }
         public int RoleInfoId { get; set; }
-        public short DelFlag { get; set; }
+        public short StatusFlag { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
         public virtual RoleInfo RoleInfo { get; set; }
