@@ -151,7 +151,6 @@ function tck_show_ry_bj(title, url, w, h, data) {
 }
 
 function tck_show_ry_tj(title, url, w, h, data) {
-    console.log(data);
     layer.open({
         type: 2,
         area: [w + 'px', h + 'px'],
@@ -174,7 +173,7 @@ function tck_show_ry_tj(title, url, w, h, data) {
                 + '&Pwd=' + res.Pwd
                 + '&UCode=' + res.UCode
                 + '&Remark=' + res.Remark
-                + '&RoleName=' + res.RoleName
+                + '&RId=' + res.RId
                 + '&StatusFlag=' + res.StatusFlag);
             //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
             //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
@@ -187,7 +186,7 @@ function tck_show_ry_tj(title, url, w, h, data) {
             //最后关闭弹出层
             layer.close(index);
         },
-        success: function (layero, index) {
+        success: function (layero, index) {         
             //获取iframe页面
             //var body = layer.getChildFrame('body', index);
             //获取新窗口对象
@@ -198,10 +197,18 @@ function tck_show_ry_tj(title, url, w, h, data) {
     });
 }
 function callbackdata(index) {//获取弹窗用户输入的数据
+    var RId;
+    if ($('select[name="RoleName"] option:selected').val() === "超级管理员")
+        RId = 1;
+    else if ($('select[name="RoleName"] option:selected').val() === "admin2")
+        RId = 2;
+    else if ($('select[name="RoleName"] option:selected').val() === "admin3")
+        RId = 3;
     var data = {
         UName: $('input[name="UName"]').val(),
         UCode: $('input[name="UCode"]').val(),
         RoleName: $('select[name="RoleName"] option:selected').val(),
+        RId: RId,
         Pwd: $('input[name="Pwd"]').val(),
         Remark: $('textarea[name="Remark"]').val(),
         StatusFlag: $('input[name="StatusFlag"]:checked').val()
@@ -243,8 +250,7 @@ function updatatable(elem, height, url, title, page, limit) {//表格重载
     });
 }
 $(document).ready(function () {
-    $("button[name='添加人员']").click(function () {
+    $("button[name='添加人员']").click(function () {      
         tck_show_ry_tj('员工编辑', 'tck_ry_tj', 500, 450, "null");
     });
-
 });

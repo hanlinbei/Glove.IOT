@@ -157,18 +157,26 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="id">用户id</param>
         /// <returns>当前已存在的角色</returns>
-        public ActionResult SetRole(int id)
+        public ActionResult SetRole()
         {
             //当前要设置角色的用户
-            int userId = id;
-            UserInfo user = UserInfoService.GetEntities(u => u.Id == id).FirstOrDefault();
+            //int userId = id;
+            //UserInfo user = UserInfoService.GetEntities(u => u.Id == id).FirstOrDefault();
             //把所有的角色发送到前台
-            ViewBag.AllRoles = RoleInfoService.GetEntities(u => u.StatusFlag == delFlag).ToList();
+            var AllRoles = RoleInfoService.GetEntities(u => u.StatusFlag != delFlag).ToList();
+            var temp = AllRoles.Select(u =>
+              new {
+              u.Id,
+              u.RoleName
+              }
+            );
+            var data = temp.ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
             //用户已经关联的角色发送到前台
-            ViewBag.ExitsRoles = (from r in user.R_UserInfo_RoleInfo
+            /*ViewBag.ExitsRoles = (from r in user.R_UserInfo_RoleInfo
                                   where r.StatusFlag==delFlag
                                   select r.RoleInfoId).ToList();
-            return View(user);
+            return View(user);*/
 
         }
 
