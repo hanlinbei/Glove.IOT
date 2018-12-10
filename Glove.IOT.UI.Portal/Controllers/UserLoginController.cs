@@ -21,7 +21,11 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
-        #region 验证码
+        /// <summary>
+        /// 验证码
+        /// </summary>
+        /// <returns>文件流</returns>
+        /// 
         public ActionResult ShowVCode()
         {
             Common.ValidateCode validateCode = new ValidateCode();
@@ -33,9 +37,12 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             return File(imgBytes, "image/jpeg");
         }
-        #endregion
 
-        #region 处理登录的表单
+
+        /// <summary>
+        /// 处理验证表单
+        /// </summary>
+        /// <returns>OK</returns>
         public ActionResult ProcessLogin()
         {
             //第一步：处理验证码
@@ -55,10 +62,10 @@ namespace Glove.IOT.UI.Portal.Controllers
             string name = Request["LoginCode"];
             string pwd = Request["LoginPwd"];
            
-            pwd = Md5Helper.GetMd5(pwd);
-            short delNormal = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+            //pwd = Md5Helper.GetMd5(pwd);
+            short delNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
             var userInfo =
-                UserInfoService.GetEntities(u => u.UName == name && u.Pwd == pwd && u.DelFlag == delNormal)
+                UserInfoService.GetEntities(u => u.UName == name && u.Pwd == pwd && u.StatusFlag == delNormal)
                 .FirstOrDefault();
             
             if (userInfo == null)//没有查询出数据来
@@ -78,7 +85,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             //return RedirectToAction("Index", "Home");
             return Content("OK");
         }
-        #endregion
+
 
     }
 }

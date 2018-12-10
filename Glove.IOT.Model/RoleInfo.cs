@@ -17,19 +17,18 @@ namespace Glove.IOT.Model
     {
         public RoleInfo()
         {
-            this.DelFlag = 0;
-            this.UserInfo = new HashSet<UserInfo>();
+            this.StatusFlag = 0;
             this.ActionInfo = new HashSet<ActionInfo>();
+            this.R_UserInfo_RoleInfo = new HashSet<R_UserInfo_RoleInfo>();
         }
     
         public int Id { get; set; }
         public string RoleName { get; set; }
-        public System.DateTime SubTime { get; set; }
-        public System.DateTime ModfiedOn { get; set; }
+        public short StatusFlag { get; set; }
         public string Remark { get; set; }
-        public short DelFlag { get; set; }
+        public System.DateTime SubTime { get; set; }
     
-        public virtual ICollection<UserInfo> UserInfo { get; set; }
         public virtual ICollection<ActionInfo> ActionInfo { get; set; }
+        public virtual ICollection<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
     }
 }
