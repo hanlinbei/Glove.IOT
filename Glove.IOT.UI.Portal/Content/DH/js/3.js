@@ -228,7 +228,7 @@ function updatatable(elem, height, url, title, page, limit) {//表格重载
             , { field: 'Id', title: '序号', minWidth: 100, sort: true, align: 'center' }
             , { field: 'UCode', title: '角色编码', minWidth: 100, align: 'center' }
             , { field: 'UName', title: '姓名', minWidth: 100, sort: true, align: 'center' }
-            , { field: 'Remark', title: '角色名', minWidth: 200, align: 'center' }
+            , { field: 'RoleName', title: '角色名', minWidth: 200, align: 'center' }
             , { field: 'StatusFlag', title: '角色状态', minWidth: 100, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 150, align: 'center', toolbar: '#barDemo' }
         ]]
