@@ -15,6 +15,7 @@ namespace Glove.IOT.UI.Portal.Controllers
     public class UserInfoController : Controller
     {
         readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
+        readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         // GET: UserInfo
         //UserInfoService UserInfoService = new UserInfoService();
         public IUserInfoService UserInfoService { get; set; }
@@ -63,18 +64,25 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="userInfo">前端用户信息</param>
         /// <returns>OK</returns>
-        public ActionResult Add(UserInfo userInfo)
+        public ActionResult Add(UserInfoRoleInfo userInfoRoleInfo)
         {
-            //MD5加密
-            //userInfo.UCode = "2";
-            //userInfo.Remark = "3";
-            //userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
-            userInfo.SubTime = DateTime.Now;
+            UserInfo userInfo = new UserInfo
+            { 
+                //MD5加密
+                //userInfo.UCode = "2";
+                //userInfo.Remark = "3";
+                //userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
+                UCode=userInfoRoleInfo.UCode,
+                UName=userInfoRoleInfo.UName,
+                StatusFlag=userInfoRoleInfo.StatusFlag,
+                Remark=userInfoRoleInfo.Remark,
+                SubTime = DateTime.Now
+            };
             //userInfo.StatusFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
             int insertedUserId = UserInfoService.Add(userInfo).Id;
-            ProcessSetRole(insertedUserId);
+            int roleId = userInfoRoleInfo.RId;
+            ProcessSetRole(insertedUserId,roleId);
             return Content("Ok");
-
 
         }
 
@@ -157,18 +165,21 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="id">用户id</param>
         /// <returns>当前已存在的角色</returns>
-        public ActionResult SetRole(int id)
+        public ActionResult SetRole()
         {
-            //当前要设置角色的用户
-            int userId = id;
-            UserInfo user = UserInfoService.GetEntities(u => u.Id == id).FirstOrDefault();
             //把所有的角色发送到前台
-            ViewBag.AllRoles = RoleInfoService.GetEntities(u => u.StatusFlag == delFlag).ToList();
+            var AllRoles = RoleInfoService.GetEntities(u => u.StatusFlag != delFlag).ToList();
+            var temp = AllRoles.Select(u => new {
+                u.Id,
+                u.RoleName
+            });
             //用户已经关联的角色发送到前台
-            ViewBag.ExitsRoles = (from r in user.R_UserInfo_RoleInfo
-                                  where r.StatusFlag==delFlag
-                                  select r.RoleInfoId).ToList();
-            return View(user);
+            //ViewBag.ExitsRoles = (from r in user.R_UserInfo_RoleInfo
+            //                      where r.StatusFlag!=delFlag
+            //                      select r.RoleInfoId).ToList();
+            //return View(user);
+            var data = new {data = temp.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -177,13 +188,13 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="UId">用户Id</param>
         /// <returns>OK</returns>
-         void ProcessSetRole(int UId)
+         void ProcessSetRole(int UId,int RId)
          {
             //第一：当前用户的id ----uid
             //第二：当前用户在角色关联表中的ID
             UserInfo user = UserInfoService.GetEntities(u => u.Id == UId).FirstOrDefault();
             var allUserInfoIds = (from r in user.R_UserInfo_RoleInfo
-                                  where r.UserInfoId == UId && r.StatusFlag == delFlag
+                                  where r.UserInfoId == UId && r.StatusFlag !=delFlag
                                   select r.Id).ToList();
 
             for (int i = 0; i < allUserInfoIds.Count(); i++)
@@ -195,25 +206,16 @@ namespace Glove.IOT.UI.Portal.Controllers
              }
 
             //第三：所有打上对勾的角色 ----list
-            List<int> setRoleIdList = new List<int>();
-            foreach (var key in Request.Form.AllKeys)
-            {
-                if (key.StartsWith("ckb_"))
-                {
-                    int roleId = int.Parse(key.Replace("ckb_", ""));
-                    setRoleIdList.Add(roleId);
-                }
-            }
-
+                 List<int> setRoleIdList = new List<int>();
+                 setRoleIdList.Add(RId);
 
             for (int i = 0; i < setRoleIdList.Count; i++)
             {
                 int roleId = Convert.ToInt32(setRoleIdList[i]);
-               
                 R_UserInfo_RoleInfo rUserInfoRoleInfo = new R_UserInfo_RoleInfo();
                 rUserInfoRoleInfo.UserInfoId = UId;
                 rUserInfoRoleInfo.RoleInfoId = roleId;
-                rUserInfoRoleInfo.StatusFlag = delFlag;
+                rUserInfoRoleInfo.StatusFlag = statusNormal;
                 R_UserInfo_RoleInfoService.Add(rUserInfoRoleInfo);
               
             }
