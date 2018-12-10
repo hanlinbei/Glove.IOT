@@ -42,7 +42,10 @@ layui.use('table', function () {//打开网页刷新表格
         , toolbar: true
         , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
             console.log(res);
-            for (var i = 0; i < 10; i++) {
+            globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
+            arr = [];
+            for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
                 arr[i] = [res.data[i].Id, 0];
             }
             console.log(arr);
@@ -73,7 +76,7 @@ layui.use('table', function () {//打开网页刷新表格
             });
         } else if (layEvent === 'edit') { //编辑
             // $(".tck").show();
-            tck_show_ry_bj('员工编辑', 'tck_ry_bj', 500, 450, obj.data);
+            tck_show_ry_bj('编辑人员', 'tck_ry_bj', 500, 450, obj.data);
             //同步更新缓存对应的值
             /*obj.update({
                 UName: '123'
@@ -84,11 +87,25 @@ layui.use('table', function () {//打开网页刷新表格
     table.on('checkbox(table_ry)', function (obj) {
         console.log(obj.checked); //当前是否选中状态
         console.log(obj.data); //选中行的相关数据
-        console.log(obj); //如果触发的是全选，则为：all，如果触发的是单选，则为：one  
-        if (obj.checked === true) {
-            for (var i = 0; i < 10; i++) {
+        console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+        if (obj.type === "all") {
+            for (var i = 0; i < arr.length; i++) {
+                    arr[i][1] = 1;
+            }
+        }
+        else if (obj.checked === true) {
+            for (var i = 0; i < arr.length; i++) {
                 if (arr[i][0] === obj.data.Id) {
                     arr[i][1] = 1;
+                    break;
+                }
+            }
+        }
+        else if (obj.checked === false) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i][0] === obj.data.Id) {
+                    arr[i][1] = 0;
+                    break;
                 }
             }
         }
@@ -125,7 +142,7 @@ function tck_show_ry_bj(title, url, w, h, data) {
                 console.log(this.responseText);
             }
             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
-            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
             //表格重载
             updatatable('#table_ry', 550, "/UserInfo/GetAllUserInfos", "人员管理", globalPage, globalLimit, globalPage, globalLimit);
             //最后关闭弹出层
@@ -217,6 +234,29 @@ function tck_show_ry_tj(title, url, w, h, data) {
         }
     });
 }
+function tck_show_ry_ss(title, url, w, h, data) {
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade: 0.4,
+        title: title,
+        content: url,
+        btn: ['查找'],
+        yes: function (index) {
+            //当点击‘确定’按钮的时候，获取弹出层返回的值
+            var res = window["layui-layer-iframe" + index].callbackdata1(index);
+            console.log("搜索" + res);
+            //表格重载 跳转到操作页面
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            updatatable1('#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", 1, globalLimit, res);
+            //最后关闭弹出层
+            layer.close(index);
+        }
+    });
+}
 function callbackdata(index) {//获取弹窗用户输入的数据
     var data = {
         UName: $('input[name="UName"]').val(),
@@ -227,7 +267,64 @@ function callbackdata(index) {//获取弹窗用户输入的数据
     }
     return data;
 }
-
+function callbackdata1(index) {//获取弹窗用户输入的数据
+    var data = {
+        UCode: $('input[name="UCode"]').val(),
+        Remark: $('select[name="Remark"] option:selected').val(),
+    }
+    console.log("获取搜索内容:" + data.Remark);
+    return data;
+}
+function someDel() {
+    
+    delId = "";//清空
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i][1] === 1) {
+            delId += arr[i][0];
+            delId += ",";
+        }
+    }
+    delId = delId.slice(0, delId.length - 1);
+    console.log(delId);
+    layer.confirm('确定删除？', function (index) {
+        layer.close(index);
+        delId = "";//清空
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i][1] === 1) {
+                delId += arr[i][0];
+                delId += ",";
+            }
+        }
+        delId = delId.slice(0, delId.length - 1);
+        $.post("/UserInfo/Delete", { ids: delId });//发送字符串
+        //表格重载
+        updatatable('#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", 1, 10);
+    });
+}
+function updatatable1(elem, height, url, title, page, limit, res) {//表格重载 跳转到操作页面
+    var table = layui.table;
+    table.reload('table_ry', {
+        elem: elem
+        , height: height
+        , url: url//数据接口
+        , title: title
+        , page: {
+            curr: page
+        }//重新制定page和limit
+        , limit: limit
+        , where: { SchCode: res.UCode, SchRemark: res.Remark }
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+            console.log("表格渲染完成");
+            globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
+            arr = [];//清空数组
+            for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
+                arr[i] = [res.data[i].Id, 0];
+            }
+            num_p = count;
+        }
+    });
+}
 function updatatable(elem, height, url, title, page, limit) {//表格重载 跳转到操作页面
     var table = layui.table;
     table.reload('table_ry', {
@@ -239,6 +336,16 @@ function updatatable(elem, height, url, title, page, limit) {//表格重载 跳�
             curr: page
         }//重新制定page和limit
         , limit: limit
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+            console.log("表格渲染完成");
+            globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
+            arr = [];//清空数组
+            for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
+                arr[i] = [res.data[i].Id, 0];
+            }
+            num_p = count;
+        }
     });
     /*table.render({
         elem: elem
@@ -271,9 +378,12 @@ function updatatable(elem, height, url, title, page, limit) {//表格重载 跳�
 }
 $(document).ready(function () {
     $("button[name='添加人员']").click(function () {
-        tck_show_ry_tj('员工编辑', 'tck_ry_tj', 500, 450, "null");
+        tck_show_ry_tj('添加人员', 'tck_ry_tj', 500, 450, "null");
+    });
+    $("button[name='删除人员']").click(function () {
+        someDel();
     });
     $("button[name='查找人员']").click(function () {
-        tck_show_ry_tj('员工编辑', 'tck_ry_tj', 500, 450, "null");
+        tck_show_ry_ss('查找人员', 'tck_ry_ss', 500, 400, "null");
     });
 });

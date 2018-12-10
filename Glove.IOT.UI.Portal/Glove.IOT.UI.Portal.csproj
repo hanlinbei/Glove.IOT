@@ -1787,6 +1787,7 @@
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Personnel_management.cshtml" />
     <None Include="Views\UserInfo\t.cshtml" />
+    <None Include="Views\UserInfo\tck_ry_ss.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

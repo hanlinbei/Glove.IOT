@@ -228,14 +228,15 @@ body{
 /*
     头部区域
 */
-#header{
-    position:fixed;
-    left:0;
-    top:0;
-    width:100%;
+#header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
     height: 70px;
     line-height: 70px;
     background-color: #393d49;
+    z-index: 3100; /*最高*/
 }
 #header .topbar-left{
     vertical-align:middle; 
