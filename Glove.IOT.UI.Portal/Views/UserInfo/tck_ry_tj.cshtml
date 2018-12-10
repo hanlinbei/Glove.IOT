@@ -43,7 +43,7 @@
             <i class="layui-icon layui-icon-close tck-close" style="font-size: 25px; float:right; text-align:center;"></i>
         </div>-->
         <div class="tck-content">
-            <form class="layui-form" action="">
+            <div class="layui-form" lay-filter="test2">
                 <div class="layui-form-item">
                     <label class="layui-form-label">员工名字：</label>
                     <div class="layui-input-block">
@@ -66,9 +66,9 @@
                     <label class="layui-form-label">角色类型：</label>
                     <div class="layui-input-block">
                         <select id="tj_select" name="RoleName" lay-verify="required">
-                            <option value="操作工">操作工</option>
-                            <option value="组长">组长</option>
-                            <option value="超级管理员">超级管理员</option>
+                            <!--<option value="操作工">操作工</option>
+                <option value="组长">组长</option>
+                <option value="超级管理员">超级管理员</option>-->
                         </select>
                     </div>
                 </div>
@@ -95,8 +95,8 @@
         </div>
     </div>
         -->
-            </form>
-        </div>
+                </div>
+            </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
@@ -107,5 +107,30 @@
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
     <script src="~/Content/DH/js/3.js"></script>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', "/UserInfo/SetRole");
+        xhr.send();//多发一个id数据
+        //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
+        xhr.onreadystatechange = function () {
+            if (this.readyState !== 4) return;
+            console.log(this.responseText);
+            var obj = eval("(" + this.responseText + ")");//JSON.parse安全
+            for (var i = 0; i < obj.length; i++) {
+                console.log(obj[i].Id + ":" + obj[i].RoleName);
+            }
+            for (var i = 0; i < obj.length; i++) {
+                var e = $('<option value="' + obj[i].RoleName + '">' + obj[i].RoleName + '</option>');
+                $('select[name="RoleName"]').append(e);
+            }
+            layui.use('form', function () {
+                var form = layui.form;//高版本建议把括号去掉，有的低版本，需要加()
+                form.render('select', 'test2');
+            });
+        }
+        //console.log($('dl[clsss="layui-anim"]'));
+        //var e = $('<dd lay-value="操作工" class="layui-this">操作工</dd>');
+        //$('dl').append(e);
+    </script>
 </body>
 </html>
