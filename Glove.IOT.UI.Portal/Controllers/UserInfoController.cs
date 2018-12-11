@@ -74,6 +74,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 //userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
                 UCode=userInfoRoleInfo.UCode,
                 UName=userInfoRoleInfo.UName,
+                Pwd=userInfoRoleInfo.Pwd,
                 StatusFlag=userInfoRoleInfo.StatusFlag,
                 Remark=userInfoRoleInfo.Remark,
                 SubTime = DateTime.Now
@@ -178,7 +179,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             //                      where r.StatusFlag!=delFlag
             //                      select r.RoleInfoId).ToList();
             //return View(user);
-            var data = new {data = temp.ToList() };
+            var data = temp.ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }

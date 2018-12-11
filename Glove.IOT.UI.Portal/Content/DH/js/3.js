@@ -232,8 +232,8 @@ function updatatable(elem, height, url, title, page, limit) {//表格重载
         }
         , cols: [[ //表头
             { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
-            , { field: 'Id', title: '序号', minWidth: 100, sort: true, align: 'center' }
-            , { field: 'UCode', title: '角色编码', minWidth: 100, align: 'center' }
+            , { field: 'UId', title: '序号', minWidth: 100, sort: true, align: 'center' }
+            , { field: 'UCode', title: '工号', minWidth: 100, align: 'center' }
             , { field: 'UName', title: '姓名', minWidth: 100, sort: true, align: 'center' }
             , { field: 'RoleName', title: '角色名', minWidth: 200, align: 'center' }
             , { field: 'StatusFlag', title: '角色状态', minWidth: 100, align: 'center' }
