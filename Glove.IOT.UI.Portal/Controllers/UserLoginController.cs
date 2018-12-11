@@ -55,7 +55,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             string name = Request["LoginCode"];
             string pwd = Request["LoginPwd"];
            
-            pwd = Md5Helper.GetMd5(pwd);
+            //pwd = Md5Helper.GetMd5(pwd);
             short delNormal = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
             var userInfo =
                 UserInfoService.GetEntities(u => u.UName == name && u.Pwd == pwd && u.DelFlag == delNormal)

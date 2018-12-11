@@ -19,17 +19,17 @@ namespace Glove.IOT.IDAL
        
     }   
 	
+	public partial interface IR_UserInfo_RoleInfoDal : IBaseDal<R_UserInfo_RoleInfo>
+    {
+       
+    }   
+	
 	public partial interface IRoleInfoDal : IBaseDal<RoleInfo>
     {
        
     }   
 	
 	public partial interface IUserInfoDal : IBaseDal<UserInfo>
-    {
-       
-    }   
-	
-	public partial interface IUserInfoExtDal : IBaseDal<UserInfoExt>
     {
        
     }   

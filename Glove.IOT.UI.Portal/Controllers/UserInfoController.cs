@@ -21,13 +21,14 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IRoleInfoService RoleInfoService { get; set; }
         public IActionInfoService ActionInfoService { get; set; }
         public IR_UserInfo_ActionInfoService R_UserInfo_ActionInfoService { get; set; }
+        public IR_UserInfo_RoleInfoService R_UserInfo_RoleInfoService { get; set; }
         public IMd5Helper Md5Helper { get; set; }
         #region 获取用户
         public ActionResult Index()
         {
             return View();
         }
-        
+
         public ActionResult GetAllUserInfos()
         {
             //jquery easyui:table:{total:32,row:[{},{}]}
@@ -49,19 +50,25 @@ namespace Glove.IOT.UI.Portal.Controllers
                 //SchCode = schCode,
                 //SchRemark = schRemark,
             };
+         
 
-            var pageData = UserInfoService.LoagPageData(queryParam);
 
-            var temp= pageData.Select( u =>new
-            {   u.Id,
-                u.UName,
-                u.UCode,
-                u.SubTime,
-                u.ModfiedOn,
-                u.Pwd,
-                u.Remark,
-                u.DelFlag
-            });
+            //var pageData = UserInfoService.LoagPageData(queryParam).ToList();
+           var pageData = UserInfoService.LoagUserPageData(queryParam).ToList();
+
+            //var temp = pageData.Select(u => new
+            //{
+            //    u.Id,
+            //    u.UName,
+            //    u.SubTime,
+            //    u.ModfiedOn,
+            //    u.Pwd,
+
+            //});
+
+
+
+
             //拿到当前页的数据
             //var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex,
             //                                             out total, u => u.DelFlag == delflagNormal, u => u.Id,
@@ -70,7 +77,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             //                                             u =>
             //                                             new { u.Id, u.UName, u.Remark, u.ShowName, u.SubTime, u.ModfiedOn, u.Pwd }
             //                                           );
-            var data = new { code = 0, msg = "", count = queryParam.Total, data = temp.ToList() };
+
 
             return Json(data, JsonRequestBehavior.AllowGet);
 
@@ -172,8 +179,9 @@ namespace Glove.IOT.UI.Portal.Controllers
             //把所有的角色发送到前台
             ViewBag.AllRoles = RoleInfoService.GetEntities(u => u.DelFlag == delflagNormal).ToList();
             //用户已经关联的角色发送到前台
-            ViewBag.ExitsRoles = (from r in user.RoleInfo
-                                  select r.Id).ToList();
+            ViewBag.ExitsRoles = (from r in user.R_UserInfo_RoleInfo
+                                  where r.DelFlag==delflagNormal
+                                  select r.RoleInfoId).ToList();
             return View(user);
 
         }
@@ -181,7 +189,21 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult ProcessSetRole(int UId)
         {
             //第一：当前用户的id ----uid
-            //第二：所有打上对勾的角色 ----list
+            //第二：当前用户在角色关联表中的ID
+            UserInfo user = UserInfoService.GetEntities(u => u.Id == UId).FirstOrDefault();
+            var allUserInfoIds = (from r in user.R_UserInfo_RoleInfo
+                                  where r.UserInfoId == UId && r.DelFlag == delflagNormal
+                                  select r.Id).ToList();
+
+            for (int i = 0; i < allUserInfoIds.Count(); i++)
+            {
+                int userInfoId = Convert.ToInt32(allUserInfoIds[i]);
+                var rUserRole = R_UserInfo_RoleInfoService.GetEntities(r =>
+                r.Id== userInfoId).FirstOrDefault();
+                R_UserInfo_RoleInfoService.Delete(rUserRole);
+             }
+
+            //第三：所有打上对勾的角色 ----list
             List<int> setRoleIdList = new List<int>();
             foreach (var key in Request.Form.AllKeys)
             {
@@ -191,7 +213,20 @@ namespace Glove.IOT.UI.Portal.Controllers
                     setRoleIdList.Add(roleId);
                 }
             }
-            UserInfoService.SetRole(UId, setRoleIdList);
+
+
+            for (int i = 0; i < setRoleIdList.Count; i++)
+            {
+                int roleId = Convert.ToInt32(setRoleIdList[i]);
+               
+                R_UserInfo_RoleInfo rUserInfoRoleInfo = new R_UserInfo_RoleInfo();
+                rUserInfoRoleInfo.UserInfoId = UId;
+                rUserInfoRoleInfo.RoleInfoId = roleId;
+                rUserInfoRoleInfo.DelFlag = delflagNormal;
+                R_UserInfo_RoleInfoService.Add(rUserInfoRoleInfo);
+              
+            }
+            
             return Content("Ok");
 
         }

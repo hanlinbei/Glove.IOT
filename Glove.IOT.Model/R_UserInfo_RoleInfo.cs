@@ -13,18 +13,19 @@ namespace Glove.IOT.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class UserInfoExt
+    public partial class R_UserInfo_RoleInfo
     {
-        public UserInfoExt()
+        public R_UserInfo_RoleInfo()
         {
             this.DelFlag = 0;
         }
     
         public int Id { get; set; }
         public int UserInfoId { get; set; }
-        public int Age { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
+        public int RoleInfoId { get; set; }
         public short DelFlag { get; set; }
+    
+        public virtual UserInfo UserInfo { get; set; }
+        public virtual RoleInfo RoleInfo { get; set; }
     }
 }

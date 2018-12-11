@@ -18,8 +18,8 @@ namespace Glove.IOT.Model
         public UserInfo()
         {
             this.DelFlag = 0;
-            this.RoleInfo = new HashSet<RoleInfo>();
             this.R_UserInfo_ActionInfo = new HashSet<R_UserInfo_ActionInfo>();
+            this.R_UserInfo_RoleInfo = new HashSet<R_UserInfo_RoleInfo>();
         }
     
         public int Id { get; set; }
@@ -31,7 +31,7 @@ namespace Glove.IOT.Model
         public string Pwd { get; set; }
         public string Remark { get; set; }
     
-        public virtual ICollection<RoleInfo> RoleInfo { get; set; }
         public virtual ICollection<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
+        public virtual ICollection<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
     }
 }

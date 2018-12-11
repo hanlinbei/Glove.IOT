@@ -28,6 +28,12 @@ namespace Glove.IOT.DALFactory
                  as IR_UserInfo_ActionInfoDal;
         }
 	
+		public static IR_UserInfo_RoleInfoDal GetR_UserInfo_RoleInfoDal()
+        {                
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".R_UserInfo_RoleInfoDal")
+                 as IR_UserInfo_RoleInfoDal;
+        }
+	
 		public static IRoleInfoDal GetRoleInfoDal()
         {                
             return Assembly.Load(assemblyName).CreateInstance(assemblyName+".RoleInfoDal")
@@ -38,12 +44,6 @@ namespace Glove.IOT.DALFactory
         {                
             return Assembly.Load(assemblyName).CreateInstance(assemblyName+".UserInfoDal")
                  as IUserInfoDal;
-        }
-	
-		public static IUserInfoExtDal GetUserInfoExtDal()
-        {                
-            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".UserInfoExtDal")
-                 as IUserInfoExtDal;
         }
 
 	}

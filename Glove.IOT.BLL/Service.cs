@@ -15,31 +15,31 @@ namespace Glove.IOT.BLL
 	
 	    public partial class ActionInfoService : BaseService<ActionInfo>, IActionInfoService
         {
-		   
+	
 	    
 		}
 	
 	    public partial class R_UserInfo_ActionInfoService : BaseService<R_UserInfo_ActionInfo>, IR_UserInfo_ActionInfoService
         {
-		   
+	
+	    
+		}
+	
+	    public partial class R_UserInfo_RoleInfoService : BaseService<R_UserInfo_RoleInfo>, IR_UserInfo_RoleInfoService
+        {
+	
 	    
 		}
 	
 	    public partial class RoleInfoService : BaseService<RoleInfo>, IRoleInfoService
         {
-		   
+	
 	    
 		}
 	
 	    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
         {
-		   
-	    
-		}
 	
-	    public partial class UserInfoExtService : BaseService<UserInfoExt>, IUserInfoExtService
-        {
-		   
 	    
 		}
 
