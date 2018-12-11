@@ -34,8 +34,8 @@ namespace Glove.IOT.UI.Portal.Controllers
             // easyui:table 在初始化的时候自动发送以下俩个参数值
             int pageSize = int.Parse(Request["limit"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
-            string schCode = Request["SchCode"];
-            string schRemark = Request["SchRemark"];
+            //string schCode = Request["SchCode"];
+            //string schRemark = Request["SchRemark"];
             //string schRemark = Request["SchName"];
             //int total = 0;
             //过滤的用户名 过滤备注schName schRemark
@@ -46,8 +46,8 @@ namespace Glove.IOT.UI.Portal.Controllers
                 PageSize = pageSize,
                 PageIndex = pageIndex,
                 Total = 0,
-                SchCode = schCode,
-                SchRemark = schRemark,
+                //SchCode = schCode,
+                //SchRemark = schRemark,
             };
 
             var pageData = UserInfoService.LoagPageData(queryParam);
@@ -248,19 +248,19 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
-        public ActionResult Personnel_management()
+        public ActionResult Usermanage()
         {
             return View();
         }
-        public ActionResult tck_ry_bj()
+        public ActionResult LayerEdituser()
         {
             return View();
         }
-        public ActionResult tck_ry_tj()
+        public ActionResult LayerAdduser()
         {
             return View();
         }
-        public ActionResult tck_ry_ss()
+        public ActionResult LayerDeluser()
         {
             return View();
         }

@@ -365,7 +365,7 @@ margin-top:70px;  */
     z-index: 3000;
 }
 
-    /*#main .table .tck {
+    /*#main .table .layer {
     display: none;
     position: fixed;
     top: 20%;
@@ -377,10 +377,10 @@ margin-top:70px;  */
     padding: 10px 20px;
     z-index: 3001;
 }
-#main .table .tck .layui-form-label {
+#main .table .layer .layui-form-label {
     width: 100px;
 }
-#main .table .tck .tck-top {
+#main .table .layer .layer-top {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -392,7 +392,7 @@ margin-top:70px;  */
     padding: 0 10px;
     line-height: 40px;
 }
-#main .table .tck .tck-content {
+#main .table .layer .layer-content {
     position: absolute;
     top: 40px;
     left: 0px;

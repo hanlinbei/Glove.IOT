@@ -1785,9 +1785,9 @@
     <Content Include="Scripts\MyAjaxForm.js" />
     <None Include="Scripts\_references.js" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
-    <Content Include="Views\UserInfo\Personnel_management.cshtml" />
+    <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\t.cshtml" />
-    <None Include="Views\UserInfo\tck_ry_ss.cshtml" />
+    <None Include="Views\UserInfo\LayerDeluser.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1815,10 +1815,10 @@
     <Content Include="Views\UserInfo\SetRole.cshtml" />
     <Content Include="Views\ActionInfo\SetRole.cshtml" />
     <Content Include="Views\UserInfo\SetAction.cshtml" />
-    <Content Include="Views\UserInfo\tck_ry_bj.cshtml">
+    <Content Include="Views\UserInfo\LayerEdituser.cshtml">
       <BrowseToURL>~/UserInfo/tck</BrowseToURL>
     </Content>
-    <Content Include="Views\UserInfo\tck_ry_tj.cshtml" />
+    <Content Include="Views\UserInfo\LayerAdduser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

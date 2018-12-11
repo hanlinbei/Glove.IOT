@@ -36,10 +36,7 @@ foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e =>
 #>	
 	    public partial class <#=entity.Name#>Service : BaseService<<#=entity.Name#>>, I<#=entity.Name#>Service
         {
-		   public override void SetCurrentDal()
-		   {
-				CurrentDal = this.DbSession.<#=entity.Name#>Dal;
-		   }
+		   
 	    
 		}
 <#}#>

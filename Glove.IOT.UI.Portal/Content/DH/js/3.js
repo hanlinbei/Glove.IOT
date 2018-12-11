@@ -76,7 +76,7 @@ layui.use('table', function () {//打开网页刷新表格
             });
         } else if (layEvent === 'edit') { //编辑
             // $(".tck").show();
-            tck_show_ry_bj('编辑人员', 'tck_ry_bj', 500, 450, obj.data);
+            tck_show_ry_bj('编辑人员', 'LayerEdituser', 500, 450, obj.data);
             //同步更新缓存对应的值
             /*obj.update({
                 UName: '123'
@@ -378,12 +378,12 @@ function updatatable(elem, height, url, title, page, limit) {//表格重载 跳�
 }
 $(document).ready(function () {
     $("button[name='添加人员']").click(function () {
-        tck_show_ry_tj('添加人员', 'tck_ry_tj', 500, 450, "null");
+        tck_show_ry_tj('添加人员', 'LayerAdduser', 500, 450, "null");
     });
     $("button[name='删除人员']").click(function () {
         someDel();
     });
     $("button[name='查找人员']").click(function () {
-        tck_show_ry_ss('查找人员', 'tck_ry_ss', 500, 400, "null");
+        tck_show_ry_ss('查找人员', 'LayerDeluser', 500, 400, "null");
     });
 });
