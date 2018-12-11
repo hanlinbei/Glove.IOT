@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/08/2018 21:58:11
+-- Date Created: 12/09/2018 22:53:46
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -66,13 +66,12 @@ GO
 -- Creating table 'UserInfo'
 CREATE TABLE [dbo].[UserInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [UName] nvarchar(32)  NULL,
     [UCode] nvarchar(32)  NOT NULL,
-    [DelFlag] smallint  NOT NULL,
-    [ModfiedOn] datetime  NOT NULL,
-    [SubTime] datetime  NOT NULL,
+    [UName] nvarchar(32)  NULL,
     [Pwd] nvarchar(64)  NOT NULL,
-    [Remark] nvarchar(256)  NULL
+    [StatusFlag] smallint  NOT NULL,
+    [Remark] nvarchar(256)  NULL,
+    [SubTime] datetime  NOT NULL
 );
 GO
 
@@ -80,26 +79,24 @@ GO
 CREATE TABLE [dbo].[RoleInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [RoleName] nvarchar(32)  NOT NULL,
-    [SubTime] datetime  NOT NULL,
-    [ModfiedOn] datetime  NOT NULL,
+    [StatusFlag] smallint  NOT NULL,
     [Remark] nvarchar(64)  NULL,
-    [DelFlag] smallint  NOT NULL
+    [SubTime] datetime  NOT NULL
 );
 GO
 
 -- Creating table 'ActionInfo'
 CREATE TABLE [dbo].[ActionInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [SubTime] datetime  NOT NULL,
-    [ModfiedOn] datetime  NOT NULL,
+    [ActionName] nvarchar(max)  NOT NULL,
     [Remark] nvarchar(64)  NULL,
-    [DelFlag] smallint  NOT NULL,
     [Url] nvarchar(512)  NOT NULL,
     [HttpMethd] nvarchar(32)  NULL,
-    [ActionName] nvarchar(max)  NOT NULL,
     [IsMenu] bit  NOT NULL,
     [MenuIcon] nvarchar(512)  NULL,
-    [Sort] int  NOT NULL
+    [Sort] int  NOT NULL,
+    [StatusFlag] smallint  NOT NULL,
+    [SubTime] datetime  NOT NULL
 );
 GO
 
@@ -109,7 +106,7 @@ CREATE TABLE [dbo].[R_UserInfo_ActionInfo] (
     [HasPermission] bit  NOT NULL,
     [UserInfoId] int  NOT NULL,
     [ActionInfoId] int  NOT NULL,
-    [DelFlag] smallint  NOT NULL
+    [StatusFlag] smallint  NOT NULL
 );
 GO
 
@@ -118,7 +115,7 @@ CREATE TABLE [dbo].[R_UserInfo_RoleInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [UserInfoId] int  NOT NULL,
     [RoleInfoId] int  NOT NULL,
-    [DelFlag] smallint  NOT NULL
+    [StatusFlag] smallint  NOT NULL
 );
 GO
 

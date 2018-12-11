@@ -8,6 +8,6 @@ namespace Glove.IOT.Model
 {
     public abstract class BaseEntity
     {
-        public abstract short DelFlag { get; set; }
+        public abstract short StatusFlag { get; set; }
     }
 }

@@ -16,54 +16,16 @@ namespace Glove.IOT.BLL
     public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
 
-
-        #region
-        //依赖接口编程
-        //IUserInfoDal UserInfoDal = new UserInfoDal();
-
-        //private IUserInfoDal UserInfoDal = StaticDalFactory.GetUserInfoDal();
-        //DbSession dbSession = new DbSession();
-        //IDbSession dbSession = new DbSession();
-        //private IDbSession dbSession = DbSessionFactory.GetCurrentDbSession();
-        #endregion
-        //public UserInfoService(IDbSession dbSession)
-        //    :base(dbSession)
-        //    {
-        //    //this.DbSession = dbSession;
-
-        //    }
-
-        #region 由模版自动生成
-        //public override void SetCurrentDal()
-        //{
-        //    CurrentDal = this.DbSession.UserInfoDal;
-        //}
-        #endregion
-        #region
-        //public UserInfo Add(UserInfo userInfo)
-        //{
-
-        //    dbSession.UserInfoDal.Add(userInfo);
-        //    if (dbSession.SaveChanges() > 0)
-        //    {
-
-
-        //    }
-        //    dbSession.UserInfoDal.Add(new UserInfo());
-
-        //    dbSession.SaveChanges();
-        //    //return UserInfoDal.Add(userInfo);
-
-
-        //}
-        #endregion
-
-        #region 多条件查询
+        /// <summary>
+        /// 多条件查询
+        /// </summary>
+        /// <param name="userQueryParam">查询条件</param>
+        /// <returns>查询结果</returns>
         public IQueryable<UserInfo> LoagPageData(UserQueryParam userQueryParam)
         {
-            short normalFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+            short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
 
-            var temp = DbSession.UserInfoDal.GetEntities(u => (u.DelFlag == 0 || u.DelFlag == 1));
+            var temp = DbSession.UserInfoDal.GetEntities(u => u.StatusFlag!=delFlag );
 
        
             //var date=from t1 in DbSession.UserInfoDal
@@ -82,39 +44,60 @@ namespace Glove.IOT.BLL
                 .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
                 .Take(userQueryParam.PageSize).AsQueryable();
         }
-        #endregion
 
 
-        #region 内连接查询
+        /// <summary>
+        /// 内连接查询
+        /// </summary>
+        /// <param name="userQueryParam">查询条件</param>
+        /// <returns>查询结果</returns>
         public IQueryable<UserInfoRoleInfo> LoagUserPageData(UserQueryParam userQueryParam)
         {
-            short normalFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+            short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
             DataModelContainer model = new DataModelContainer();
+
             //内连接查询
-            var query = from t1 in model.UserInfo
-                        join t2 in model.R_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
-                        join t3 in model.RoleInfo on t2.RoleInfoId equals t3.Id
-                        where (t2.DelFlag == normalFlag && t1.DelFlag == normalFlag && t3.DelFlag == normalFlag)
-                        select new UserInfoRoleInfo
-                        {
-                            Id = t1.Id,
-                            UName = t1.UName,
-                            UCode = t1.UCode,
-                            RoleName = t3.RoleName
-                        };
+            //var query = from t1 in model.UserInfo
+            //            join t2 in model.R_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
+            //            join t3 in model.RoleInfo on t2.RoleInfoId equals t3.Id
+            //            where (t1.StatusFlag != delFlag&t2.StatusFlag !=delFlag && t3.StatusFlag != delFlag)
+            //            select new UserInfoRoleInfo
+            //            {
 
-            return query.OrderBy(u=>u.Id)
+            //                UId = t1.Id,
+            //                RId = t3.Id,
+            //                UCode = t1.UCode,
+            //                UName = t1.UName,
+            //                RoleName = t3.RoleName,
+            //                StatusFlag = t1.StatusFlag
+            //            };
+            int n = 0;
+            var query = (from t1 in model.UserInfo
+                         join t2 in model.R_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
+                         join t3 in model.RoleInfo on t2.RoleInfoId equals t3.Id
+                         
+                         orderby (t1.Id)
+                         where (t1.StatusFlag != delFlag & t2.StatusFlag != delFlag && t3.StatusFlag != delFlag)
+                         select new UserInfoRoleInfo
+                         {
+                           
+                             UId = t1.Id,
+                             RId = t3.Id,
+                             UCode = t1.UCode,
+                             UName = t1.UName,
+                             RoleName = t3.RoleName,
+                             StatusFlag = t1.StatusFlag
+                         });
+            userQueryParam.Total = query.Count();
+
+            return query.OrderBy(u=>u.UId)
                   .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
-                .Take(userQueryParam.PageSize).AsQueryable();
-
-
+                  .Take(userQueryParam.PageSize).AsQueryable();
 
 
         }
 
 
-
-        #endregion
 
         //设置角色
         public bool SetRole(int userId, List<int> roleIds)
