@@ -74,5 +74,11 @@
     <Compile Include="UserInfoRoleInfo.cs" />
     <Compile Include="ValidateCode.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glove.IOT.Model\Glove.IOT.Model.csproj">
+      <Project>{61203463-03BB-4B9D-927B-75B0C9272B76}</Project>
+      <Name>Glove.IOT.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

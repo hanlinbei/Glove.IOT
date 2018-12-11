@@ -13,17 +13,19 @@ namespace Glove.IOT.UI.Portal.Controllers
         // GET: Home
         public IUserInfoService UserInfoService { get; set; }
         public IActionInfoService ActionInfoService { get; set; }
-        short delflagNormal = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
-
+        readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
+        /// <summary>
+        /// 主页起始视图
+        /// </summary>
+        /// <returns>主页视图</returns>
         public ActionResult Index()
         {
             //ViewBag.AllMenu = LoadUserMenu();
           //最新的主框架
             return View();
-            //老式的主框架
-            //return View("TreeIndex");
 
         }
+
         //public List<ActionInfo> LoadUserMenu()
         //{
         //    //拿到当前用户
@@ -51,7 +53,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         //    // allActionIds = allActionIds.Distinct().ToList();
 
         //    //var actionList = ActionInfoService.GetEntities(a => allActionIds.Contains(a.Id) 
-        //    //                                                && a.IsMenu == true && a.DelFlag == delflagNormal).ToList();
+        //    //                                                && a.IsMenu == true && a.StatusFlag == delflagNormal).ToList();
         //    //{ icon: '/Content/Images/Home/3DSMAX.png', title: '用户列表', url: '/UserInfo/Index' }
         //    //var data = from a in actionList
         //    //           select new { icon = a.MenuIcon, title = a.ActionName, url = a.Url };

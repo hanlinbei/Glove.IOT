@@ -13,13 +13,21 @@ namespace Glove.IOT.UI.Portal.Controllers
         // GET: ActionInfo
         public IActionInfoService ActionInfoService { get; set; }
         public IRoleInfoService RoleInfoService { get; set; }
-        short delflagNormal = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
-
+        readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
+        readonly short statusFlagNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
+        /// <summary>
+        /// 权限起始视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// 获取所有权限信息
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetAllActionInfos()
         {
             //jquery easyui:table:{total:32,row:[{},{}]}
@@ -30,7 +38,7 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             //拿到当前页的数据
             var temp = ActionInfoService.GetPageEntities(pageSize, pageIndex,
-                                                         out total, u => u.DelFlag == delflagNormal, u => u.Id,
+                                                         out total, u => u.StatusFlag != delFlag, u => u.Id,
                                                          true);
             var tempData = temp.Select(a => new
             {
@@ -40,7 +48,6 @@ namespace Glove.IOT.UI.Portal.Controllers
                 a.Remark,
                 a.Sort,
                 a.SubTime,
-                a.ModfiedOn,
                 a.HttpMethd,
                 a.MenuIcon,
                 a.ActionName
@@ -50,20 +57,26 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
-        #region Add
+    
+        /// <summary>
+        /// 添加权限
+        /// </summary>
+        /// <param name="actionInfo"></param>
+        /// <returns></returns>
         public ActionResult Add(ActionInfo actionInfo)
         {
-            actionInfo.ModfiedOn = DateTime.Now;
             actionInfo.SubTime = DateTime.Now;
-            actionInfo.DelFlag = delflagNormal;
+            actionInfo.StatusFlag = statusFlagNormal;
             ActionInfoService.Add(actionInfo);
             return Content("Ok");
 
         }
-        #endregion
-
-
-        #region 删除
+     
+         /// <summary>
+  /// 删除权限
+  /// </summary>
+  /// <param name="ids">多个权限的id</param>
+  /// <returns></returns>
         public ActionResult Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -83,12 +96,11 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Content("ok");
         }
 
-
-
-
-        #endregion
-
-        #region 修改
+        /// <summary>
+        /// 回传数据给修改页面
+        /// </summary>
+        /// <param name="id">修改数据的id</param>
+        /// <returns></returns>
         public ActionResult Edit(int id)
         {
             ViewData.Model = ActionInfoService.GetEntities(u => u.Id == id).FirstOrDefault();
@@ -96,6 +108,11 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
 
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="userInfo">更改的权限信息</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(ActionInfo userInfo)
         {
@@ -103,9 +120,12 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Content("ok");
 
         }
-        #endregion
+        
 
-        #region 上传图片处理
+        /// <summary>
+        /// 上传图片处理
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UploadImage()
         {
             var file = Request.Files["fileMenuIcon"];
@@ -116,24 +136,32 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             return Content(path);
         }
-        #endregion
+        
 
-        #region 设置角色
+        /// <summary>
+        /// 获取权限的已经存在的角色
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>权限编辑视图</returns>
         public ActionResult SetRole(int id)
         {
             //当前要设置角色的用户
             int userId = id;
             ActionInfo actionInfo = ActionInfoService.GetEntities(u => u.Id == id).FirstOrDefault();
             //把所有的角色发送到前台
-            ViewBag.AllRoles = RoleInfoService.GetEntities(u => u.DelFlag == delflagNormal).ToList();
+            ViewBag.AllRoles = RoleInfoService.GetEntities(u => u.StatusFlag != delFlag).ToList();
             //用户已经关联的角色发送到前台
             ViewBag.ExitsRoles = (from r in actionInfo.RoleInfo
                                   select r.Id).ToList();
             return View(actionInfo);
 
         }
-        #endregion
-        //给用户设置角色
+     
+        /// <summary>
+        /// 给用户设置角色
+        /// </summary>
+        /// <param name="UId">用户Id</param>
+        /// <returns></returns>
         public ActionResult ProcessSetRole(int UId)
         {
             //第一：当前用户的id ----uid

@@ -23,6 +23,7 @@ namespace Glove.IOT.DALFactory
         public int SaveChanges()
         {
             return DbContextFactory.GetCurrentDbContext().SaveChanges();
+
         }
 
     }
