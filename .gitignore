@@ -259,3 +259,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Glove.IOT.UI.Portal/App_Data/Logs_20181211.txt

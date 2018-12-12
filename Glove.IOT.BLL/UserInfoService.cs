@@ -71,7 +71,6 @@ namespace Glove.IOT.BLL
             //                RoleName = t3.RoleName,
             //                StatusFlag = t1.StatusFlag
             //            };
-            int n = 0;
             var query = (from t1 in model.UserInfo
                          join t2 in model.R_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
                          join t3 in model.RoleInfo on t2.RoleInfoId equals t3.Id
@@ -80,7 +79,7 @@ namespace Glove.IOT.BLL
                          where (t1.StatusFlag != delFlag & t2.StatusFlag != delFlag && t3.StatusFlag != delFlag)
                          select new UserInfoRoleInfo
                          {
-                           
+                             Remark = t1.Remark,
                              UId = t1.Id,
                              RId = t3.Id,
                              UCode = t1.UCode,
@@ -88,8 +87,16 @@ namespace Glove.IOT.BLL
                              RoleName = t3.RoleName,
                              StatusFlag = t1.StatusFlag
                          });
+            if (!string.IsNullOrEmpty(userQueryParam.SchCode))
+            {
+                query = query.Where(u => u.UCode.Contains(userQueryParam.SchCode)).AsQueryable();
+            }
+            if (!string.IsNullOrEmpty(userQueryParam.SchRoleName))
+            {
+                query = query.Where(u => u.RoleName.Contains(userQueryParam.SchRoleName)).AsQueryable();
+            }
             userQueryParam.Total = query.Count();
-
+            
             return query.OrderBy(u=>u.UId)
                   .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
                   .Take(userQueryParam.PageSize).AsQueryable();

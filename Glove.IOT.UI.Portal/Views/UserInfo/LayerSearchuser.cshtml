@@ -23,13 +23,16 @@
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
     <style>
+        body{
+            width:500px;
+            height:500px;
+        }
         .layer {
             position: relative;
             top: 0px;
             left: 0px;
             background-color: #fff;
             padding: 20px 30px;
-            height: 300px;
         }
 
         .layui-form-label {
@@ -55,10 +58,11 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">角色类型：</label>
                     <div class="layui-input-block">
-                        <select id="tj_select" name="Remark" lay-verify="required">
-                            <option value="操作工">操作工</option>
-                            <option value="组长">组长</option>
+                        <select id="tj_select" name="RoleName" lay-verify="required">
                             <option value="超级管理员">超级管理员</option>
+                            <option value="admin2">admin2</option>
+                            <option value="admin3">admin3</option>
+                            <option value="这是静态的">这是静态的</option>
                         </select>
                     </div>
                 </div>

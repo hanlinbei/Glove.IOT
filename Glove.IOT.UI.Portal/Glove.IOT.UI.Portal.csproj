@@ -1787,7 +1787,7 @@
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\t.cshtml" />
-    <None Include="Views\UserInfo\LayerDeluser.cshtml" />
+    <None Include="Views\UserInfo\LayerSearchuser.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1819,6 +1819,7 @@
       <BrowseToURL>~/UserInfo/tck</BrowseToURL>
     </Content>
     <Content Include="Views\UserInfo\LayerAdduser.cshtml" />
+    <Content Include="Views\UserInfo\tck_ry_tj.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
