@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glove.IOT.IBLL
+namespace Glove.IOT.Common
 {
-    public partial interface IActionInfoService:IBaseService<ActionInfo>
+    public class Device:DeviceParameterInfo
     {
-        
+        public int DeviceId { get; set; }
+
     }
 }

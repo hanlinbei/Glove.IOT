@@ -19,7 +19,19 @@ namespace Glove.IOT.BLL
 	    
 		}
 	
-	    public partial class R_UserInfo_ActionInfoService : BaseService<R_UserInfo_ActionInfo>, IR_UserInfo_ActionInfoService
+	    public partial class DeviceInfoService : BaseService<DeviceInfo>, IDeviceInfoService
+        {
+	
+	    
+		}
+	
+	    public partial class DeviceParameterInfoService : BaseService<DeviceParameterInfo>, IDeviceParameterInfoService
+        {
+	
+	    
+		}
+	
+	    public partial class R_RoleInfo_ActionInfoService : BaseService<R_RoleInfo_ActionInfo>, IR_RoleInfo_ActionInfoService
         {
 	
 	    
