@@ -72,15 +72,19 @@ layui.use('table', function () {//打开网页刷新表格
         if (layEvent === 'detail') { //查看
             
         } else if (layEvent === 'del') { //删除
+            console.log(data);
             layer.confirm('确定删除？', function (index) {
                 layer.close(index);
                 //向服务端发送删除指令
-                ids = "" + data.Id;
+                ids = "" + data.UId;
                 $.post("/UserInfo/Delete", { ids: ids });//发送字符串
-                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                //obj.del(); //删除对应行（tr）的DOM结构，并更新缓存 这是不刷新页面的方式
                 num_p = num_p - 1;
+                globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+                if (num_p % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
                 //表格重载
-                //updatatable('#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理");
+                updatatable('#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", globalPage, globalLimit);
             });
         } else if (layEvent === 'edit') { //编辑
             layerShowEdituser('编辑人员', 'LayerEdituser', 500, 450, obj.data);
@@ -157,7 +161,7 @@ function layerShowEdituser(title, url, w, h, data) {
             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
             globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
             //表格重载
-            updatatable('#table_ry', 550, "/UserInfo/GetAllUserInfos", "人员管理", globalPage, globalLimit, globalPage, globalLimit);
+            updatatable('#table_ry', 550, "/UserInfo/GetAllUserInfos", "人员管理", globalPage, globalLimit);
             //最后关闭弹出层
             layer.close(index);
         },
@@ -293,7 +297,8 @@ function layerShowSearchuser(title, url, w, h, data) {
             updatatable1('#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", 1, globalLimit, res);
             //最后关闭弹出层
             layer.close(index);
-        }
+        },
+        skin: 'demo-class'
     });
 }
 function callbackdata(index) {//获取弹窗用户输入的数据
@@ -443,6 +448,6 @@ $(document).ready(function () {
         someDel();
     });
     $("button[name='查找人员']").click(function () {
-        layerShowSearchuser('查找人员', 'LayerSearchuser', 500, 450, "null");
+        layerShowSearchuser('查找人员', 'LayerSearchuser', 500, 380, "null");
     });
 });

@@ -195,6 +195,7 @@
     <Content Include="Config\services.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\DH\css\layer.css" />
     <Content Include="Content\DH\css\main.css" />
     <Content Include="Content\DH\css\main1.css" />
     <Content Include="Content\DH\css\mainUI.css" />
