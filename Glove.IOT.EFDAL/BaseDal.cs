@@ -101,7 +101,11 @@ namespace Glove.IOT.EFDAL
             Db.Entry(entity).Property("StatusFlag").IsModified = true;
             return true;
         }
-
+        /// <summary>
+        /// 根据id单个逻辑删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool Delete(int id)
         {
             var entity = Db.Set<T>().Find(id);
@@ -110,7 +114,11 @@ namespace Glove.IOT.EFDAL
             Db.Entry(entity).Property("StatusFlag").IsModified = true;
             return true;
         }
-
+        /// <summary>
+        /// 批量逻辑删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         public int DeleteListByLogical(List<int> ids)
         {
             foreach (var id in ids)

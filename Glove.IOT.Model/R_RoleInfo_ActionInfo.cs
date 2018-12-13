@@ -13,22 +13,13 @@ namespace Glove.IOT.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class UserInfo
+    public partial class R_RoleInfo_ActionInfo
     {
-        public UserInfo()
-        {
-            this.StatusFlag = 0;
-            this.R_UserInfo_RoleInfo = new HashSet<R_UserInfo_RoleInfo>();
-        }
-    
         public int Id { get; set; }
-        public string UCode { get; set; }
-        public string UName { get; set; }
-        public string Pwd { get; set; }
-        public short StatusFlag { get; set; }
-        public string Remark { get; set; }
-        public System.DateTime SubTime { get; set; }
+        public int RoleInfoId { get; set; }
+        public int ActionInfoId { get; set; }
     
-        public virtual ICollection<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
+        public virtual RoleInfo RoleInfo { get; set; }
+        public virtual ActionInfo ActionInfo { get; set; }
     }
 }

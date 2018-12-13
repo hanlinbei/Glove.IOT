@@ -21,7 +21,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IUserInfoService UserInfoService { get; set; }
         public IRoleInfoService RoleInfoService { get; set; }
         public IActionInfoService ActionInfoService { get; set; }
-        public IR_UserInfo_ActionInfoService R_UserInfo_ActionInfoService { get; set; }
+
         public IR_UserInfo_RoleInfoService R_UserInfo_RoleInfoService { get; set; }
         public IMd5Helper Md5Helper { get; set; }
         /// <summary>
@@ -143,7 +143,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             UserInfoService.DeleteListByLogical(idList);
             return Content("del ok");
 
-
+               
 
 
         }
@@ -193,13 +193,13 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="UId">用户Id</param>
         /// <returns>OK</returns>
-         void ProcessSetRole(int UId,int RId)
+         void ProcessSetRole(int uId,int rId)
          {
             //第一：当前用户的id ----uid
             //第二：当前用户在角色关联表中的ID
-            UserInfo user = UserInfoService.GetEntities(u => u.Id == UId).FirstOrDefault();
+            UserInfo user = UserInfoService.GetEntities(u => u.Id == uId).FirstOrDefault();
             var allUserInfoIds = (from r in user.R_UserInfo_RoleInfo
-                                  where r.UserInfoId == UId && r.StatusFlag !=delFlag
+                                  where r.UserInfoId == uId && r.StatusFlag !=delFlag
                                   select r.Id).ToList();
 
             for (int i = 0; i < allUserInfoIds.Count(); i++)
@@ -212,65 +212,27 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             //第三：所有打上对勾的角色 ----list
                  List<int> setRoleIdList = new List<int>();
-                 setRoleIdList.Add(RId);
+                 setRoleIdList.Add(rId);
 
             for (int i = 0; i < setRoleIdList.Count; i++)
             {
                 int roleId = Convert.ToInt32(setRoleIdList[i]);
                 R_UserInfo_RoleInfo rUserInfoRoleInfo = new R_UserInfo_RoleInfo();
-                rUserInfoRoleInfo.UserInfoId = UId;
+                rUserInfoRoleInfo.UserInfoId = uId;
                 rUserInfoRoleInfo.RoleInfoId = roleId;
                 rUserInfoRoleInfo.StatusFlag = statusNormal;
                 R_UserInfo_RoleInfoService.Add(rUserInfoRoleInfo);
               
             }
 
-        }
+         }
 
 
-        #region 设置特殊权限
-        public ActionResult SetAction(int id)
-        {
-            ViewBag.User = UserInfoService.GetEntities(u => u.Id == id).FirstOrDefault();
-            ViewData.Model = ActionInfoService.GetEntities(a => a.StatusFlag == delFlag).ToList();
-            return View();
+   
+  
+       
 
-
-        }
-        //做一个删除特殊权限
-        public ActionResult DeleteUserAction(int UId,int ActionId)
-        {
-            R_UserInfo_ActionInfo rUserAction = R_UserInfo_ActionInfoService.GetEntities(r => r.ActionInfoId == ActionId && r.UserInfoId == UId).FirstOrDefault();
-            if (rUserAction != null)
-            {
-                //rUserAction.StatusFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
-                R_UserInfo_ActionInfoService.DeleteListByLogical(new List<int>() { rUserAction.Id });
-            }
-            return Content("Ok");
-        }
-        //设置当前用户的特殊权限
-        public ActionResult SetUserAction(int UId, int ActionId, int Value)
-        {
-            R_UserInfo_ActionInfo rUserAction = R_UserInfo_ActionInfoService.GetEntities(r =>
-            r.ActionInfoId == ActionId && r.UserInfoId == UId && r.StatusFlag == delFlag).FirstOrDefault();
-            if (rUserAction != null)
-            {
-                rUserAction.HasPermission = Value == 1 ? true : false;
-                R_UserInfo_ActionInfoService.Update(rUserAction);
-            }
-            else
-            {
-                R_UserInfo_ActionInfo rUserInfoActionInfo = new R_UserInfo_ActionInfo();
-                rUserInfoActionInfo.ActionInfoId = ActionId;
-                rUserInfoActionInfo.UserInfoId = UId;
-                rUserInfoActionInfo.HasPermission = Value == 1 ? true : false;
-                rUserInfoActionInfo.StatusFlag = delFlag;
-                R_UserInfo_ActionInfoService.Add(rUserInfoActionInfo);
-            }
-            return Content("Ok");
-        }
-
-        #endregion
+  
 
 
 

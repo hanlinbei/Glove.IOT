@@ -63,9 +63,9 @@ namespace Glove.IOT.UI.Portal.Controllers
             string pwd = Request["LoginPwd"];
            
             //pwd = Md5Helper.GetMd5(pwd);
-            short delNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
+            short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
             var userInfo =
-                UserInfoService.GetEntities(u => u.UName == name && u.Pwd == pwd && u.StatusFlag == delNormal)
+                UserInfoService.GetEntities(u => u.UName == name && u.Pwd == pwd && u.StatusFlag == statusNormal)
                 .FirstOrDefault();
             
             if (userInfo == null)//没有查询出数据来

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/09/2018 22:53:46
+-- Date Created: 12/13/2018 15:57:17
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -17,23 +17,20 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_ActionInfoRoleInfo_ActionInfo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ActionInfoRoleInfo] DROP CONSTRAINT [FK_ActionInfoRoleInfo_ActionInfo];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ActionInfoRoleInfo_RoleInfo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ActionInfoRoleInfo] DROP CONSTRAINT [FK_ActionInfoRoleInfo_RoleInfo];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserInfoR_UserInfo_ActionInfo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[R_UserInfo_ActionInfo] DROP CONSTRAINT [FK_UserInfoR_UserInfo_ActionInfo];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ActionInfoR_UserInfo_ActionInfo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[R_UserInfo_ActionInfo] DROP CONSTRAINT [FK_ActionInfoR_UserInfo_ActionInfo];
-GO
 IF OBJECT_ID(N'[dbo].[FK_UserInfoR_UserInfo_RoleInfo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[R_UserInfo_RoleInfo] DROP CONSTRAINT [FK_UserInfoR_UserInfo_RoleInfo];
 GO
 IF OBJECT_ID(N'[dbo].[FK_RoleInfoR_UserInfo_RoleInfo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[R_UserInfo_RoleInfo] DROP CONSTRAINT [FK_RoleInfoR_UserInfo_RoleInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RoleInfoR_RoleInfo_ActionInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[R_RoleInfo_Power] DROP CONSTRAINT [FK_RoleInfoR_RoleInfo_ActionInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_R_RoleInfo_ActionInfoActionInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[R_RoleInfo_Power] DROP CONSTRAINT [FK_R_RoleInfo_ActionInfoActionInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DeviceInfoDeviceParameterInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DeviceParameterInfo] DROP CONSTRAINT [FK_DeviceInfoDeviceParameterInfo];
 GO
 
 -- --------------------------------------------------
@@ -46,17 +43,20 @@ GO
 IF OBJECT_ID(N'[dbo].[RoleInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[RoleInfo];
 GO
-IF OBJECT_ID(N'[dbo].[ActionInfo]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ActionInfo];
-GO
-IF OBJECT_ID(N'[dbo].[R_UserInfo_ActionInfo]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[R_UserInfo_ActionInfo];
-GO
 IF OBJECT_ID(N'[dbo].[R_UserInfo_RoleInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[R_UserInfo_RoleInfo];
 GO
-IF OBJECT_ID(N'[dbo].[ActionInfoRoleInfo]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ActionInfoRoleInfo];
+IF OBJECT_ID(N'[dbo].[Power]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Power];
+GO
+IF OBJECT_ID(N'[dbo].[R_RoleInfo_Power]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[R_RoleInfo_Power];
+GO
+IF OBJECT_ID(N'[dbo].[DeviceInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DeviceInfo];
+GO
+IF OBJECT_ID(N'[dbo].[DeviceParameterInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DeviceParameterInfo];
 GO
 
 -- --------------------------------------------------
@@ -85,31 +85,6 @@ CREATE TABLE [dbo].[RoleInfo] (
 );
 GO
 
--- Creating table 'ActionInfo'
-CREATE TABLE [dbo].[ActionInfo] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [ActionName] nvarchar(max)  NOT NULL,
-    [Remark] nvarchar(64)  NULL,
-    [Url] nvarchar(512)  NOT NULL,
-    [HttpMethd] nvarchar(32)  NULL,
-    [IsMenu] bit  NOT NULL,
-    [MenuIcon] nvarchar(512)  NULL,
-    [Sort] int  NOT NULL,
-    [StatusFlag] smallint  NOT NULL,
-    [SubTime] datetime  NOT NULL
-);
-GO
-
--- Creating table 'R_UserInfo_ActionInfo'
-CREATE TABLE [dbo].[R_UserInfo_ActionInfo] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [HasPermission] bit  NOT NULL,
-    [UserInfoId] int  NOT NULL,
-    [ActionInfoId] int  NOT NULL,
-    [StatusFlag] smallint  NOT NULL
-);
-GO
-
 -- Creating table 'R_UserInfo_RoleInfo'
 CREATE TABLE [dbo].[R_UserInfo_RoleInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
@@ -119,10 +94,43 @@ CREATE TABLE [dbo].[R_UserInfo_RoleInfo] (
 );
 GO
 
--- Creating table 'ActionInfoRoleInfo'
-CREATE TABLE [dbo].[ActionInfoRoleInfo] (
-    [ActionInfo_Id] int  NOT NULL,
-    [RoleInfo_Id] int  NOT NULL
+-- Creating table 'Power'
+CREATE TABLE [dbo].[Power] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ActionType] nvarchar(256)  NOT NULL,
+    [ActionName] nvarchar(max)  NOT NULL,
+    [Url] nvarchar(512)  NOT NULL,
+    [HttpMethod] nvarchar(512)  NOT NULL,
+    [SubTime] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'R_RoleInfo_Power'
+CREATE TABLE [dbo].[R_RoleInfo_Power] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RoleInfoId] int  NOT NULL,
+    [ActionInfoId] int  NOT NULL
+);
+GO
+
+-- Creating table 'DeviceInfo'
+CREATE TABLE [dbo].[DeviceInfo] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DeviceId] int  NOT NULL,
+    [SubTime] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'DeviceParameterInfo'
+CREATE TABLE [dbo].[DeviceParameterInfo] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DeviceInfoId] int  NOT NULL,
+    [NowOutput] int  NOT NULL,
+    [TargetOutput] int  NOT NULL,
+    [SingleProgress] smallint  NOT NULL,
+    [StatusFlag] smallint  NOT NULL,
+    [StartTime] datetime  NOT NULL,
+    [StopTime] datetime  NOT NULL
 );
 GO
 
@@ -142,87 +150,39 @@ ADD CONSTRAINT [PK_RoleInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'ActionInfo'
-ALTER TABLE [dbo].[ActionInfo]
-ADD CONSTRAINT [PK_ActionInfo]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'R_UserInfo_ActionInfo'
-ALTER TABLE [dbo].[R_UserInfo_ActionInfo]
-ADD CONSTRAINT [PK_R_UserInfo_ActionInfo]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'R_UserInfo_RoleInfo'
 ALTER TABLE [dbo].[R_UserInfo_RoleInfo]
 ADD CONSTRAINT [PK_R_UserInfo_RoleInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [ActionInfo_Id], [RoleInfo_Id] in table 'ActionInfoRoleInfo'
-ALTER TABLE [dbo].[ActionInfoRoleInfo]
-ADD CONSTRAINT [PK_ActionInfoRoleInfo]
-    PRIMARY KEY CLUSTERED ([ActionInfo_Id], [RoleInfo_Id] ASC);
+-- Creating primary key on [Id] in table 'Power'
+ALTER TABLE [dbo].[Power]
+ADD CONSTRAINT [PK_Power]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'R_RoleInfo_Power'
+ALTER TABLE [dbo].[R_RoleInfo_Power]
+ADD CONSTRAINT [PK_R_RoleInfo_Power]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'DeviceInfo'
+ALTER TABLE [dbo].[DeviceInfo]
+ADD CONSTRAINT [PK_DeviceInfo]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'DeviceParameterInfo'
+ALTER TABLE [dbo].[DeviceParameterInfo]
+ADD CONSTRAINT [PK_DeviceParameterInfo]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [ActionInfo_Id] in table 'ActionInfoRoleInfo'
-ALTER TABLE [dbo].[ActionInfoRoleInfo]
-ADD CONSTRAINT [FK_ActionInfoRoleInfo_ActionInfo]
-    FOREIGN KEY ([ActionInfo_Id])
-    REFERENCES [dbo].[ActionInfo]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [RoleInfo_Id] in table 'ActionInfoRoleInfo'
-ALTER TABLE [dbo].[ActionInfoRoleInfo]
-ADD CONSTRAINT [FK_ActionInfoRoleInfo_RoleInfo]
-    FOREIGN KEY ([RoleInfo_Id])
-    REFERENCES [dbo].[RoleInfo]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ActionInfoRoleInfo_RoleInfo'
-CREATE INDEX [IX_FK_ActionInfoRoleInfo_RoleInfo]
-ON [dbo].[ActionInfoRoleInfo]
-    ([RoleInfo_Id]);
-GO
-
--- Creating foreign key on [UserInfoId] in table 'R_UserInfo_ActionInfo'
-ALTER TABLE [dbo].[R_UserInfo_ActionInfo]
-ADD CONSTRAINT [FK_UserInfoR_UserInfo_ActionInfo]
-    FOREIGN KEY ([UserInfoId])
-    REFERENCES [dbo].[UserInfo]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UserInfoR_UserInfo_ActionInfo'
-CREATE INDEX [IX_FK_UserInfoR_UserInfo_ActionInfo]
-ON [dbo].[R_UserInfo_ActionInfo]
-    ([UserInfoId]);
-GO
-
--- Creating foreign key on [ActionInfoId] in table 'R_UserInfo_ActionInfo'
-ALTER TABLE [dbo].[R_UserInfo_ActionInfo]
-ADD CONSTRAINT [FK_ActionInfoR_UserInfo_ActionInfo]
-    FOREIGN KEY ([ActionInfoId])
-    REFERENCES [dbo].[ActionInfo]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ActionInfoR_UserInfo_ActionInfo'
-CREATE INDEX [IX_FK_ActionInfoR_UserInfo_ActionInfo]
-ON [dbo].[R_UserInfo_ActionInfo]
-    ([ActionInfoId]);
-GO
 
 -- Creating foreign key on [UserInfoId] in table 'R_UserInfo_RoleInfo'
 ALTER TABLE [dbo].[R_UserInfo_RoleInfo]
@@ -252,6 +212,51 @@ GO
 CREATE INDEX [IX_FK_RoleInfoR_UserInfo_RoleInfo]
 ON [dbo].[R_UserInfo_RoleInfo]
     ([RoleInfoId]);
+GO
+
+-- Creating foreign key on [RoleInfoId] in table 'R_RoleInfo_Power'
+ALTER TABLE [dbo].[R_RoleInfo_Power]
+ADD CONSTRAINT [FK_RoleInfoR_RoleInfo_ActionInfo]
+    FOREIGN KEY ([RoleInfoId])
+    REFERENCES [dbo].[RoleInfo]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RoleInfoR_RoleInfo_ActionInfo'
+CREATE INDEX [IX_FK_RoleInfoR_RoleInfo_ActionInfo]
+ON [dbo].[R_RoleInfo_Power]
+    ([RoleInfoId]);
+GO
+
+-- Creating foreign key on [ActionInfoId] in table 'R_RoleInfo_Power'
+ALTER TABLE [dbo].[R_RoleInfo_Power]
+ADD CONSTRAINT [FK_R_RoleInfo_ActionInfoActionInfo]
+    FOREIGN KEY ([ActionInfoId])
+    REFERENCES [dbo].[Power]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_R_RoleInfo_ActionInfoActionInfo'
+CREATE INDEX [IX_FK_R_RoleInfo_ActionInfoActionInfo]
+ON [dbo].[R_RoleInfo_Power]
+    ([ActionInfoId]);
+GO
+
+-- Creating foreign key on [DeviceInfoId] in table 'DeviceParameterInfo'
+ALTER TABLE [dbo].[DeviceParameterInfo]
+ADD CONSTRAINT [FK_DeviceInfoDeviceParameterInfo]
+    FOREIGN KEY ([DeviceInfoId])
+    REFERENCES [dbo].[DeviceInfo]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DeviceInfoDeviceParameterInfo'
+CREATE INDEX [IX_FK_DeviceInfoDeviceParameterInfo]
+ON [dbo].[DeviceParameterInfo]
+    ([DeviceInfoId]);
 GO
 
 -- --------------------------------------------------

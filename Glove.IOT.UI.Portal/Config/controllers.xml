@@ -5,7 +5,6 @@
     <property name="UserInfoService" ref="UserInfoService" />
     <property name="RoleInfoService" ref="RoleInfoService" />
     <property name="ActionInfoService" ref="ActionInfoService" />
-    <property name="R_UserInfo_ActionInfoService" ref="R_UserInfo_ActionInfoService" />
     <property name="R_UserInfo_RoleInfoService" ref="R_UserInfo_RoleInfoService" />
     <property name="Md5Helper" ref="Md5Helper" />
   </object>
@@ -16,8 +15,6 @@
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.ActionInfoController, Glove.IOT.UI.Portal" singleton="false" >
-    <property name="ActionInfoService" ref="ActionInfoService" />
-    <property name="RoleInfoService" ref="RoleInfoService" />
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.RoleInfoController, Glove.IOT.UI.Portal" singleton="false" >
@@ -26,7 +23,10 @@
   
     <object type="Glove.IOT.UI.Portal.Controllers.HomeController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="UserInfoService" ref="UserInfoService" />
-    <property name="ActionInfoService" ref="ActionInfoService" />
+  </object>
+
+  <object type="Glove.IOT.UI.Portal.Controllers.DeviceController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="DeviceInfoService" ref="DeviceInfoService" />
   </object>
 
 </objects>
