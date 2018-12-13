@@ -300,5 +300,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult Devicemanage()
+        {
+            return View();
+        }
     }
 }

@@ -1785,6 +1785,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\MyAjaxForm.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\UserInfo\Devicemanage.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\t.cshtml" />
@@ -1820,7 +1821,6 @@
       <BrowseToURL>~/UserInfo/tck</BrowseToURL>
     </Content>
     <Content Include="Views\UserInfo\LayerAdduser.cshtml" />
-    <Content Include="Views\UserInfo\tck_ry_tj.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
