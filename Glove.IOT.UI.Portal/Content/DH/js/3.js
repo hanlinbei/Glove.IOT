@@ -199,7 +199,7 @@ function layerShowEdituser(title, url, w, h, data) {
             //重新渲染
             iframeWindow.layui.form.render();
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', "/UserInfo/SetRole");
+            xhr.open('GET', "/UserInfo/GetAllRoles");
             xhr.send();
             xhr.onreadystatechange = function () {
                 if (this.readyState !== 4) return;
@@ -258,7 +258,7 @@ function layerShowAdduser(title, url, w, h, data) {
         },
         success: function (layero, index) {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', "/UserInfo/SetRole");
+            xhr.open('GET', "/UserInfo/GetAllRoles");
             xhr.send();
             xhr.onreadystatechange = function () {
                 if (this.readyState !== 4) return;
@@ -422,7 +422,7 @@ function updatatable(elem, height, url, title, page, limit) {//表格重载 跳�
 }
 function getRolename() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "/UserInfo/SetRole");
+    xhr.open('GET', "/UserInfo/GetAllRoles");
     xhr.send();//多发一个id数据
     //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
     xhr.onreadystatechange = function () {

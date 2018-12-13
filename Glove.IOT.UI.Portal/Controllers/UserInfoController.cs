@@ -92,22 +92,6 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
 
 
-   
-        /*public ActionResult Edit(int id)
-        {
-            ViewData.Model = UserInfoService.GetEntities(u => u.Id ==id).FirstOrDefault();
-            return View();
-
-        }
-
-        [HttpPost]
-        public ActionResult Edit(UserInfo userInfo)
-        {
-            UserInfoService.Update(userInfo);
-            return Content("ok");
-
-        }*/
-
         /// <summary>
         /// 修改用户信息
         /// </summary>
@@ -149,28 +133,12 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
 
 
-        #region create
-        public ActionResult Create()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Create(UserInfo userInfo)
-        {
-            if (ModelState.IsValid)
-            {
-                UserInfoService.Add(userInfo);
-            }
-            return RedirectToAction("Index");
-        }
-        #endregion
-
         /// <summary>
         /// 设置角色
         /// </summary>
         /// <param name="id">用户id</param>
         /// <returns>当前已存在的角色</returns>
-        public ActionResult SetRole()
+        public ActionResult GetAllRoles()
         {
             //把所有的角色发送到前台
             var AllRoles = RoleInfoService.GetEntities(u => u.StatusFlag != delFlag).ToList();
@@ -178,11 +146,6 @@ namespace Glove.IOT.UI.Portal.Controllers
                 u.Id,
                 u.RoleName
             });
-            //用户已经关联的角色发送到前台
-            //ViewBag.ExitsRoles = (from r in user.R_UserInfo_RoleInfo
-            //                      where r.StatusFlag!=delFlag
-            //                      select r.RoleInfoId).ToList();
-            //return View(user);
             var data = temp.ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
 
