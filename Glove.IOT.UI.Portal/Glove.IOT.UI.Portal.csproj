@@ -196,6 +196,7 @@
     <Content Include="Config\services.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\DH\css\layer.css" />
     <Content Include="Content\DH\css\main.css" />
     <Content Include="Content\DH\css\main1.css" />
     <Content Include="Content\DH\css\mainUI.css" />
@@ -1786,8 +1787,9 @@
     <Content Include="Scripts\MyAjaxForm.js" />
     <None Include="Scripts\_references.js" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
-    <Content Include="Views\UserInfo\Personnel_management.cshtml" />
+    <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\t.cshtml" />
+    <None Include="Views\UserInfo\LayerSearchuser.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1815,9 +1817,10 @@
     <Content Include="Views\UserInfo\SetRole.cshtml" />
     <Content Include="Views\ActionInfo\SetRole.cshtml" />
     <Content Include="Views\UserInfo\SetAction.cshtml" />
-    <Content Include="Views\UserInfo\tck_ry_bj.cshtml">
+    <Content Include="Views\UserInfo\LayerEdituser.cshtml">
       <BrowseToURL>~/UserInfo/tck</BrowseToURL>
     </Content>
+    <Content Include="Views\UserInfo\LayerAdduser.cshtml" />
     <Content Include="Views\UserInfo\tck_ry_tj.cshtml" />
   </ItemGroup>
   <ItemGroup>

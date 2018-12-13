@@ -154,9 +154,10 @@ color: #ccc;
 /*
     公共样式
 */
-body{
-    font-family: Microsoft Yahei;/*此处应该有很多备用字体以防万一*/
+body {
+    font-family: Microsoft Yahei; /*此处应该有很多备用字体以防万一*/
     background-color: #eaeaea;
+    min-width: 1200px;
 }
 /*字体图标设置 字体图标就是制作一种字体但都是图标 优点：容量小 矢量 可以改变颜色大小*/
 @font-face{
@@ -228,14 +229,15 @@ body{
 /*
     头部区域
 */
-#header{
-    position:fixed;
-    left:0;
-    top:0;
-    width:100%;
+#header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
     height: 70px;
     line-height: 70px;
     background-color: #393d49;
+    z-index: 3100; /*最高*/
 }
 #header .topbar-left{
     vertical-align:middle; 
@@ -341,7 +343,7 @@ margin-top:70px;  */
     width: 100%;
     height: 50px;
     padding-top: 10px;
-    padding-left: 25px;
+    padding-left: 10px;
 }
 #main .button .layui-btn {
     padding: 0;
@@ -364,7 +366,7 @@ margin-top:70px;  */
     z-index: 3000;
 }
 
-    /*#main .table .tck {
+    /*#main .table .layer {
     display: none;
     position: fixed;
     top: 20%;
@@ -376,10 +378,10 @@ margin-top:70px;  */
     padding: 10px 20px;
     z-index: 3001;
 }
-#main .table .tck .layui-form-label {
+#main .table .layer .layui-form-label {
     width: 100px;
 }
-#main .table .tck .tck-top {
+#main .table .layer .layer-top {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -391,7 +393,7 @@ margin-top:70px;  */
     padding: 0 10px;
     line-height: 40px;
 }
-#main .table .tck .tck-content {
+#main .table .layer .layer-content {
     position: absolute;
     top: 40px;
     left: 0px;
