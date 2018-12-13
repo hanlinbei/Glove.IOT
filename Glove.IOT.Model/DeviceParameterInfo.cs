@@ -13,20 +13,23 @@ namespace Glove.IOT.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class R_UserInfo_ActionInfo
+    public partial class DeviceParameterInfo
     {
-        public R_UserInfo_ActionInfo()
+        public DeviceParameterInfo()
         {
+            this.SingleProgress = 0;
             this.StatusFlag = 0;
         }
     
         public int Id { get; set; }
-        public bool HasPermission { get; set; }
-        public int UserInfoId { get; set; }
-        public int ActionInfoId { get; set; }
+        public int DeviceInfoId { get; set; }
+        public int NowOutput { get; set; }
+        public int TargetOutput { get; set; }
+        public short SingleProgress { get; set; }
         public short StatusFlag { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public System.DateTime StopTime { get; set; }
     
-        public virtual UserInfo UserInfo { get; set; }
-        public virtual ActionInfo ActionInfo { get; set; }
+        public virtual DeviceInfo DeviceInfo { get; set; }
     }
 }

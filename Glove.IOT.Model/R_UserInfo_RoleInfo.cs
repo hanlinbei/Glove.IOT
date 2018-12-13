@@ -17,7 +17,7 @@ namespace Glove.IOT.Model
     {
         public R_UserInfo_RoleInfo()
         {
-            this.StatusFlag = 0;
+            this.StatusFlag = 1;
         }
     
         public int Id { get; set; }

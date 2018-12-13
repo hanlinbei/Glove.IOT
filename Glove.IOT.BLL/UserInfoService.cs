@@ -55,38 +55,23 @@ namespace Glove.IOT.BLL
         {
             short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
             DataModelContainer model = new DataModelContainer();
-
             //内连接查询
-            //var query = from t1 in model.UserInfo
-            //            join t2 in model.R_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
-            //            join t3 in model.RoleInfo on t2.RoleInfoId equals t3.Id
-            //            where (t1.StatusFlag != delFlag&t2.StatusFlag !=delFlag && t3.StatusFlag != delFlag)
-            //            select new UserInfoRoleInfo
-            //            {
 
-            //                UId = t1.Id,
-            //                RId = t3.Id,
-            //                UCode = t1.UCode,
-            //                UName = t1.UName,
-            //                RoleName = t3.RoleName,
-            //                StatusFlag = t1.StatusFlag
-            //            };
-            var query = (from t1 in model.UserInfo
-                         join t2 in model.R_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
-                         join t3 in model.RoleInfo on t2.RoleInfoId equals t3.Id
-                         
-                         orderby (t1.Id)
-                         where (t1.StatusFlag != delFlag & t2.StatusFlag != delFlag && t3.StatusFlag != delFlag)
-                         select new UserInfoRoleInfo
-                         {
-                             Remark = t1.Remark,
-                             UId = t1.Id,
-                             RId = t3.Id,
-                             UCode = t1.UCode,
-                             UName = t1.UName,
-                             RoleName = t3.RoleName,
-                             StatusFlag = t1.StatusFlag
-                         });
+            var query = from t1 in model.UserInfo
+                        join t2 in model.R_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
+                        join t3 in model.RoleInfo on t2.RoleInfoId equals t3.Id
+                        where (t1.StatusFlag != delFlag&t2.StatusFlag !=delFlag && t3.StatusFlag != delFlag)
+                        select new UserInfoRoleInfo
+                        {
+
+                            UId = t1.Id,
+                            RId = t3.Id,
+                            UCode = t1.UCode,
+                            UName = t1.UName,
+                            RoleName = t3.RoleName,
+                            StatusFlag = t1.StatusFlag
+                        };
+           
             if (!string.IsNullOrEmpty(userQueryParam.SchCode))
             {
                 query = query.Where(u => u.UCode.Contains(userQueryParam.SchCode)).AsQueryable();
@@ -95,12 +80,12 @@ namespace Glove.IOT.BLL
             {
                 query = query.Where(u => u.RoleName.Contains(userQueryParam.SchRoleName)).AsQueryable();
             }
+
             userQueryParam.Total = query.Count();
             
             return query.OrderBy(u=>u.UId)
                   .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
                   .Take(userQueryParam.PageSize).AsQueryable();
-
 
         }
 

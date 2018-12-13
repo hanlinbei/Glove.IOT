@@ -27,8 +27,10 @@ namespace Glove.IOT.Model
     
         public DbSet<UserInfo> UserInfo { get; set; }
         public DbSet<RoleInfo> RoleInfo { get; set; }
-        public DbSet<ActionInfo> ActionInfo { get; set; }
-        public DbSet<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
         public DbSet<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
+        public DbSet<ActionInfo> Power { get; set; }
+        public DbSet<R_RoleInfo_ActionInfo> R_RoleInfo_Power { get; set; }
+        public DbSet<DeviceInfo> DeviceInfo { get; set; }
+        public DbSet<DeviceParameterInfo> DeviceParameterInfo { get; set; }
     }
 }

@@ -171,6 +171,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActionInfoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleInfoController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
@@ -1805,16 +1806,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\UserInfo\Create.cshtml" />
     <Content Include="Views\UserLogin\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\TreeIndex.cshtml" />
-    <Content Include="Views\UserInfo\Index.cshtml" />
-    <Content Include="Views\UserInfo\Edit.cshtml" />
     <Content Include="Views\ActionInfo\Index.cshtml" />
     <Content Include="Views\ActionInfo\Edit.cshtml" />
     <Content Include="Views\RoleInfo\Index.cshtml" />
-    <Content Include="Views\UserInfo\SetRole.cshtml" />
     <Content Include="Views\ActionInfo\SetRole.cshtml" />
     <Content Include="Views\UserInfo\SetAction.cshtml" />
     <Content Include="Views\UserInfo\LayerEdituser.cshtml">
@@ -1826,6 +1823,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="UploadFiles\UploadImgs\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Device\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
