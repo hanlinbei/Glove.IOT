@@ -27,6 +27,7 @@
 
   <object type="Glove.IOT.UI.Portal.Controllers.DeviceController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="DeviceInfoService" ref="DeviceInfoService" />
+    <property name="DeviceParameterInfoService" ref="DeviceParameterInfoService" />
   </object>
 
 </objects>

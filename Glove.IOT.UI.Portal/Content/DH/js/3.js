@@ -322,14 +322,7 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
             break;
 
     }
-    var data = {
-        UName: $('input[name="UName"]').val(),
-        UCode: $('input[name="UCode"]').val(),
-        Pwd: $('input[name="Pwd"]').val(),
-        RoleName: $('select[name="RoleName"] option:selected').val(),
-        Remark: $('textarea[name="Remark"]').val(),
-        StatusFlag: $('input[name^="StatusFlag"]:checked').val()//前缀为StatusFlag
-    }
+
     return data;
 }
 function callbackdata_search(index) {//获取弹窗用户输入的数据

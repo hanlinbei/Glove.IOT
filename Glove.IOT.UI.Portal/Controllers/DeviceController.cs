@@ -13,6 +13,7 @@ namespace Glove.IOT.UI.Portal.Controllers
     {
         readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         public IDeviceInfoService DeviceInfoService { get; set; }
+        public IDeviceParameterInfoService DeviceParameterInfoService { get; set; }
         // GET: Device
 
         /// <summary>
@@ -22,10 +23,28 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult Add(DeviceInfo deviceInfo)
         {
-            
-            deviceInfo.SubTime = DateTime.Now;
-            DeviceInfoService.Add(deviceInfo);
-            return Content("Ok");
+            var deviceId = DeviceInfoService.GetEntities(u => u.DeviceId == deviceInfo.DeviceId).FirstOrDefault();
+            if (deviceId == null)
+            {
+                deviceInfo.SubTime = DateTime.Now;
+                int id = DeviceInfoService.Add(deviceInfo).Id;
+                DeviceParameterInfo deviceParameterInfo = new DeviceParameterInfo
+                {
+                    DeviceInfoId = id,
+                    NowOutput = 0,
+                    SingleProgress = 0,
+                    TargetOutput = 0,
+                    StatusFlag = 4,
+                    StartTime = DateTime.Now,
+                    StopTime = DateTime.Now
+                };
+                DeviceParameterInfoService.Add(deviceParameterInfo);
+                return Content("Ok");
+            }
+            else
+            {
+                return Content("fail");
+            }
         }
         /// <summary>
         /// 修改设备信息
