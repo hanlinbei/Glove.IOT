@@ -21,6 +21,7 @@ namespace Glove.IOT.BLL
                         join t2 in model.DeviceInfo on t1.DeviceInfoId equals t2.Id
                         select new Device
                         {
+                            Id = t2.Id,
                             DeviceId=t2.DeviceId,
                             NowOutput=t1.NowOutput,
                             SingleProgress=t1.SingleProgress,
