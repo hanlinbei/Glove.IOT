@@ -85,8 +85,8 @@
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
-                    <dd><a href="">设备详情</a></dd>
+                    <dd><a href="Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="#">设备详情</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -109,7 +109,7 @@
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="Usermanage">员工管理</a></dd>
+                    <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
                     <dd><a href="#">角色权限管理</a></dd>
                     <dd><a href="#">操作日志</a></dd>
                     <dd><a href="#">数据字典</a></dd>
@@ -120,38 +120,33 @@
     </section>
     <section id="main">
         <div class="navigation">
+            <!-- 面包屑 -->
             <span class="layui-breadcrumb">
-                <a>系统管理</a>
-                <a href=""><cite>人员管理</cite></a>
+                <a>设备管理</a>
+                <a href="Devicemanage"><cite>设备工作情况</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
-            <button class="layui-btn layui-btn-normal col-xs-1" name="添加人员">
+            <button class="layui-btn layui-btn-normal col-xs-1" name="添加设备">
                 <i class="iconfont icon-add">&#xe726;</i>
-                添加人员
+                添加设备
             </button>
-            <button class="layui-btn layui-btn-danger col-xs-1" name="删除人员">
+            <button class="layui-btn layui-btn-danger col-xs-1" name="删除设备">
                 <i class="iconfont icon-delete">&#xe62f;</i>
-                删除人员
+                删除设备
             </button>
-            <!--
-            <button class="layui-btn layui-btn-warm col-xs-1">
-                <i class="iconfont icon-modify">&#xe6b8;</i>
-                修改人员
-            </button>
-                -->
             <span class="col-xs-8"></span>
-            <button class="layui-btn col-xs-1" name="查找人员">
+            <button class="layui-btn col-xs-1" name="查找设备">
                 <i class="iconfont icon-seek">&#xe618;</i>
-                查找人员
+                查找设备
             </button>
         </div>
         <div class="table">
             <div class="table-title">
-                人员管理
+                设备管理
             </div>
-            <table id="table_ry" lay-filter="table_ry" lay-data="{id: 'idTest'}"></table>
+            <table id="table_device" lay-filter="table_device" lay-data="{id: 'idTest'}"></table>
         </div>
 
     </section>

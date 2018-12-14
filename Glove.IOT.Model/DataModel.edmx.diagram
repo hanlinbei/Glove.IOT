@@ -14,7 +14,7 @@
         <EntityTypeShape EntityType="DataModel.R_RoleInfo_ActionInfo" Width="1.5" PointX="9.75" PointY="2.125" />
         <AssociationConnector Association="DataModel.RoleInfoR_RoleInfo_ActionInfo" />
         <AssociationConnector Association="DataModel.R_RoleInfo_ActionInfoActionInfo" />
-        <EntityTypeShape EntityType="DataModel.DeviceInfo" Width="1.5" PointX="6.5" PointY="4.875" />
+        <EntityTypeShape EntityType="DataModel.DeviceInfo" Width="1.5" PointX="6.5" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.DeviceParameterInfo" Width="1.5" PointX="9.625" PointY="4.625" />
         <AssociationConnector Association="DataModel.DeviceInfoDeviceParameterInfo" />
       </Diagram>

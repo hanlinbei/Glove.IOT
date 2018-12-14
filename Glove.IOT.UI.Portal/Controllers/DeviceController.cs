@@ -84,5 +84,13 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult Devicemanage()
+        {
+            return View();
+        }
+        public ActionResult LayerAdddevice()
+        {
+            return View();
+        }
     }
 }
