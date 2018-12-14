@@ -14,10 +14,6 @@ namespace Glove.IOT.UI.Portal.Controllers
         readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         public IDeviceInfoService DeviceInfoService { get; set; }
         // GET: Device
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         /// <summary>
         /// 添加设备信息
@@ -80,7 +76,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             {
                 PageSize = pageSize,
                 PageIndex = pageIndex,
-                Total = 0,
+                Total = 0
             };
 
             var pageData = DeviceInfoService.LoagDevicePageData(queryParam).ToList();
