@@ -322,14 +322,6 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
             break;
 
     }
-    var data = {
-        UName: $('input[name="UName"]').val(),
-        UCode: $('input[name="UCode"]').val(),
-        Pwd: $('input[name="Pwd"]').val(),
-        RoleName: $('select[name="RoleName"] option:selected').val(),
-        Remark: $('textarea[name="Remark"]').val(),
-        StatusFlag: $('input[name^="StatusFlag"]:checked').val()//前缀为StatusFlag
-    }
     return data;
 }
 function callbackdata_search(index) {//获取弹窗用户输入的数据
@@ -466,6 +458,8 @@ layui.use('table', function () {//打开网页刷新表格
                     res.data[i].StatusFlag = "暂停中";
                 else if (res.data[i].StatusFlag === 3)
                     res.data[i].StatusFlag = "故障中";
+                else if (res.data[i].StatusFlag === 4)
+                    res.data[i].StatusFlag = "未连接";
             }
             return {
                 "code": res.code, //解析接口状态
@@ -499,7 +493,7 @@ layui.use('table', function () {//打开网页刷新表格
         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
         if (layEvent === 'detail') { //查看
-
+            layerShowEdituser('编辑人员', 'LayerEdituser', 500, 450, obj.data);
         } else if (layEvent === 'del') { //删除
             console.log(data);
             layer.confirm('确定删除？', function (index) {
@@ -515,13 +509,6 @@ layui.use('table', function () {//打开网页刷新表格
                 //表格重载
                 updatatable('table_device', '#table_device', 550, '/UserInfo/GetAllUserInfos', "人员管理", globalPage, globalLimit);
             });
-        } else if (layEvent === 'edit') { //编辑
-            layerShowEdituser('编辑人员', 'LayerEdituser', 500, 450, obj.data);
-            //同步更新缓存对应的值
-            /*obj.update({
-                UName: '123'
-                , title: 'xxx'
-            });*/
         }
     });
     table.on('checkbox(table_device)', function (obj) {
@@ -565,6 +552,7 @@ function layerShowAdddevice(title, url, w, h, data) {
         yes: function (index) {
             //当点击‘确定’按钮的时候，获取弹出层返回的值
             var res = window["layui-layer-iframe" + index].callbackdata(index, 'adddevice');
+            console.log(res.DeviceId);
             //ajax发送post请求 给后端发送数据
             $.post("/Device/Add", { DeviceId: res.DeviceId }, function () {
                 console.log(this.responseText);
