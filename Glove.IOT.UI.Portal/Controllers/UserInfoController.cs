@@ -70,24 +70,33 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns>OK</returns>
         public ActionResult Add(UserInfoRoleInfo userInfoRoleInfo)
         {
-            UserInfo userInfo = new UserInfo
-            { 
-                //MD5加密
-                //userInfo.UCode = "2";
-                //userInfo.Remark = "3";
-                //userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
-                UCode=userInfoRoleInfo.UCode,
-                UName=userInfoRoleInfo.UName,
-                Pwd=userInfoRoleInfo.Pwd,
-                StatusFlag=userInfoRoleInfo.StatusFlag,
-                Remark=userInfoRoleInfo.Remark,
-                SubTime = DateTime.Now
-            };
-            //userInfo.StatusFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
-            int insertedUserId = UserInfoService.Add(userInfo).Id;
-            int roleId = userInfoRoleInfo.RId;
-            ProcessSetRole(insertedUserId,roleId);
-            return Content("Ok");
+            var uCode = UserInfoService.GetEntities(u => u.UCode == userInfoRoleInfo.UCode).FirstOrDefault();
+            if (uCode == null)
+            {
+                UserInfo userInfo = new UserInfo
+                {
+                    //MD5加密
+                    //userInfo.UCode = "2";
+                    //userInfo.Remark = "3";
+                    //userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
+                    UCode = userInfoRoleInfo.UCode,
+                    UName = userInfoRoleInfo.UName,
+                    Pwd = userInfoRoleInfo.Pwd,
+                    StatusFlag = userInfoRoleInfo.StatusFlag,
+                    Remark = userInfoRoleInfo.Remark,
+                    SubTime = DateTime.Now
+                };
+                //userInfo.StatusFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
+                int insertedUserId = UserInfoService.Add(userInfo).Id;
+                int roleId = userInfoRoleInfo.RId;
+                ProcessSetRole(insertedUserId, roleId);
+                return Content("Ok");
+            }
+            else
+            {
+                return Content("fail");
+
+            }
 
         }
 

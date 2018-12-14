@@ -21,4 +21,6 @@
   </object>
   <object name="DeviceInfoDal" type="Glove.IOT.EFDAL.DeviceInfoDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
+  <object name="DeviceParameterInfoDal" type="Glove.IOT.EFDAL.DeviceParameterInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
 </objects>
