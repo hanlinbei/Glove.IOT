@@ -260,3 +260,26 @@
    在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
    在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
    在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+2018-12-14 21:45:30,120 [14] ERROR Demo - System.ArgumentException: 类型“DeviceInfo”的属性“StatusFlag”不是基元或复杂属性。Property 方法只能用于基元或复杂属性。请使用 Reference 或 Collection 方法。
+   在 System.Data.Entity.Internal.InternalEntityEntry.Property(InternalPropertyEntry parentProperty, String propertyName, IList`1 properties, Type requestedType, Boolean requireComplex)
+   在 System.Data.Entity.Internal.InternalEntityEntry.Property(String property, Type requestedType, Boolean requireComplex)
+   在 System.Data.Entity.Infrastructure.DbEntityEntry`1.Property(String propertyName)
+   在 Glove.IOT.EFDAL.BaseDal`1.DeleteListByLogical(List`1 ids) 位置 D:\桌面\Glove\Glove.IOT.EFDAL\BaseDal.cs:行号 127
+   在 Glove.IOT.BLL.BaseService`1.DeleteListByLogical(List`1 ids) 位置 D:\桌面\Glove\Glove.IOT.BLL\BaseService.cs:行号 75
+   在 Glove.IOT.UI.Portal.Controllers.DeviceController.Delete(String ids) 位置 D:\桌面\Glove\Glove.IOT.UI.Portal\Controllers\DeviceController.cs:行号 80
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass7_0.<BeginInvokeActionMethodWithFilters>b__1(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
