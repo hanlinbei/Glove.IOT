@@ -17,7 +17,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         // GET: UserLogin
         public IUserInfoService UserInfoService { get; set; }
         public IMd5Helper Md5Helper { get; set; }
-        public ActionResult Index()
+        public ActionResult Index1()
         {
             return View();
         }

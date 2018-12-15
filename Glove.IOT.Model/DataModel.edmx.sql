@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/13/2018 15:57:17
+-- Date Created: 12/14/2018 21:42:50
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -117,6 +117,7 @@ GO
 CREATE TABLE [dbo].[DeviceInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DeviceId] int  NOT NULL,
+    [StatusFlag] smallint  NOT NULL,
     [SubTime] datetime  NOT NULL
 );
 GO
@@ -125,12 +126,13 @@ GO
 CREATE TABLE [dbo].[DeviceParameterInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DeviceInfoId] int  NOT NULL,
-    [NowOutput] int  NOT NULL,
-    [TargetOutput] int  NOT NULL,
-    [SingleProgress] smallint  NOT NULL,
+    [NowOutput] int  NULL,
+    [TargetOutput] int  NULL,
+    [SingleProgress] smallint  NULL,
     [StatusFlag] smallint  NOT NULL,
-    [StartTime] datetime  NOT NULL,
-    [StopTime] datetime  NOT NULL
+    [StartTime] datetime  NULL,
+    [StopTime] datetime  NULL,
+    [SubTime] datetime  NOT NULL
 );
 GO
 

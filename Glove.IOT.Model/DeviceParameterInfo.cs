@@ -23,12 +23,13 @@ namespace Glove.IOT.Model
     
         public int Id { get; set; }
         public int DeviceInfoId { get; set; }
-        public int NowOutput { get; set; }
-        public int TargetOutput { get; set; }
-        public short SingleProgress { get; set; }
+        public Nullable<int> NowOutput { get; set; }
+        public Nullable<int> TargetOutput { get; set; }
+        public Nullable<short> SingleProgress { get; set; }
         public short StatusFlag { get; set; }
-        public System.DateTime StartTime { get; set; }
-        public System.DateTime StopTime { get; set; }
+        public Nullable<System.DateTime> StartTime { get; set; }
+        public Nullable<System.DateTime> StopTime { get; set; }
+        public System.DateTime SubTime { get; set; }
     
         public virtual DeviceInfo DeviceInfo { get; set; }
     }
