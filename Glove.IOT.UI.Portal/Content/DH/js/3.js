@@ -1,4 +1,5 @@
 var num_p;
+var num_d;
 var globalPage;
 var globalLimit;
 var delId = "";
@@ -322,7 +323,6 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
             break;
 
     }
-
     return data;
 }
 function callbackdata_search(index) {//获取弹窗用户输入的数据
@@ -459,6 +459,8 @@ layui.use('table', function () {//打开网页刷新表格
                     res.data[i].StatusFlag = "暂停中";
                 else if (res.data[i].StatusFlag === 3)
                     res.data[i].StatusFlag = "故障中";
+                else if (res.data[i].StatusFlag === 4)
+                    res.data[i].StatusFlag = "未连接";
             }
             return {
                 "code": res.code, //解析接口状态
@@ -479,9 +481,9 @@ layui.use('table', function () {//打开网页刷新表格
                 var length = globalLimit;
             }
             for (var i = 0; i < length; i++) {
-                UIdtable[i] = [res.data[i].DeviceId, 0];
+                UIdtable[i] = [res.data[i].Id, 0];
             }
-            num_p = count;
+            num_d = count;
         }
         , skin: 'line'
 
@@ -492,29 +494,22 @@ layui.use('table', function () {//打开网页刷新表格
         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
         if (layEvent === 'detail') { //查看
-
+            layerShowEdituser('编辑人员', 'LayerEdituser', 500, 450, obj.data);
         } else if (layEvent === 'del') { //删除
             console.log(data);
             layer.confirm('确定删除？', function (index) {
                 layer.close(index);
                 //向服务端发送删除指令
-                ids = "" + data.DeviceId;
+                ids = "" + data.Id;
                 $.post("/Device/Delete", { ids: ids });//发送字符串
                 //obj.del(); //删除对应行（tr）的DOM结构，并更新缓存 这是不刷新页面的方式
-                num_p = num_p - 1;
+                num_d = num_d - 1;
                 globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                globalPage = Math.ceil(num_p / globalLimit);//获取页码值
-                if (num_p % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
+                globalPage = Math.ceil(num_d / globalLimit);//获取页码值
+                if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
                 //表格重载
                 updatatable('table_device', '#table_device', 550, '/UserInfo/GetAllUserInfos', "人员管理", globalPage, globalLimit);
             });
-        } else if (layEvent === 'edit') { //编辑
-            layerShowEdituser('编辑人员', 'LayerEdituser', 500, 450, obj.data);
-            //同步更新缓存对应的值
-            /*obj.update({
-                UName: '123'
-                , title: 'xxx'
-            });*/
         }
     });
     table.on('checkbox(table_device)', function (obj) {
@@ -559,14 +554,31 @@ function layerShowAdddevice(title, url, w, h, data) {
             //当点击‘确定’按钮的时候，获取弹出层返回的值
             var res = window["layui-layer-iframe" + index].callbackdata(index, 'adddevice');
             //ajax发送post请求 给后端发送数据
-            $.post("/Device/Add", { DeviceId: res.DeviceId }, function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', "/Device/Add");
+            xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('DeviceId=' + res.DeviceId);//多发一个id数据
+            xhr.onreadystatechange = function () {
+                if (this.readyState !== 4) return;
                 console.log(this.responseText);
-            });//发送字符串    
-            //表格重载 跳转到操作页面
-            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            globalPage = Math.ceil(num_p / globalLimit);//获取页码值
-            if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
-            updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "人员管理", globalPage, globalLimit);
+                if (this.responseText === "fail") {
+                    layui.use('layer', function () {//弹窗
+                        var layer = layui.layer;
+                        layer.msg('<span style = "font-size: 20px; line-height:90px; vertical-align:middle;">ID已存在</span>', {
+                            time: 2000,
+                            area:['200px',  '120px']
+                        });
+                    });
+                }
+                else{
+                    //表格重载 跳转到操作页面
+                    globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                    globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+                    if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
+                    updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "人员管理", globalPage, globalLimit);
+                }
+            };
+            
             //最后关闭弹出层
             layer.close(index);
         }
@@ -583,6 +595,6 @@ $(document).ready(function () {
         layerShowSearchuser('查找人员', 'LayerSearchuser', 500, 380, "null");
     });
     $("button[name='添加设备']").click(function () {
-        layerShowAdddevice('添加设备', 'LayerAdddevice', 500, 300, "null");
+        layerShowAdddevice('添加设备', 'LayerAdddevice', 500, 200, "null");
     });
 });

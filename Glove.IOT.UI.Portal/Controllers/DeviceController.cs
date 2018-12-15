@@ -121,5 +121,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult Devicedetail()
+        {
+            return View();
+        }
     }
 }
