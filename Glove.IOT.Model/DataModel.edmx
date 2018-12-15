@@ -90,6 +90,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DeviceId" Type="int" Nullable="false" />
+    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="1" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="DeviceParameterInfo">
@@ -98,12 +99,13 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DeviceInfoId" Type="int" Nullable="false" />
-    <Property Name="NowOutput" Type="int" Nullable="false" />
-    <Property Name="TargetOutput" Type="int" Nullable="false" />
-    <Property Name="SingleProgress" Type="smallint" Nullable="false" DefaultValue="0" />
+    <Property Name="NowOutput" Type="int" Nullable="true" />
+    <Property Name="TargetOutput" Type="int" Nullable="true" />
+    <Property Name="SingleProgress" Type="smallint" Nullable="true" DefaultValue="0" />
     <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="0" />
-    <Property Name="StartTime" Type="datetime" Nullable="false" />
-    <Property Name="StopTime" Type="datetime" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" Nullable="true" />
+    <Property Name="StopTime" Type="datetime" Nullable="true" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="UserInfoR_UserInfo_RoleInfo">
     <End Role="UserInfo" Type="DataModel.Store.UserInfo" Multiplicity="1" />
@@ -310,6 +312,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DeviceId" Type="Int32" Nullable="false" />
+          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="1" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DeviceParameterInfo" Relationship="DataModel.DeviceInfoDeviceParameterInfo" FromRole="DeviceInfo" ToRole="DeviceParameterInfo" />
         </EntityType>
@@ -319,13 +322,14 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DeviceInfoId" Type="Int32" Nullable="false" />
-          <Property Name="NowOutput" Type="Int32" Nullable="false" />
-          <Property Name="TargetOutput" Type="Int32" Nullable="false" />
+          <Property Name="NowOutput" Type="Int32" Nullable="true" />
+          <Property Name="TargetOutput" Type="Int32" Nullable="true" />
           <NavigationProperty Name="DeviceInfo" Relationship="DataModel.DeviceInfoDeviceParameterInfo" FromRole="DeviceParameterInfo" ToRole="DeviceInfo" />
-          <Property Name="SingleProgress" Type="Int16" Nullable="false" DefaultValue="0" />
+          <Property Name="SingleProgress" Type="Int16" Nullable="true" DefaultValue="0" />
           <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="0" />
-          <Property Name="StartTime" Type="DateTime" Nullable="false" />
-          <Property Name="StopTime" Type="DateTime" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="true" />
+          <Property Name="StopTime" Type="DateTime" Nullable="true" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="DeviceInfoDeviceParameterInfo">
           <End Type="DataModel.DeviceInfo" Role="DeviceInfo" Multiplicity="1" />
@@ -405,6 +409,7 @@
         <MappingFragment StoreEntitySet="DeviceInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -420,6 +425,7 @@
           <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
           <ScalarProperty Name="StartTime" ColumnName="StartTime" />
           <ScalarProperty Name="StopTime" ColumnName="StopTime" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

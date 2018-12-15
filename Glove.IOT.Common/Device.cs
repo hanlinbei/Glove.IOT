@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.Common
 {
-    public class Device:DeviceParameterInfo
+    public class Device
     {
+        public int Id { get; set; }
         public int DeviceId { get; set; }
+        public short StatusFlag { get; set; }
 
     }
 }

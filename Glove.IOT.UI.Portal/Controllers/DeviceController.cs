@@ -23,7 +23,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult Add(DeviceInfo deviceInfo)
         {
-            var deviceId = DeviceInfoService.GetEntities(u => u.DeviceId == deviceInfo.DeviceId).FirstOrDefault();
+            var deviceId = DeviceInfoService.GetEntities(u => (u.DeviceId == deviceInfo.DeviceId&&u.StatusFlag==statusNormal)).FirstOrDefault();
             if (deviceId == null)
             {
                 deviceInfo.SubTime = DateTime.Now;
@@ -31,12 +31,8 @@ namespace Glove.IOT.UI.Portal.Controllers
                 DeviceParameterInfo deviceParameterInfo = new DeviceParameterInfo
                 {
                     DeviceInfoId = id,
-                    NowOutput = 0,
-                    SingleProgress = 0,
-                    TargetOutput = 0,
-                    StatusFlag = 4,
-                    StartTime = DateTime.Now,
-                    StopTime = DateTime.Now
+                    StatusFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Outline,
+                    SubTime=DateTime.Now,
                 };
                 DeviceParameterInfoService.Add(deviceParameterInfo);
                 return Content("Ok");
@@ -103,6 +99,20 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
+        /// <summary>
+        /// 获取设备参数详细信息
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetDeviceParameterInfo()
+        {
+            int deviceId = int.Parse(Request["DeviceId"]);
+            var deviceParameter = DeviceParameterInfoService.GetDeviceParameter(deviceId);
+            var data = deviceParameter.ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
+
+
         public ActionResult Devicemanage()
         {
             return View();
