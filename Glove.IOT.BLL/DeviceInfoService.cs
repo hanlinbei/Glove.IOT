@@ -13,28 +13,13 @@ namespace Glove.IOT.BLL
 {
     public partial class DeviceInfoService : BaseService<DeviceInfo>, IDeviceInfoService
     {
+        readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         public IQueryable<Device> LoagDevicePageData(DeviceQueryParam deviceQueryParam)
         {
 
             
             DataModelContainer model = new DataModelContainer();
-            //var query1=from t3 in model.DeviceParameterInfo
-
-            //内连接查询
-            //var query = from t1 in model.DeviceParameterInfo
-            //            join t2 in model.DeviceInfo on t1.DeviceInfoId equals t2.Id
-            //            select new Device
-            //            {
-            //                Id=t2.Id,
-            //                DeviceId=t2.DeviceId,
-            //                NowOutput=t1.NowOutput,
-            //                SingleProgress=t1.SingleProgress,
-            //                StartTime=t1.StartTime,
-            //                StatusFlag=t1.StatusFlag,
-            //                StopTime=t1.StopTime,
-            //                TargetOutput=t1.TargetOutput
-            //            };
-         
+            
             var query = from t1 in model.DeviceParameterInfo
                         from t2 in model.DeviceParameterInfo.GroupBy(m => m.DeviceInfoId).Select(p => new
                         {
@@ -42,7 +27,7 @@ namespace Glove.IOT.BLL
                             deviceInfoId = p.Key
                         })
                         join t3 in model.DeviceInfo on t1.DeviceInfoId equals t3.Id
-                        where t1.DeviceInfoId==t2.deviceInfoId&&t1.SubTime==t2.newestTime
+                        where t1.DeviceInfoId==t2.deviceInfoId&&t1.SubTime==t2.newestTime&&t3.StatusFlag== statusNormal
                         select new Device
                         {
                             Id = t3.Id,

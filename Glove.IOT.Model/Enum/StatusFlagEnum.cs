@@ -19,7 +19,12 @@ namespace Glove.IOT.Model.Enum
         /// <summary>
         /// 已经删除状态
         /// </summary>
-        Deleted=2
+        Deleted=2,
+        /// <summary>
+        /// 设备离线状态
+        /// </summary>
+        Outline=4
+            
     }
     
 }
