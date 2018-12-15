@@ -11,12 +11,10 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.BLL
 {
-    public partial class DeviceInfoService : BaseService<DeviceInfo>, IDeviceInfoService
+    public partial class DeviceParameterInfoService : BaseService<DeviceParameterInfo>, IDeviceParameterInfoService
     {
-        public IQueryable<Device> LoagDevicePageData(DeviceQueryParam deviceQueryParam)
+        public IQueryable<DeviceParameter> GetDeviceParameter(int deviceId)
         {
-
-            
             DataModelContainer model = new DataModelContainer();
             //var query1=from t3 in model.DeviceParameterInfo
 
@@ -34,8 +32,8 @@ namespace Glove.IOT.BLL
             //                StopTime=t1.StopTime,
             //                TargetOutput=t1.TargetOutput
             //            };
-         
-            var query = from t1 in model.DeviceParameterInfo
+    
+        var query = from t1 in model.DeviceParameterInfo
                         from t2 in model.DeviceParameterInfo.GroupBy(m => m.DeviceInfoId).Select(p => new
                         {
                             newestTime = p.Max(q => q.SubTime),
@@ -43,18 +41,18 @@ namespace Glove.IOT.BLL
                         })
                         join t3 in model.DeviceInfo on t1.DeviceInfoId equals t3.Id
                         where t1.DeviceInfoId==t2.deviceInfoId&&t1.SubTime==t2.newestTime
-                        select new Device
+                        select new DeviceParameter
                         {
-                            Id = t3.Id,
-                            DeviceId = t3.DeviceId,                     
-                            StatusFlag = t1.StatusFlag,
+                            DeviceId=t3.DeviceId,
+                            StatusFlag=t1.StatusFlag,
+                            StartTime=t1.StartTime,
+                            StopTime=t1.StopTime,
+                            TargetOutput=t1.TargetOutput,
+                            SingleProgress=t1.SingleProgress,
+                            NowOutput=t1.NowOutput
                         };
 
-            deviceQueryParam.Total = query.Count();
-
-            return query.OrderBy(d =>d.DeviceId)
-                  .Skip(deviceQueryParam.PageSize * (deviceQueryParam.PageIndex - 1))
-                  .Take(deviceQueryParam.PageSize).AsQueryable();
+            return query.OrderBy(d => (d.DeviceId == deviceId));
 
         }
     }
