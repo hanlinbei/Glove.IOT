@@ -1792,6 +1792,7 @@
     <Content Include="Views\Device\Devicedetail.cshtml" />
     <Content Include="Views\Device\LayerAdddevice.cshtml" />
     <Content Include="Views\UserLogin\Index.cshtml" />
+    <Content Include="Views\Device\LayerSearchdevice.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\t.cshtml" />
@@ -1823,6 +1824,7 @@
       <BrowseToURL>~/UserInfo/tck</BrowseToURL>
     </Content>
     <Content Include="Views\UserInfo\LayerAdduser.cshtml" />
+    <Content Include="Views\UserInfo\Userpower.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

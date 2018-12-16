@@ -159,6 +159,7 @@ body {
     background-color: #eaeaea;
     min-width: 1200px;
 }
+
 /*字体图标设置 字体图标就是制作一种字体但都是图标 优点：容量小 矢量 可以改变颜色大小*/
 @font-face{
     font-family: 'iconfont';/*自己定义一个名为 微金所 的字体*/
@@ -349,6 +350,15 @@ margin-top:70px;  */
     padding: 0;
     font-size: 14px;
     margin: 0 10px;
+}
+#main .select {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    width: 100%;
+    height: 50px;
+    padding-top: 10px;
+    padding-left: 10px;
 }
 #main .table {
     position: absolute;

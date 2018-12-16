@@ -70,7 +70,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             
             if (userInfo == null)//没有查询出数据来
             {
-                return Content("用户名密码错误！会登录吗");
+                return Content("用户名密码错误！");
             }
             //Session["loginUser"] = userInfo;
             //用memcache+cookies代替之
@@ -85,7 +85,10 @@ namespace Glove.IOT.UI.Portal.Controllers
             //return RedirectToAction("Index", "Home");
             return Content("OK");
         }
-
+        public ActionResult Index()
+        {
+            return View();
+        }
 
     }
 }
