@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+  <object name="UserInfoService" type="Glove.IOT.BLL.UserInfoService, Glove.IOT.BLL" singleton="false" >
+     <property name="DbSession" ref="DbSession" />
+     <property name="CurrentDal" ref="UserInfoDal" />
+   <!---<constructor-arg index="0" ref="DbSession" />-->
+  </object>
+  <object name="ActionInfoService" type="Glove.IOT.BLL.ActionInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="ActionInfoDal" />
+	</object>
+  <object name="RoleInfoService" type="Glove.IOT.BLL.RoleInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="RoleInfoDal" />
+  </object>
+  <object name="R_UserInfo_RoleInfoService" type="Glove.IOT.BLL.R_UserInfo_RoleInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="R_UserInfo_RoleInfoDal" />
+  </object>
+  <object name="DeviceInfoService" type="Glove.IOT.BLL.DeviceInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="DeviceInfoDal" />
+  </object>
+
+  <object name="DeviceParameterInfoService" type="Glove.IOT.BLL.DeviceParameterInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="DeviceParameterInfoDal" />
+  </object>
+</objects>

@@ -29,5 +29,7 @@
     <property name="DeviceInfoService" ref="DeviceInfoService" />
     <property name="DeviceParameterInfoService" ref="DeviceParameterInfoService" />
   </object>
+  
+  
 
 </objects>
