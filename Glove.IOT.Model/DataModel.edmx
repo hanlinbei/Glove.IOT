@@ -83,6 +83,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleInfoId" Type="int" Nullable="false" />
     <Property Name="ActionInfoId" Type="int" Nullable="false" />
+    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="1" />
   </EntityType>
   <EntityType Name="DeviceInfo">
     <Key>
@@ -281,6 +282,7 @@
           <Property Name="RoleInfoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ActionInfo" Relationship="DataModel.R_RoleInfo_ActionInfoActionInfo" FromRole="R_RoleInfo_ActionInfo" ToRole="ActionInfo" />
           <Property Name="ActionInfoId" Type="Int32" Nullable="false" />
+          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="1" />
         </EntityType>
         <Association Name="RoleInfoR_RoleInfo_ActionInfo">
           <End Type="DataModel.RoleInfo" Role="RoleInfo" Multiplicity="1" />
@@ -401,6 +403,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RoleInfoId" ColumnName="RoleInfoId" />
           <ScalarProperty Name="ActionInfoId" ColumnName="ActionInfoId" />
+          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
