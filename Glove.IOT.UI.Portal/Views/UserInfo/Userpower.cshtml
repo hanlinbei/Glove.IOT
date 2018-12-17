@@ -144,14 +144,14 @@
                 <div class="layui-col-md6 layui-col-md-offset3">
                     <form class="layui-form" action="">
                         <div class="layui-form-item">
-                            <select name="city" lay-verify="required">
+                            <select lay-filter="table_power_save" name="RoleName" lay-verify="required">
                                 <option value="">请选择一个角色类型</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <div class="layui-col-md2 layui-col-md-offset1" style="text-align:center">
-                    <button class="layui-btn layui-btn-normal" style="width:60%;">保存</button>
+                    <button name="保存权限" class="layui-btn layui-btn-normal" style="width:60%;">保存</button>
                 </div>
             </div>
         </div>
@@ -169,33 +169,33 @@
                 </thead>
                     <tbody>
                         <tr>
-                            <td><input lay-filter="table_power" type="checkbox" name="alldevice" title="设备管理" lay-skin="primary"></td>
+                            <td><input lay-filter="table_power_alldevice" type="checkbox" name="alldevice" title="设备管理" lay-skin="primary"></td>
                             <td>
-                                <input lay-filter="table_power" type="checkbox" name="device" title="设备删除" lay-skin="primary">
-                                <input lay-filter="table_power" type="checkbox" name="device" title="设备添加" lay-skin="primary">
-                                <input lay-filter="table_power" type="checkbox" name="device" title="设备查看" lay-skin="primary">
+                                <input lay-filter="table_power_device" type="checkbox" name="device" title="设备删除" lay-skin="primary">
+                                <input lay-filter="table_power_device" type="checkbox" name="device" title="设备添加" lay-skin="primary">
+                                <input lay-filter="table_power_device" type="checkbox" name="device" title="设备查看" lay-skin="primary">
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="allpeople" title="人员管理" lay-skin="primary"></td>
+                            <td><input lay-filter="table_power_allpeople" type="checkbox" name="allpeople" title="人员管理" lay-skin="primary"></td>
                             <td>
-                                <input type="checkbox" name="people" title="人员查看" lay-skin="primary">
-                                <input type="checkbox" name="people" title="人员删除" lay-skin="primary">
+                                <input lay-filter="table_power_people" type="checkbox" name="people" title="人员查看" lay-skin="primary">
+                                <input lay-filter="table_power_people" type="checkbox" name="people" title="人员删除" lay-skin="primary">
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="allalarm" title="报警管理" lay-skin="primary"></td>
+                            <td><input lay-filter="table_power_allalarm" type="checkbox" name="allalarm" title="报警管理" lay-skin="primary"></td>
                             <td>
-                                <input type="checkbox" name="alarm" title="报警查看" lay-skin="primary">
-                                <input type="checkbox" name="alarm" title="报警删除" lay-skin="primary">
+                                <input lay-filter="table_power_alarm" type="checkbox" name="alarm" title="报警查看" lay-skin="primary">
+                                <input lay-filter="table_power_alarm" type="checkbox" name="alarm" title="报警删除" lay-skin="primary">
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="alluser" title="系统管理" lay-skin="primary"></td>
+                            <td><input lay-filter="table_power_alluser" type="checkbox" name="alluser" title="系统管理" lay-skin="primary"></td>
                             <td>
-                                <input type="checkbox" name="user" title="员工删除" lay-skin="primary">
-                                <input type="checkbox" name="user" title="员工添加" lay-skin="primary">
-                                <input type="checkbox" name="user" title="员工修改" lay-skin="primary">
+                                <input lay-filter="table_power_user" type="checkbox" name="user" title="员工删除" lay-skin="primary">
+                                <input lay-filter="table_power_user" type="checkbox" name="user" title="员工添加" lay-skin="primary">
+                                <input lay-filter="table_power_user" type="checkbox" name="user" title="员工修改" lay-skin="primary">
                             </td>
                         </tr>
                     </tbody>
@@ -216,26 +216,221 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
+        //保存按钮
+        $("button[name='保存权限']").click(function () {
+            $.get("/UserInfo/GetAllRoles", function (data) { 
+                var Role = $("select[name='RoleName']").find('option');
+                var Role_selected;
+                for (var i = 0; i < Role.length; i++) {
+                    if (Role[i].selected === true) {
+                        for (var j = 0; j < data.length; j++) {
+                            if (Role[i].value === data[j].RoleName) {
+                                Role_selected = data[j].Id;
+                                
+                            }
+                        }
+                    }
+                }
+                var checkbox = $("input[type='checkbox']");
+                var checkboxed = '';
+                for (var i = 0; i < checkbox.length; i++) {
+                    if (checkbox[i].checked === true) {
+                        switch (checkbox[i].title) {
+                            case '设备删除':
+                                checkboxed += '10,';
+                                break;
+                            case '设备添加':
+                                checkboxed += '11,';
+                                break;
+                            case '设备查看':
+                                checkboxed += '12,';
+                                break;
+                            case '人员查看':
+                                checkboxed += '20,';
+                                break;
+                            case '人员删除':
+                                checkboxed += '21,';
+                                break;
+                            case '报警查看':
+                                checkboxed += '30,';
+                                break;
+                            case '报警删除':
+                                checkboxed += '31,';
+                                break;
+                            case '员工删除':
+                                checkboxed += '40,';
+                                break;
+                            case '员工添加':
+                                checkboxed += '41,';
+                                break;
+                            case '员工修改':
+                                checkboxed += '42,';
+                                break;
+                        }
+                    }
+                }
+                checkboxed = checkboxed.slice(0, delId.length - 1);//去除最后的逗号
+                data_send = Role_selected + ',' + checkboxed;
+                console.log(data_send);
+                $.get("/RoleInfo/SetActions?Data=" + data_send, function (data_return) {
+                    console.log(data_return);
+                })
+            });  
+            
+        });
+        //动态加载角色类型
+        getRolename();
+        //全选、反选操作
         layui.use('form', function () {
             var form = layui.form;
-            form.on('checkbox(table_power)', function (data) {
-                console.log(data.elem.name); //得到checkbox原始DOM对象
-                console.log(data.elem.checked); //是否被选中，true或者false
-                console.log(data.value); //复选框value值，也可以通过data.elem.value得到
-                console.log(data.othis); //得到美化后的DOM对象
-                if (data.elem.name === 'alldevice') {
-                    if (data.elem.checked === true) {
-                        var device = $("input[name='device']");
-                        $("input[name='device']").attr("checked", true);
-                        form.render('checkbox');
+            //获取下拉框
+            form.on('select(table_power_save)', function (data) {
+                console.log(data.value); //得到被选中的值
+                $.get("/UserInfo/GetAllRoles", function (data_role) {
+                    for (var i = 0; i < data_role.length; i++) {
+                        if (data.value === data_role[i].RoleName) {
+                            $.get("/RoleInfo/GetExitsActions?RId=" + data_role[i].Id, function (data_power) {
+                                console.log(data_power);
+                            })
+                        }
                     }
-                    else {
-                        var device = $("input[name='device']");
-                        $("input[name='device']").attr("checked", false);
+                })
+            });
+            form.on('checkbox(table_power_alldevice)', function (data) {
+                //console.log(data.elem.name); //得到checkbox原始DOM对象
+                //console.log(data.elem.checked); //是否被选中，true或者false
+                //console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+                //console.log(data.othis); //得到美化后的DOM对象
+                if (data.elem.checked === true) {
+                    var device = $("input[name='device']");
+                    $("input[name='device']").prop("checked", true);//不能使用attr添加属性
+                    form.render('checkbox');
+                }
+                else {
+                    var device = $("input[name='device']");
+                    $("input[name='device']").prop("checked", false);
+                    form.render('checkbox');
+                }
+            });
+            form.on('checkbox(table_power_device)', function (data) {
+                if (data.elem.checked === true) {
+                    var device = $("input[name='device']");
+                    var all = 0;
+                    for (var i = 0; i < device.length; i++) {
+                        if (device[i].checked === true)
+                            all++;
+                    }
+                    if (all === device.length) {
+                        $("input[name='alldevice']").prop("checked", true);
                         form.render('checkbox');
                     }
                 }
-
+                else {
+                    $("input[name='alldevice']").prop("checked", false);
+                    form.render('checkbox');
+                }
+            });
+            form.on('checkbox(table_power_allpeople)', function (data) {
+                //console.log(data.elem.name); //得到checkbox原始DOM对象
+                //console.log(data.elem.checked); //是否被选中，true或者false
+                //console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+                //console.log(data.othis); //得到美化后的DOM对象
+                if (data.elem.checked === true) {
+                    var device = $("input[name='people']");
+                    $("input[name='people']").prop("checked", true);//不能使用attr添加属性
+                    form.render('checkbox');
+                }
+                else {
+                    var device = $("input[name='people']");
+                    $("input[name='people']").prop("checked", false);
+                    form.render('checkbox');
+                }
+            });
+            form.on('checkbox(table_power_people)', function (data) {
+                if (data.elem.checked === true) {
+                    var device = $("input[name='people']");
+                    var all = 0;
+                    for (var i = 0; i < device.length; i++) {
+                        if (device[i].checked === true)
+                            all++;
+                    }
+                    if (all === device.length) {
+                        $("input[name='allpeople']").prop("checked", true);
+                        form.render('checkbox');
+                    }
+                }
+                else {
+                    $("input[name='allpeople']").prop("checked", false);
+                    form.render('checkbox');
+                }
+            });
+            form.on('checkbox(table_power_allalarm)', function (data) {
+                //console.log(data.elem.name); //得到checkbox原始DOM对象
+                //console.log(data.elem.checked); //是否被选中，true或者false
+                //console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+                //console.log(data.othis); //得到美化后的DOM对象
+                if (data.elem.checked === true) {
+                    var device = $("input[name='alarm']");
+                    $("input[name='alarm']").prop("checked", true);//不能使用attr添加属性
+                    form.render('checkbox');
+                }
+                else {
+                    var device = $("input[name='alarm']");
+                    $("input[name='alarm']").prop("checked", false);
+                    form.render('checkbox');
+                }
+            });
+            form.on('checkbox(table_power_alarm)', function (data) {
+                if (data.elem.checked === true) {
+                    var device = $("input[name='alarm']");
+                    var all = 0;
+                    for (var i = 0; i < device.length; i++) {
+                        if (device[i].checked === true)
+                            all++;
+                    }
+                    if (all === device.length) {
+                        $("input[name='allalarm']").prop("checked", true);
+                        form.render('checkbox');
+                    }
+                }
+                else {
+                    $("input[name='allalarm']").prop("checked", false);
+                    form.render('checkbox');
+                }
+            });
+            form.on('checkbox(table_power_alluser)', function (data) {
+                //console.log(data.elem.name); //得到checkbox原始DOM对象
+                //console.log(data.elem.checked); //是否被选中，true或者false
+                //console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+                //console.log(data.othis); //得到美化后的DOM对象
+                if (data.elem.checked === true) {
+                    var device = $("input[name='user']");
+                    $("input[name='user']").prop("checked", true);//不能使用attr添加属性
+                    form.render('checkbox');
+                }
+                else {
+                    var device = $("input[name='user']");
+                    $("input[name='user']").prop("checked", false);
+                    form.render('checkbox');
+                }
+            });
+            form.on('checkbox(table_power_user)', function (data) {
+                if (data.elem.checked === true) {
+                    var device = $("input[name='user']");
+                    var all = 0;
+                    for (var i = 0; i < device.length; i++) {
+                        if (device[i].checked === true)
+                            all++;
+                    }
+                    if (all === device.length) {
+                        $("input[name='alluser']").prop("checked", true);
+                        form.render('checkbox');
+                    }
+                }
+                else {
+                    $("input[name='alluser']").prop("checked", false);
+                    form.render('checkbox');
+                }
             });
         });
     </script>
