@@ -12,7 +12,8 @@ namespace Glove.IOT.UI.Portal.Controllers
     {
         // GET: RoleInfo
         public IRoleInfoService RoleInfoService { get; set; }
-        readonly short statusFlagNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
+        public IR_RoleInfo_ActionInfoService R_RoleInfo_ActionInfoService { get; set; }
+        readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
 
         /// <summary>
@@ -23,54 +24,75 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
-
-       /// <summary>
-       /// 加载角色信息
-       /// </summary>
-       /// <returns>Json数据</returns>
-        public ActionResult GetAllRoleInfos()
+        /// <summary>
+        /// 所有已选的权限发送给前台
+        /// </summary>
+        /// <param name="rId"></param>
+        /// <returns></returns>
+        public ActionResult GetExitsActions(int rId)
         {
-            //jquery easyui:table:{total:32,row:[{},{}]}
-            // easyui:table 在初始化的时候自动发送以下俩个参数值
-            int pageSize = int.Parse(Request["rows"] ?? "10");
-            int pageIndex = int.Parse(Request["page"] ?? "1");
-            int total = 0;
-
-            //拿到当前页的数据
-            var temp = RoleInfoService.GetPageEntities(pageSize, pageIndex,
-                                                         out total, u => u.StatusFlag !=delFlag, u => u.Id,
-                                                         true);
-            var tempData = temp.Select(a => new
-            {
-                a.Id,
-                a.RoleName,
-                a.Remark,
-                a.SubTime,
-                a.StatusFlag
-               
-            });
-
-            var data = new { total = total, rows = tempData.ToList() };
-            return Json(data, JsonRequestBehavior.AllowGet);
+            RoleInfo role = RoleInfoService.GetEntities(r => r.Id == rId).FirstOrDefault();
+            var allActionInfoIds = (from r in role.R_RoleInfo_ActionInfo
+                                  where r.RoleInfoId == rId&&r.StatusFlag==statusNormal
+                                  select r.ActionInfoId).ToList();
+            return Json(allActionInfoIds, JsonRequestBehavior.AllowGet);
 
         }
 
         /// <summary>
-        /// 添加角色信息
+        /// 给角色设置权限
         /// </summary>
-        /// <param name="roleInfo">前端传来的角色信息</param>
+        /// <param name="UId">用户Id</param>
         /// <returns>OK</returns>
-        public ActionResult Add(RoleInfo roleInfo)
+        public ActionResult SetActions()
         {
-            roleInfo.StatusFlag = statusFlagNormal;
-            roleInfo.SubTime = DateTime.Now;
-            RoleInfoService.Add(roleInfo);
-            return Content("Ok");
+            string ids = Request.QueryString["Data"];
+            //正常处理
+            string[] strIds = ids.Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+
+            }
+
+            //第一：当前角色的id ----rid
+            int rId = idList[0];
+            //第二：当前用户在角色关联表中的ID
+            RoleInfo role = RoleInfoService.GetEntities(r => r.Id == rId).FirstOrDefault();
+            var allRoleInfoActionInfoIds = (from r in role.R_RoleInfo_ActionInfo
+                                    where r.RoleInfoId == rId
+                                    select r.Id).ToList();
+
+            for (int i = 0; i < allRoleInfoActionInfoIds.Count(); i++)
+            {
+                int userInfoId = Convert.ToInt32(allRoleInfoActionInfoIds[i]);
+                var rUserRole = R_RoleInfo_ActionInfoService.GetEntities(r =>
+                r.Id == userInfoId).FirstOrDefault();
+                R_RoleInfo_ActionInfoService.Delete(rUserRole);
+            }
+
+
+
+            for (int i = 1; i < idList.Count; i++)
+            {
+                int actionId = Convert.ToInt32(idList[i]);
+                R_RoleInfo_ActionInfo rRoleInfoActionInfo = new R_RoleInfo_ActionInfo();
+                rRoleInfoActionInfo.RoleInfoId = rId;
+                rRoleInfoActionInfo.ActionInfoId = actionId;
+                rRoleInfoActionInfo.StatusFlag = statusNormal;
+                R_RoleInfo_ActionInfoService.Add(rRoleInfoActionInfo);
+
+            }
+            return Content("oK");
 
         }
-        public ActionResult Userpower()
+
+
+           public ActionResult Userpower()
         {
             return View();
         }
+
     }
 }

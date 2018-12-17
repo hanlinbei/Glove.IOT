@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/14/2018 21:42:50
+-- Date Created: 12/17/2018 16:38:55
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -94,8 +94,8 @@ CREATE TABLE [dbo].[R_UserInfo_RoleInfo] (
 );
 GO
 
--- Creating table 'Power'
-CREATE TABLE [dbo].[Power] (
+-- Creating table 'ActionInfo'
+CREATE TABLE [dbo].[ActionInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [ActionType] nvarchar(256)  NOT NULL,
     [ActionName] nvarchar(max)  NOT NULL,
@@ -105,11 +105,12 @@ CREATE TABLE [dbo].[Power] (
 );
 GO
 
--- Creating table 'R_RoleInfo_Power'
-CREATE TABLE [dbo].[R_RoleInfo_Power] (
+-- Creating table 'R_RoleInfo_ActionInfo'
+CREATE TABLE [dbo].[R_RoleInfo_ActionInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [RoleInfoId] int  NOT NULL,
-    [ActionInfoId] int  NOT NULL
+    [ActionInfoId] int  NOT NULL,
+    [StatusFlag] smallint  NOT NULL
 );
 GO
 
@@ -158,15 +159,15 @@ ADD CONSTRAINT [PK_R_UserInfo_RoleInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Power'
-ALTER TABLE [dbo].[Power]
-ADD CONSTRAINT [PK_Power]
+-- Creating primary key on [Id] in table 'ActionInfo'
+ALTER TABLE [dbo].[ActionInfo]
+ADD CONSTRAINT [PK_ActionInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'R_RoleInfo_Power'
-ALTER TABLE [dbo].[R_RoleInfo_Power]
-ADD CONSTRAINT [PK_R_RoleInfo_Power]
+-- Creating primary key on [Id] in table 'R_RoleInfo_ActionInfo'
+ALTER TABLE [dbo].[R_RoleInfo_ActionInfo]
+ADD CONSTRAINT [PK_R_RoleInfo_ActionInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -216,8 +217,8 @@ ON [dbo].[R_UserInfo_RoleInfo]
     ([RoleInfoId]);
 GO
 
--- Creating foreign key on [RoleInfoId] in table 'R_RoleInfo_Power'
-ALTER TABLE [dbo].[R_RoleInfo_Power]
+-- Creating foreign key on [RoleInfoId] in table 'R_RoleInfo_ActionInfo'
+ALTER TABLE [dbo].[R_RoleInfo_ActionInfo]
 ADD CONSTRAINT [FK_RoleInfoR_RoleInfo_ActionInfo]
     FOREIGN KEY ([RoleInfoId])
     REFERENCES [dbo].[RoleInfo]
@@ -227,22 +228,22 @@ GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_RoleInfoR_RoleInfo_ActionInfo'
 CREATE INDEX [IX_FK_RoleInfoR_RoleInfo_ActionInfo]
-ON [dbo].[R_RoleInfo_Power]
+ON [dbo].[R_RoleInfo_ActionInfo]
     ([RoleInfoId]);
 GO
 
--- Creating foreign key on [ActionInfoId] in table 'R_RoleInfo_Power'
-ALTER TABLE [dbo].[R_RoleInfo_Power]
+-- Creating foreign key on [ActionInfoId] in table 'R_RoleInfo_ActionInfo'
+ALTER TABLE [dbo].[R_RoleInfo_ActionInfo]
 ADD CONSTRAINT [FK_R_RoleInfo_ActionInfoActionInfo]
     FOREIGN KEY ([ActionInfoId])
-    REFERENCES [dbo].[Power]
+    REFERENCES [dbo].[ActionInfo]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_R_RoleInfo_ActionInfoActionInfo'
 CREATE INDEX [IX_FK_R_RoleInfo_ActionInfoActionInfo]
-ON [dbo].[R_RoleInfo_Power]
+ON [dbo].[R_RoleInfo_ActionInfo]
     ([ActionInfoId]);
 GO
 

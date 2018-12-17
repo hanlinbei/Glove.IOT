@@ -200,16 +200,6 @@ namespace Glove.IOT.UI.Portal.Controllers
          }
 
 
-   
-  
-       
-
-  
-
-
-
-
-
         public ActionResult t()
         {
             return View();
@@ -234,5 +224,6 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+     
     }
 }

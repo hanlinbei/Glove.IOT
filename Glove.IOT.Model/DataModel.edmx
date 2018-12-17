@@ -9,8 +9,8 @@
     <EntitySet Name="UserInfo" EntityType="DataModel.Store.UserInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RoleInfo" EntityType="DataModel.Store.RoleInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="R_UserInfo_RoleInfo" EntityType="DataModel.Store.R_UserInfo_RoleInfo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Power" EntityType="DataModel.Store.Power" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="R_RoleInfo_Power" EntityType="DataModel.Store.R_RoleInfo_Power" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ActionInfo" EntityType="DataModel.Store.ActionInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="R_RoleInfo_ActionInfo" EntityType="DataModel.Store.R_RoleInfo_ActionInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DeviceInfo" EntityType="DataModel.Store.DeviceInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DeviceParameterInfo" EntityType="DataModel.Store.DeviceParameterInfo" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserInfoR_UserInfo_RoleInfo" Association="DataModel.Store.UserInfoR_UserInfo_RoleInfo">
@@ -23,11 +23,11 @@
     </AssociationSet>
     <AssociationSet Name="RoleInfoR_RoleInfo_ActionInfo" Association="DataModel.Store.RoleInfoR_RoleInfo_ActionInfo">
       <End Role="RoleInfo" EntitySet="RoleInfo" />
-      <End Role="R_RoleInfo_ActionInfo" EntitySet="R_RoleInfo_Power" />
+      <End Role="R_RoleInfo_ActionInfo" EntitySet="R_RoleInfo_ActionInfo" />
     </AssociationSet>
     <AssociationSet Name="R_RoleInfo_ActionInfoActionInfo" Association="DataModel.Store.R_RoleInfo_ActionInfoActionInfo">
-      <End Role="R_RoleInfo_ActionInfo" EntitySet="R_RoleInfo_Power" />
-      <End Role="ActionInfo" EntitySet="Power" />
+      <End Role="R_RoleInfo_ActionInfo" EntitySet="R_RoleInfo_ActionInfo" />
+      <End Role="ActionInfo" EntitySet="ActionInfo" />
     </AssociationSet>
     <AssociationSet Name="DeviceInfoDeviceParameterInfo" Association="DataModel.Store.DeviceInfoDeviceParameterInfo">
       <End Role="DeviceInfo" EntitySet="DeviceInfo" />
@@ -65,7 +65,7 @@
     <Property Name="RoleInfoId" Type="int" Nullable="false" />
     <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="1" />
   </EntityType>
-  <EntityType Name="Power">
+  <EntityType Name="ActionInfo">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -76,13 +76,14 @@
     <Property Name="HttpMethod" Type="nvarchar" Nullable="false" MaxLength="512" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
-  <EntityType Name="R_RoleInfo_Power">
+  <EntityType Name="R_RoleInfo_ActionInfo">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleInfoId" Type="int" Nullable="false" />
     <Property Name="ActionInfoId" Type="int" Nullable="false" />
+    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="1" />
   </EntityType>
   <EntityType Name="DeviceInfo">
     <Key>
@@ -133,7 +134,7 @@
   </Association>
   <Association Name="RoleInfoR_RoleInfo_ActionInfo">
     <End Role="RoleInfo" Type="DataModel.Store.RoleInfo" Multiplicity="1" />
-    <End Role="R_RoleInfo_ActionInfo" Type="DataModel.Store.R_RoleInfo_Power" Multiplicity="*" />
+    <End Role="R_RoleInfo_ActionInfo" Type="DataModel.Store.R_RoleInfo_ActionInfo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="RoleInfo">
         <PropertyRef Name="Id" />
@@ -144,8 +145,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="R_RoleInfo_ActionInfoActionInfo">
-    <End Role="R_RoleInfo_ActionInfo" Type="DataModel.Store.R_RoleInfo_Power" Multiplicity="*" />
-    <End Role="ActionInfo" Type="DataModel.Store.Power" Multiplicity="1" />
+    <End Role="R_RoleInfo_ActionInfo" Type="DataModel.Store.R_RoleInfo_ActionInfo" Multiplicity="*" />
+    <End Role="ActionInfo" Type="DataModel.Store.ActionInfo" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="ActionInfo">
         <PropertyRef Name="Id" />
@@ -183,15 +184,15 @@
             <End Role="R_UserInfo_RoleInfo" EntitySet="R_UserInfo_RoleInfo" />
             <End Role="RoleInfo" EntitySet="RoleInfo" />
           </AssociationSet>
-          <EntitySet Name="Power" EntityType="DataModel.ActionInfo" />
-          <EntitySet Name="R_RoleInfo_Power" EntityType="DataModel.R_RoleInfo_ActionInfo" />
+          <EntitySet Name="ActionInfo" EntityType="DataModel.ActionInfo" />
+          <EntitySet Name="R_RoleInfo_ActionInfo" EntityType="DataModel.R_RoleInfo_ActionInfo" />
           <AssociationSet Name="RoleInfoR_RoleInfo_ActionInfo" Association="DataModel.RoleInfoR_RoleInfo_ActionInfo">
             <End Role="RoleInfo" EntitySet="RoleInfo" />
-            <End Role="R_RoleInfo_ActionInfo" EntitySet="R_RoleInfo_Power" />
+            <End Role="R_RoleInfo_ActionInfo" EntitySet="R_RoleInfo_ActionInfo" />
           </AssociationSet>
           <AssociationSet Name="R_RoleInfo_ActionInfoActionInfo" Association="DataModel.R_RoleInfo_ActionInfoActionInfo">
-            <End Role="R_RoleInfo_ActionInfo" EntitySet="R_RoleInfo_Power" />
-            <End Role="ActionInfo" EntitySet="Power" />
+            <End Role="R_RoleInfo_ActionInfo" EntitySet="R_RoleInfo_ActionInfo" />
+            <End Role="ActionInfo" EntitySet="ActionInfo" />
           </AssociationSet>
           <EntitySet Name="DeviceInfo" EntityType="DataModel.DeviceInfo" />
           <EntitySet Name="DeviceParameterInfo" EntityType="DataModel.DeviceParameterInfo" />
@@ -281,6 +282,7 @@
           <Property Name="RoleInfoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ActionInfo" Relationship="DataModel.R_RoleInfo_ActionInfoActionInfo" FromRole="R_RoleInfo_ActionInfo" ToRole="ActionInfo" />
           <Property Name="ActionInfoId" Type="Int32" Nullable="false" />
+          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="1" />
         </EntityType>
         <Association Name="RoleInfoR_RoleInfo_ActionInfo">
           <End Type="DataModel.RoleInfo" Role="RoleInfo" Multiplicity="1" />
@@ -383,9 +385,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Power">
+    <EntitySetMapping Name="ActionInfo">
       <EntityTypeMapping TypeName="IsTypeOf(DataModel.ActionInfo)">
-        <MappingFragment StoreEntitySet="Power">
+        <MappingFragment StoreEntitySet="ActionInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ActionType" ColumnName="ActionType" />
           <ScalarProperty Name="ActionName" ColumnName="ActionName" />
@@ -395,12 +397,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="R_RoleInfo_Power">
+    <EntitySetMapping Name="R_RoleInfo_ActionInfo">
       <EntityTypeMapping TypeName="IsTypeOf(DataModel.R_RoleInfo_ActionInfo)">
-        <MappingFragment StoreEntitySet="R_RoleInfo_Power">
+        <MappingFragment StoreEntitySet="R_RoleInfo_ActionInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RoleInfoId" ColumnName="RoleInfoId" />
           <ScalarProperty Name="ActionInfoId" ColumnName="ActionInfoId" />
+          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -15,9 +15,15 @@ namespace Glove.IOT.Model
     [Serializable]
     public partial class R_RoleInfo_ActionInfo
     {
+        public R_RoleInfo_ActionInfo()
+        {
+            this.StatusFlag = 1;
+        }
+    
         public int Id { get; set; }
         public int RoleInfoId { get; set; }
         public int ActionInfoId { get; set; }
+        public short StatusFlag { get; set; }
     
         public virtual RoleInfo RoleInfo { get; set; }
         public virtual ActionInfo ActionInfo { get; set; }

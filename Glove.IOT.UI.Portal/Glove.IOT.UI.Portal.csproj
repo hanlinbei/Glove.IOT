@@ -1873,6 +1873,13 @@
       <Project>{61203463-03bb-4b9d-927b-75b0c9272b76}</Project>
       <Name>Glove.IOT.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Glove.IOT.Tcp\Glove.IOT.Tcp.csproj">
+      <Project>{4833C4A4-3E68-4191-B6B1-65687E9CA769}</Project>
+      <Name>Glove.IOT.Tcp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
