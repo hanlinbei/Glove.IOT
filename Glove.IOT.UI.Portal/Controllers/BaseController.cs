@@ -53,9 +53,8 @@ namespace Glove.IOT.UI.Portal.Controllers
                 //{
                 //    LoginUser = filterContext.HttpContext.Session["loginUser"] as UserInfo;
                 //}
-                IApplicationContext ctx = ContextRegistry.GetContext();
-
-                IActionInfoService actionInfoService = ctx.GetObject("ActionInfoService") as IActionInfoService;
+                string url = Request.Url.AbsolutePath.ToLower();
+                
             }
         }
     }

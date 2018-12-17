@@ -33,7 +33,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             RoleInfo role = RoleInfoService.GetEntities(r => r.Id == rId).FirstOrDefault();
             var allActionInfoIds = (from r in role.R_RoleInfo_ActionInfo
-                                  where r.RoleInfoId == rId
+                                  where r.RoleInfoId == rId&&r.StatusFlag==statusNormal
                                   select r.ActionInfoId).ToList();
             return Json(allActionInfoIds, JsonRequestBehavior.AllowGet);
 
@@ -44,8 +44,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="UId">用户Id</param>
         /// <returns>OK</returns>
-        public ActionResult SetActions(string ids)
+        public ActionResult SetActions()
         {
+            string ids = Request.QueryString["Data"];
             //正常处理
             string[] strIds = ids.Split(',');
             List<int> idList = new List<int>();
@@ -88,7 +89,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
 
 
-
+           public ActionResult Userpower()
+        {
+            return View();
+        }
 
     }
 }
