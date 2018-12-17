@@ -1,4 +1,7 @@
-﻿using Glove.IOT.Model;
+﻿using Glove.IOT.IBLL;
+using Glove.IOT.Model;
+using Spring.Context;
+using Spring.Context.Support;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +53,9 @@ namespace Glove.IOT.UI.Portal.Controllers
                 //{
                 //    LoginUser = filterContext.HttpContext.Session["loginUser"] as UserInfo;
                 //}
+                IApplicationContext ctx = ContextRegistry.GetContext();
+
+                IActionInfoService actionInfoService = ctx.GetObject("ActionInfoService") as IActionInfoService;
             }
         }
     }

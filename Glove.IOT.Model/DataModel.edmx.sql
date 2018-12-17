@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/14/2018 21:42:50
+-- Date Created: 12/17/2018 16:10:10
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -109,7 +109,8 @@ GO
 CREATE TABLE [dbo].[R_RoleInfo_Power] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [RoleInfoId] int  NOT NULL,
-    [ActionInfoId] int  NOT NULL
+    [ActionInfoId] int  NOT NULL,
+    [StatusFlag] smallint  NOT NULL
 );
 GO
 
