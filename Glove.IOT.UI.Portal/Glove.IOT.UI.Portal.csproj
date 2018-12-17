@@ -187,9 +187,6 @@
     <Content Include="Config\common.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\socket.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Config\controllers.xml">
       <SubType>Designer</SubType>
     </Content>

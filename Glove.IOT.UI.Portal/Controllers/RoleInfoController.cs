@@ -34,11 +34,10 @@ namespace Glove.IOT.UI.Portal.Controllers
             // easyui:table 在初始化的时候自动发送以下俩个参数值
             int pageSize = int.Parse(Request["rows"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
-            int total = 0;
 
             //拿到当前页的数据
             var temp = RoleInfoService.GetPageEntities(pageSize, pageIndex,
-                                                         out total, u => u.StatusFlag !=delFlag, u => u.Id,
+                                                         out int total, u => u.StatusFlag != delFlag, u => u.Id,
                                                          true);
             var tempData = temp.Select(a => new
             {

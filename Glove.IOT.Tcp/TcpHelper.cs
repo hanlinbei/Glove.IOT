@@ -15,12 +15,8 @@ namespace Glove.IOT.Tcp
 {
     public class TcpHelper:ITcpHelper
     {
-
-
         public void SocketInit()
         {
-
-
             //当点击开始监听的时候 在服务器端创建一个负责监IP地址跟端口号的Socket
             Socket socketWatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 IPAddress ip = IPAddress.Any;//IPAddress.Parse(txtServer.Text);
@@ -90,10 +86,10 @@ namespace Glove.IOT.Tcp
                         StopTime = DateTime.Now,
                         SubTime = DateTime.Now
                     };
-                //通过容器创建一个对象。
-                IApplicationContext ctx = ContextRegistry.GetContext();
-                IDeviceParameterInfoService DeviceParameterInfoService = ctx.GetObject("DeviceParameterInfoService") as IDeviceParameterInfoService;
-                DeviceParameterInfoService.Add(deviceParameter);
+                    //通过容器创建一个对象。
+                    IApplicationContext ctx = ContextRegistry.GetContext();
+                    IDeviceParameterInfoService DeviceParameterInfoService = ctx.GetObject("DeviceParameterInfoService") as IDeviceParameterInfoService;
+                    DeviceParameterInfoService.Add(deviceParameter);
 
                     if (r == 0)
                     {
