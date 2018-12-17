@@ -1824,7 +1824,7 @@
       <BrowseToURL>~/UserInfo/tck</BrowseToURL>
     </Content>
     <Content Include="Views\UserInfo\LayerAdduser.cshtml" />
-    <Content Include="Views\UserInfo\Userpower.cshtml" />
+    <Content Include="Views\RoleInfo\Userpower.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

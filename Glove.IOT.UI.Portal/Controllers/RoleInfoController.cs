@@ -68,6 +68,9 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Content("Ok");
 
         }
-       
+        public ActionResult Userpower()
+        {
+            return View();
+        }
     }
 }
