@@ -24,7 +24,7 @@ namespace Glove.IOT.BLL
                             deviceInfoId = p.Key
                         })
                         join t3 in model.DeviceInfo on t1.DeviceInfoId equals t3.Id
-                        where t1.DeviceInfoId==t2.deviceInfoId&&t1.SubTime==t2.newestTime&&t3.DeviceId==deviceId
+                        where t1.DeviceInfoId==t2.deviceInfoId&&t1.SubTime==t2.newestTime&&t3.DeviceId==deviceId&&t3.StatusFlag!=2
                         select new DeviceParameter
                         {
                             DeviceId=t3.DeviceId,

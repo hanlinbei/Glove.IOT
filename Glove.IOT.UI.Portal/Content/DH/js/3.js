@@ -2,8 +2,9 @@ var num_p;
 var num_d;
 var globalPage;
 var globalLimit;
-var delId = "";
-var UIdtable = new Array();UIdtable
+var delId = "";//批量删除时给后台发的字符串存储变量
+var UIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
+var DIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
 var Rid_Rolename = new Array();
 var RId = 0;
 layui.config({
@@ -103,8 +104,15 @@ layui.use('table', function () {//打开网页刷新表格
         console.log(obj.data); //选中行的相关数据
         console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
         if (obj.type === "all") {
-            for (var i = 0; i < UIdtable.length; i++) {
+            if (obj.checked === true) {
+                for (var i = 0; i < UIdtable.length; i++) {
                     UIdtable[i][1] = 1;
+                }
+            }
+            else {
+                for (var i = 0; i < UIdtable.length; i++) {
+                    UIdtable[i][1] = 0;
+                }
             }
         }
         else if (obj.checked === true) {
@@ -332,19 +340,9 @@ function callbackdata_search(index) {//获取弹窗用户输入的数据
     }
     return data;
 }
-function someDel() {
+function someDel(assort) {
     delId = "";//清空
-    for (var i = 0; i < UIdtable.length; i++) {
-        if (UIdtable[i][1] === 1) {
-            delId += UIdtable[i][0];
-            delId += ",";
-        }
-    }
-    delId = delId.slice(0, delId.length - 1);
-    console.log(delId);
-    layer.confirm('确定删除？', function (index) {
-        layer.close(index);
-        delId = "";//清空
+    if (assort === 'user') {
         for (var i = 0; i < UIdtable.length; i++) {
             if (UIdtable[i][1] === 1) {
                 delId += UIdtable[i][0];
@@ -352,10 +350,32 @@ function someDel() {
             }
         }
         delId = delId.slice(0, delId.length - 1);
-        $.post("/UserInfo/Delete", { ids: delId });//发送字符串
-        //表格重载
-        updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", 1, 10);
-    });
+        console.log(delId);
+        layer.confirm('确定删除？', function (index) {
+            layer.close(index);
+            $.post("/UserInfo/Delete", { ids: delId });//发送字符串
+            //表格重载
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", 1, globalLimit);
+        });
+    }
+    else if (assort === 'device') {
+        for (var i = 0; i < DIdtable.length; i++) {
+            if (DIdtable[i][1] === 1) {
+                delId += DIdtable[i][0];
+                delId += ",";
+            }
+        }
+        delId = delId.slice(0, delId.length - 1);
+        console.log(delId);
+        layer.confirm('确定删除？', function (index) {
+            layer.close(index);
+            $.post("/Device/Delete", { ids: delId });//发送字符串
+            //表格重载
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "人员管理", 1, globalLimit);
+        });
+    }
 }
 function updatatable_search(elem, height, url, title, page, limit, res) {//表格重载 跳转到操作页面
     var table = layui.table;
@@ -396,11 +416,20 @@ function updatatable(id, elem, height, url, title, page, limit) {//表格重载 
             console.log("表格渲染完成");
             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
             globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
-            UIdtable = [];//清空数组
-            for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
-                UIdtable[i] = [res.data[i].UId, 0];
+            if (id === 'table_ry') {
+                UIdtable = [];//清空数组
+                for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
+                    UIdtable[i] = [res.data[i].UId, 0];
+                }
+                num_p = count;
             }
-            num_p = count;
+            else if (id === 'table_device'){
+                DIdtable = [];//清空数组
+                for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
+                    DIdtable[i] = [res.data[i].DeviceId, 0];
+                }
+                num_d = count;
+            }
         }
     });
 }
@@ -435,7 +464,7 @@ layui.use('table', function () {//打开网页刷新表格
     //第一个实例
     table.render({
         elem: '#table_device'
-        //, height: 520
+        , height: 500
         , url: '/Device/GetAllDeviceInfos' //数据接口
         , title: "设备管理"
         , page: true //开启分页
@@ -473,7 +502,7 @@ layui.use('table', function () {//打开网页刷新表格
         , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
             globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
-            UIdtable = [];//清空
+            DIdtable = [];//清空
             if (curr === Math.floor(count / globalLimit) + 1) {
                 var length = (count % globalLimit === 0 ? globalLimit : count % globalLimit);
             }
@@ -481,7 +510,7 @@ layui.use('table', function () {//打开网页刷新表格
                 var length = globalLimit;
             }
             for (var i = 0; i < length; i++) {
-                UIdtable[i] = [res.data[i].Id, 0];
+                DIdtable[i] = [res.data[i].Id, 0];
             }
             num_d = count;
         }
@@ -492,9 +521,9 @@ layui.use('table', function () {//打开网页刷新表格
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
-
         if (layEvent === 'detail') { //查看
-            layerShowEdituser('编辑人员', 'LayerEdituser', 500, 450, obj.data);
+            console.log("点击了查看");
+            window.location.href = 'Devicedetail?DeviceId=' + data.DeviceId;
         } else if (layEvent === 'del') { //删除
             console.log(data);
             layer.confirm('确定删除？', function (index) {
@@ -508,7 +537,7 @@ layui.use('table', function () {//打开网页刷新表格
                 globalPage = Math.ceil(num_d / globalLimit);//获取页码值
                 if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
                 //表格重载
-                updatatable('table_device', '#table_device', 550, '/UserInfo/GetAllUserInfos', "人员管理", globalPage, globalLimit);
+                updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", globalPage, globalLimit);
             });
         }
     });
@@ -517,22 +546,30 @@ layui.use('table', function () {//打开网页刷新表格
         console.log(obj.data); //选中行的相关数据
         console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
         if (obj.type === "all") {
-            for (var i = 0; i < UIdtable.length; i++) {
-                UIdtable[i][1] = 1;
+            if (obj.checked === true) {
+                for (var i = 0; i < DIdtable.length; i++) {
+                    DIdtable[i][1] = 1;
+                }
+            }
+            else {
+                for (var i = 0; i < DIdtable.length; i++) {
+                    DIdtable[i][1] = 0;
+                }
             }
         }
         else if (obj.checked === true) {
-            for (var i = 0; i < UIdtable.length; i++) {
-                if (UIdtable[i][0] === obj.data.DeviceId) {
-                    UIdtable[i][1] = 1;
+            for (var i = 0; i < DIdtable.length; i++) {
+                if (DIdtable[i][0] === obj.data.Id) {
+                    DIdtable[i][1] = 1;
+                    console.log(DIdtable[i][0]);
                     break;
                 }
             }
         }
         else if (obj.checked === false) {
-            for (var i = 0; i < UIdtable.length; i++) {
-                if (UIdtable[i][0] === obj.data.DeviceId) {
-                    UIdtable[i][1] = 0;
+            for (var i = 0; i < DIdtable.length; i++) {
+                if (DIdtable[i][0] === obj.data.Id) {
+                    DIdtable[i][1] = 0;
                     break;
                 }
             }
@@ -577,11 +614,34 @@ function layerShowAdddevice(title, url, w, h, data) {
                     if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
                     updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "人员管理", globalPage, globalLimit);
                 }
-            };
-            
+            };   
             //最后关闭弹出层
             layer.close(index);
         }
+    });
+}
+function layerShowSearchdevice(title, url, w, h, data) {
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade: 0.4,
+        title: title,
+        content: url,
+        btn: ['查找'],
+        yes: function (index) {
+            //当点击‘确定’按钮的时候，获取弹出层返回的值
+            var res = window["layui-layer-iframe" + index].callbackdata_search(index);
+            console.log("搜索" + res);
+            //表格重载 跳转到操作页面
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            updatatable_search('#table_ry', 550, '/Device/GetAllDeviceInfos', "设备管理", 1, globalLimit, res);
+            //最后关闭弹出层
+            layer.close(index);
+        },
+        skin: 'demo-class'
     });
 }
 $(document).ready(function () {
@@ -589,7 +649,7 @@ $(document).ready(function () {
         layerShowAdduser('添加人员', 'LayerAdduser', 500, 450, "null");
     });
     $("button[name='删除人员']").click(function () {
-        someDel();
+        someDel('user');
     });
     $("button[name='查找人员']").click(function () {
         layerShowSearchuser('查找人员', 'LayerSearchuser', 500, 380, "null");
@@ -597,4 +657,11 @@ $(document).ready(function () {
     $("button[name='添加设备']").click(function () {
         layerShowAdddevice('添加设备', 'LayerAdddevice', 500, 200, "null");
     });
+    $("button[name='删除设备']").click(function () {
+        someDel('device');
+    });
+    $("button[name='查找设备']").click(function () {
+        layerShowSearchdevice('查找设备', 'LayerSearchdevice', 500, 380, "null");
+    });
+
 });

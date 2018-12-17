@@ -146,88 +146,84 @@
         <!-- 该页面的主要内容 -->
         <div class="button">
             <span class="col-xs-10"></span>
-            <button class="layui-btn col-xs-1" name="查找设备">
-                <i class="iconfont icon-seek">&#xe618;</i>
-                返回
-            </button>
+            <a href="Devicemanage">
+                <button class="layui-btn col-xs-1" name="查找设备">
+                    <i class="iconfont icon-seek">&#xe618;</i>
+                    返回
+                </button>
+            </a>
         </div>
+        <!-- 设备详情内容 -->
         <div class="table">
-            @*<table id="table_device" lay-filter="table_device" lay-data="{id: 'idTest'}"></table>*@
-            <div class="layui-container">
-                <div class="layui-row">
-                    <div class="layui-col-md6">
-                        <div class="layer">
-                            <div class="layui-form" lay-filter="userAdd">
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">设备ID：</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="UName" required lay-verify="required" placeholder="设备ID" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">运行状态：</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="UCode" required lay-verify="required" placeholder="运行状态" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">运行时间：</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="Pwd" required lay-verify="required" placeholder="运行时间" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
+        <div class="layui-container">
+            <div class="layui-row">
+                <div class="layui-col-md6" style="height:200px;"><!-- 加高度防止下面上移 临时解决办法 -->
+                    <div class="layer">
+                        <div class="layui-form" lay-filter="userAdd">
+                            <div class="layui-form-item">
+                            <label class="layui-form-label">设备ID：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="设备ID" required lay-verify="required" placeholder="设备ID" autocomplete="off" class="layui-input">
+                            </div>
+                            </div>
+                            <div class="layui-form-item">
+                            <label class="layui-form-label">运行状态：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="运行状态" required lay-verify="required" placeholder="运行状态" autocomplete="off" class="layui-input">
+                            </div>
+                            </div>
+                            <div class="layui-form-item">
+                            <label class="layui-form-label">运行时间：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="运行时间" required lay-verify="required" placeholder="运行时间" autocomplete="off" class="layui-input">
+                            </div>
                             </div>
                         </div>
                     </div>
-                    <div class="layui-col-md6">
-                        <div class="layer">
-                            <div class="layui-form" lay-filter="userAdd">
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">停机时间：</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="Pwd" required lay-verify="required" placeholder="停机时间" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">目标产量：</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="Pwd" required lay-verify="required" placeholder="目标产量" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">运行时间：</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="Pwd" required lay-verify="required" placeholder="运行时间" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md3">
-                        <p style="color:#009688; font-size: 36px; text-align: center;  padding-top:30px">60%</p>
-                        <p style="text-align: center;font-size:18px;padding-top:27px;">单个进度</p>
-                    </div>
-                    <div class="layui-col-md6">
+                </div>
+                <div class="layui-col-md6" style="height:200px;">
+                    <div class="layer">
+                        <div class="layui-form" lay-filter="userAdd">
                         <div class="layui-form-item">
-                            <div class="layui-form-item layui-form-text">
-                                <textarea name="Remark" placeholder="历史记录" class="layui-textarea"></textarea>
-                                <p style="text-align: center;font-size:18px;padding-top:5px;">历史记录</p>
+                            <label class="layui-form-label">停机时间：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="停机时间" required lay-verify="required" placeholder="停机时间" autocomplete="off" class="layui-input">
                             </div>
                         </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">目标产量：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="目标产量" required lay-verify="required" placeholder="目标产量" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                    <div class="layui-col-md3">
-                        <p style="color:#FFB800; font-size: 36px; text-align: center;  padding-top:30px">80%</p>
-                        <p style="text-align: center;font-size:18px;padding-top:27px;">整体进度</p>
+                </div>
+            <div class="layui-col-md3">
+                <p name="单个进度" style="color:#009688; font-size: 36px; text-align: center;  padding-top:30px">单个进度</p>
+                <p style="text-align: center;font-size:18px;padding-top:27px;">单个进度</p>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-form-item">
+                    <div class="layui-form-item layui-form-text">
+                        <textarea name="历史记录" placeholder="历史记录" class="layui-textarea"></textarea>
+                        <p style="text-align: center;font-size:18px;padding-top:5px;">历史记录</p>
                     </div>
                 </div>
             </div>
+            <div class="layui-col-md3">
+                <p name="整体进度" style="color:#FFB800; font-size: 36px; text-align: center;  padding-top:30px">整体进度</p>
+                <p style="text-align: center;font-size:18px;padding-top:27px;">整体进度</p>
+            </div>
+            </div>
         </div>
-
+        </div>
     </section>
     <!-- 底部固定区域 -->
     <footer id="footer">
         <p class="text-right">© 版权所有 © 绍兴金隆机械制造有限公司</p>
     </footer>
+    <script src="~/Scripts/datapattern.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
@@ -240,16 +236,36 @@
     <script>
         var category = window.location.search;
         var cateval = category.substring(category.lastIndexOf('=') + 1, category.length);
-        console.log('传递参数:' + cateval);
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', "/Device/GetDeviceParameterInfo?DeviceId=" + cateval);
-        //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
-        xhr.send();//多发一个id数据
-        xhr.onreadystatechange = function () {
-            if (this.readyState !== 4) return;
-            console.log(this.responseText);
-        };
+        if (cateval !== "") {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', "/Device/GetDeviceParameterInfo?DeviceId=" + cateval);
+            //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
+            xhr.send();//多发一个id数据
+            xhr.onreadystatechange = function () {
+                if (this.readyState !== 4) return; 
+                var deviceInfos = eval("(" + this.responseText + ")");//JSON.parse安全
+                $('input[name="设备ID"]').val(deviceInfos[0].DeviceId);
+                if (deviceInfos[0].StatusFlag === 0)
+                    $('input[name="运行状态"]').val("关机中");
+                else if (deviceInfos[0].StatusFlag === 1)
+                    $('input[name="运行状态"]').val("运行中");
+                else if (deviceInfos[0].StatusFlag === 2)
+                    $('input[name="运行状态"]').val("暂停中");
+                else if (deviceInfos[0].StatusFlag === 3)
+                    $('input[name="运行状态"]').val("故障中");
+                else if (deviceInfos[0].StatusFlag === 4)
+                    $('input[name="运行状态"]').val("未连接");
+                //解析时间
+                var StartTime = (eval(deviceInfos[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                var StopTime = (eval(deviceInfos[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                $('input[name="运行时间"]').val(StartTime);
+                $('input[name="停机时间"').val(StopTime);
+                $('input[name="目标产量"').val(deviceInfos[0].TargetOutput);
+                //$('textarea[name="历史记录"]').val(deviceInfos[0].DeviceId);
+                $('p[name="单个进度"').text(deviceInfos[0].SingleProgress + '%');
+                $('p[name="整体进度"').text(Math.floor((deviceInfos[0].NowOutput / deviceInfos[0].TargetOutput) * 100) + '%');
+            };
+        }
     </script>
-
 </body>
 </html>
