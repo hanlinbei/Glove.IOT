@@ -54,6 +54,33 @@ namespace Glove.IOT.UI.Portal.Controllers
                 //    LoginUser = filterContext.HttpContext.Session["loginUser"] as UserInfo;
                 //}
                 string url = Request.Url.AbsolutePath.ToLower();
+                string httpMethod = Request.HttpMethod.ToLower();
+                //通过容器创建一个对象
+                IApplicationContext ctx = ContextRegistry.GetContext();
+                IActionInfoService ActionInfoService = ctx.GetObject("ActionInfoService") as IActionInfoService;
+                IUserInfoService UserInfoService = ctx.GetObject("UserInfoService") as IUserInfoService;
+                IR_UserInfo_RoleInfoService r_UserInfo_RoleInfoService = ctx.GetObject("R_UserInfo_RoleInfoService") as IR_UserInfo_RoleInfoService;
+                IR_RoleInfo_ActionInfoService r_RoleInfo_ActionInfoService = ctx.GetObject("R_RoleInfo_ActionInfoService") as IR_RoleInfo_ActionInfoService;
+
+                var actionInfo = ActionInfoService.GetEntities(a => a.Url.ToLower() == url && a.HttpMethod.ToLower() == httpMethod)
+                    .FirstOrDefault();
+                if (actionInfo == null)
+                {
+                    Response.Redirect("/Error.html");
+
+                }
+
+                
+                var userRole = r_UserInfo_RoleInfoService.GetEntities(u => u.UserInfoId == LoginUser.Id).FirstOrDefault();
+                var roleAction = r_RoleInfo_ActionInfoService.GetEntities(r => r.RoleInfoId == userRole.RoleInfoId).FirstOrDefault();
+                var actions = ActionInfoService.GetEntities(a => a.Id == roleAction.ActionInfoId);
+                var temp = (from a in actions
+                            where a.Id == actionInfo.Id
+                            select a).Count();
+                if (temp <= 0)
+                {
+                    Response.Redirect("/Error.html");
+                }
                 
             }
         }
