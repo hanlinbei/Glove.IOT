@@ -286,11 +286,59 @@
             //获取下拉框
             form.on('select(table_power_save)', function (data) {
                 console.log(data.value); //得到被选中的值
+                $("input").prop("checked", false);//复选框全部清空
+                //$("input[title='设备添加']").prop("checked", false);
+                //$("input[title='设备查看']").prop("checked", false);
                 $.get("/UserInfo/GetAllRoles", function (data_role) {
                     for (var i = 0; i < data_role.length; i++) {
                         if (data.value === data_role[i].RoleName) {
                             $.get("/RoleInfo/GetExitsActions?RId=" + data_role[i].Id, function (data_power) {
-                                console.log(data_power);
+                                console.log(data_power); 
+                                for (var i = 0; i < data_power.length; i++) {
+                                    switch (data_power[i]) {
+                                        case 1:
+                                            $("input[title='设备删除']").prop("checked", true);
+                                            break;
+                                        case 2:
+                                            $("input[title='设备添加']").prop("checked", true);
+                                            break;
+                                        case 3:
+                                            $("input[title='设备查看']").prop("checked", true);
+                                            break;
+                                        case 4:
+                                            checkboxed += '4,';
+                                            break;
+                                        case 5:
+                                            checkboxed += '5,';
+                                            break;
+                                        case 6:
+                                            checkboxed += '6,';
+                                            break;
+                                        case 7:
+                                            checkboxed += '7,';
+                                            break;
+                                        case 8:
+                                            checkboxed += '8,';
+                                            break;
+                                        case 9:
+                                            checkboxed += '9,';
+                                            break;
+                                        case 10:
+                                            checkboxed += '10,';
+                                            break;
+                                    }
+                                }
+                                var device = $("input[name='device']");
+                                var all = 0;
+                                for (var i = 0; i < device.length; i++) {
+                                    if (device[i].checked === true)
+                                        all++;
+                                }
+                                if (all === device.length) {
+                                    $("input[name='alldevice']").prop("checked", true);
+                                    form.render('checkbox');
+                                }
+                                form.render('checkbox');
                             })
                         }
                     }
