@@ -81,14 +81,20 @@ layui.use('table', function () {//打开网页刷新表格
                 layer.close(index);
                 //向服务端发送删除指令
                 ids = "" + data.UId;
-                $.post("/UserInfo/Delete", { ids: ids });//发送字符串
-                //obj.del(); //删除对应行（tr）的DOM结构，并更新缓存 这是不刷新页面的方式
-                num_p = num_p - 1;
-                globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                globalPage = Math.ceil(num_p / globalLimit);//获取页码值
-                if (num_p % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
-                //表格重载
-                updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", globalPage, globalLimit);
+                $.post("/UserInfo/Delete", { ids: ids }, function () {
+                    if (this.responseText === 'ok') {
+                        num_p = num_p - 1;
+                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                        globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+                        if (num_p % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
+                        //表格重载
+                        updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", globalPage, globalLimit);
+                    }
+                    else {
+                        alert("你没有权限删除");
+                    }
+                });
+                
             });
         } else if (layEvent === 'edit') { //编辑
             layerShowEdituser('编辑人员', 'LayerEdituser', 500, 450, obj.data);
@@ -146,7 +152,7 @@ function layerShowEdituser(title, url, w, h, data) {
         btn: ['确定'],
         yes: function (index) {
             //当点击‘确定’按钮的时候，获取弹出层返回的值
-            var res = window["layui-layer-iframe" + index].callbackdata(index);
+            var res = window["layui-layer-iframe" + index].callbackdata(index, 'adduser');
             for (var i = 0; i < Rid_Rolename.length; i++) {
                 if (Rid_Rolename[i][1] === res.RoleName) {
                     RId = Rid_Rolename[i][0];
@@ -211,12 +217,13 @@ function layerShowEdituser(title, url, w, h, data) {
             iframeWindow.layui.form.render();
             var xhr = new XMLHttpRequest();
             xhr.open('GET', "/UserInfo/GetAllRoles");
+            //xhr.responseType = 'json';//设定返回内容的格式 responseText就没有用了 response变为对象可以直接读取 
             xhr.send();
             xhr.onreadystatechange = function () {
                 if (this.readyState !== 4) return;
                 var obj = eval("(" + this.responseText + ")");//JSON.parse安全
                 for (var i = 0; i < obj.length; i++) {//保存查询用
-                    console.log(obj[i].Id + "+" + obj[i].RoleName)
+                    console.log(obj[i].Id + "+" + obj[i].RoleName);
                     Rid_Rolename[i] = [obj[i].Id, obj[i].RoleName];
                 }
             }
@@ -426,7 +433,7 @@ function updatatable(id, elem, height, url, title, page, limit) {//表格重载 
             else if (id === 'table_device'){
                 DIdtable = [];//清空数组
                 for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
-                    DIdtable[i] = [res.data[i].DeviceId, 0];
+                    DIdtable[i] = [res.data[i].Id, 0];
                 }
                 num_d = count;
             }
@@ -530,14 +537,40 @@ layui.use('table', function () {//打开网页刷新表格
                 layer.close(index);
                 //向服务端发送删除指令
                 ids = "" + data.Id;
-                $.post("/Device/Delete", { ids: ids });//发送字符串
-                //obj.del(); //删除对应行（tr）的DOM结构，并更新缓存 这是不刷新页面的方式
-                num_d = num_d - 1;
-                globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                globalPage = Math.ceil(num_d / globalLimit);//获取页码值
-                if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
-                //表格重载
-                updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", globalPage, globalLimit);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', "/Device/Delete");
+                xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('ids=' + ids);
+                //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
+                //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&DelFlag=${res.DelFlag}`)//反单引号 模板字符串
+                xhr.onreadystatechange = function () {
+                    if (this.readyState !== 4) return;
+                    console.log(this.responseText);
+                    if (this.responseText === 'ok') {
+                        num_d = num_d - 1;
+                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                        globalPage = Math.ceil(num_d / globalLimit);//获取页码值
+                        if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
+                        //表格重载
+                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", globalPage, globalLimit);
+                    }
+                    else {
+                        alert("你没有权限删除");
+                    }
+                };
+                //$.post("/Device/Delete", { ids: ids }, function () {
+                //    if (this.responseText === 'ok') {
+                //        num_d = num_d - 1;
+                //        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                //        globalPage = Math.ceil(num_d / globalLimit);//获取页码值
+                //        if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
+                //        //表格重载
+                //        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", globalPage, globalLimit);
+                //    }
+                //    else {
+                //        alert("你没有权限删除");
+                //    }
+                //});
             });
         }
     });
@@ -574,6 +607,7 @@ layui.use('table', function () {//打开网页刷新表格
                 }
             }
         }
+
     });
 });
 function layerShowAdddevice(title, url, w, h, data) {
