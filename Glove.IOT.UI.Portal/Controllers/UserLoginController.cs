@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-    [LoginCheckFilter(IsCheck =false)]
+    [ActionCheckFilter(IsCheckuserLogin=false)]
     public class UserLoginController : Controller
     {
     

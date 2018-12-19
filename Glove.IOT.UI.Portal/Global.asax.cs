@@ -24,12 +24,12 @@ namespace Glove.IOT.UI.Portal
             log4net.Config.XmlConfigurator.Configure();
 
             //开启一个TCP线程
-            TcpHelper tcpHelper = new TcpHelper();
-            Thread th = new Thread(tcpHelper.SocketInit)
-            {
-                IsBackground = true
-            };
-            th.Start();
+            //TcpHelper tcpHelper = new TcpHelper();
+            //Thread th = new Thread(tcpHelper.SocketInit)
+            //{
+            //    IsBackground = true
+            //};
+            //th.Start();
         }
     }
 }

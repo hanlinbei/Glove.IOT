@@ -170,7 +170,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActionInfoController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleInfoController.cs" />
@@ -179,6 +178,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActionCheckFilterAttribute.cs" />
     <Compile Include="Models\LoginCheckFilterAttribute.cs" />
     <Compile Include="Models\MyExceptionFilterAttribut.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1793,6 +1793,7 @@
     <Content Include="Views\Device\LayerAdddevice.cshtml" />
     <Content Include="Views\UserLogin\Index.cshtml" />
     <Content Include="Views\Device\LayerSearchdevice.cshtml" />
+    <Content Include="Views\Home\Devicemanage.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\t.cshtml" />

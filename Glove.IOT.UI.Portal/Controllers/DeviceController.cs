@@ -1,6 +1,7 @@
 ﻿using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
+using Glove.IOT.UI.Portal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-    public class DeviceController : Controller
+   
+    public class DeviceController:Controller
     {
         readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         public IDeviceInfoService DeviceInfoService { get; set; }
@@ -21,6 +23,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="deviceInfo"></param>
         /// <returns></returns>
+        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult Add(DeviceInfo deviceInfo)
         {
             var deviceId = DeviceInfoService.GetEntities(u => (u.DeviceId == deviceInfo.DeviceId&&u.StatusFlag==statusNormal)).FirstOrDefault();
@@ -59,8 +62,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public ActionResult Delete(string ids)
+        [HttpPost]
+        public ActionResult Delete()
         {
+            string ids = Request["ids"];
             if (string.IsNullOrEmpty(ids))
             {
                 return Content("请选中要删除的数据！");
@@ -74,13 +79,14 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             }
             DeviceInfoService.DeleteListByLogical(idList);
-            return Content("del ok");
+            return Content("ok");
         }
 
         /// <summary>
         /// 获取所有设备信息
         /// </summary>
         /// <returns></returns>
+        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult GetAllDeviceInfos()
         {
             int pageSize = int.Parse(Request["limit"] ?? "10");
@@ -103,6 +109,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 获取设备参数详细信息
         /// </summary>
         /// <returns></returns>
+        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult GetDeviceParameterInfo()
         {
             int deviceId = int.Parse(Request["DeviceId"]);
@@ -112,22 +119,32 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
 
+        public ActionResult IsLayerAdddevice()
+        {
+            return Content("Ok");
+        }
 
+        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult Devicemanage()
         {
             return View();
         }
+
+        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult LayerAdddevice()
         {
             return View();
         }
+
         public ActionResult Devicedetail()
         {
             return View();
         }
+
         public ActionResult LayerSearchdevice()
         {
             return View();
         }
+    
     }
 }

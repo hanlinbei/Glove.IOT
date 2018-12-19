@@ -1,5 +1,6 @@
 ﻿using Glove.IOT.IBLL;
 using Glove.IOT.Model;
+using Glove.IOT.UI.Portal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
+    [ActionCheckFilter(IsCheckuserLogin = false)]
     public class RoleInfoController : Controller
     {
         // GET: RoleInfo
@@ -90,9 +92,9 @@ namespace Glove.IOT.UI.Portal.Controllers
 
 
            public ActionResult Userpower()
-        {
+           {
             return View();
-        }
+           }
 
     }
 }
