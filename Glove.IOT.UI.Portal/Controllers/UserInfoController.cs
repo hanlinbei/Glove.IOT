@@ -4,6 +4,7 @@ using Glove.IOT.Common.Md5;
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
+using Glove.IOT.UI.Portal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
+    
     public class UserInfoController : Controller
     {
         readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;

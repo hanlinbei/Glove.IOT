@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         // GET: Home
         public IUserInfoService UserInfoService { get; set; }
@@ -18,7 +18,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 主页起始视图
         /// </summary>
         /// <returns>主页视图</returns>
-        public ActionResult Index()
+        public ActionResult Devicemanage()
         {
             //ViewBag.AllMenu = LoadUserMenu();
           //最新的主框架
