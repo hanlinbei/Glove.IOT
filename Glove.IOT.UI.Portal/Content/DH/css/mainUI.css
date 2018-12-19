@@ -427,3 +427,8 @@ margin-top:70px;  */
     border-left: 1px solid #999; 
     z-index: 3100;
 }
+
+
+.a_disabled {
+    pointer-events: none;
+}
