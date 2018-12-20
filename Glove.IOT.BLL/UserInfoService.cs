@@ -27,16 +27,6 @@ namespace Glove.IOT.BLL
 
             var temp = DbSession.UserInfoDal.GetEntities(u => u.StatusFlag!=delFlag );
 
-       
-            //var date=from t1 in DbSession.UserInfoDal
-        
-
-            //过滤
-            //if (!string.IsNullOrEmpty(userQueryParam.SchName))
-            //{
-            //    temp = temp.Where(u => u.UName.Contains(userQueryParam.SchName)).AsQueryable();
-            //}
-
             userQueryParam.Total = temp.Count();
 
             //分页
@@ -54,16 +44,16 @@ namespace Glove.IOT.BLL
         public IQueryable<UserInfoRoleInfo> LoagUserPageData(UserQueryParam userQueryParam)
         {
             short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
-            DataModelContainer model = new DataModelContainer();
-            //内连接查询
+            var userInfo = DbSession.UserInfoDal.GetEntities(u => u.StatusFlag != delFlag);
+            var r_UserInfo_RoleInfo = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => r.StatusFlag != delFlag);
+            var roleInfo = DbSession.RoleInfoDal.GetEntities(r => r.StatusFlag != delFlag);
 
-            var query = from t1 in model.UserInfo
-                        join t2 in model.R_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
-                        join t3 in model.RoleInfo on t2.RoleInfoId equals t3.Id
-                        where (t1.StatusFlag != delFlag&t2.StatusFlag !=delFlag && t3.StatusFlag != delFlag)
+            //内连接查询 查询人员信息
+            var query = from t1 in userInfo
+                        join t2 in r_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
+                        join t3 in roleInfo on t2.RoleInfoId equals t3.Id
                         select new UserInfoRoleInfo
                         {
-
                             UId = t1.Id,
                             RId = t3.Id,
                             UCode = t1.UCode,
@@ -71,18 +61,20 @@ namespace Glove.IOT.BLL
                             RoleName = t3.RoleName,
                             StatusFlag = t1.StatusFlag
                         };
-           
+
+           //按员工编号筛选
             if (!string.IsNullOrEmpty(userQueryParam.SchCode))
             {
                 query = query.Where(u => u.UCode.Contains(userQueryParam.SchCode)).AsQueryable();
             }
+            //按角色名筛选
             if (!string.IsNullOrEmpty(userQueryParam.SchRoleName))
             {
                 query = query.Where(u => u.RoleName.Contains(userQueryParam.SchRoleName)).AsQueryable();
             }
 
             userQueryParam.Total = query.Count();
-            
+
             return query.OrderBy(u=>u.UId)
                   .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
                   .Take(userQueryParam.PageSize).AsQueryable();

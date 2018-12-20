@@ -17,17 +17,17 @@ namespace Glove.IOT.BLL
         public IQueryable<Device> LoagDevicePageData(DeviceQueryParam deviceQueryParam)
         {
 
-            
-            DataModelContainer model = new DataModelContainer();
-            
-            var query = from t1 in model.DeviceParameterInfo
-                        from t2 in model.DeviceParameterInfo.GroupBy(m => m.DeviceInfoId).Select(p => new
+            var deviceParameterInfo = DbSession.DeviceParameterInfoDal.GetEntities(t => true);
+            var deviceInfo = DbSession.DeviceInfoDal.GetEntities(d => d.StatusFlag == statusNormal);
+            //查询每台机器的最新一条数据（分组查询）
+            var query = from t1 in deviceParameterInfo
+                        from t2 in deviceParameterInfo.GroupBy(m => m.DeviceInfoId).Select(p => new
                         {
                             newestTime = p.Max(q => q.SubTime),
                             deviceInfoId = p.Key
                         })
-                        join t3 in model.DeviceInfo on t1.DeviceInfoId equals t3.Id
-                        where t1.DeviceInfoId==t2.deviceInfoId&&t1.SubTime==t2.newestTime&&t3.StatusFlag== statusNormal
+                        join t3 in deviceInfo on t1.DeviceInfoId equals t3.Id
+                        where t1.DeviceInfoId==t2.deviceInfoId&&t1.SubTime==t2.newestTime
                         select new Device
                         {
                             Id = t3.Id,

@@ -1,4 +1,5 @@
-﻿using Glove.IOT.IBLL;
+﻿
+using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.UI.Portal.Models;
 using System;
@@ -9,23 +10,17 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-    [ActionCheckFilter(IsCheckuserLogin = false)]
+    [ActionCheckFilter(IsCheckuserLogin = true)]
     public class RoleInfoController : Controller
     {
         // GET: RoleInfo
         public IRoleInfoService RoleInfoService { get; set; }
         public IR_RoleInfo_ActionInfoService R_RoleInfo_ActionInfoService { get; set; }
+        public IActionInfoService ActionInfoService { get; set; }
         readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
 
-        /// <summary>
-        /// 角色起始视图
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Index()
-        {
-            return View();
-        }
+
         /// <summary>
         /// 所有已选的权限发送给前台
         /// </summary>
@@ -33,11 +28,13 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult GetExitsActions(int rId)
         {
-            RoleInfo role = RoleInfoService.GetEntities(r => r.Id == rId).FirstOrDefault();
-            var allActionInfoIds = (from r in role.R_RoleInfo_ActionInfo
-                                  where r.RoleInfoId == rId&&r.StatusFlag==statusNormal
-                                  select r.ActionInfoId).ToList();
-            return Json(allActionInfoIds, JsonRequestBehavior.AllowGet);
+            var roleAction = R_RoleInfo_ActionInfoService.GetEntities(r => (r.RoleInfoId == rId&&r.StatusFlag==statusNormal));
+            var action = ActionInfoService.GetEntities(a => true);
+            var allActionNames = from r in roleAction
+                                   from a in action
+                                  where r.ActionInfoId==a.Id
+                                  select a.ActionName;
+            return Json(allActionNames, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -52,10 +49,12 @@ namespace Glove.IOT.UI.Portal.Controllers
             //正常处理
             string[] strIds = ids.Split(',');
             List<int> idList = new List<int>();
-            foreach (var strId in strIds)
+            idList.Add(int.Parse(strIds[0]));
+            for (var i = 1; i < strIds.Count(); i++)
             {
-                idList.Add(int.Parse(strId));
-
+                var actionName = strIds[i];
+                var actionId = ActionInfoService.GetEntities(a => a.ActionName == actionName).Select(a => a.Id).ToList().FirstOrDefault();
+                idList.Add(actionId);
             }
 
             //第一：当前角色的id ----rid
@@ -65,7 +64,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             var allRoleInfoActionInfoIds = (from r in role.R_RoleInfo_ActionInfo
                                     where r.RoleInfoId == rId
                                     select r.Id).ToList();
-
+            //全部剁掉
             for (int i = 0; i < allRoleInfoActionInfoIds.Count(); i++)
             {
                 int userInfoId = Convert.ToInt32(allRoleInfoActionInfoIds[i]);
@@ -75,7 +74,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             }
 
 
-
+            //添加勾选的权限
             for (int i = 1; i < idList.Count; i++)
             {
                 int actionId = Convert.ToInt32(idList[i]);

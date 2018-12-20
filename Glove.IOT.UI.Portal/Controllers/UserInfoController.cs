@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-    
+    [ActionCheckFilter(IsCheckuserLogin = true)]
     public class UserInfoController : Controller
     {
         readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
