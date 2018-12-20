@@ -15,6 +15,10 @@
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.ActionInfoController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="UserInfoService" ref="UserInfoService" />
+    <property name="R_RoleInfo_ActionInfoService" ref="R_RoleInfo_ActionInfoService" />
+    <property name="ActionInfoService" ref="ActionInfoService" />
+    <property name="R_UserInfo_RoleInfoService" ref="R_UserInfo_RoleInfoService" />
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.RoleInfoController, Glove.IOT.UI.Portal" singleton="false" >
