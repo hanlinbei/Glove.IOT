@@ -16,7 +16,10 @@ namespace Glove.IOT.UI.Portal.Controllers
     {
         // GET: ActionInfo
         readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
-
+        public IActionInfoService ActionInfoService { get; set; }
+        public IUserInfoService UserInfoService { get; set; }
+        public IR_UserInfo_RoleInfoService R_UserInfo_RoleInfoService { get; set; }
+        public IR_RoleInfo_ActionInfoService R_RoleInfo_ActionInfoService { get; set; }
         /// <summary>
         /// 权限起始视图
         /// </summary>
@@ -31,21 +34,22 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             string userGuid = HttpContext.Request.Cookies["userLoginId"].Value;
             UserInfo loginUser = Common.Cache.CacheHelper.GetCache(userGuid) as UserInfo;
-            //通过容器创建一个对象
-            IApplicationContext ctx = ContextRegistry.GetContext();
-            IActionInfoService ActionInfoService = ctx.GetObject("ActionInfoService") as IActionInfoService;
-            IUserInfoService UserInfoService = ctx.GetObject("UserInfoService") as IUserInfoService;
-            IR_UserInfo_RoleInfoService r_UserInfo_RoleInfoService = ctx.GetObject("R_UserInfo_RoleInfoService") as IR_UserInfo_RoleInfoService;
-            IR_RoleInfo_ActionInfoService r_RoleInfo_ActionInfoService = ctx.GetObject("R_RoleInfo_ActionInfoService") as IR_RoleInfo_ActionInfoService;
+   
+            var userRole = R_UserInfo_RoleInfoService.GetEntities(u => (u.UserInfoId == loginUser.Id && u.StatusFlag == statusNormal));
+            var rRoleAction = R_RoleInfo_ActionInfoService.GetEntities(r => r.StatusFlag == statusNormal);
+            var action = ActionInfoService.GetEntities(a => true);
+            //查找该用户角色对应的权限
+            var roleAction = from r in userRole
+                              from a in rRoleAction
+                              where r.RoleInfoId == a.RoleInfoId
+                              select a;
+            //查找对应权限的名称
+            var actionName = (from r in roleAction
+                              from a in action
+                              where r.ActionInfoId == a.Id
+                              select a.ActionName).ToList();
 
-
-            var userRole = r_UserInfo_RoleInfoService.GetEntities(u => (u.UserInfoId == loginUser.Id && u.StatusFlag == statusNormal));
-            var rRoleAction = r_RoleInfo_ActionInfoService.GetEntities(r => r.StatusFlag == statusNormal);
-            var roleAction = (from r in userRole
-                             from a in rRoleAction
-                             where r.RoleInfoId == a.RoleInfoId
-                             select a.ActionInfoId).ToList();
-            return Json(roleAction, JsonRequestBehavior.AllowGet);
+            return Json(actionName, JsonRequestBehavior.AllowGet);
 
         }
     
