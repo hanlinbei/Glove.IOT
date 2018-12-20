@@ -202,6 +202,7 @@
     <Content Include="Content\DH\css\mainUI.css" />
     <Content Include="Content\DH\font\iconfont\iconfont.svg" />
     <Content Include="Content\DH\img\c_06.jpg" />
+    <Content Include="Content\DH\img\favicon.ico" />
     <Content Include="Content\DH\img\LOGO.png" />
     <Content Include="Content\DH\img\手套机2.jpg" />
     <Content Include="Content\DH\img\验证码.png" />

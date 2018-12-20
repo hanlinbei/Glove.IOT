@@ -12,7 +12,7 @@ layui.config({
     ,debug: false //用于开启调试模式，默认false，如果设为true，则JS模块的节点会保留在页面
     ,base: '' //设定扩展的Layui模块的所在目录，一般用于外部模块扩展
 });
-//人员相关
+//员工相关
 layui.use('table', function () {//打开网页刷新表格
     var table = layui.table;
     //第一个实例
@@ -20,7 +20,7 @@ layui.use('table', function () {//打开网页刷新表格
         elem: '#table_ry'
         //, height: 520
         , url: '/UserInfo/GetAllUserInfos' //数据接口
-        , title: "人员管理"
+        , title: "员工管理"
         , page: true //开启分页
         , limit: 10
         , limits: [5, 10, 15, 20]
@@ -81,14 +81,14 @@ layui.use('table', function () {//打开网页刷新表格
                 layer.close(index);
                 //向服务端发送删除指令
                 ids = "" + data.UId;
-                $.post("/UserInfo/Delete", { ids: ids }, function () {
-                    if (this.responseText === 'ok') {
+                $.post("/UserInfo/Delete", { ids: ids }, function (data) {
+                    if (data === 'ok') {
                         num_p = num_p - 1;
                         globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
                         globalPage = Math.ceil(num_p / globalLimit);//获取页码值
                         if (num_p % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
                         //表格重载
-                        updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", globalPage, globalLimit);
+                        updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", globalPage, globalLimit);
                     }
                     else {
                         alert("你没有权限删除");
@@ -97,7 +97,7 @@ layui.use('table', function () {//打开网页刷新表格
                 
             });
         } else if (layEvent === 'edit') { //编辑
-            layerShowEdituser('编辑人员', 'LayerEdituser', 500, 450, obj.data);
+            layerShowEdituser('编辑员工', 'LayerEdituser', 500, 450, obj.data);
             //同步更新缓存对应的值
             /*obj.update({
                 UName: '123'
@@ -178,7 +178,7 @@ function layerShowEdituser(title, url, w, h, data) {
             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
             globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
             //表格重载
-            updatatable('table_ry', '#table_ry', 550, "/UserInfo/GetAllUserInfos", "人员管理", globalPage, globalLimit);
+            updatatable('table_ry', '#table_ry', 550, "/UserInfo/GetAllUserInfos", "员工管理", globalPage, globalLimit);
             //最后关闭弹出层
             layer.close(index);
         },
@@ -270,7 +270,7 @@ function layerShowAdduser(title, url, w, h, data) {
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
             globalPage = Math.ceil(num_p / globalLimit);//获取页码值
             if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
-            updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", globalPage, globalLimit);
+            updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", globalPage, globalLimit);
             //最后关闭弹出层
             layer.close(index);
         },
@@ -312,7 +312,7 @@ function layerShowSearchuser(title, url, w, h, data) {
             console.log("搜索" + res);
             //表格重载 跳转到操作页面
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            updatatable_search('#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", 1, globalLimit, res);
+            updatatable_search('#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", 1, globalLimit, res);
             //最后关闭弹出层
             layer.close(index);
         },
@@ -363,7 +363,7 @@ function someDel(assort) {
             $.post("/UserInfo/Delete", { ids: delId });//发送字符串
             //表格重载
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "人员管理", 1, globalLimit);
+            updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", 1, globalLimit);
         });
     }
     else if (assort === 'device') {
@@ -380,7 +380,7 @@ function someDel(assort) {
             $.post("/Device/Delete", { ids: delId });//发送字符串
             //表格重载
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "人员管理", 1, globalLimit);
+            updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "员工管理", 1, globalLimit);
         });
     }
 }
@@ -443,7 +443,7 @@ function updatatable(id, elem, height, url, title, page, limit) {//表格重载 
 function getRolename() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', "/UserInfo/GetAllRoles");
-    xhr.send();//多发一个id数据
+    xhr.send();
     //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
     xhr.onreadystatechange = function () {
         if (this.readyState !== 4) return;
@@ -558,8 +558,8 @@ layui.use('table', function () {//打开网页刷新表格
                         alert("你没有权限删除");
                     }
                 };
-                //$.post("/Device/Delete", { ids: ids }, function () {
-                //    if (this.responseText === 'ok') {
+                //$.post("/Device/Delete", { ids: ids }, function (data) {
+                //    if (data === 'ok') {
                 //        num_d = num_d - 1;
                 //        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
                 //        globalPage = Math.ceil(num_d / globalLimit);//获取页码值
@@ -646,7 +646,7 @@ function layerShowAdddevice(title, url, w, h, data) {
                     globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
                     globalPage = Math.ceil(num_p / globalLimit);//获取页码值
                     if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
-                    updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "人员管理", globalPage, globalLimit);
+                    updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "员工管理", globalPage, globalLimit);
                 }
             };   
             //最后关闭弹出层
@@ -679,14 +679,14 @@ function layerShowSearchdevice(title, url, w, h, data) {
     });
 }
 $(document).ready(function () {
-    $("button[name='添加人员']").click(function () {
-        layerShowAdduser('添加人员', 'LayerAdduser', 500, 450, "null");
+    $("button[name='添加员工']").click(function () {
+        layerShowAdduser('添加员工', 'LayerAdduser', 500, 450, "null");
     });
-    $("button[name='删除人员']").click(function () {
+    $("button[name='删除员工']").click(function () {
         someDel('user');
     });
-    $("button[name='查找人员']").click(function () {
-        layerShowSearchuser('查找人员', 'LayerSearchuser', 500, 380, "null");
+    $("button[name='查找员工']").click(function () {
+        layerShowSearchuser('查找员工', 'LayerSearchuser', 500, 380, "null");
     });
     $("button[name='添加设备']").click(function () {
         layerShowAdddevice('添加设备', 'LayerAdddevice', 500, 200, "null");
