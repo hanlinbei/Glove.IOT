@@ -94,6 +94,7 @@ layui.use('table', function () {//打开网页刷新表格
                         alert("你没有权限删除");
                     }
                 });
+                
             });
         } else if (layEvent === 'edit') { //编辑
             layerShowEdituser('编辑人员', 'LayerEdituser', 500, 450, obj.data);
@@ -216,12 +217,13 @@ function layerShowEdituser(title, url, w, h, data) {
             iframeWindow.layui.form.render();
             var xhr = new XMLHttpRequest();
             xhr.open('GET', "/UserInfo/GetAllRoles");
+            //xhr.responseType = 'json';//设定返回内容的格式 responseText就没有用了 response变为对象可以直接读取 
             xhr.send();
             xhr.onreadystatechange = function () {
                 if (this.readyState !== 4) return;
                 var obj = eval("(" + this.responseText + ")");//JSON.parse安全
                 for (var i = 0; i < obj.length; i++) {//保存查询用
-                    console.log(obj[i].Id + "+" + obj[i].RoleName)
+                    console.log(obj[i].Id + "+" + obj[i].RoleName);
                     Rid_Rolename[i] = [obj[i].Id, obj[i].RoleName];
                 }
             }
@@ -556,6 +558,19 @@ layui.use('table', function () {//打开网页刷新表格
                         alert("你没有权限删除");
                     }
                 };
+                //$.post("/Device/Delete", { ids: ids }, function () {
+                //    if (this.responseText === 'ok') {
+                //        num_d = num_d - 1;
+                //        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                //        globalPage = Math.ceil(num_d / globalLimit);//获取页码值
+                //        if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
+                //        //表格重载
+                //        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", globalPage, globalLimit);
+                //    }
+                //    else {
+                //        alert("你没有权限删除");
+                //    }
+                //});
             });
         }
     });
@@ -592,6 +607,7 @@ layui.use('table', function () {//打开网页刷新表格
                 }
             }
         }
+
     });
 });
 function layerShowAdddevice(title, url, w, h, data) {

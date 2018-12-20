@@ -271,19 +271,20 @@ body {
 #header .topbar-middle__link:hover  img{
     display: block;
 }
-#aside .aside-top{
-    position:fixed;
-    left:0;
-    top:71px;
+#aside .aside-top {
+    position: fixed;
+    left: 0;
+    top: 71px;
     height: 99px;
     width: 200px;
     background-color: #393d49;
-    color:#fff;
+    color: #fff;
     line-height: 100px;
-    vertical-align:middle;
-    border-top:1px solid #999;
-    border-bottom:1px solid #999;
+    vertical-align: middle;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
     float: left;
+    z-index: 3100; /*最高*/
 }
 #aside .aside-top__username{
     font-size:36px;
@@ -293,8 +294,11 @@ body {
     width:75px;
     border:none;
 }*/
-.layui-nav-side{
-    top: 170px; 
+#aside .layui-nav {
+    z-index: 3100; /*最高*/
+}
+.layui-nav-side {
+    top: 170px;
 }
 #aside .layui-nav-tree .layui-nav-child a:hover{
     text-decoration:none;
@@ -422,4 +426,9 @@ margin-top:70px;  */
     color:#fff;
     border-left: 1px solid #999; 
     z-index: 3100;
+}
+
+
+.a_disabled {
+    pointer-events: none;
 }
