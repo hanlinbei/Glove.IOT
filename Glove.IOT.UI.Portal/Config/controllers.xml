@@ -23,6 +23,7 @@
   
   <object type="Glove.IOT.UI.Portal.Controllers.RoleInfoController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="RoleInfoService" ref="RoleInfoService" />
+    <property name="ActionInfoService" ref="ActionInfoService" />
     <property name="R_RoleInfo_ActionInfoService" ref="R_RoleInfo_ActionInfoService" />
   </object>
   

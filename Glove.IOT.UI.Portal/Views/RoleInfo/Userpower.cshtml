@@ -251,40 +251,40 @@
                     if (checkbox[i].checked === true) {
                         switch (checkbox[i].title) {
                             case '查看设备':
-                                checkboxed += '1,';
+                                checkboxed += '查看设备,';
                                 break;
                             case '删除设备':
-                                checkboxed += '2,';
+                                checkboxed += '删除设备,';
                                 break;
                             case '添加设备':
-                                checkboxed += '3,';
+                                checkboxed += '添加设备,';
                                 break;
                             case '查找设备':
-                                checkboxed += '4,';
+                                checkboxed += '查找设备,';
                                 break;
                             case '人员查看':
-                                checkboxed += '5,';
+                                checkboxed += '人员查看,';
                                 break;
                             case '人员删除':
-                                checkboxed += '6,';
+                                checkboxed += '人员删除,';
                                 break;
                             case '报警查看':
-                                checkboxed += '7,';
+                                checkboxed += '报警查看,';
                                 break;
                             case '报警删除':
-                                checkboxed += '8,';
+                                checkboxed += '报警删除,';
                                 break;
                             case '编辑员工':
-                                checkboxed += '9,';
+                                checkboxed += '编辑员工,';
                                 break;
                             case '删除员工':
-                                checkboxed += '10,';
+                                checkboxed += '删除员工,';
                                 break;
                             case '添加员工':
-                                checkboxed += '11,';
+                                checkboxed += '添加员工,';
                                 break;
                             case '查找员工':
-                                checkboxed += '12,';
+                                checkboxed += '查找员工,';
                                 break;
                         }
                     }
@@ -318,40 +318,40 @@
                                 console.log(data_power); 
                                 for (var i = 0; i < data_power.length; i++) {
                                     switch (data_power[i]) {
-                                        case 1:
+                                        case '查看设备':
                                             $("input[title='查看设备']").prop("checked", true);
                                             break;
-                                        case 2:
+                                        case '删除设备':
                                             $("input[title='删除设备']").prop("checked", true);
                                             break;
-                                        case 3:
+                                        case '添加设备':
                                             $("input[title='添加设备']").prop("checked", true);
                                             break;
-                                        case 4:
+                                        case '查找设备':
                                             $("input[title='查找设备']").prop("checked", true);
                                             break;
-                                        case 5:
+                                        case '人员查看':
                                             $("input[title='人员查看']").prop("checked", true);
                                             break;
-                                        case 6:
+                                        case '人员删除':
                                             $("input[title='人员删除']").prop("checked", true);
                                             break;
-                                        case 7:
+                                        case '报警查看':
                                             $("input[title='报警查看']").prop("checked", true);
                                             break;
-                                        case 8:
+                                        case '报警删除':
                                             $("input[title='报警删除']").prop("checked", true);
                                             break;
-                                        case 9:
+                                        case '编辑员工':
                                             $("input[title='编辑员工']").prop("checked", true);
                                             break;
-                                        case 10:
+                                        case '删除员工':
                                             $("input[title='删除员工']").prop("checked", true);
                                             break;
-                                        case 11:
+                                        case '添加员工':
                                             $("input[title='添加员工']").prop("checked", true);
                                             break;
-                                        case 12:
+                                        case '查找员工':
                                             $("input[title='查找员工']").prop("checked", true);
                                             break;
                                     }

@@ -1821,7 +1821,6 @@
     <Content Include="Views\ActionInfo\Edit.cshtml" />
     <Content Include="Views\RoleInfo\Index.cshtml" />
     <Content Include="Views\ActionInfo\SetRole.cshtml" />
-    <Content Include="Views\UserInfo\SetAction.cshtml" />
     <Content Include="Views\UserInfo\LayerEdituser.cshtml">
       <BrowseToURL>~/UserInfo/tck</BrowseToURL>
     </Content>
