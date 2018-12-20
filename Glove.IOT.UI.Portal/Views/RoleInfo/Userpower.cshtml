@@ -19,7 +19,7 @@
     <![endif]-->
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="~/Content/DH/img/LOGO.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
     <style>
         .layui-form-label {
             width: 100px; /*左边的字*/
@@ -103,7 +103,6 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
-                    <dd><a href="">设备详情</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -126,8 +125,8 @@
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="Usermanage">员工管理</a></dd>
-                    <dd><a href="#">角色权限管理</a></dd>
+                    <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
+                    <dd><a href="Userpower">角色权限管理</a></dd>
                     <dd><a href="#">操作日志</a></dd>
                     <dd><a href="#">数据字典</a></dd>
                     <dd><a href="#">用户管理</a></dd>
@@ -139,7 +138,7 @@
         <div class="navigation">
             <span class="layui-breadcrumb">
                 <a>系统管理</a>
-                <a href=""><cite>人员管理</cite></a>
+                <a href=""><cite>角色权限管理</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
@@ -175,9 +174,10 @@
                         <tr>
                             <td><input lay-filter="table_power_alldevice" type="checkbox" name="alldevice" title="设备管理" lay-skin="primary"></td>
                             <td>
-                                <input lay-filter="table_power_device" type="checkbox" name="device" title="设备删除" lay-skin="primary">
-                                <input lay-filter="table_power_device" type="checkbox" name="device" title="设备添加" lay-skin="primary">
-                                <input lay-filter="table_power_device" type="checkbox" name="device" title="设备查看" lay-skin="primary">
+                                <input lay-filter="table_power_device" type="checkbox" name="device" title="查看设备" lay-skin="primary">
+                                <input lay-filter="table_power_device" type="checkbox" name="device" title="删除设备" lay-skin="primary">
+                                <input lay-filter="table_power_device" type="checkbox" name="device" title="添加设备" lay-skin="primary">
+                                <input lay-filter="table_power_device" type="checkbox" name="device" title="查找设备" lay-skin="primary">
                             </td>
                         </tr>
                         <tr>
@@ -197,9 +197,10 @@
                         <tr>
                             <td><input lay-filter="table_power_alluser" type="checkbox" name="alluser" title="系统管理" lay-skin="primary"></td>
                             <td>
-                                <input lay-filter="table_power_user" type="checkbox" name="user" title="员工删除" lay-skin="primary">
-                                <input lay-filter="table_power_user" type="checkbox" name="user" title="员工添加" lay-skin="primary">
-                                <input lay-filter="table_power_user" type="checkbox" name="user" title="员工修改" lay-skin="primary">
+                                <input lay-filter="table_power_user" type="checkbox" name="user" title="编辑员工" lay-skin="primary">
+                                <input lay-filter="table_power_user" type="checkbox" name="user" title="删除员工" lay-skin="primary">
+                                <input lay-filter="table_power_user" type="checkbox" name="user" title="添加员工" lay-skin="primary">
+                                <input lay-filter="table_power_user" type="checkbox" name="user" title="查找员工" lay-skin="primary">
                             </td>
                         </tr>
                     </tbody>
@@ -225,12 +226,21 @@
             $.get("/UserInfo/GetAllRoles", function (data) { 
                 var Role = $("select[name='RoleName']").find('option');
                 var Role_selected;
-                for (var i = 0; i < Role.length; i++) {
+                if (Role[0].selected === true) {
+                    layui.use('layer', function () {//未选择角色类型 弹出框提示
+                        var layer = layui.layer;
+                        layer.msg('<span style = "font-size: 20px; line-height:90px; vertical-align:middle;">请选择一个角色类型</span>', {
+                            time: 2500,
+                            area: ['200px', '120px']
+                        });
+                    });
+                    return false;
+                }
+                for (var i = 1; i < Role.length; i++) {
                     if (Role[i].selected === true) {
                         for (var j = 0; j < data.length; j++) {
                             if (Role[i].value === data[j].RoleName) {
-                                Role_selected = data[j].Id;
-                                
+                                Role_selected = data[j].Id;   
                             }
                         }
                     }
@@ -240,47 +250,57 @@
                 for (var i = 0; i < checkbox.length; i++) {
                     if (checkbox[i].checked === true) {
                         switch (checkbox[i].title) {
-                            case '设备删除':
+                            case '查看设备':
                                 checkboxed += '1,';
                                 break;
-                            case '设备添加':
+                            case '删除设备':
                                 checkboxed += '2,';
                                 break;
-                            case '设备查看':
+                            case '添加设备':
                                 checkboxed += '3,';
                                 break;
-                            case '人员查看':
+                            case '查找设备':
                                 checkboxed += '4,';
                                 break;
-                            case '人员删除':
+                            case '人员查看':
                                 checkboxed += '5,';
                                 break;
-                            case '报警查看':
+                            case '人员删除':
                                 checkboxed += '6,';
                                 break;
-                            case '报警删除':
+                            case '报警查看':
                                 checkboxed += '7,';
                                 break;
-                            case '员工删除':
+                            case '报警删除':
                                 checkboxed += '8,';
                                 break;
-                            case '员工添加':
+                            case '编辑员工':
                                 checkboxed += '9,';
                                 break;
-                            case '员工修改':
+                            case '删除员工':
                                 checkboxed += '10,';
+                                break;
+                            case '添加员工':
+                                checkboxed += '11,';
+                                break;
+                            case '查找员工':
+                                checkboxed += '12,';
                                 break;
                         }
                     }
                 }
                 checkboxed = checkboxed.slice(0, delId.length - 1);//去除最后的逗号
                 data_send = Role_selected + ',' + checkboxed;
-                console.log(data_send);
-                $.get("/RoleInfo/SetActions?Data=" + data_send, function (data_return) {
-                    console.log(data_return);
-                })
-            });  
-            
+                console.log('data_send:' + data_send);
+                $.get("/RoleInfo/SetActions?Data=" + data_send);//将保存信息发送给后台
+                layui.use('layer', function () {//保存成功 弹出框提示
+                    var layer = layui.layer;
+                    layer.msg('<span style = "font-size: 20px; line-height:90px; vertical-align:middle;">保存成功</span>', {
+                        time: 2000,
+                        area: ['200px', '120px']
+                    });
+                });
+            });   
         });
         //动态加载角色类型
         getRolename();
@@ -291,8 +311,6 @@
             form.on('select(table_power_save)', function (data) {
                 console.log(data.value); //得到被选中的值
                 $("input").prop("checked", false);//复选框全部清空
-                //$("input[title='设备添加']").prop("checked", false);
-                //$("input[title='设备查看']").prop("checked", false);
                 $.get("/UserInfo/GetAllRoles", function (data_role) {
                     for (var i = 0; i < data_role.length; i++) {
                         if (data.value === data_role[i].RoleName) {
@@ -301,34 +319,40 @@
                                 for (var i = 0; i < data_power.length; i++) {
                                     switch (data_power[i]) {
                                         case 1:
-                                            $("input[title='设备删除']").prop("checked", true);
+                                            $("input[title='查看设备']").prop("checked", true);
                                             break;
                                         case 2:
-                                            $("input[title='设备添加']").prop("checked", true);
+                                            $("input[title='删除设备']").prop("checked", true);
                                             break;
                                         case 3:
-                                            $("input[title='设备查看']").prop("checked", true);
+                                            $("input[title='添加设备']").prop("checked", true);
                                             break;
                                         case 4:
-                                            checkboxed += '4,';
+                                            $("input[title='查找设备']").prop("checked", true);
                                             break;
                                         case 5:
-                                            checkboxed += '5,';
+                                            $("input[title='人员查看']").prop("checked", true);
                                             break;
                                         case 6:
-                                            checkboxed += '6,';
+                                            $("input[title='人员删除']").prop("checked", true);
                                             break;
                                         case 7:
-                                            checkboxed += '7,';
+                                            $("input[title='报警查看']").prop("checked", true);
                                             break;
                                         case 8:
-                                            checkboxed += '8,';
+                                            $("input[title='报警删除']").prop("checked", true);
                                             break;
                                         case 9:
-                                            checkboxed += '9,';
+                                            $("input[title='编辑员工']").prop("checked", true);
                                             break;
                                         case 10:
-                                            checkboxed += '10,';
+                                            $("input[title='删除员工']").prop("checked", true);
+                                            break;
+                                        case 11:
+                                            $("input[title='添加员工']").prop("checked", true);
+                                            break;
+                                        case 12:
+                                            $("input[title='查找员工']").prop("checked", true);
                                             break;
                                     }
                                 }
