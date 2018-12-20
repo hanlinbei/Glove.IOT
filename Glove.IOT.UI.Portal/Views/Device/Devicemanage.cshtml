@@ -170,17 +170,17 @@
         $.post("/ActionInfo/GetActions", {}, function (data) {
             console.log(data);
             for (var i = 0; i < data.length; i++) {
-                if (data[i] === 1) {
+                if (data[i] === '删除设备') {
                     $("button[name='删除设备']").removeAttr('disabled');
                     $("button[name='删除设备']").removeClass('layui-btn-disabled');
                     $("a[name='删除']").removeClass('a_disabled');
                     $("a[name='删除']").removeClass('layui-btn-disabled');
                 }
-                else if (data[i] === 2) {
+                else if (data[i] === '添加设备') {
                     $("button[name='添加设备']").removeAttr('disabled');
                     $("button[name='添加设备']").removeClass('layui-btn-disabled');
                 }
-                else if (data[i] === 3) {
+                else if (data[i] === '查看设备') {
                     $("a[name='查看']").removeClass('a_disabled');
                     $("a[name='查看']").removeClass('layui-btn-disabled');
                 }

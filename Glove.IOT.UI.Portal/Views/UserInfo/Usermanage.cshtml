@@ -164,12 +164,38 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    </script>
-    <script>
-
+        <a class="layui-btn layui-btn-xs layui-btn-disabled a_disabled" lay-event="edit" name="编辑">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled a_disabled" lay-event="del" name="删除">删除</a>
     </script>
     <script src="~/Content/DH/js/3.js"></script>
+    <script>
+        $('button').addClass('layui-btn-disabled');
+        $('button').attr('disabled', 'disabled');
+        $.post("/ActionInfo/GetActions", {}, function (data) {
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                if (data[i] === '编辑员工') {
+                    $("a[name='编辑']").removeClass('a_disabled');
+                    $("a[name='编辑']").removeClass('layui-btn-disabled');
+                }
+                else if (data[i] === '删除员工') {
+                    $("button[name='删除员工']").removeAttr('disabled');
+                    $("button[name='删除员工']").removeClass('layui-btn-disabled');
+                    $("a[name='删除']").removeClass('a_disabled');
+                    $("a[name='删除']").removeClass('layui-btn-disabled');
+                }
+                else if (data[i] === '添加员工') {
+                    $("button[name='添加员工']").removeAttr('disabled');
+                    $("button[name='添加员工']").removeClass('layui-btn-disabled');
+                }
+                else if (data[i] === '查找员工') {
+                    $("button[name='查找员工']").removeAttr('disabled');
+                    $("button[name='查找员工']").removeClass('layui-btn-disabled');
+                }
+            }
+
+        });
+    </script>
+
 </body>
 </html>
