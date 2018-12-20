@@ -424,13 +424,15 @@ function updatatable(id, elem, height, url, title, page, limit) {//表格重载 
             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
             globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
             if (id === 'table_ry') {
+                Power('user');
                 UIdtable = [];//清空数组
                 for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
                     UIdtable[i] = [res.data[i].UId, 0];
                 }
                 num_p = count;
             }
-            else if (id === 'table_device'){
+            else if (id === 'table_device') {
+                Power('device');
                 DIdtable = [];//清空数组
                 for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
                     DIdtable[i] = [res.data[i].Id, 0];
@@ -471,7 +473,7 @@ layui.use('table', function () {//打开网页刷新表格
     //第一个实例
     table.render({
         elem: '#table_device'
-        , height: 500
+        //, height: 500
         , url: '/Device/GetAllDeviceInfos' //数据接口
         , title: "设备管理"
         , page: true //开启分页
@@ -678,6 +680,67 @@ function layerShowSearchdevice(title, url, w, h, data) {
         skin: 'demo-class'
     });
 }
+function Power(index) {
+    if (index === 'device') {
+        $.post("/ActionInfo/GetActions", {}, function (data) {
+            console.log(data);
+            power = data;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i] === '删除设备') {
+                    $("button[name='删除设备']").removeAttr('disabled');
+                    $("button[name='删除设备']").removeClass('layui-btn-disabled');
+                    $("a[name='删除']").removeClass('a_disabled');
+                    $("a[name='删除']").removeClass('layui-btn-disabled');
+                }
+                else if (data[i] === '添加设备') {
+                    $("button[name='添加设备']").removeAttr('disabled');
+                    $("button[name='添加设备']").removeClass('layui-btn-disabled');
+                }
+                else if (data[i] === '查看设备') {
+                    $("a[name='查看']").removeClass('a_disabled');
+                    $("a[name='查看']").removeClass('layui-btn-disabled');
+                }
+                else if (data[i] === '查找设备') {
+                    $("button[name='查找设备']").removeClass('a_disabled');
+                    $("button[name='查找设备']").removeClass('layui-btn-disabled');
+                }
+            }
+        });
+    }
+    else if (index === 'user') {
+        $.post("/ActionInfo/GetActions", {}, function (data) {
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                if (data[i] === '编辑员工') {
+                    $("a[name='编辑']").removeClass('a_disabled');
+                    $("a[name='编辑']").removeClass('layui-btn-disabled');
+                }
+                else if (data[i] === '删除员工') {
+                    $("button[name='删除员工']").removeAttr('disabled');
+                    $("button[name='删除员工']").removeClass('layui-btn-disabled');
+                    $("a[name='删除']").removeClass('a_disabled');
+                    $("a[name='删除']").removeClass('layui-btn-disabled');
+                }
+                else if (data[i] === '添加员工') {
+                    $("button[name='添加员工']").removeAttr('disabled');
+                    $("button[name='添加员工']").removeClass('layui-btn-disabled');
+                }
+                else if (data[i] === '查找员工') {
+                    $("button[name='查找员工']").removeAttr('disabled');
+                    $("button[name='查找员工']").removeClass('layui-btn-disabled');
+                }
+            }
+        });
+    }
+}
+//全局加载进度条
+$(document)
+    .ajaxStart(function () {
+        NProgress.start();
+    })
+    .ajaxStop(function () {
+        NProgress.done();
+    })
 $(document).ready(function () {
     $("button[name='添加员工']").click(function () {
         layerShowAdduser('添加员工', 'LayerAdduser', 500, 450, "null");

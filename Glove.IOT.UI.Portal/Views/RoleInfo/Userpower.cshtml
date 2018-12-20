@@ -17,6 +17,7 @@
       <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
     <![endif]-->
+    <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
@@ -39,6 +40,7 @@
             line-height: 18px;
         }
     </style>
+    <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
 <body>
     <!-- 头部区域 -->
@@ -311,11 +313,11 @@
             form.on('select(table_power_save)', function (data) {
                 console.log(data.value); //得到被选中的值
                 $("input").prop("checked", false);//复选框全部清空
-                $.get("/UserInfo/GetAllRoles", function (data_role) {
+                $.get("/UserInfo/GetAllRoles", function (data_role) {//获取RoleId
                     for (var i = 0; i < data_role.length; i++) {
                         if (data.value === data_role[i].RoleName) {
                             $.get("/RoleInfo/GetExitsActions?RId=" + data_role[i].Id, function (data_power) {
-                                console.log(data_power); 
+                                console.log(data_power);
                                 for (var i = 0; i < data_power.length; i++) {
                                     switch (data_power[i]) {
                                         case '查看设备':
@@ -356,21 +358,49 @@
                                             break;
                                     }
                                 }
+                                //判断是否全选  
                                 var device = $("input[name='device']");
-                                var all = 0;
+                                var all_device = 0;
                                 for (var i = 0; i < device.length; i++) {
                                     if (device[i].checked === true)
-                                        all++;
+                                        all_device++;
                                 }
-                                if (all === device.length) {
+                                if (all_device === device.length) {
                                     $("input[name='alldevice']").prop("checked", true);
-                                    form.render('checkbox');
+                                }
+                                var people = $("input[name='people']");
+                                var all_people = 0;
+                                for (var i = 0; i < people.length; i++) {
+                                    if (people[i].checked === true)
+                                        all_people++;
+                                }
+                                if (all_people === people.length) {
+                                    $("input[name='allpeople']").prop("checked", true);
+                                }
+                                var alarm = $("input[name='alarm']");
+                                var all_alarm = 0;
+                                for (var i = 0; i < alarm.length; i++) {
+                                    if (alarm[i].checked === true)
+                                        all_alarm++;
+                                }
+                                if (all_alarm === alarm.length) {
+                                    $("input[name='allalarm']").prop("checked", true);
+                                }
+                                var user = $("input[name='user']");
+                                var all_user = 0;
+                                for (var i = 0; i < user.length; i++) {
+                                    if (user[i].checked === true)
+                                        all_user++;
+                                }
+                                if (all_user === user.length) {
+                                    $("input[name='alluser']").prop("checked", true);
                                 }
                                 form.render('checkbox');
                             })
                         }
                     }
                 })
+
             });
             form.on('checkbox(table_power_alldevice)', function (data) {
                 //console.log(data.elem.name); //得到checkbox原始DOM对象

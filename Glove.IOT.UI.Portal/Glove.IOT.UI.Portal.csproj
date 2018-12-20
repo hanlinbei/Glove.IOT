@@ -322,6 +322,8 @@
     <Content Include="Content\DH\lib\layui\lay\modules\tree.js" />
     <Content Include="Content\DH\lib\layui\lay\modules\upload.js" />
     <Content Include="Content\DH\lib\layui\lay\modules\util.js" />
+    <Content Include="Content\DH\lib\NProgress\nprogress.css" />
+    <Content Include="Content\DH\lib\NProgress\nprogress.js" />
     <Content Include="Content\theme\bootstrap-theme.css" />
     <Content Include="Content\theme\bootstrap-theme.min.css" />
     <Content Include="Content\theme\bootstrap.css" />
