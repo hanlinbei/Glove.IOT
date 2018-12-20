@@ -22,6 +22,7 @@
     <![endif]-->
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
 </head>
 <body>
     <!-- 头部区域 -->
@@ -86,7 +87,6 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="Devicemanage">设备工作情况</a></dd>
-                    <dd><a href="Devicedetail">设备详情</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -110,7 +110,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
-                    <dd><a href="#">角色权限管理</a></dd>
+                    <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
                     <dd><a href="#">操作日志</a></dd>
                     <dd><a href="#">数据字典</a></dd>
                     <dd><a href="#">用户管理</a></dd>
@@ -170,17 +170,17 @@
         $.post("/ActionInfo/GetActions", {}, function (data) {
             console.log(data);
             for (var i = 0; i < data.length; i++) {
-                if (data[i] === 1) {
+                if (data[i] === '删除设备') {
                     $("button[name='删除设备']").removeAttr('disabled');
                     $("button[name='删除设备']").removeClass('layui-btn-disabled');
                     $("a[name='删除']").removeClass('a_disabled');
                     $("a[name='删除']").removeClass('layui-btn-disabled');
                 }
-                else if (data[i] === 2) {
+                else if (data[i] === '添加设备') {
                     $("button[name='添加设备']").removeAttr('disabled');
                     $("button[name='添加设备']").removeClass('layui-btn-disabled');
                 }
-                else if (data[i] === 3) {
+                else if (data[i] === '查看设备') {
                     $("a[name='查看']").removeClass('a_disabled');
                     $("a[name='查看']").removeClass('layui-btn-disabled');
                 }
