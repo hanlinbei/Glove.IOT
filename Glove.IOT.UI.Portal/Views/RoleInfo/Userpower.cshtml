@@ -294,14 +294,16 @@
                 checkboxed = checkboxed.slice(0, delId.length - 1);//去除最后的逗号
                 data_send = Role_selected + ',' + checkboxed;
                 console.log('data_send:' + data_send);
-                $.get("/RoleInfo/SetActions?Data=" + data_send);//将保存信息发送给后台
-                layui.use('layer', function () {//保存成功 弹出框提示
-                    var layer = layui.layer;
-                    layer.msg('<span style = "font-size: 20px; line-height:90px; vertical-align:middle;">保存成功</span>', {
-                        time: 2000,
-                        area: ['200px', '120px']
+                $.get("/RoleInfo/SetActions?Data=" + data_send, function () {
+                    layui.use('layer', function () {//保存成功 弹出框提示
+                        var layer = layui.layer;
+                        layer.msg('<span style = "font-size: 20px; line-height:90px; vertical-align:middle;">保存成功</span>', {
+                            time: 1500,
+                            area: ['200px', '120px']
+                        });
                     });
-                });
+                });//将保存信息发送给后台
+                
             });   
         });
         //动态加载角色类型
