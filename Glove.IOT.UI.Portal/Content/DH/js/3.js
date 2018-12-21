@@ -12,6 +12,38 @@ layui.config({
     ,debug: false //用于开启调试模式，默认false，如果设为true，则JS模块的节点会保留在页面
     ,base: '' //设定扩展的Layui模块的所在目录，一般用于外部模块扩展
 });
+//登录
+function send() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "/UserLogin/ProcessLogin");
+    xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
+    xhr.send('LoginCode=' + $("input[name='LoginCode']").val()
+        + '&LoginPwd=' + $("input[name='LoginPwd']").val()
+        + '&vCode=' + $("input[name='vCode']").val());
+    xhr.onreadystatechange = function () {
+        if (this.readyState !== 4) return;
+        if (this.responseText === 'OK') {
+            window.location.href = '../Device/Devicemanage';
+        }
+        else if (this.responseText === '验证码错误！') {
+            alert("验证码错误!");
+            changeCheckCode();
+        }
+        else if (this.responseText === '用户名密码错误！') {
+            alert("用户名密码错误！");
+            changeCheckCode();
+        }
+    }
+}
+function changeCheckCode() {
+    var old = $("#imgCode").attr("src");
+    var now = new Date();
+    var str = old +
+        now.getDay() +
+        now.getSeconds() +
+        now.getMinutes();
+    $("#imgCode").attr("src", str);
+}     
 //员工相关
 layui.use('table', function () {//打开网页刷新表格
     var table = layui.table;
@@ -82,19 +114,13 @@ layui.use('table', function () {//打开网页刷新表格
                 //向服务端发送删除指令
                 ids = "" + data.UId;
                 $.post("/UserInfo/Delete", { ids: ids }, function (data) {
-                    if (data === 'ok') {
-                        num_p = num_p - 1;
-                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                        globalPage = Math.ceil(num_p / globalLimit);//获取页码值
-                        if (num_p % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
-                        //表格重载
-                        updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", globalPage, globalLimit);
-                    }
-                    else {
-                        alert("你没有权限删除");
-                    }
-                });
-                
+                num_p = num_p - 1;
+                globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+                if (num_p % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
+                //表格重载
+                updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", globalPage, globalLimit);
+                })
             });
         } else if (layEvent === 'edit') { //编辑
             layerShowEdituser('编辑员工', 'LayerEdituser', 500, 450, obj.data);
@@ -308,11 +334,11 @@ function layerShowSearchuser(title, url, w, h, data) {
         btn: ['查找'],
         yes: function (index) {
             //当点击‘确定’按钮的时候，获取弹出层返回的值
-            var res = window["layui-layer-iframe" + index].callbackdata_search(index);
+            var res = window["layui-layer-iframe" + index].callbackdata(index, "searchuser");
             console.log("搜索" + res);
             //表格重载 跳转到操作页面
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            updatatable_search('#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", 1, globalLimit, res);
+            updatatable_search('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", 1, globalLimit, res);
             //最后关闭弹出层
             layer.close(index);
         },
@@ -336,14 +362,19 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
                 DeviceId: $('input[name="DeviceId"]').val()
             }
             break;
+        case 'searchuser':
+            var data = {
+                UCode: $('input[name="UCode"]').val(),
+                RoleName: $('select[name="RoleName"] option:selected').val(),
+            }
+            break;
+        case 'searchdevice':
+            var data = {
+                DeviceId: $('input[name="DeviceId"]').val(),
+                StatusFlag: $('select[name="StatusFlag"] option:selected').val(),
+            }
+            break;
 
-    }
-    return data;
-}
-function callbackdata_search(index) {//获取弹窗用户输入的数据
-    var data = {
-        UCode: $('input[name="UCode"]').val(),
-        RoleName: $('select[name="RoleName"] option:selected').val(),
     }
     return data;
 }
@@ -384,35 +415,72 @@ function someDel(assort) {
         });
     }
 }
-function updatatable_search(elem, height, url, title, page, limit, res) {//表格重载 跳转到操作页面
+function updatatable_search(id, elem, height, url, title, page, limit, res) {//表格重载 跳转到操作页面 
     var table = layui.table;
-    table.reload('table_ry', {
-        elem: elem
-        , height: height
-        , url: url//数据接口
-        , title: title
-        , page: {
-            curr: page
-        }//重新制定page和limit
-        , limit: limit
-        , where: { SchCode: res.UCode, SchRoleName: res.RoleName }
-        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
-            console.log("表格渲染完成");
-            globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
-            globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
-            UIdtable = [];//清空数组
-            for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
-                UIdtable[i] = [res.data[i].UId, 0];
+    if (id === 'table_ry') {
+        table.reload(id, {
+            elem: elem
+            //, height: height
+            , url: url//数据接口
+            , title: title
+            , page: {
+                curr: page
+            }//重新制定page和limit
+            , limit: limit
+            , where: { SchCode: res.UCode, SchRoleName: res.RoleName }
+            , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+                console.log("表格渲染完成");
+                globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
+                globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
+                if (id === 'table_ry') {
+                    Power('user');
+                    UIdtable = [];//清空数组
+                    for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
+                        UIdtable[i] = [res.data[i].UId, 0];
+                    }
+                    num_p = count;
+                }
+                else if (id === 'table_device') {
+                    Power('device');
+                    DIdtable = [];//清空数组
+                    for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
+                        DIdtable[i] = [res.data[i].Id, 0];
+                    }
+                    num_d = count;
+                }
             }
-            num_p = count;
-        }
-    });
+        });
+    }
+    else if (id === 'table_device') {
+        table.reload(id, {
+            elem: elem
+            //, height: height
+            , url: url//数据接口
+            , title: title
+            , page: {
+                curr: page
+            }//重新制定page和limit
+            , limit: limit
+            , where: { deviceId: res.DeviceId, statusFlag: res.StatusFlag }
+            , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+                console.log("表格渲染完成");
+                globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
+                globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
+                Power('device');
+                DIdtable = [];//清空数组
+                for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
+                    DIdtable[i] = [res.data[i].Id, 0];
+                }
+                num_d = count;   
+            }
+        });
+    }
 }
 function updatatable(id, elem, height, url, title, page, limit) {//表格重载 跳转到操作页面
     var table = layui.table;
     table.reload( id, {
         elem: elem
-        , height: height
+        //, height: height
         , url: url//数据接口
         , title: title
         , page: {
@@ -669,11 +737,12 @@ function layerShowSearchdevice(title, url, w, h, data) {
         btn: ['查找'],
         yes: function (index) {
             //当点击‘确定’按钮的时候，获取弹出层返回的值
-            var res = window["layui-layer-iframe" + index].callbackdata_search(index);
-            console.log("搜索" + res);
+            var res = window["layui-layer-iframe" + index].callbackdata(index, "searchdevice");
+            console.log("内容如下");
+            console.log(res);
             //表格重载 跳转到操作页面
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            updatatable_search('#table_ry', 550, '/Device/GetAllDeviceInfos', "设备管理", 1, globalLimit, res);
+            updatatable_search('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", 1, globalLimit, res);
             //最后关闭弹出层
             layer.close(index);
         },
@@ -701,7 +770,7 @@ function Power(index) {
                     $("a[name='查看']").removeClass('layui-btn-disabled');
                 }
                 else if (data[i] === '查找设备') {
-                    $("button[name='查找设备']").removeClass('a_disabled');
+                    $("button[name='查找设备']").removeAttr('disabled');
                     $("button[name='查找设备']").removeClass('layui-btn-disabled');
                 }
             }
@@ -759,6 +828,9 @@ $(document).ready(function () {
     });
     $("button[name='查找设备']").click(function () {
         layerShowSearchdevice('查找设备', 'LayerSearchdevice', 500, 380, "null");
+    });
+    $("button[name='登录']").click(function () {
+        send();
     });
 
 });
