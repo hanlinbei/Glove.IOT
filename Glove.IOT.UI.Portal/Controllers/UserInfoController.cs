@@ -13,17 +13,14 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-    [ActionCheckFilter(IsCheckuserLogin = true)]
-    public class UserInfoController : Controller
+    public class UserInfoController : BaseController
     {
         readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
         readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         // GET: UserInfo
-        //UserInfoService UserInfoService = new UserInfoService();
         public IUserInfoService UserInfoService { get; set; }
         public IRoleInfoService RoleInfoService { get; set; }
         public IActionInfoService ActionInfoService { get; set; }
-
         public IR_UserInfo_RoleInfoService R_UserInfo_RoleInfoService { get; set; }
         public IMd5Helper Md5Helper { get; set; }
         /// <summary>
@@ -72,7 +69,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns>OK</returns>
         public ActionResult Add(UserInfoRoleInfo userInfoRoleInfo)
         {
-            var uCode = UserInfoService.GetEntities(u => u.UCode == userInfoRoleInfo.UCode).FirstOrDefault();
+            var uCode = UserInfoService.GetEntities(u => (u.UCode == userInfoRoleInfo.UCode&&u.StatusFlag!=delFlag)).FirstOrDefault();
             if (uCode == null)
             {
                 UserInfo userInfo = new UserInfo

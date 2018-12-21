@@ -8,6 +8,7 @@ namespace Glove.IOT.Model.Param
 {
     public class DeviceQueryParam:BaseParam
     {
-        public string SchName { get; set; }
+        public string DeviceId { get; set; }
+        public string StatusFlag { get; set; }
     }
 }

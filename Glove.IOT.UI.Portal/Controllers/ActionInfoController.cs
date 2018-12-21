@@ -11,8 +11,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-    [ActionCheckFilter(IsCheckuserLogin =true)]
-    public class ActionInfoController : Controller
+    public class ActionInfoController : BaseController
     {
         // GET: ActionInfo
         readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
@@ -32,10 +31,7 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         public ActionResult GetActions()
         {
-            string userGuid = HttpContext.Request.Cookies["userLoginId"].Value;
-            UserInfo loginUser = Common.Cache.CacheHelper.GetCache(userGuid) as UserInfo;
-   
-            var userRole = R_UserInfo_RoleInfoService.GetEntities(u => (u.UserInfoId == loginUser.Id && u.StatusFlag == statusNormal));
+            var userRole = R_UserInfo_RoleInfoService.GetEntities(u => (u.UserInfoId == LoginUser.Id && u.StatusFlag == statusNormal));
             var rRoleAction = R_RoleInfo_ActionInfoService.GetEntities(r => r.StatusFlag == statusNormal);
             var action = ActionInfoService.GetEntities(a => true);
             //查找该用户角色对应的权限

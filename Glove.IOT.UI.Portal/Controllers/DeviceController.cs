@@ -11,11 +11,12 @@ using System.Web.Mvc;
 namespace Glove.IOT.UI.Portal.Controllers
 {
    
-    public class DeviceController:Controller
+    public class DeviceController:BaseController
     {
         readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         public IDeviceInfoService DeviceInfoService { get; set; }
         public IDeviceParameterInfoService DeviceParameterInfoService { get; set; }
+
         // GET: Device
 
         /// <summary>
@@ -23,7 +24,6 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="deviceInfo"></param>
         /// <returns></returns>
-        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult Add(DeviceInfo deviceInfo)
         {
             var deviceId = DeviceInfoService.GetEntities(u => (u.DeviceId == deviceInfo.DeviceId&&u.StatusFlag==statusNormal)).FirstOrDefault();
@@ -63,9 +63,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Delete()
+        public ActionResult Delete(string ids)
         {
-            string ids = Request["ids"];
             if (string.IsNullOrEmpty(ids))
             {
                 return Content("请选中要删除的数据！");
@@ -86,17 +85,19 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 获取所有设备信息
         /// </summary>
         /// <returns></returns>
-        [ActionCheckFilter(IsCheckuserLogin = false)]
-        public ActionResult GetAllDeviceInfos()
+        public ActionResult GetAllDeviceInfos(string limit,string page,string deviceId,string statusFlag)
         {
-            int pageSize = int.Parse(Request["limit"] ?? "10");
-            int pageIndex = int.Parse(Request["page"] ?? "1");
+            int pageSize = int.Parse(limit ?? "10");
+            int pageIndex = int.Parse(page ?? "1");
+
             //过滤的用户名 过滤备注schName schRemark
 
             var queryParam = new DeviceQueryParam()
             {
                 PageSize = pageSize,
                 PageIndex = pageIndex,
+                DeviceId=deviceId,
+                StatusFlag=statusFlag,
                 Total = 0
             };
 
@@ -109,7 +110,6 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 获取设备参数详细信息
         /// </summary>
         /// <returns></returns>
-        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult GetDeviceParameterInfo()
         {
             int deviceId = int.Parse(Request["DeviceId"]);
@@ -124,13 +124,11 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Content("Ok");
         }
 
-        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult Devicemanage()
         {
             return View();
         }
 
-        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult LayerAdddevice()
         {
             return View();
