@@ -27,6 +27,11 @@ namespace Glove.IOT.EFDAL
 
 	}
 	
+	public partial class OperationLogDal:BaseDal<OperationLog>,IOperationLogDal
+    {
+
+	}
+	
 	public partial class R_RoleInfo_ActionInfoDal:BaseDal<R_RoleInfo_ActionInfo>,IR_RoleInfo_ActionInfoDal
     {
 

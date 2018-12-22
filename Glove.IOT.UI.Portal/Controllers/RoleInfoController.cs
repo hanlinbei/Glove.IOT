@@ -16,8 +16,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IRoleInfoService RoleInfoService { get; set; }
         public IR_RoleInfo_ActionInfoService R_RoleInfo_ActionInfoService { get; set; }
         public IActionInfoService ActionInfoService { get; set; }
-        readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
-        readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
+
 
 
         /// <summary>
@@ -27,7 +26,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult GetExitsActions(int rId)
         {
-            var roleAction = R_RoleInfo_ActionInfoService.GetEntities(r => (r.RoleInfoId == rId&&r.StatusFlag==statusNormal));
+            var roleAction = R_RoleInfo_ActionInfoService.GetEntities(r => (r.RoleInfoId == rId&&r.IsDeleted==false));
             var action = ActionInfoService.GetEntities(a => true);
             var allActionNames = from r in roleAction
                                    from a in action
@@ -80,7 +79,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 R_RoleInfo_ActionInfo rRoleInfoActionInfo = new R_RoleInfo_ActionInfo();
                 rRoleInfoActionInfo.RoleInfoId = rId;
                 rRoleInfoActionInfo.ActionInfoId = actionId;
-                rRoleInfoActionInfo.StatusFlag = statusNormal;
+                rRoleInfoActionInfo.IsDeleted = false;
                 R_RoleInfo_ActionInfoService.Add(rRoleInfoActionInfo);
 
             }

@@ -24,6 +24,11 @@ namespace Glove.IOT.IDAL
        
     }   
 	
+	public partial interface IOperationLogDal : IBaseDal<OperationLog>
+    {
+       
+    }   
+	
 	public partial interface IR_RoleInfo_ActionInfoDal : IBaseDal<R_RoleInfo_ActionInfo>
     {
        

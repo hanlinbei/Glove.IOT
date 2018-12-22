@@ -1,4 +1,5 @@
-﻿using Glove.IOT.Model;
+﻿using Glove.IOT.Common;
+using Glove.IOT.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,11 @@ namespace Glove.IOT.UI.Portal.Controllers
 {
     public class BaseController : Controller
     {
-        readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
+
         //在当前的控制器里面所有的方法执行之前，都先执行此代码
         public bool IsCheckuserLogin = true;
         public UserInfo LoginUser { get; set; }
+        public OperationLog LoginInfo = new OperationLog();
         public string ActionParameters {get;set;}
         public string ActionName { get; set; }
 
@@ -43,6 +45,8 @@ namespace Glove.IOT.UI.Portal.Controllers
 
                 }
                 LoginUser = userInfo;
+                LoginInfo.Ip = WebHelper.GetClientIp();
+                LoginInfo.Mac = WebHelper.GetClientMACAddress();
                 //滑动窗口机制
                 Common.Cache.CacheHelper.SetCache(userGuid, userInfo, DateTime.Now.AddMinutes(20));
             }

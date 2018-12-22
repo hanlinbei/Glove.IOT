@@ -18,7 +18,6 @@ namespace Glove.IOT.Model
         public DeviceParameterInfo()
         {
             this.SingleProgress = 0;
-            this.StatusFlag = 0;
         }
     
         public int Id { get; set; }
@@ -26,7 +25,7 @@ namespace Glove.IOT.Model
         public Nullable<int> NowOutput { get; set; }
         public Nullable<int> TargetOutput { get; set; }
         public Nullable<short> SingleProgress { get; set; }
-        public short StatusFlag { get; set; }
+        public string StatusFlag { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
         public Nullable<System.DateTime> StopTime { get; set; }
         public System.DateTime SubTime { get; set; }

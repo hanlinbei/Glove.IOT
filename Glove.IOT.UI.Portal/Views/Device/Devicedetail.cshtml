@@ -245,15 +245,15 @@
                 if (this.readyState !== 4) return; 
                 var deviceInfos = eval("(" + this.responseText + ")");//JSON.parse安全
                 $('input[name="设备ID"]').val(deviceInfos[0].DeviceId);
-                if (deviceInfos[0].StatusFlag === 0)
+                if (deviceInfos[0].StatusFlag === "0")
                     $('input[name="运行状态"]').val("关机中");
-                else if (deviceInfos[0].StatusFlag === 1)
+                else if (deviceInfos[0].StatusFlag === "1")
                     $('input[name="运行状态"]').val("运行中");
-                else if (deviceInfos[0].StatusFlag === 2)
+                else if (deviceInfos[0].StatusFlag === "2")
                     $('input[name="运行状态"]').val("暂停中");
-                else if (deviceInfos[0].StatusFlag === 3)
+                else if (deviceInfos[0].StatusFlag === "3")
                     $('input[name="运行状态"]').val("故障中");
-                else if (deviceInfos[0].StatusFlag === 4)
+                else if (deviceInfos[0].StatusFlag === "Outline")
                     $('input[name="运行状态"]').val("未连接");
                 //解析时间
                 var StartTime = (eval(deviceInfos[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");

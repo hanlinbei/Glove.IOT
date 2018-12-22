@@ -32,4 +32,9 @@
     <property name="DbSession" ref="DbSession" />
     <property name="CurrentDal" ref="R_RoleInfo_ActionInfoDal" />
   </object>
+  <object name="OperationLogService" type="Glove.IOT.BLL.OperationLogService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="OperationLogDal" />
+  </object>
+
 </objects>

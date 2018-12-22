@@ -74,6 +74,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Enum\StatusFlagEnum.cs" />
+    <Compile Include="OperationLog.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Param\BaseParam.cs" />
     <Compile Include="Param\DeviceQueryParam.cs" />
     <Compile Include="Param\UserQueryParam.cs" />

@@ -13,7 +13,7 @@ namespace Glove.IOT.UI.Portal.Controllers
    
     public class DeviceController:BaseController
     {
-        readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
+
         public IDeviceInfoService DeviceInfoService { get; set; }
         public IDeviceParameterInfoService DeviceParameterInfoService { get; set; }
 
@@ -26,7 +26,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult Add(DeviceInfo deviceInfo)
         {
-            var deviceId = DeviceInfoService.GetEntities(u => (u.DeviceId == deviceInfo.DeviceId&&u.StatusFlag==statusNormal)).FirstOrDefault();
+            var deviceId = DeviceInfoService.GetEntities(u => (u.DeviceId == deviceInfo.DeviceId&&u.IsDeleted==false)).FirstOrDefault();
             if (deviceId == null)
             {
                 deviceInfo.SubTime = DateTime.Now;
@@ -34,7 +34,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 DeviceParameterInfo deviceParameterInfo = new DeviceParameterInfo
                 {
                     DeviceInfoId = id,
-                    StatusFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Outline,
+                    StatusFlag = Glove.IOT.Model.Enum.StatusFlagEnum.Outline.ToString(),
                     SubTime=DateTime.Now,
                 };
                 DeviceParameterInfoService.Add(deviceParameterInfo);

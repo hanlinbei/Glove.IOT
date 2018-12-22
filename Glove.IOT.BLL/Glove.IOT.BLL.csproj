@@ -46,6 +46,7 @@
     <Compile Include="BaseService.cs" />
     <Compile Include="DeviceParameterInfoService.cs" />
     <Compile Include="DeviceInfoService.cs" />
+    <Compile Include="OperationLogService.cs" />
     <Compile Include="Service.cs">
       <DependentUpon>Service.tt</DependentUpon>
       <AutoGen>True</AutoGen>

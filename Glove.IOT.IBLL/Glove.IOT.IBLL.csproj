@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IDeviceParameterInfoService.cs" />
     <Compile Include="IDeviceInfoService.cs" />
+    <Compile Include="IOperationLogService.cs" />
     <Compile Include="IService.cs">
       <DependentUpon>IService.tt</DependentUpon>
       <AutoGen>True</AutoGen>

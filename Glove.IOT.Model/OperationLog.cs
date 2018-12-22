@@ -13,14 +13,21 @@ namespace Glove.IOT.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class R_UserInfo_RoleInfo
+    public partial class OperationLog
     {
-        public int Id { get; set; }
-        public int UserInfoId { get; set; }
-        public int RoleInfoId { get; set; }
-        public bool IsDeleted { get; set; }
+        public OperationLog()
+        {
+            this.IsDeleted = false;
+        }
     
-        public virtual UserInfo UserInfo { get; set; }
-        public virtual RoleInfo RoleInfo { get; set; }
+        public int Id { get; set; }
+        public string UName { get; set; }
+        public string ActionType { get; set; }
+        public string ActionName { get; set; }
+        public string OperationObj { get; set; }
+        public string Ip { get; set; }
+        public string Mac { get; set; }
+        public bool IsDeleted { get; set; }
+        public System.DateTime SubTime { get; set; }
     }
 }

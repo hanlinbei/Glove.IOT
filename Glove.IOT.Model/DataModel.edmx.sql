@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/21/2018 22:42:36
+-- Date Created: 12/22/2018 20:13:18
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -69,7 +69,8 @@ CREATE TABLE [dbo].[UserInfo] (
     [UCode] nvarchar(32)  NOT NULL,
     [UName] nvarchar(32)  NULL,
     [Pwd] nvarchar(64)  NOT NULL,
-    [StatusFlag] smallint  NOT NULL,
+    [StatusFlag] bit  NOT NULL,
+    [IsDeleted] bit  NOT NULL,
     [Remark] nvarchar(256)  NULL,
     [SubTime] datetime  NOT NULL
 );
@@ -79,7 +80,7 @@ GO
 CREATE TABLE [dbo].[RoleInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [RoleName] nvarchar(32)  NOT NULL,
-    [StatusFlag] smallint  NOT NULL,
+    [IsDeleted] bit  NOT NULL,
     [Remark] nvarchar(64)  NULL,
     [SubTime] datetime  NOT NULL
 );
@@ -90,7 +91,7 @@ CREATE TABLE [dbo].[R_UserInfo_RoleInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [UserInfoId] int  NOT NULL,
     [RoleInfoId] int  NOT NULL,
-    [StatusFlag] smallint  NOT NULL
+    [IsDeleted] bit  NOT NULL
 );
 GO
 
@@ -101,7 +102,8 @@ CREATE TABLE [dbo].[ActionInfo] (
     [ActionName] nvarchar(max)  NOT NULL,
     [Url] nvarchar(512)  NOT NULL,
     [HttpMethod] nvarchar(512)  NOT NULL,
-    [SubTime] datetime  NOT NULL
+    [SubTime] datetime  NOT NULL,
+    [IsDeleted] bit  NULL
 );
 GO
 
@@ -110,7 +112,7 @@ CREATE TABLE [dbo].[R_RoleInfo_ActionInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [RoleInfoId] int  NOT NULL,
     [ActionInfoId] int  NOT NULL,
-    [StatusFlag] smallint  NOT NULL
+    [IsDeleted] bit  NOT NULL
 );
 GO
 
@@ -118,7 +120,7 @@ GO
 CREATE TABLE [dbo].[DeviceInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DeviceId] nvarchar(256)  NOT NULL,
-    [StatusFlag] smallint  NOT NULL,
+    [IsDeleted] bit  NOT NULL,
     [SubTime] datetime  NOT NULL
 );
 GO
@@ -130,9 +132,23 @@ CREATE TABLE [dbo].[DeviceParameterInfo] (
     [NowOutput] int  NULL,
     [TargetOutput] int  NULL,
     [SingleProgress] smallint  NULL,
-    [StatusFlag] smallint  NOT NULL,
+    [StatusFlag] nvarchar(256)  NOT NULL,
     [StartTime] datetime  NULL,
     [StopTime] datetime  NULL,
+    [SubTime] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'OperationLog'
+CREATE TABLE [dbo].[OperationLog] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [UName] nvarchar(256)  NOT NULL,
+    [ActionType] nvarchar(256)  NOT NULL,
+    [ActionName] nvarchar(256)  NOT NULL,
+    [OperationObj] nvarchar(max)  NOT NULL,
+    [Ip] nvarchar(max)  NOT NULL,
+    [Mac] nvarchar(max)  NULL,
+    [IsDeleted] bit  NOT NULL,
     [SubTime] datetime  NOT NULL
 );
 GO
@@ -180,6 +196,12 @@ GO
 -- Creating primary key on [Id] in table 'DeviceParameterInfo'
 ALTER TABLE [dbo].[DeviceParameterInfo]
 ADD CONSTRAINT [PK_DeviceParameterInfo]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'OperationLog'
+ALTER TABLE [dbo].[OperationLog]
+ADD CONSTRAINT [PK_OperationLog]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

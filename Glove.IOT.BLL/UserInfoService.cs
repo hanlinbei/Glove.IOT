@@ -23,9 +23,8 @@ namespace Glove.IOT.BLL
         /// <returns>查询结果</returns>
         public IQueryable<UserInfo> LoagPageData(UserQueryParam userQueryParam)
         {
-            short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
 
-            var temp = DbSession.UserInfoDal.GetEntities(u => u.StatusFlag!=delFlag );
+            var temp = DbSession.UserInfoDal.GetEntities(u => u.IsDeleted==false);
 
             userQueryParam.Total = temp.Count();
 
@@ -43,10 +42,9 @@ namespace Glove.IOT.BLL
         /// <returns>查询结果</returns>
         public IQueryable<UserInfoRoleInfo> LoagUserPageData(UserQueryParam userQueryParam)
         {
-            short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
-            var userInfo = DbSession.UserInfoDal.GetEntities(u => u.StatusFlag != delFlag);
-            var r_UserInfo_RoleInfo = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => r.StatusFlag != delFlag);
-            var roleInfo = DbSession.RoleInfoDal.GetEntities(r => r.StatusFlag != delFlag);
+            var userInfo = DbSession.UserInfoDal.GetEntities(u => u.IsDeleted==false);
+            var r_UserInfo_RoleInfo = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => r.IsDeleted == false);
+            var roleInfo = DbSession.RoleInfoDal.GetEntities(r => r.IsDeleted == false);
 
             //内连接查询 查询人员信息
             var query = from t1 in userInfo

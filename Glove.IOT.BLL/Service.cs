@@ -31,6 +31,12 @@ namespace Glove.IOT.BLL
 	    
 		}
 	
+	    public partial class OperationLogService : BaseService<OperationLog>, IOperationLogService
+        {
+	
+	    
+		}
+	
 	    public partial class R_RoleInfo_ActionInfoService : BaseService<R_RoleInfo_ActionInfo>, IR_RoleInfo_ActionInfoService
         {
 	

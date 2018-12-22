@@ -13,7 +13,6 @@ namespace Glove.IOT.UI.Portal.Controllers
         // GET: Home
         public IUserInfoService UserInfoService { get; set; }
 
-        readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
         /// <summary>
         /// 主页起始视图
         /// </summary>

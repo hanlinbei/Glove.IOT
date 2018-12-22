@@ -15,13 +15,12 @@ namespace Glove.IOT.UI.Portal.Controllers
 {
     public class UserInfoController : BaseController
     {
-        readonly short delFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Deleted;
-        readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         // GET: UserInfo
         public IUserInfoService UserInfoService { get; set; }
         public IRoleInfoService RoleInfoService { get; set; }
         public IActionInfoService ActionInfoService { get; set; }
         public IR_UserInfo_RoleInfoService R_UserInfo_RoleInfoService { get; set; }
+        public IOperationLogService OperationLogService { get; set; }
         public IMd5Helper Md5Helper { get; set; }
         /// <summary>
         /// 用户起始视图
@@ -69,7 +68,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns>OK</returns>
         public ActionResult Add(UserInfoRoleInfo userInfoRoleInfo)
         {
-            var uCode = UserInfoService.GetEntities(u => (u.UCode == userInfoRoleInfo.UCode&&u.StatusFlag!=delFlag)).FirstOrDefault();
+            
+            var uCode = UserInfoService.GetEntities(u => (u.UCode == userInfoRoleInfo.UCode&&u.IsDeleted==false)).FirstOrDefault();
             if (uCode == null)
             {
                 UserInfo userInfo = new UserInfo
@@ -85,10 +85,23 @@ namespace Glove.IOT.UI.Portal.Controllers
                     Remark = userInfoRoleInfo.Remark,
                     SubTime = DateTime.Now
                 };
-                //userInfo.StatusFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
                 int insertedUserId = UserInfoService.Add(userInfo).Id;
                 int roleId = userInfoRoleInfo.RId;
                 ProcessSetRole(insertedUserId, roleId);
+                //写操作日志
+                OperationLog operationLog = new OperationLog
+                {
+                    ActionName = "添加员工",
+                    ActionType = "系统管理",
+                    Ip = LoginInfo.Ip,
+                    Mac = LoginInfo.Mac,
+                    OperationObj = userInfoRoleInfo.UName,
+                    SubTime = DateTime.Now,
+                    UName = LoginUser.UName
+
+                };
+                OperationLogService.Add(operationLog);
+
                 return Content("Ok");
             }
             else
@@ -149,7 +162,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult GetAllRoles()
         {
             //把所有的角色发送到前台
-            var AllRoles = RoleInfoService.GetEntities(u => u.StatusFlag != delFlag).ToList();
+            var AllRoles = RoleInfoService.GetEntities(r=>r.IsDeleted ==false).ToList();
             var temp = AllRoles.Select(u => new {
                 u.Id,
                 u.RoleName
@@ -170,7 +183,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             //第二：当前用户在角色关联表中的ID
             UserInfo user = UserInfoService.GetEntities(u => u.Id == uId).FirstOrDefault();
             var allUserInfoIds = (from r in user.R_UserInfo_RoleInfo
-                                  where r.UserInfoId == uId && r.StatusFlag !=delFlag
+                                  where r.UserInfoId == uId && r.IsDeleted ==false
                                   select r.Id).ToList();
 
             for (int i = 0; i < allUserInfoIds.Count(); i++)
@@ -191,7 +204,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 R_UserInfo_RoleInfo rUserInfoRoleInfo = new R_UserInfo_RoleInfo();
                 rUserInfoRoleInfo.UserInfoId = uId;
                 rUserInfoRoleInfo.RoleInfoId = roleId;
-                rUserInfoRoleInfo.StatusFlag = statusNormal;
+                rUserInfoRoleInfo.IsDeleted = false;
                 R_UserInfo_RoleInfoService.Add(rUserInfoRoleInfo);
               
             }
