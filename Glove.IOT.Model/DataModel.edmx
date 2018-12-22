@@ -90,7 +90,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DeviceId" Type="int" Nullable="false" />
+    <Property Name="DeviceId" Type="nvarchar" Nullable="false" MaxLength="256" />
     <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="1" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
@@ -313,7 +313,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DeviceId" Type="Int32" Nullable="false" />
+          <Property Name="DeviceId" Type="String" Nullable="false" MaxLength="256" />
           <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="1" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DeviceParameterInfo" Relationship="DataModel.DeviceInfoDeviceParameterInfo" FromRole="DeviceInfo" ToRole="DeviceParameterInfo" />

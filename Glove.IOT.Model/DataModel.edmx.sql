@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/17/2018 16:38:55
+-- Date Created: 12/21/2018 22:42:36
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -24,10 +24,10 @@ IF OBJECT_ID(N'[dbo].[FK_RoleInfoR_UserInfo_RoleInfo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[R_UserInfo_RoleInfo] DROP CONSTRAINT [FK_RoleInfoR_UserInfo_RoleInfo];
 GO
 IF OBJECT_ID(N'[dbo].[FK_RoleInfoR_RoleInfo_ActionInfo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[R_RoleInfo_Power] DROP CONSTRAINT [FK_RoleInfoR_RoleInfo_ActionInfo];
+    ALTER TABLE [dbo].[R_RoleInfo_ActionInfo] DROP CONSTRAINT [FK_RoleInfoR_RoleInfo_ActionInfo];
 GO
 IF OBJECT_ID(N'[dbo].[FK_R_RoleInfo_ActionInfoActionInfo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[R_RoleInfo_Power] DROP CONSTRAINT [FK_R_RoleInfo_ActionInfoActionInfo];
+    ALTER TABLE [dbo].[R_RoleInfo_ActionInfo] DROP CONSTRAINT [FK_R_RoleInfo_ActionInfoActionInfo];
 GO
 IF OBJECT_ID(N'[dbo].[FK_DeviceInfoDeviceParameterInfo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[DeviceParameterInfo] DROP CONSTRAINT [FK_DeviceInfoDeviceParameterInfo];
@@ -46,11 +46,11 @@ GO
 IF OBJECT_ID(N'[dbo].[R_UserInfo_RoleInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[R_UserInfo_RoleInfo];
 GO
-IF OBJECT_ID(N'[dbo].[Power]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Power];
+IF OBJECT_ID(N'[dbo].[ActionInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionInfo];
 GO
-IF OBJECT_ID(N'[dbo].[R_RoleInfo_Power]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[R_RoleInfo_Power];
+IF OBJECT_ID(N'[dbo].[R_RoleInfo_ActionInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[R_RoleInfo_ActionInfo];
 GO
 IF OBJECT_ID(N'[dbo].[DeviceInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[DeviceInfo];
@@ -117,7 +117,7 @@ GO
 -- Creating table 'DeviceInfo'
 CREATE TABLE [dbo].[DeviceInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [DeviceId] int  NOT NULL,
+    [DeviceId] nvarchar(256)  NOT NULL,
     [StatusFlag] smallint  NOT NULL,
     [SubTime] datetime  NOT NULL
 );

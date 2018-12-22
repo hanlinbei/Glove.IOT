@@ -110,9 +110,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 获取设备参数详细信息
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetDeviceParameterInfo()
+        public ActionResult GetDeviceParameterInfo(string deviceId)
         {
-            int deviceId = int.Parse(Request["DeviceId"]);
+           
             var deviceParameter = DeviceParameterInfoService.GetDeviceParameter(deviceId);
             var data = deviceParameter.ToList();
             return Json(data, JsonRequestBehavior.AllowGet);

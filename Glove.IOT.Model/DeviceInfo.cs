@@ -22,7 +22,7 @@ namespace Glove.IOT.Model
         }
     
         public int Id { get; set; }
-        public int DeviceId { get; set; }
+        public string DeviceId { get; set; }
         public short StatusFlag { get; set; }
         public System.DateTime SubTime { get; set; }
     

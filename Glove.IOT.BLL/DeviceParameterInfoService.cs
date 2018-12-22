@@ -13,7 +13,7 @@ namespace Glove.IOT.BLL
 {
     public partial class DeviceParameterInfoService : BaseService<DeviceParameterInfo>, IDeviceParameterInfoService
     {
-        public IQueryable<DeviceParameter> GetDeviceParameter(int deviceId)
+        public IQueryable<DeviceParameter> GetDeviceParameter(string deviceId)
         {
             DataModelContainer model = new DataModelContainer();
          //内连接查询最新参数信息

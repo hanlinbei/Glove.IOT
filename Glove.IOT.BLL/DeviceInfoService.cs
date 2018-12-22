@@ -34,16 +34,16 @@ namespace Glove.IOT.BLL
                             DeviceId = t3.DeviceId,                     
                             StatusFlag = t1.StatusFlag,
                         };
-            //按设备ID查找
-            if (!string.IsNullOrEmpty(deviceQueryParam.DeviceId))
-            {
-                query = query.Where(u => u.DeviceId.ToString().Contains(deviceQueryParam.DeviceId)).AsQueryable();
-            }
-            //按设备状态筛选
-            if (!string.IsNullOrEmpty(deviceQueryParam.StatusFlag))
-            {
-                query = query.Where(u => u.StatusFlag.ToString().Contains(deviceQueryParam.StatusFlag)).AsQueryable();
-            }
+            ////按设备ID查找
+            //if (!string.IsNullOrEmpty(deviceQueryParam.DeviceId))
+            //{
+            //    query = query.Where(u => u.DeviceId.ToString().Contains(deviceQueryParam.DeviceId)).AsQueryable();
+            //}
+            ////按设备状态筛选
+            //if (!string.IsNullOrEmpty(deviceQueryParam.StatusFlag))
+            //{
+            //    query = query.Where(u => u.StatusFlag.ToString().Contains(deviceQueryParam.StatusFlag)).AsQueryable();
+            //}
             deviceQueryParam.Total = query.Count();
 
             return query.OrderBy(d =>d.DeviceId)
