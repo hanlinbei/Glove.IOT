@@ -35,6 +35,10 @@
   <object type="Glove.IOT.UI.Portal.Controllers.DeviceController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="DeviceInfoService" ref="DeviceInfoService" />
     <property name="DeviceParameterInfoService" ref="DeviceParameterInfoService" />
+    <property name="OperationLogService" ref="OperationLogService" />
   </object>
-
+  
+  <object type="Glove.IOT.UI.Portal.Controllers.OperationLogController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="OperationLogService" ref="OperationLogService" />
+  </object>
 </objects>

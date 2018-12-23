@@ -9,6 +9,6 @@ namespace Glove.IOT.IBLL
 {
     public partial interface IOperationLogService : IBaseService<OperationLog>
     {
-
+        IQueryable<OperationLog> LoagOperationLogPageData(Model.Param.OperationLogQueryParam operationLogQueryParam);
     }
 }

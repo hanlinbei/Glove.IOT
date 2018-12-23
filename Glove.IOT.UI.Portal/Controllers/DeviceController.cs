@@ -13,7 +13,7 @@ namespace Glove.IOT.UI.Portal.Controllers
    
     public class DeviceController:BaseController
     {
-
+        public IOperationLogService OperationLogService { get; set; }
         public IDeviceInfoService DeviceInfoService { get; set; }
         public IDeviceParameterInfoService DeviceParameterInfoService { get; set; }
 
@@ -38,6 +38,19 @@ namespace Glove.IOT.UI.Portal.Controllers
                     SubTime=DateTime.Now,
                 };
                 DeviceParameterInfoService.Add(deviceParameterInfo);
+                //写操作日志
+                OperationLog operationLog = new OperationLog
+                {
+                    ActionName = "添加设备",
+                    ActionType = "设备管理",
+                    Ip = LoginInfo.Ip,
+                    Mac = LoginInfo.Mac,
+                    OperationObj = deviceInfo.DeviceId,
+                    SubTime = DateTime.Now,
+                    UName = LoginUser.UName
+
+                };
+                OperationLogService.Add(operationLog);
                 return Content("Ok");
             }
             else
@@ -78,6 +91,24 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             }
             DeviceInfoService.DeleteListByLogical(idList);
+
+            foreach (var id in idList)
+            {
+                //写操作日志
+                OperationLog operationLog = new OperationLog
+                {
+                    ActionName = "删除设备",
+                    ActionType = "设备管理",
+                    Ip = LoginInfo.Ip,
+                    Mac = LoginInfo.Mac,
+                    OperationObj = DeviceInfoService.GetEntities(d => d.Id == id).Select(d => d.DeviceId).FirstOrDefault(),
+                    SubTime = DateTime.Now,
+                    UName = LoginUser.UName
+                };
+                OperationLogService.Add(operationLog);
+
+            }
+
             return Content("ok");
         }
 
@@ -85,24 +116,48 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 获取所有设备信息
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetAllDeviceInfos(string limit,string page,string deviceId,string statusFlag)
+        public ActionResult GetAllDeviceInfos(string limit,string page,string schDeviceId,string schStatusFlag)
         {
             int pageSize = int.Parse(limit ?? "10");
             int pageIndex = int.Parse(page ?? "1");
 
-            //过滤的用户名 过滤备注schName schRemark
+            //过滤的设备名 过滤备注schDeviceId schStatusFlag
 
             var queryParam = new DeviceQueryParam()
             {
                 PageSize = pageSize,
                 PageIndex = pageIndex,
-                DeviceId=deviceId,
-                StatusFlag=statusFlag,
+                SchDeviceId=schDeviceId,
+                SchStatusFlag=schStatusFlag,
                 Total = 0
             };
 
             var pageData = DeviceInfoService.LoagDevicePageData(queryParam).ToList();
             var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
+
+            if (!string.IsNullOrEmpty(schDeviceId) || !string.IsNullOrEmpty(schStatusFlag))
+            {
+                //写操作日志
+                OperationLog operationLog = new OperationLog
+                {
+                    ActionName = "查找设备",
+                    ActionType = "设备管理",
+                    Ip = LoginInfo.Ip,
+                    Mac = LoginInfo.Mac,
+                    SubTime = DateTime.Now,
+                    UName = LoginUser.UName
+                };
+                if (!string.IsNullOrEmpty(schDeviceId))
+                {
+                    operationLog.OperationObj = schDeviceId;
+                }
+                if (!string.IsNullOrEmpty(schStatusFlag))
+                {
+                    operationLog.OperationObj = schStatusFlag;
+                }
+                OperationLogService.Add(operationLog);
+
+            }
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
@@ -115,6 +170,18 @@ namespace Glove.IOT.UI.Portal.Controllers
            
             var deviceParameter = DeviceParameterInfoService.GetDeviceParameter(deviceId);
             var data = deviceParameter.ToList();
+            //写操作日志
+            OperationLog operationLog = new OperationLog
+            {
+                ActionName = "查看设备",
+                ActionType = "设备管理",
+                Ip = LoginInfo.Ip,
+                Mac = LoginInfo.Mac,
+                OperationObj = deviceId,
+                SubTime = DateTime.Now,
+                UName = LoginUser.UName
+            };
+            OperationLogService.Add(operationLog);
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
