@@ -38,14 +38,19 @@ function send() {
             if (data === 'OK') {
                 window.location.href = '../Device/Devicemanage';
             }
-            else if (data === '验证码错误！') {
+            else if (data === '验证码错误!') {
                 //提示错误
                 $(".vcodeerror").show();
                 changeCheckCode();
             }
-            else if (data === '用户名密码错误！') {
+            else if (data === '用户名密码错误!') {
                 //提示错误
                 $(".pwderror").show();
+                changeCheckCode();
+            }
+            else if (data === '用户状态异常!') {
+                //提示错误
+                $(".nameerror").show();
                 changeCheckCode();
             }
         })
@@ -591,7 +596,7 @@ layui.use('table', function () {//打开网页刷新表格
             , { field: 'StatusFlag', title: '运行状态', minWidth: 80, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
-        , parseData: function (res) { //res 即为原始返回的数据
+         , parseData: function (res) { //res 即为原始返回的数据
             for (var i = 0; i < res.data.length; i++) {//把状态数据用中文表示
                 if (res.data[i].StatusFlag === "0")
                     res.data[i].StatusFlag = "关机中";
@@ -601,7 +606,7 @@ layui.use('table', function () {//打开网页刷新表格
                     res.data[i].StatusFlag = "暂停中";
                 else if (res.data[i].StatusFlag === "3")
                     res.data[i].StatusFlag = "故障中";
-                else if (res.data[i].StatusFlag === "Outline")
+                else if (res.data[i].StatusFlag === "未连接")
                     res.data[i].StatusFlag = "未连接";
             }
             return {

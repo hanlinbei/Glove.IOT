@@ -55,30 +55,23 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             //pwd = Md5Helper.GetMd5(pwd);
             var userInfo =
-                UserInfoService.GetEntities(u => u.UName == name)
+                UserInfoService.GetEntities(u => (u.UName == name&&u.Pwd==pwd))
                 .FirstOrDefault();
 
             if (userInfo == null)//没有查询出数据来
             {
-                return Content("无效的用户！");
+                return Content("用户名密码错误!");
             }
             else
             {
-                if (userInfo.Pwd != pwd)
+              
+                if (userInfo.StatusFlag == false || userInfo.IsDeleted == true)
                 {
-                    return Content("登录密码错误!");
-                }
-                else if (userInfo.IsDeleted)
-                {
-                    return Content("用户已被删除!");
-                }
-                else if (userInfo.StatusFlag == false)
-                {
-                    return Content("用户状态无效!");
+                    return Content("用户状态异常!");
                 }
                 else if ((string.IsNullOrEmpty(sessionCode)) || (strCode != sessionCode))
                 {
-                    return Content("验证码错误！");
+                    return Content("验证码错误!");
                 }
                 else
                 {
