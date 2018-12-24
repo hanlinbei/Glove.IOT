@@ -21,6 +21,10 @@ namespace Glove.IOT.IBLL
         {
         }
 	
+		public partial interface IOperationLogService:IBaseService<OperationLog>
+        {
+        }
+	
 		public partial interface IR_RoleInfo_ActionInfoService:IBaseService<R_RoleInfo_ActionInfo>
         {
         }

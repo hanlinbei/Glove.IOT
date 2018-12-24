@@ -17,13 +17,13 @@ namespace Glove.IOT.Model
     {
         public DeviceInfo()
         {
-            this.StatusFlag = 1;
+            this.IsDeleted = false;
             this.DeviceParameterInfo = new HashSet<DeviceParameterInfo>();
         }
     
         public int Id { get; set; }
-        public int DeviceId { get; set; }
-        public short StatusFlag { get; set; }
+        public string DeviceId { get; set; }
+        public bool IsDeleted { get; set; }
         public System.DateTime SubTime { get; set; }
     
         public virtual ICollection<DeviceParameterInfo> DeviceParameterInfo { get; set; }

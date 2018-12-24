@@ -16,7 +16,7 @@ namespace Glove.IOT.Common
         public int UId { get; set; }
         public string UCode { get; set; }
         public string UName { get; set; }
-        public short StatusFlag { get; set; }
+        public bool  StatusFlag { get; set; }
         public string Remark { get; set; }
         public System.DateTime SubTime { get; set; }
     }

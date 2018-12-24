@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.Model.Param
 {
-    public class DeviceQueryParam:BaseParam
+    public class OperationLogQueryParam:BaseParam
     {
-        public string SchDeviceId { get; set; }
-        public string SchStatusFlag { get; set; }
+        public string SchCode { get; set; }
+        public string SchRoleName { get; set; }
+
+      
     }
 }

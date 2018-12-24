@@ -10,8 +10,8 @@ namespace Glove.IOT.Common
     public class Device
     {
         public int Id { get; set; }
-        public int DeviceId { get; set; }
-        public short StatusFlag { get; set; }
+        public string DeviceId { get; set; }
+        public string StatusFlag { get; set; }
 
     }
 }

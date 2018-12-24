@@ -12,7 +12,6 @@ namespace Glove.IOT.UI.Portal.Models
 {
     public class ActionCheckFilterAttribute : ActionFilterAttribute
     {
-        readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         //在当前的控制器里面所有的方法执行之前，都先执行此代码
         public bool IsCheckuserLogin  { get; set; }
         public UserInfo LoginUser { get; set; }

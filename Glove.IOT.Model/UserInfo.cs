@@ -17,7 +17,8 @@ namespace Glove.IOT.Model
     {
         public UserInfo()
         {
-            this.StatusFlag = 0;
+            this.StatusFlag = true;
+            this.IsDeleted = false;
             this.R_UserInfo_RoleInfo = new HashSet<R_UserInfo_RoleInfo>();
         }
     
@@ -25,7 +26,8 @@ namespace Glove.IOT.Model
         public string UCode { get; set; }
         public string UName { get; set; }
         public string Pwd { get; set; }
-        public short StatusFlag { get; set; }
+        public bool StatusFlag { get; set; }
+        public bool IsDeleted { get; set; }
         public string Remark { get; set; }
         public System.DateTime SubTime { get; set; }
     

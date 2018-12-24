@@ -13,12 +13,11 @@ namespace Glove.IOT.BLL
 {
     public partial class DeviceInfoService : BaseService<DeviceInfo>, IDeviceInfoService
     {
-        readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
         public IQueryable<Device> LoagDevicePageData(DeviceQueryParam deviceQueryParam)
         {
-
+           
             var deviceParameterInfo = DbSession.DeviceParameterInfoDal.GetEntities(t => true);
-            var deviceInfo = DbSession.DeviceInfoDal.GetEntities(d => d.StatusFlag == statusNormal);
+            var deviceInfo = DbSession.DeviceInfoDal.GetEntities(d => d.IsDeleted == false);
             //查询每台机器的最新一条数据（分组查询）
             var query = from t1 in deviceParameterInfo
                         from t2 in deviceParameterInfo.GroupBy(m => m.DeviceInfoId).Select(p => new
@@ -34,6 +33,16 @@ namespace Glove.IOT.BLL
                             DeviceId = t3.DeviceId,                     
                             StatusFlag = t1.StatusFlag,
                         };
+            //按设备ID查找
+            if (!string.IsNullOrEmpty(deviceQueryParam.SchDeviceId))
+            {
+                query = query.Where(u => u.DeviceId.Contains(deviceQueryParam.SchDeviceId)).AsQueryable();
+            }
+            //按设备状态筛选
+            if (!string.IsNullOrEmpty(deviceQueryParam.SchStatusFlag))
+            {
+                query = query.Where(u => u.StatusFlag.Contains(deviceQueryParam.SchStatusFlag)).AsQueryable();
+            }
 
             deviceQueryParam.Total = query.Count();
 

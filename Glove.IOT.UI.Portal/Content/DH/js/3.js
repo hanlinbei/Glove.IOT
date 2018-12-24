@@ -104,9 +104,9 @@ layui.use('table', function () {//打开网页刷新表格
         ]]
         , parseData: function (res) { //res 即为原始返回的数据
             for (var i = 0; i < res.data.length; i++) {//把状态数据用中文表示
-                if (res.data[i].StatusFlag === 0)
+                if (res.data[i].StatusFlag === false)
                     res.data[i].StatusFlag = "无效";
-                else if (res.data[i].StatusFlag === 1)
+                else if (res.data[i].StatusFlag === true)
                     res.data[i].StatusFlag = "有效";
             }
             return {
@@ -265,7 +265,7 @@ function layerShowEdituser(title, url, w, h, data) {
                     break;
             }
             $(body).find('textarea[name="Remark"]').val(data.Remark);//输入父页面的描述 
-            if (data.StatusFlag === 0) {//输入父页面的角色状态
+            if (data.StatusFlag == false) {//输入父页面的角色状态
                 $(body).find('input[title="有效"]').attr('checked', false);
                 $(body).find('input[title="无效"]').attr('checked', true);
             }
@@ -593,15 +593,15 @@ layui.use('table', function () {//打开网页刷新表格
         ]]
         , parseData: function (res) { //res 即为原始返回的数据
             for (var i = 0; i < res.data.length; i++) {//把状态数据用中文表示
-                if (res.data[i].StatusFlag === 0)
+                if (res.data[i].StatusFlag === "0")
                     res.data[i].StatusFlag = "关机中";
-                else if (res.data[i].StatusFlag === 1)
+                else if (res.data[i].StatusFlag === "1")
                     res.data[i].StatusFlag = "运行中";
-                else if (res.data[i].StatusFlag === 2)
+                else if (res.data[i].StatusFlag === "2")
                     res.data[i].StatusFlag = "暂停中";
-                else if (res.data[i].StatusFlag === 3)
+                else if (res.data[i].StatusFlag === "3")
                     res.data[i].StatusFlag = "故障中";
-                else if (res.data[i].StatusFlag === 4)
+                else if (res.data[i].StatusFlag === "Outline")
                     res.data[i].StatusFlag = "未连接";
             }
             return {

@@ -17,14 +17,14 @@ namespace Glove.IOT.Model
     {
         public RoleInfo()
         {
-            this.StatusFlag = 1;
+            this.IsDeleted = false;
             this.R_UserInfo_RoleInfo = new HashSet<R_UserInfo_RoleInfo>();
             this.R_RoleInfo_ActionInfo = new HashSet<R_RoleInfo_ActionInfo>();
         }
     
         public int Id { get; set; }
         public string RoleName { get; set; }
-        public short StatusFlag { get; set; }
+        public bool IsDeleted { get; set; }
         public string Remark { get; set; }
         public System.DateTime SubTime { get; set; }
     

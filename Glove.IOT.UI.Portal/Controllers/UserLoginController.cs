@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-    [ActionCheckFilter(IsCheckuserLogin=false)]
+    [AllowAnonymous]
     public class UserLoginController : Controller
     {
     
@@ -42,46 +43,72 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns>OK</returns>
         public ActionResult ProcessLogin()
         {
-            //第一步：处理验证码
+
             //拿到表单中的验证码
-            #region 验证码
             string strCode = Request["vCode"];
             //拿到Session中的验证码
             string sessionCode = Session["VCode"] as string;
             Session["VCode"] = null;
-            if ((string.IsNullOrEmpty(sessionCode)) || (strCode != sessionCode))
-
-            {
-                return Content("验证码错误！");
-            }
-            #endregion
             //第二步：处理验证用户名密码
             string name = Request["LoginCode"];
             string pwd = Request["LoginPwd"];
-           
+
             //pwd = Md5Helper.GetMd5(pwd);
-            short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
             var userInfo =
-                UserInfoService.GetEntities(u => u.UName == name && u.Pwd == pwd && u.StatusFlag == statusNormal)
+                UserInfoService.GetEntities(u => u.UName == name)
                 .FirstOrDefault();
-            
+
             if (userInfo == null)//没有查询出数据来
             {
-                return Content("用户名密码错误！");
+                return Content("无效的用户！");
             }
-            //Session["loginUser"] = userInfo;
-            //用memcache+cookies代替之
-            //立即分配一个标志，Guid把标志作为mm存储数据的key,把用户对象放到mm，把guid写到客户端cookies里面去
-            string userLoginId = Guid.NewGuid().ToString();
-            //把用户数据写到mm
-            Common.Cache.CacheHelper.AddCache(userLoginId, userInfo, DateTime.Now.AddMinutes(20));
-            //往客户端写入cookie
-            Response.Cookies["userLoginId"].Value = userLoginId;
+            else
+            {
+                if (userInfo.Pwd != pwd)
+                {
+                    return Content("登录密码错误!");
+                }
+                else if (userInfo.IsDeleted)
+                {
+                    return Content("用户已被删除!");
+                }
+                else if (userInfo.StatusFlag == false)
+                {
+                    return Content("用户状态无效!");
+                }
+                else if ((string.IsNullOrEmpty(sessionCode)) || (strCode != sessionCode))
+                {
+                    return Content("验证码错误！");
+                }
+                else
+                {
+                    //写入注册信息
+                    DateTime expiration = DateTime.Now.Add(FormsAuthentication.Timeout);
+                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(2,
+                        name,
+                        DateTime.Now,
+                        expiration,
+                        true,
+                        userInfo.Id.ToString(),
+                        FormsAuthentication.FormsCookiePath);
+                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket))
+                    {
+                        HttpOnly = true,
+                        Expires = expiration
 
-            //如果正确跳转到首页
-            //return RedirectToAction("Index", "Home");
-            return Content("OK");
+                    };
+
+                    HttpContext.Response.Cookies.Add(cookie);
+                    return Content("OK");
+
+                }
+            }
+
         }
+
+
+
+
         public ActionResult Index()
         {
             return View();

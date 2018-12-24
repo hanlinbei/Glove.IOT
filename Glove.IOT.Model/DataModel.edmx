@@ -13,6 +13,7 @@
     <EntitySet Name="R_RoleInfo_ActionInfo" EntityType="DataModel.Store.R_RoleInfo_ActionInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DeviceInfo" EntityType="DataModel.Store.DeviceInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DeviceParameterInfo" EntityType="DataModel.Store.DeviceParameterInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OperationLog" EntityType="DataModel.Store.OperationLog" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserInfoR_UserInfo_RoleInfo" Association="DataModel.Store.UserInfoR_UserInfo_RoleInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="R_UserInfo_RoleInfo" EntitySet="R_UserInfo_RoleInfo" />
@@ -42,7 +43,8 @@
     <Property Name="UCode" Type="nvarchar" Nullable="false" MaxLength="32" />
     <Property Name="UName" Type="nvarchar" Nullable="true" MaxLength="32" />
     <Property Name="Pwd" Type="nvarchar" Nullable="false" MaxLength="64" />
-    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="0" />
+    <Property Name="StatusFlag" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="256" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
@@ -52,7 +54,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="32" />
-    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="1" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="64" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
@@ -63,7 +65,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserInfoId" Type="int" Nullable="false" />
     <Property Name="RoleInfoId" Type="int" Nullable="false" />
-    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="1" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="ActionInfo">
     <Key>
@@ -75,6 +77,7 @@
     <Property Name="Url" Type="nvarchar" Nullable="false" MaxLength="512" />
     <Property Name="HttpMethod" Type="nvarchar" Nullable="false" MaxLength="512" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="true" DefaultValue="false" />
   </EntityType>
   <EntityType Name="R_RoleInfo_ActionInfo">
     <Key>
@@ -83,15 +86,15 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleInfoId" Type="int" Nullable="false" />
     <Property Name="ActionInfoId" Type="int" Nullable="false" />
-    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="1" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="DeviceInfo">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DeviceId" Type="int" Nullable="false" />
-    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="1" />
+    <Property Name="DeviceId" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="DeviceParameterInfo">
@@ -103,9 +106,23 @@
     <Property Name="NowOutput" Type="int" Nullable="true" />
     <Property Name="TargetOutput" Type="int" Nullable="true" />
     <Property Name="SingleProgress" Type="smallint" Nullable="true" DefaultValue="0" />
-    <Property Name="StatusFlag" Type="smallint" Nullable="false" DefaultValue="0" />
+    <Property Name="StatusFlag" Type="nvarchar" Nullable="false" MaxLength="256" />
     <Property Name="StartTime" Type="datetime" Nullable="true" />
     <Property Name="StopTime" Type="datetime" Nullable="true" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OperationLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UName" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="ActionType" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="ActionName" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="OperationObj" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ip" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mac" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="UserInfoR_UserInfo_RoleInfo">
@@ -200,6 +217,7 @@
             <End Role="DeviceInfo" EntitySet="DeviceInfo" />
             <End Role="DeviceParameterInfo" EntitySet="DeviceParameterInfo" />
           </AssociationSet>
+          <EntitySet Name="OperationLog" EntityType="DataModel.OperationLog" />
         </EntityContainer>
         <EntityType Name="UserInfo">
           <Key>
@@ -209,7 +227,8 @@
           <Property Name="UCode" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
           <Property Name="UName" Type="String" Nullable="true" MaxLength="32" Unicode="true" FixedLength="false" />
           <Property Name="Pwd" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
-          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="0" />
+          <Property Name="StatusFlag" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" DefaultValue="False" />
           <Property Name="Remark" Type="String" Nullable="true" MaxLength="256" Unicode="true" FixedLength="false" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="R_UserInfo_RoleInfo" Relationship="DataModel.UserInfoR_UserInfo_RoleInfo" FromRole="UserInfo" ToRole="R_UserInfo_RoleInfo" />
@@ -220,7 +239,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
-          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="1" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" DefaultValue="False" />
           <Property Name="Remark" Type="String" Nullable="true" MaxLength="64" Unicode="true" FixedLength="false" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="R_UserInfo_RoleInfo" Relationship="DataModel.RoleInfoR_UserInfo_RoleInfo" FromRole="RoleInfo" ToRole="R_UserInfo_RoleInfo" />
@@ -235,7 +254,7 @@
           <Property Name="UserInfoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RoleInfo" Relationship="DataModel.RoleInfoR_UserInfo_RoleInfo" FromRole="R_UserInfo_RoleInfo" ToRole="RoleInfo" />
           <Property Name="RoleInfoId" Type="Int32" Nullable="false" />
-          <Property Name="StatusFlag" Nullable="false" DefaultValue="1" Type="Int16" />
+          <Property Name="IsDeleted" Nullable="false" Type="Boolean" />
         </EntityType>
         <Association Name="UserInfoR_UserInfo_RoleInfo">
           <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="1" />
@@ -268,10 +287,11 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ActionType" Type="String" Nullable="false" MaxLength="256" />
           <Property Name="ActionName" Type="String" Nullable="false" />
-          <Property Name="Url" Type="String" Nullable="false" MaxLength="512" />
+          <Property Name="Url" Nullable="false" MaxLength="512" Type="String" />
           <NavigationProperty Name="R_RoleInfo_ActionInfo" Relationship="DataModel.R_RoleInfo_ActionInfoActionInfo" FromRole="ActionInfo" ToRole="R_RoleInfo_ActionInfo" />
           <Property Name="HttpMethod" Type="String" Nullable="false" MaxLength="512" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="true" DefaultValue="False" />
         </EntityType>
         <EntityType Name="R_RoleInfo_ActionInfo">
           <Key>
@@ -282,7 +302,7 @@
           <Property Name="RoleInfoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ActionInfo" Relationship="DataModel.R_RoleInfo_ActionInfoActionInfo" FromRole="R_RoleInfo_ActionInfo" ToRole="ActionInfo" />
           <Property Name="ActionInfoId" Type="Int32" Nullable="false" />
-          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="1" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="RoleInfoR_RoleInfo_ActionInfo">
           <End Type="DataModel.RoleInfo" Role="RoleInfo" Multiplicity="1" />
@@ -313,8 +333,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DeviceId" Type="Int32" Nullable="false" />
-          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="1" />
+          <Property Name="DeviceId" Type="String" Nullable="false" MaxLength="256" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" DefaultValue="False" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DeviceParameterInfo" Relationship="DataModel.DeviceInfoDeviceParameterInfo" FromRole="DeviceInfo" ToRole="DeviceParameterInfo" />
         </EntityType>
@@ -328,7 +348,7 @@
           <Property Name="TargetOutput" Type="Int32" Nullable="true" />
           <NavigationProperty Name="DeviceInfo" Relationship="DataModel.DeviceInfoDeviceParameterInfo" FromRole="DeviceParameterInfo" ToRole="DeviceInfo" />
           <Property Name="SingleProgress" Type="Int16" Nullable="true" DefaultValue="0" />
-          <Property Name="StatusFlag" Type="Int16" Nullable="false" DefaultValue="0" />
+          <Property Name="StatusFlag" Type="String" Nullable="false" MaxLength="256" />
           <Property Name="StartTime" Type="DateTime" Nullable="true" />
           <Property Name="StopTime" Type="DateTime" Nullable="true" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -345,6 +365,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OperationLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UName" Type="String" Nullable="false" MaxLength="256" />
+          <Property Name="ActionType" Type="String" Nullable="false" MaxLength="256" />
+          <Property Name="ActionName" Type="String" Nullable="false" MaxLength="256" />
+          <Property Name="OperationObj" Type="String" Nullable="false" />
+          <Property Name="Ip" Type="String" Nullable="false" />
+          <Property Name="Mac" Type="String" Nullable="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -359,6 +393,7 @@
           <ScalarProperty Name="UName" ColumnName="UName" />
           <ScalarProperty Name="Pwd" ColumnName="Pwd" />
           <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="Remark" ColumnName="Remark" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
@@ -369,7 +404,7 @@
         <MappingFragment StoreEntitySet="RoleInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="Remark" ColumnName="Remark" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
@@ -381,7 +416,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
           <ScalarProperty Name="RoleInfoId" ColumnName="RoleInfoId" />
-          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -394,6 +429,7 @@
           <ScalarProperty Name="Url" ColumnName="Url" />
           <ScalarProperty Name="HttpMethod" ColumnName="HttpMethod" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -403,7 +439,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RoleInfoId" ColumnName="RoleInfoId" />
           <ScalarProperty Name="ActionInfoId" ColumnName="ActionInfoId" />
-          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -412,7 +448,7 @@
         <MappingFragment StoreEntitySet="DeviceInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -428,6 +464,21 @@
           <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
           <ScalarProperty Name="StartTime" ColumnName="StartTime" />
           <ScalarProperty Name="StopTime" ColumnName="StopTime" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OperationLog">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.OperationLog)">
+        <MappingFragment StoreEntitySet="OperationLog">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UName" ColumnName="UName" />
+          <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+          <ScalarProperty Name="OperationObj" ColumnName="OperationObj" />
+          <ScalarProperty Name="Ip" ColumnName="Ip" />
+          <ScalarProperty Name="Mac" ColumnName="Mac" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
       </EntityTypeMapping>

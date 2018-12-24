@@ -11,11 +11,12 @@ using System.Web.Mvc;
 namespace Glove.IOT.UI.Portal.Controllers
 {
    
-    public class DeviceController:Controller
+    public class DeviceController:BaseController
     {
-        readonly short statusNormal = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Normal;
+        public IOperationLogService OperationLogService { get; set; }
         public IDeviceInfoService DeviceInfoService { get; set; }
         public IDeviceParameterInfoService DeviceParameterInfoService { get; set; }
+
         // GET: Device
 
         /// <summary>
@@ -23,10 +24,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="deviceInfo"></param>
         /// <returns></returns>
-        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult Add(DeviceInfo deviceInfo)
         {
-            var deviceId = DeviceInfoService.GetEntities(u => (u.DeviceId == deviceInfo.DeviceId&&u.StatusFlag==statusNormal)).FirstOrDefault();
+            var deviceId = DeviceInfoService.GetEntities(u => (u.DeviceId == deviceInfo.DeviceId&&u.IsDeleted==false)).FirstOrDefault();
             if (deviceId == null)
             {
                 deviceInfo.SubTime = DateTime.Now;
@@ -34,10 +34,23 @@ namespace Glove.IOT.UI.Portal.Controllers
                 DeviceParameterInfo deviceParameterInfo = new DeviceParameterInfo
                 {
                     DeviceInfoId = id,
-                    StatusFlag = (short)Glove.IOT.Model.Enum.StatusFlagEnum.Outline,
+                    StatusFlag = Glove.IOT.Model.Enum.StatusFlagEnum.未连接.ToString(),
                     SubTime=DateTime.Now,
                 };
                 DeviceParameterInfoService.Add(deviceParameterInfo);
+                //写操作日志
+                OperationLog operationLog = new OperationLog
+                {
+                    ActionName = "添加设备",
+                    ActionType = "设备管理",
+                    Ip = LoginInfo.Ip,
+                    Mac = LoginInfo.Mac,
+                    OperationObj = deviceInfo.DeviceId,
+                    SubTime = DateTime.Now,
+                    UName = LoginUser.UName
+
+                };
+                OperationLogService.Add(operationLog);
                 return Content("Ok");
             }
             else
@@ -63,9 +76,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Delete()
+        public ActionResult Delete(string ids)
         {
-            string ids = Request["ids"];
             if (string.IsNullOrEmpty(ids))
             {
                 return Content("请选中要删除的数据！");
@@ -79,6 +91,24 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             }
             DeviceInfoService.DeleteListByLogical(idList);
+
+            foreach (var id in idList)
+            {
+                //写操作日志
+                OperationLog operationLog = new OperationLog
+                {
+                    ActionName = "删除设备",
+                    ActionType = "设备管理",
+                    Ip = LoginInfo.Ip,
+                    Mac = LoginInfo.Mac,
+                    OperationObj = DeviceInfoService.GetEntities(d => d.Id == id).Select(d => d.DeviceId).FirstOrDefault(),
+                    SubTime = DateTime.Now,
+                    UName = LoginUser.UName
+                };
+                OperationLogService.Add(operationLog);
+
+            }
+
             return Content("ok");
         }
 
@@ -86,22 +116,48 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 获取所有设备信息
         /// </summary>
         /// <returns></returns>
-        [ActionCheckFilter(IsCheckuserLogin = false)]
-        public ActionResult GetAllDeviceInfos()
+        public ActionResult GetAllDeviceInfos(string limit,string page,string schDeviceId,string schStatusFlag)
         {
-            int pageSize = int.Parse(Request["limit"] ?? "10");
-            int pageIndex = int.Parse(Request["page"] ?? "1");
-            //过滤的用户名 过滤备注schName schRemark
+            int pageSize = int.Parse(limit ?? "10");
+            int pageIndex = int.Parse(page ?? "1");
+
+            //过滤的设备名 过滤备注schDeviceId schStatusFlag
 
             var queryParam = new DeviceQueryParam()
             {
                 PageSize = pageSize,
                 PageIndex = pageIndex,
+                SchDeviceId=schDeviceId,
+                SchStatusFlag=schStatusFlag,
                 Total = 0
             };
 
             var pageData = DeviceInfoService.LoagDevicePageData(queryParam).ToList();
             var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
+
+            if (!string.IsNullOrEmpty(schDeviceId) || !string.IsNullOrEmpty(schStatusFlag))
+            {
+                //写操作日志
+                OperationLog operationLog = new OperationLog
+                {
+                    ActionName = "查找设备",
+                    ActionType = "设备管理",
+                    Ip = LoginInfo.Ip,
+                    Mac = LoginInfo.Mac,
+                    SubTime = DateTime.Now,
+                    UName = LoginUser.UName
+                };
+                if (!string.IsNullOrEmpty(schDeviceId))
+                {
+                    operationLog.OperationObj = schDeviceId;
+                }
+                if (!string.IsNullOrEmpty(schStatusFlag))
+                {
+                    operationLog.OperationObj = schStatusFlag;
+                }
+                OperationLogService.Add(operationLog);
+
+            }
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
@@ -109,12 +165,23 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 获取设备参数详细信息
         /// </summary>
         /// <returns></returns>
-        [ActionCheckFilter(IsCheckuserLogin = false)]
-        public ActionResult GetDeviceParameterInfo()
+        public ActionResult GetDeviceParameterInfo(string deviceId)
         {
-            int deviceId = int.Parse(Request["DeviceId"]);
+           
             var deviceParameter = DeviceParameterInfoService.GetDeviceParameter(deviceId);
             var data = deviceParameter.ToList();
+            //写操作日志
+            OperationLog operationLog = new OperationLog
+            {
+                ActionName = "查看设备",
+                ActionType = "设备管理",
+                Ip = LoginInfo.Ip,
+                Mac = LoginInfo.Mac,
+                OperationObj = deviceId,
+                SubTime = DateTime.Now,
+                UName = LoginUser.UName
+            };
+            OperationLogService.Add(operationLog);
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
@@ -124,13 +191,11 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Content("Ok");
         }
 
-        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult Devicemanage()
         {
             return View();
         }
 
-        [ActionCheckFilter(IsCheckuserLogin = false)]
         public ActionResult LayerAdddevice()
         {
             return View();

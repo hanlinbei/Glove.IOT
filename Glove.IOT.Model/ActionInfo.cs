@@ -17,6 +17,7 @@ namespace Glove.IOT.Model
     {
         public ActionInfo()
         {
+            this.IsDeleted = false;
             this.R_RoleInfo_ActionInfo = new HashSet<R_RoleInfo_ActionInfo>();
         }
     
@@ -26,6 +27,7 @@ namespace Glove.IOT.Model
         public string Url { get; set; }
         public string HttpMethod { get; set; }
         public System.DateTime SubTime { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         public virtual ICollection<R_RoleInfo_ActionInfo> R_RoleInfo_ActionInfo { get; set; }
     }

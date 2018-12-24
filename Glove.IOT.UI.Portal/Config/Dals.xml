@@ -26,4 +26,6 @@
 
   <object name="R_RoleInfo_ActionInfoDal" type="Glove.IOT.EFDAL.R_RoleInfo_ActionInfoDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
+  <object name="OperationLogDal" type="Glove.IOT.EFDAL.OperationLogDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
 </objects>

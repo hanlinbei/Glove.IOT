@@ -81,7 +81,7 @@ namespace Glove.IOT.Tcp
                         NowOutput = buffer[1],
                         TargetOutput = buffer[2],
                         SingleProgress = buffer[3],
-                        StatusFlag = 1,
+                        StatusFlag = "1",
                         StartTime = DateTime.Now,
                         StopTime = DateTime.Now,
                         SubTime = DateTime.Now

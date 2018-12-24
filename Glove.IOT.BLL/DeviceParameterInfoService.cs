@@ -13,7 +13,7 @@ namespace Glove.IOT.BLL
 {
     public partial class DeviceParameterInfoService : BaseService<DeviceParameterInfo>, IDeviceParameterInfoService
     {
-        public IQueryable<DeviceParameter> GetDeviceParameter(int deviceId)
+        public IQueryable<DeviceParameter> GetDeviceParameter(string deviceId)
         {
             DataModelContainer model = new DataModelContainer();
          //内连接查询最新参数信息
@@ -24,7 +24,7 @@ namespace Glove.IOT.BLL
                             deviceInfoId = p.Key
                         })
                         join t3 in model.DeviceInfo on t1.DeviceInfoId equals t3.Id
-                        where t1.DeviceInfoId==t2.deviceInfoId&&t1.SubTime==t2.newestTime&&t3.DeviceId==deviceId&&t3.StatusFlag!=2
+                        where t1.DeviceInfoId==t2.deviceInfoId&&t1.SubTime==t2.newestTime&&t3.DeviceId==deviceId&&t3.IsDeleted==false
                         select new DeviceParameter
                         {
                             DeviceId=t3.DeviceId,
