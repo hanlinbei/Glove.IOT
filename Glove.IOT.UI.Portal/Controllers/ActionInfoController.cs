@@ -30,7 +30,7 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         public ActionResult GetActions()
         {
-            var userRole = R_UserInfo_RoleInfoService.GetEntities(u => (u.UserInfoId == LoginUser.Id && u.IsDeleted == false));
+            var userRole = R_UserInfo_RoleInfoService.GetEntities(u => (u.UserInfoId == LoginInfo.Id && u.IsDeleted == false));
             var rRoleAction = R_RoleInfo_ActionInfoService.GetEntities(r => r.IsDeleted == false);
             var action = ActionInfoService.GetEntities(a => true);
             //查找该用户角色对应的权限

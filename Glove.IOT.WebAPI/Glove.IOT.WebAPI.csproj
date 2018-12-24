@@ -44,6 +44,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Spring.Aop">
+      <HintPath>..\packages\Spring.Net\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=2.0.0.40000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spring.Net\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web">
+      <HintPath>..\packages\Spring.Net\Spring.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web.Extensions">
+      <HintPath>..\packages\Spring.Net\Spring.Web.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web.Mvc4">
+      <HintPath>..\packages\Spring.Net\Spring.Web.Mvc4.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -93,10 +109,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -117,6 +136,14 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Glove.IOT.Common\Glove.IOT.Common.csproj">
+      <Project>{AEE3CFE4-0194-4B0F-8DA8-A6FA883299BB}</Project>
+      <Name>Glove.IOT.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glove.IOT.IBLL\Glove.IOT.IBLL.csproj">
+      <Project>{0666C01E-F646-4523-A139-FBFBB78BA7FD}</Project>
+      <Name>Glove.IOT.IBLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glove.IOT.Model\Glove.IOT.Model.csproj">
       <Project>{61203463-03BB-4B9D-927B-75B0C9272B76}</Project>
       <Name>Glove.IOT.Model</Name>
