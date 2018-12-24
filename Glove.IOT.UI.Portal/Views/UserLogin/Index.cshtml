@@ -58,6 +58,42 @@
         body {
             min-height: 800px;
         }
+        .nameerror {
+            position: absolute;
+            top: 150px;
+            left: 195px;
+            height: 38px;
+            width: 130px;
+            line-height: 38px;
+            text-align: center;
+            vertical-align: middle;
+            color: #f00;
+            display: none;
+        }
+        .pwderror {
+            position: absolute;
+            top: 215px;
+            left: 205px;
+            height: 38px;
+            width: 120px;
+            line-height: 38px;
+            text-align:center;
+            vertical-align: middle;
+            color: #f00;
+            display:none;
+        }
+        .vcodeerror {
+            position: absolute;
+            top: 278px;
+            left: 138px;
+            height: 38px;
+            width: 75px;
+            line-height: 38px;
+            text-align: center;
+            vertical-align: middle;
+            color: #f00;
+            display: none;
+        }
     </style>
     <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
@@ -81,7 +117,7 @@
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label"><i class="layui-icon layui-icon-password" style="font-size: 30px; color: #009688;"></i></label>
-                            <input type="text" name="LoginPwd" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+                            <input type="password" name="LoginPwd" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label"><i class="layui-icon layui-icon-vercode" style="font-size: 30px; color: #009688;"></i></label>
@@ -91,6 +127,15 @@
                         <div style="text-align:center; padding:0px 60px;">
                             <button name="登录" class="layui-btn layui-btn-normal layui-btn-fluid" style="font-size:20px;">登录</button>
                         </div>
+                    </div>
+                    <div class="nameerror">
+                        <p>请输入正确的用户名</p>
+                    </div>
+                    <div class="pwderror">
+                        <p>账号或者密码错误</p>
+                    </div>
+                    <div class="vcodeerror">
+                        <p>验证码错误</p>
                     </div>
                     <div class="content-right-bottom">
                     </div>
@@ -108,11 +153,27 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
+        $('input[name="LoginCode"]').focus(function () {
+            $('input[name="LoginCode"]').removeClass("red");
+            $('input[name="LoginCode"]').attr('placeholder', '用户名');
+        })
+        $('input[name="LoginPwd"]').focus(function () {
+            $('input[name="LoginPwd"]').removeClass("red");
+            $('input[name="LoginPwd"]').attr('placeholder', '密码');
+            $(".pwderror").hide();   
+        })
+        $('input[name="vCode"]').focus(function () {
+            $('input[name="vCode"]').removeClass("red");
+            $('input[name="vCode"]').attr('placeholder', '验证码');
+            $(".vcodeerror").hide();        
+        })
+        //回车登录
         $(document).keydown(function (event) {
             if (event.which === 13) {
                 send();
             }
         });
+        //上下居中  适配页面
         if ($(window).height() >= 800) {
             $("#left").css({
                 top: ($(window).height() - $("#left").outerHeight()) / 2

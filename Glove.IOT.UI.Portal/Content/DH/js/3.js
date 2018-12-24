@@ -14,26 +14,62 @@ layui.config({
 });
 //登录
 function send() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', "/UserLogin/ProcessLogin");
-    xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
-    xhr.send('LoginCode=' + $("input[name='LoginCode']").val()
-        + '&LoginPwd=' + $("input[name='LoginPwd']").val()
-        + '&vCode=' + $("input[name='vCode']").val());
-    xhr.onreadystatechange = function () {
-        if (this.readyState !== 4) return;
-        if (this.responseText === 'OK') {
-            window.location.href = '../Device/Devicemanage';
-        }
-        else if (this.responseText === '验证码错误！') {
-            alert("验证码错误!");
-            changeCheckCode();
-        }
-        else if (this.responseText === '用户名密码错误！') {
-            alert("用户名密码错误！");
-            changeCheckCode();
-        }
+    if ($('input[name="LoginCode"]').val() === "") {
+        //提示错误
+        $('input[name="LoginCode"]').attr('placeholder', '请输入用户名');
+        $('input[name="LoginCode"]').addClass("red");
     }
+    else if ($('input[name="LoginPwd"]').val() === "") {
+        //提示错误
+        $('input[name="LoginPwd"]').attr('placeholder', '请输入密码');
+        $('input[name="LoginPwd"]').addClass("red");
+    } 
+    else if ($('input[name="vCode"]').val() === "") {
+        //提示错误
+        $('input[name="vCode"]').attr('placeholder', '请输入验证码');
+        $('input[name="vCode"]').addClass("red");
+    }
+    else {
+        $.post("/UserLogin/ProcessLogin", {
+            LoginCode: $("input[name='LoginCode']").val(),
+            LoginPwd: $("input[name='LoginPwd']").val(),
+            vCode: $("input[name='vCode']").val()
+        }, function (data) {
+            if (data === 'OK') {
+                window.location.href = '../Device/Devicemanage';
+            }
+            else if (data === '验证码错误！') {
+                //提示错误
+                $(".vcodeerror").show();
+                changeCheckCode();
+            }
+            else if (data === '用户名密码错误！') {
+                //提示错误
+                $(".pwderror").show();
+                changeCheckCode();
+            }
+        })
+    }
+    //var xhr = new XMLHttpRequest();
+    //xhr.open('POST', "/UserLogin/ProcessLogin");
+    //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
+    //xhr.send('LoginCode=' + $("input[name='LoginCode']").val()
+    //    + '&LoginPwd=' + $("input[name='LoginPwd']").val()
+    //    + '&vCode=' + $("input[name='vCode']").val());
+    //xhr.onreadystatechange = function () {
+    //    if (this.readyState !== 4) return;
+    //    if (this.responseText === 'OK') {
+    //        window.location.href = '../Device/Devicemanage';
+    //    }
+    //    else if (this.responseText === '验证码错误！') {
+    //        alert("验证码错误!");
+    //        changeCheckCode();
+    //    }
+    //    else if (this.responseText === '用户名密码错误！') {
+    //        alert("用户名密码错误！");
+    //        changeCheckCode();
+    //    }
+    //}
 }
 function changeCheckCode() {
     var old = $("#imgCode").attr("src");

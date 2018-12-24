@@ -448,3 +448,7 @@ margin-top:70px;  */
     border-top-color: #009688;
     border-left-color: #009688;
 }
+.red::-webkit-input-placeholder {/*placeholder的颜色  可能会有兼容性问题*/
+    /* placeholder颜色  */
+    color: #f00;
+}
