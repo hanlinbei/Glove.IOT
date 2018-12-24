@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Security;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
@@ -19,51 +21,21 @@ namespace Glove.IOT.UI.Portal.Controllers
         public string ActionParameters {get;set;}
         public string ActionName { get; set; }
 
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        protected override void Initialize(RequestContext requestContext)
         {
-            //MVC请求来了之后，根据请求地址，创建控制器工厂（spring.Net），控制器工厂创建控制器，执行方法
-            //Spring.Net
-            base.OnActionExecuting(filterContext);
-            //var items = filterContext.RouteData.Values;
-
-            if (IsCheckuserLogin)
+            base.Initialize(requestContext);
+            //TDO
+            //用户信息处理
+            if (User.Identity.IsAuthenticated)
             {
-                //使用mm+cookies代替session
-                //校验用户是否已经登录
-                //从缓存中拿到当前的登录的用户信息
-                if (filterContext.HttpContext.Request.Cookies["userLoginId"] == null)
+                var user = User.Identity as FormsIdentity;
+                LoginUser = new UserInfo
                 {
-                    filterContext.HttpContext.Response.Redirect("/UserLogin/Index");
-                    return;
-                }
-                string userGuid = filterContext.HttpContext.Request.Cookies["userLoginId"].Value;
-                UserInfo userInfo = Common.Cache.CacheHelper.GetCache(userGuid) as UserInfo;
-                if (userInfo == null)
-                {
-                    //用户长时间不操作，超时
-                    filterContext.HttpContext.Response.Redirect("/UserLogin/Index");
+                    Id = Convert.ToInt32(user.Ticket.UserData),
+                    UName = User.Identity.Name
+                };
 
-                }
-                LoginUser = userInfo;
-                LoginInfo.Ip = WebHelper.GetClientIp();
-                LoginInfo.Mac = WebHelper.GetClientMACAddress();
-                //滑动窗口机制
-                Common.Cache.CacheHelper.SetCache(userGuid, userInfo, DateTime.Now.AddMinutes(20));
             }
         }
-
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            base.OnActionExecuted(filterContext);
-          
-           
-
-
-
-
-        }
-
-
-
     }
 }

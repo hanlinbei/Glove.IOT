@@ -11,19 +11,23 @@ namespace Glove.IOT.Model.Enum
         /// <summary>
         /// 无效状态
         /// </summary>
-        UNormal = 0,
+        关机中 = 0,
         /// <summary>
         /// 有效状态
         /// </summary>
-        Normal = 1,
+        运行中 = 1,
         /// <summary>
         /// 已经删除状态
         /// </summary>
-        Deleted=2,
+        暂停中=2,
+        /// <summary>
+        /// 故障
+        /// </summary>
+        故障中=3,
         /// <summary>
         /// 设备离线状态
         /// </summary>
-        Outline=4
+        未连接=4
             
     }
     

@@ -149,8 +149,20 @@
                     alert("验证码错误!");
                     changeCheckCode();
                 }
-                else if (this.responseText === '用户名密码错误！') {
-                    alert("用户名密码错误！");
+                else if (this.responseText === '无效的用户！') {
+                    alert("无效的用户！");
+                    changeCheckCode();
+                }
+                else if (this.responseText === '登录密码错误!') {
+                    alert("登录密码错误!");
+                    changeCheckCode();
+                }
+                else if (this.responseText === '用户已被删除!') {
+                    alert("用户已被删除!");
+                    changeCheckCode();
+                }
+                else if (this.responseText === '用户状态无效!') {
+                    alert("用户状态无效!");
                     changeCheckCode();
                 }
             }

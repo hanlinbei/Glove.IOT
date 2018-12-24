@@ -34,7 +34,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 DeviceParameterInfo deviceParameterInfo = new DeviceParameterInfo
                 {
                     DeviceInfoId = id,
-                    StatusFlag = Glove.IOT.Model.Enum.StatusFlagEnum.Outline.ToString(),
+                    StatusFlag = Glove.IOT.Model.Enum.StatusFlagEnum.未连接.ToString(),
                     SubTime=DateTime.Now,
                 };
                 DeviceParameterInfoService.Add(deviceParameterInfo);

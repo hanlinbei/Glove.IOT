@@ -10,7 +10,7 @@ namespace Glove.IOT.UI.Portal
         {
             //filters.Add(new HandleErrorAttribute());
             filters.Add(new MyExceptionFilterAttribut());
-            //filters.Add(new ActionCheckFilterAttribute() { IsCheckuserLogin = true });
+            filters.Add(new LoginCheckFilterAttribute());
         }
     }
 }
