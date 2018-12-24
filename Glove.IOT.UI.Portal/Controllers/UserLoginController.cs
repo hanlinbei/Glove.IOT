@@ -49,37 +49,30 @@ namespace Glove.IOT.UI.Portal.Controllers
             //拿到Session中的验证码
             string sessionCode = Session["VCode"] as string;
             Session["VCode"] = null;
+            if ((string.IsNullOrEmpty(sessionCode)) || (strCode != sessionCode))
+            {
+                return Content("验证码错误!");
+            }
             //第二步：处理验证用户名密码
             string name = Request["LoginCode"];
             string pwd = Request["LoginPwd"];
 
             //pwd = Md5Helper.GetMd5(pwd);
             var userInfo =
-                UserInfoService.GetEntities(u => u.UName == name)
+                UserInfoService.GetEntities(u => (u.UName == name&&u.Pwd==pwd))
                 .FirstOrDefault();
 
             if (userInfo == null)//没有查询出数据来
             {
-                return Content("无效的用户！");
+                return Content("用户名密码错误！");
             }
             else
             {
-                if (userInfo.Pwd != pwd)
-                {
-                    return Content("登录密码错误!");
-                }
-                else if (userInfo.IsDeleted)
-                {
-                    return Content("用户已被删除!");
-                }
-                else if (userInfo.StatusFlag == false)
-                {
-                    return Content("用户状态无效!");
-                }
-                else if ((string.IsNullOrEmpty(sessionCode)) || (strCode != sessionCode))
-                {
-                    return Content("验证码错误！");
-                }
+                 if (userInfo.StatusFlag == false || userInfo.IsDeleted == true)
+                 {
+                    return Content("用户状态异常!");
+                 }
+                
                 else
                 {
                     //写入注册信息

@@ -64,7 +64,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                     Ip = LoginInfo.Ip,
                     Mac = LoginInfo.Mac,
                     SubTime = DateTime.Now,
-                    UName = LoginUser.UName
+                    UName = LoginInfo.UName
                 };
                 if (!string.IsNullOrEmpty(schCode))
                 {
@@ -153,7 +153,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 Mac = LoginInfo.Mac,
                 OperationObj = userInfo.UName,
                 SubTime = DateTime.Now,
-                UName = LoginUser.UName
+                UName = LoginInfo.UName
 
             };
             OperationLogService.Add(operationLog);
@@ -191,7 +191,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                     Mac = LoginInfo.Mac,
                     OperationObj = UserInfoService.GetEntities(u=>u.Id==id).Select(u=>u.UName).FirstOrDefault(),
                     SubTime = DateTime.Now,
-                    UName = LoginUser.UName
+                    UName = LoginInfo.UName
                 };
                 OperationLogService.Add(operationLog);
 

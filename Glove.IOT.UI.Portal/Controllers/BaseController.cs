@@ -17,7 +17,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         //在当前的控制器里面所有的方法执行之前，都先执行此代码
         public bool IsCheckuserLogin = true;
         public UserInfo LoginUser { get; set; }
-        public OperationLog LoginInfo = new OperationLog();
+        public OperationLog LoginInfo { get; set; }
         public string ActionParameters {get;set;}
         public string ActionName { get; set; }
 
@@ -29,10 +29,12 @@ namespace Glove.IOT.UI.Portal.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var user = User.Identity as FormsIdentity;
-                LoginUser = new UserInfo
+                LoginInfo = new OperationLog
                 {
                     Id = Convert.ToInt32(user.Ticket.UserData),
-                    UName = User.Identity.Name
+                    UName = User.Identity.Name,
+                    Ip=WebHelper.GetClientIp(),
+                    Mac=WebHelper.GetClientMACAddress()                
                 };
 
             }
