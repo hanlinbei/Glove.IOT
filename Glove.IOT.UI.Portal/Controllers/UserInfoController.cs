@@ -119,7 +119,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                     Mac = LoginInfo.Mac,
                     OperationObj = userInfoRoleInfo.UName,
                     SubTime = DateTime.Now,
-                    UName = LoginUser.UName
+                    UName = LoginInfo.UName
 
                 };
                 OperationLogService.Add(operationLog);

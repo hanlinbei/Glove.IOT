@@ -64,7 +64,7 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             if (userInfo == null)//没有查询出数据来
             {
-                return Content("用户名密码错误！");
+                return Content("用户名密码错误!");
             }
             else
             {

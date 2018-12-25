@@ -24,3 +24,9 @@
 .layui-form-select dl {
     max-height: 150px;/*限制下拉框的高度 是一种妥协的方式*/
 }
+
+
+/*进度条相关样式 加粗一点 颜色与layui统一*/
+#nprogress .spinner {
+    display: none;
+}

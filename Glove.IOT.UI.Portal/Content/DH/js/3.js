@@ -5,7 +5,7 @@ var globalLimit;
 var delId = "";//批量删除时给后台发的字符串存储变量
 var UIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
 var DIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
-var Rid_Rolename = new Array();
+var Rid_Rolename = new Array();//保存UId 编辑的时候用
 var RId = 0;
 layui.config({
     version: false //一般用于更新模块缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
@@ -123,6 +123,7 @@ layui.use('table', function () {//打开网页刷新表格
         }
         , toolbar: true
         , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+            Power('user');
             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
             globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
             UIdtable = [];//清空
@@ -146,9 +147,7 @@ layui.use('table', function () {//打开网页刷新表格
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
-        if (layEvent === 'detail') { //查看
-            
-        } else if (layEvent === 'del') { //删除
+        if (layEvent === 'del') { //删除
             console.log(data);
             layer.confirm('确定删除？', function (index) {
                 layer.close(index);
@@ -165,11 +164,6 @@ layui.use('table', function () {//打开网页刷新表格
             });
         } else if (layEvent === 'edit') { //编辑
             layerShowEdituser('编辑员工', 'LayerEdituser', 500, 450, obj.data);
-            //同步更新缓存对应的值
-            /*obj.update({
-                UName: '123'
-                , title: 'xxx'
-            });*/
         }
     });
     table.on('checkbox(table_ry)', function (obj) {
@@ -250,27 +244,12 @@ function layerShowEdituser(title, url, w, h, data) {
             layer.close(index);
         },
         success: function (layero, index) {
-            //获取iframe页面
-            console.log(data);
+            //获取iframe页面     
             var body = layer.getChildFrame('body', index);
             $(body).find('input[name="UName"]').attr("value", data.UName);//输入父页面的姓名
             $(body).find('input[name="UCode"]').attr("value", data.UCode);//输入父页面的角色编码
-            switch (data.RoleName) {//输入父页面的角色类型
-                case "超级管理员":
-                    $(body).find('select[name="RoleName"]').val("超级管理员");
-                    break;
-                case "admin2":
-                    $(body).find('select[name="RoleName"]').val("admin2");
-                    break;
-                case "admin3":
-                    $(body).find('select[name="RoleName"]').val("admin3");
-                    break;
-                default:
-                    $(body).find('select[name="RoleName"]').val("这是静态的");
-                    break;
-            }
             $(body).find('textarea[name="Remark"]').val(data.Remark);//输入父页面的描述 
-            if (data.StatusFlag == false) {//输入父页面的角色状态
+            if (data.StatusFlag == "无效") {//输入父页面的角色状态
                 $(body).find('input[title="有效"]').attr('checked', false);
                 $(body).find('input[title="无效"]').attr('checked', true);
             }
@@ -278,22 +257,24 @@ function layerShowEdituser(title, url, w, h, data) {
                 $(body).find('input[title="有效"]').attr('checked', true);
                 $(body).find('input[title="无效"]').attr('checked', false);
             }
-            //获取新窗口对象
-            var iframeWindow = layero.find('iframe')[0].contentWindow;
-            //重新渲染
-            iframeWindow.layui.form.render();
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', "/UserInfo/GetAllRoles");
-            //xhr.responseType = 'json';//设定返回内容的格式 responseText就没有用了 response变为对象可以直接读取 
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                if (this.readyState !== 4) return;
-                var obj = eval("(" + this.responseText + ")");//JSON.parse安全
+            $.get("/UserInfo/GetAllRoles", {}, function (data_return) {
+                var obj = data_return;//JSON.parse安全
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i].RoleName === data.RoleName)
+                        $(body).find('select[name="RoleName"]').val(data.RoleName);
+                }
                 for (var i = 0; i < obj.length; i++) {//保存查询用
-                    console.log(obj[i].Id + "+" + obj[i].RoleName);
                     Rid_Rolename[i] = [obj[i].Id, obj[i].RoleName];
                 }
-            }
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render('select');
+                });
+                //获取新窗口对象
+                var iframeWindow = layero.find('iframe')[0].contentWindow;
+                //重新渲染
+                iframeWindow.layui.form.render();
+            })
         }
     });
 }
@@ -552,16 +533,9 @@ function updatatable(id, elem, height, url, title, page, limit) {//表格重载 
     });
 }
 function getRolename() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', "/UserInfo/GetAllRoles");
-    xhr.send();
-    //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
-    xhr.onreadystatechange = function () {
-        if (this.readyState !== 4) return;
-        var obj = eval("(" + this.responseText + ")");//JSON.parse安全
-        //var body = layer.getChildFrame('body', index);
-        for (var i = 0; i < obj.length; i++) {
-            var e = $('<option value="' + obj[i].RoleName + '">' + obj[i].RoleName + '</option>');
+    $.get("/UserInfo/GetAllRoles", {}, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            var e = $('<option value="' + data[i].RoleName + '">' + data[i].RoleName + '</option>');
             //$(body).find('select[name="RoleName"]').append(e);
             $('select[name="RoleName"]').append(e);
         }
@@ -569,7 +543,25 @@ function getRolename() {
             var form = layui.form;
             form.render('select');
         });
-    }
+    })
+    //var xhr = new XMLHttpRequest();
+    //xhr.open('GET', "/UserInfo/GetAllRoles");
+    //xhr.send();
+    ////xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
+    //xhr.onreadystatechange = function () {
+    //    if (this.readyState !== 4) return;
+    //    var obj = eval("(" + this.responseText + ")");//JSON.parse安全
+    //    //var body = layer.getChildFrame('body', index);
+    //    for (var i = 0; i < obj.length; i++) {
+    //        var e = $('<option value="' + obj[i].RoleName + '">' + obj[i].RoleName + '</option>');
+    //        //$(body).find('select[name="RoleName"]').append(e);
+    //        $('select[name="RoleName"]').append(e);
+    //    }
+    //    layui.use('form', function () {
+    //        var form = layui.form;
+    //        form.render('select');
+    //    });
+    //}
 }
 
 
@@ -618,6 +610,7 @@ layui.use('table', function () {//打开网页刷新表格
         }
         , toolbar: true
         , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+            Power('device');
             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
             globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
             DIdtable = [];//清空
@@ -648,16 +641,8 @@ layui.use('table', function () {//打开网页刷新表格
                 layer.close(index);
                 //向服务端发送删除指令
                 ids = "" + data.Id;
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', "/Device/Delete");
-                xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
-                xhr.send('ids=' + ids);
-                //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
-                //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&DelFlag=${res.DelFlag}`)//反单引号 模板字符串
-                xhr.onreadystatechange = function () {
-                    if (this.readyState !== 4) return;
-                    console.log(this.responseText);
-                    if (this.responseText === 'ok') {
+                $.post("/Device/Delete", { ids: ids }, function (data) {
+                    if (data === 'ok') {
                         num_d = num_d - 1;
                         globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
                         globalPage = Math.ceil(num_d / globalLimit);//获取页码值
@@ -668,20 +653,7 @@ layui.use('table', function () {//打开网页刷新表格
                     else {
                         alert("你没有权限删除");
                     }
-                };
-                //$.post("/Device/Delete", { ids: ids }, function (data) {
-                //    if (data === 'ok') {
-                //        num_d = num_d - 1;
-                //        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                //        globalPage = Math.ceil(num_d / globalLimit);//获取页码值
-                //        if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
-                //        //表格重载
-                //        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", globalPage, globalLimit);
-                //    }
-                //    else {
-                //        alert("你没有权限删除");
-                //    }
-                //});
+                });
             });
         }
     });
@@ -843,6 +815,131 @@ function Power(index) {
         });
     }
 }
+
+
+layui.use('table', function () {//打开网页刷新表格
+    var table = layui.table;
+    //第一个实例
+    table.render({
+        elem: '#table_olog'
+        //, height: 520
+        , url: '/OperationLog/GetAllOperationLogs' //数据接口
+        , title: "员工管理"
+        , page: true //开启分页
+        , limit: 10
+        , limits: [5, 10, 15, 20]
+        , cols: [[ //表头
+            //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+            , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
+            , { field: 'UName', title: '员工姓名', minWidth: 80, align: 'center' }
+            , { field: 'ActionType', title: '操作功能', minWidth: 80, sort: true, align: 'center' }
+            , { field: 'ActionName', title: '操作类型', minWidth: 80, align: 'center' }
+            , { field: 'OperationObj', title: '操作对象', minWidth: 80, align: 'center' }
+            , { field: 'SubTime', title: '操作时间', minWidth: 80, align: 'center' }
+           // , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+        ]]
+        , toolbar: true
+        , parseData: function (res) { //修改原始数据
+            console.log(res.data[1].SubTime);
+            for (var i = 0; i < res.data.length; i++) {   
+                res.data[i].SubTime = (eval(res.data[i].SubTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+            } 
+            return {
+                "code": res.code, //解析接口状态
+                "msg": res.msg, //解析提示文本
+                "count": res.count, //解析数据长度
+                "data": res.data //解析数据列表
+            };
+        }
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+            
+            globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
+            UIdtable = [];//清空
+            if (curr === Math.floor(count / globalLimit) + 1) {
+                var length = (count % globalLimit === 0 ? globalLimit : count % globalLimit);
+            }
+            else {
+                var length = globalLimit;
+            }
+            for (var i = 0; i < length; i++) {
+                UIdtable[i] = [res.data[i].UId, 0];
+            }
+            console.log(UIdtable);
+            num_p = count;
+        }
+        , skin: 'line'
+
+    });
+    table.on('tool(table_olog)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var data = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+        if (layEvent === 'detail') { //查看
+
+        } else if (layEvent === 'del') { //删除
+            console.log(data);
+            layer.confirm('确定删除？', function (index) {
+                layer.close(index);
+                //向服务端发送删除指令
+                ids = "" + data.UId;
+                $.post("/UserInfo/Delete", { ids: ids }, function (data) {
+                    num_p = num_p - 1;
+                    globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                    globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+                    if (num_p % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
+                    //表格重载
+                    updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", globalPage, globalLimit);
+                })
+            });
+        } else if (layEvent === 'edit') { //编辑
+            layerShowEdituser('编辑员工', 'LayerEdituser', 500, 450, obj.data);
+            //同步更新缓存对应的值
+            /*obj.update({
+                UName: '123'
+                , title: 'xxx'
+            });*/
+        }
+    });
+    table.on('checkbox(table_olog)', function (obj) {
+        console.log(obj.checked); //当前是否选中状态
+        console.log(obj.data); //选中行的相关数据
+        console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+        if (obj.type === "all") {
+            if (obj.checked === true) {
+                for (var i = 0; i < UIdtable.length; i++) {
+                    UIdtable[i][1] = 1;
+                }
+            }
+            else {
+                for (var i = 0; i < UIdtable.length; i++) {
+                    UIdtable[i][1] = 0;
+                }
+            }
+        }
+        else if (obj.checked === true) {
+            for (var i = 0; i < UIdtable.length; i++) {
+                if (UIdtable[i][0] === obj.data.UId) {
+                    UIdtable[i][1] = 1;
+                    break;
+                }
+            }
+        }
+        else if (obj.checked === false) {
+            for (var i = 0; i < UIdtable.length; i++) {
+                if (UIdtable[i][0] === obj.data.UId) {
+                    UIdtable[i][1] = 0;
+                    break;
+                }
+            }
+        }
+    });
+});
+
+
+
+
 //全局加载进度条
 $(document)
     .ajaxStart(function () {

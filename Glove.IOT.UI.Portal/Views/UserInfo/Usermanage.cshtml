@@ -111,9 +111,9 @@
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="Usermanage">员工管理</a></dd>
+                    <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
                     <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
-                    <dd><a href="#">操作日志</a></dd>
+                    <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
                     <dd><a href="#">数据字典</a></dd>
                     <dd><a href="#">用户管理</a></dd>
                 </dl>
@@ -171,9 +171,10 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
+        //禁用所有按钮
         $('button').addClass('layui-btn-disabled');
         $('button').attr('disabled', 'disabled'); 
-        Power('user');
+        //Power('user');
     </script>
 
 </body>
