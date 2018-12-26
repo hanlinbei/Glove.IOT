@@ -428,7 +428,27 @@ margin-top:70px;  */
     z-index: 3100;
 }
 
-
+/*layui table 按钮禁用*/
 .a_disabled {
     pointer-events: none;
+}
+/*进度条相关样式 加粗一点 颜色与layui统一*/
+#nprogress .bar {
+    background: #009688;
+    z-index: 14000;
+    height: 3px;
+}
+#nprogress .peg {
+    box-shadow: 0 0 10px #009688, 0 0 5px #009688;
+}
+#nprogress .spinner {
+    z-index: 14000;
+}
+#nprogress .spinner-icon {
+    border-top-color: #009688;
+    border-left-color: #009688;
+}
+.red::-webkit-input-placeholder {/*placeholder的颜色  可能会有兼容性问题*/
+    /* placeholder颜色  */
+    color: #f00;
 }

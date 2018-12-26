@@ -1,7 +1,6 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -20,8 +19,10 @@
       <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
     <![endif]-->
+    <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/layer.css" rel="stylesheet" />
+    <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
 <body>
     <div class="layer">
@@ -35,7 +36,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">员工编码：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="UCode" required lay-verify="required" placeholder="只允许输入英文+数字" autocomplete="off" class="layui-input">
+                        <input type="text" name="UCode" required lay-verify="required" placeholder="请输入员工编码" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">

@@ -20,9 +20,11 @@
       <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
     <![endif]-->
+    <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
+    <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
 <body>
     <!-- 头部区域 -->
@@ -109,9 +111,9 @@
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="Usermanage">员工管理</a></dd>
+                    <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
                     <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
-                    <dd><a href="#">操作日志</a></dd>
+                    <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
                     <dd><a href="#">数据字典</a></dd>
                     <dd><a href="#">用户管理</a></dd>
                 </dl>
@@ -169,32 +171,10 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
+        //禁用所有按钮
         $('button').addClass('layui-btn-disabled');
-        $('button').attr('disabled', 'disabled');
-        $.post("/ActionInfo/GetActions", {}, function (data) {
-            console.log(data);
-            for (var i = 0; i < data.length; i++) {
-                if (data[i] === '编辑员工') {
-                    $("a[name='编辑']").removeClass('a_disabled');
-                    $("a[name='编辑']").removeClass('layui-btn-disabled');
-                }
-                else if (data[i] === '删除员工') {
-                    $("button[name='删除员工']").removeAttr('disabled');
-                    $("button[name='删除员工']").removeClass('layui-btn-disabled');
-                    $("a[name='删除']").removeClass('a_disabled');
-                    $("a[name='删除']").removeClass('layui-btn-disabled');
-                }
-                else if (data[i] === '添加员工') {
-                    $("button[name='添加员工']").removeAttr('disabled');
-                    $("button[name='添加员工']").removeClass('layui-btn-disabled');
-                }
-                else if (data[i] === '查找员工') {
-                    $("button[name='查找员工']").removeAttr('disabled');
-                    $("button[name='查找员工']").removeClass('layui-btn-disabled');
-                }
-            }
-
-        });
+        $('button').attr('disabled', 'disabled'); 
+        //Power('user');
     </script>
 
 </body>

@@ -1,4 +1,4 @@
-2018-12-21 19:48:18,920 [14] ERROR Demo - System.Data.EntityException: 基础提供程序在 Open 上失败。 ---> System.Data.SqlClient.SqlException: 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接) ---> System.ComponentModel.Win32Exception: 用户名或密码不正确。
+2018-12-26 12:50:07,961 [14] ERROR Demo - System.Data.EntityException: 基础提供程序在 Open 上失败。 ---> System.Data.SqlClient.SqlException: 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接) ---> System.ComponentModel.Win32Exception: 找不到网络路径。
    --- 内部异常堆栈跟踪的结尾 ---
    在 System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)
    在 System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
@@ -26,7 +26,7 @@
    在 System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
    在 System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
    在 System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
-   在 Glove.IOT.UI.Portal.Controllers.UserLoginController.ProcessLogin() 位置 D:\桌面\Glove\Glove.IOT.UI.Portal\Controllers\UserLoginController.cs:行号 64
+   在 Glove.IOT.UI.Portal.Controllers.UserLoginController.ProcessLogin() 位置 D:\桌面\Glove\Glove.IOT.UI.Portal\Controllers\UserLoginController.cs:行号 61
    在 lambda_method(Closure , ControllerBase , Object[] )
    在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
    在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
@@ -44,8 +44,13 @@
    在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
    在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
    在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
-2018-12-21 20:21:19,179 [12] ERROR Demo - System.NullReferenceException: 未将对象引用设置到对象的实例。
-   在 Glove.IOT.UI.Portal.Controllers.ActionInfoController.GetActions() 位置 D:\桌面\Glove\Glove.IOT.UI.Portal\Controllers\ActionInfoController.cs:行号 35
+2018-12-26 14:26:16,362 [76] ERROR Demo - System.Data.Entity.Validation.DbEntityValidationException: 对一个或多个实体的验证失败。有关详细信息，请参见“EntityValidationErrors”属性。
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 Glove.IOT.DALFactory.DbSession.SaveChanges() 位置 D:\桌面\Glove\Glove.IOT.DALFactory\DbSession.cs:行号 25
+   在 Glove.IOT.BLL.BaseService`1.Add(T entity) 位置 D:\桌面\Glove\Glove.IOT.BLL\BaseService.cs:行号 116
+   在 Glove.IOT.UI.Portal.Controllers.UserInfoController.Add(UserInfoRoleInfo userInfoRoleInfo) 位置 D:\桌面\Glove\Glove.IOT.UI.Portal\Controllers\UserInfoController.cs:行号 110
    在 lambda_method(Closure , ControllerBase , Object[] )
    在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
    在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
