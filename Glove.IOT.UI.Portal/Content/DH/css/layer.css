@@ -1,8 +1,10 @@
-﻿body {
+﻿/*////////////////////////////////////////////////////////////*/
+body {
     font-family: Microsoft Yahei; /*此处应该有很多备用字体以防万一*/
     min-width: 480px;
-    height:100%;
+    height: 100%;
 }
+
 .layer {
     position: relative;
     top: 0px;
@@ -10,8 +12,9 @@
     background-color: #fff;
     padding: 20px 20px;
 }
+
 .layui-form-label {
-    width: 100px; /*左边的字*/
+    width: 110px; /*左边的字*/
 }
 
 .layui-input, .layui-textarea {
@@ -21,6 +24,33 @@
 .layui-form-select .layui-edge {
     right: 5%; /*下拉框按钮*/
 }
+
 .layui-form-select dl {
-    max-height: 150px;/*限制下拉框的高度 是一种妥协的方式*/
+    max-height: 150px; /*限制下拉框的高度 是一种妥协的方式*/
+}
+/*进度条相关样式 加粗一点 颜色与layui统一*/
+#nprogress .bar {
+    background: #009688;
+    z-index: 14000;
+    height: 3px;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #009688, 0 0 5px #009688;
+}
+
+#nprogress .spinner {
+    z-index: 14000;
+}
+
+#nprogress .spinner-icon {
+    border-top-color: #009688;
+    border-left-color: #009688;
+}
+#nprogress .spinner {
+    display: none;
+}
+.red::-webkit-input-placeholder { /*placeholder的颜色  可能会有兼容性问题*/
+    /* placeholder颜色  */
+    color: #f00;
 }

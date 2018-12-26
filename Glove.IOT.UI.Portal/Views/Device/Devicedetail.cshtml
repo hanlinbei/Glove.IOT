@@ -103,7 +103,6 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="Devicemanage">设备工作情况</a></dd>
-                    <dd><a href="#">设备详情</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -127,8 +126,8 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
-                    <dd><a href="#">角色权限管理</a></dd>
-                    <dd><a href="#">操作日志</a></dd>
+                    <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
+                    <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
                     <dd><a href="#">数据字典</a></dd>
                     <dd><a href="#">用户管理</a></dd>
                 </dl>
@@ -140,14 +139,15 @@
             <!-- 面包屑 -->
             <span class="layui-breadcrumb">
                 <a>设备管理</a>
-                <a href="Devicemanage"><cite>设备工作情况</cite></a>
+                <a href="Devicemanage">设备工作情况</a>
+                <a><cite>设备详细情况</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
             <span class="col-xs-10"></span>
             <a href="Devicemanage">
-                <button class="layui-btn col-xs-1" name="查找设备">
+                <button class="layui-btn col-xs-1" name="返回">
                     <i class="iconfont icon-seek">&#xe618;</i>
                     返回
                 </button>
@@ -253,9 +253,10 @@
                     $('input[name="运行状态"]').val("暂停中");
                 else if (deviceInfos[0].StatusFlag === "3")
                     $('input[name="运行状态"]').val("故障中");
-                else if (deviceInfos[0].StatusFlag === "Outline")
+                else if (deviceInfos[0].StatusFlag === "未连接")
                     $('input[name="运行状态"]').val("未连接");
                 //解析时间
+                console.log(deviceInfos[0].StartTime);
                 var StartTime = (eval(deviceInfos[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
                 var StopTime = (eval(deviceInfos[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
                 $('input[name="运行时间"]').val(StartTime);

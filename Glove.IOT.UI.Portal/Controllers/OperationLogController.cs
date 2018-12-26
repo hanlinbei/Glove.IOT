@@ -44,5 +44,9 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
         /// <summary>
+        public ActionResult Operationlog()
+        {
+            return View();
+        }
     }
 }

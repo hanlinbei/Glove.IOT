@@ -20,16 +20,15 @@
       <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
     <![endif]-->
+    <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
     <style>
-        <style >
         .content-right {
             border: #ccc solid 1px;
             background-color: #fff;
         }
-
         .content-right-top {
             height: 150px;
             vertical-align: middle;
@@ -59,7 +58,44 @@
         body {
             min-height: 800px;
         }
+        .nameerror {
+            position: absolute;
+            top: 150px;
+            left: 175px;
+            height: 38px;
+            width: 150px;
+            line-height: 38px;
+            text-align: center;
+            vertical-align: middle;
+            color: #f00;
+            display: none;
+        }
+        .pwderror {
+            position: absolute;
+            top: 215px;
+            left: 205px;
+            height: 38px;
+            width: 120px;
+            line-height: 38px;
+            text-align:center;
+            vertical-align: middle;
+            color: #f00;
+            display:none;
+        }
+        .vcodeerror {
+            position: absolute;
+            top: 278px;
+            left: 138px;
+            height: 38px;
+            width: 75px;
+            line-height: 38px;
+            text-align: center;
+            vertical-align: middle;
+            color: #f00;
+            display: none;
+        }
     </style>
+    <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
 <body>
     <div class="layui-container">
@@ -81,7 +117,7 @@
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label"><i class="layui-icon layui-icon-password" style="font-size: 30px; color: #009688;"></i></label>
-                            <input type="text" name="LoginPwd" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+                            <input type="password" name="LoginPwd" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label"><i class="layui-icon layui-icon-vercode" style="font-size: 30px; color: #009688;"></i></label>
@@ -89,8 +125,17 @@
                             <a href="javascript:void(0)" onclick="changeCheckCode();return false;"><img id="imgCode" src="/UserLogin/ShowVCode?id=2" width="100" height="35" /></a>
                         </div>
                         <div style="text-align:center; padding:0px 60px;">
-                            <button name="登录" onclick="send();" class="layui-btn layui-btn-normal layui-btn-fluid" style="font-size:20px;">登录</button>
+                            <button name="登录" class="layui-btn layui-btn-normal layui-btn-fluid" style="font-size:20px;">登录</button>
                         </div>
+                    </div>
+                    <div class="nameerror">
+                        <p>账号异常,请联系管理员</p>
+                    </div>
+                    <div class="pwderror">
+                        <p>账号或者密码错误</p>
+                    </div>
+                    <div class="vcodeerror">
+                        <p>验证码错误</p>
                     </div>
                     <div class="content-right-bottom">
                     </div>
@@ -108,6 +153,28 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
+        $('input[name="LoginCode"]').focus(function () {
+            $('input[name="LoginCode"]').removeClass("red");
+            $('input[name="LoginCode"]').attr('placeholder', '用户名');
+            $(".nameerror").hide();
+        })
+        $('input[name="LoginPwd"]').focus(function () {
+            $('input[name="LoginPwd"]').removeClass("red");
+            $('input[name="LoginPwd"]').attr('placeholder', '密码');
+            $(".pwderror").hide();   
+        })
+        $('input[name="vCode"]').focus(function () {
+            $('input[name="vCode"]').removeClass("red");
+            $('input[name="vCode"]').attr('placeholder', '验证码');
+            $(".vcodeerror").hide();        
+        })
+        //回车登录
+        $(document).keydown(function (event) {
+            if (event.which === 13) {
+                send();
+            }
+        });
+        //上下居中  适配页面
         if ($(window).height() >= 800) {
             $("#left").css({
                 top: ($(window).height() - $("#left").outerHeight()) / 2
@@ -124,49 +191,7 @@
                 top: (800 - $("#right").outerHeight()) / 2
             });
         }
-        function changeCheckCode() {
-            var old = $("#imgCode").attr("src");
-            var now = new Date();
-            var str = old +
-                now.getDay() +
-                now.getSeconds() +
-                now.getMinutes();
-            $("#imgCode").attr("src", str);
-        }
-        function send() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', "/UserLogin/ProcessLogin");
-            xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
-            xhr.send('LoginCode=' + $("input[name='LoginCode']").val()
-                + '&LoginPwd=' + $("input[name='LoginPwd']").val()
-                + '&vCode=' + $("input[name='vCode']").val());
-            xhr.onreadystatechange = function () {
-                if (this.readyState !== 4) return;
-                if (this.responseText === 'OK') {
-                    window.location.href = '../Device/Devicemanage';
-                }
-                else if (this.responseText === '验证码错误！') {
-                    alert("验证码错误!");
-                    changeCheckCode();
-                }
-                else if (this.responseText === '无效的用户！') {
-                    alert("无效的用户！");
-                    changeCheckCode();
-                }
-                else if (this.responseText === '登录密码错误!') {
-                    alert("登录密码错误!");
-                    changeCheckCode();
-                }
-                else if (this.responseText === '用户已被删除!') {
-                    alert("用户已被删除!");
-                    changeCheckCode();
-                }
-                else if (this.responseText === '用户状态无效!') {
-                    alert("用户状态无效!");
-                    changeCheckCode();
-                }
-            }
-        }
+
     </script>
 </body>
 </html>
