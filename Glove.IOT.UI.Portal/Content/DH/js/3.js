@@ -288,7 +288,7 @@ function layerShowEdituser(title, url, w, h, data) {
                 $(body).find('input[title="无效"]').attr('checked', false);
             }
             $.get("/UserInfo/GetAllRoles", {}, function (data_return) {
-                var obj = data_return;//JSON.parse安全
+                var obj = data_return;
                 for (var i = 0; i < obj.length; i++) {
                     if (obj[i].RoleName === data.RoleName)
                         $(body).find('select[name="RoleName"]').val(data.RoleName);
