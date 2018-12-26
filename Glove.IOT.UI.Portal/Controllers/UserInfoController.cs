@@ -210,7 +210,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult GetAllRoles()
         {
             //把所有的角色发送到前台
-            var AllRoles = RoleInfoService.GetEntities(r=>r.IsDeleted ==false).ToList();
+            var AllRoles = RoleInfoService.GetEntities(r=>r.IsDeleted ==false).OrderByDescending(r=>r.Id).ToList();
             var temp = AllRoles.Select(u => new {
                 u.Id,
                 u.RoleName
