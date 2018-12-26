@@ -27,10 +27,7 @@
     <property name="ActionInfoService" ref="ActionInfoService" />
     <property name="R_RoleInfo_ActionInfoService" ref="R_RoleInfo_ActionInfoService" />
   </object>
-  
-    <object type="Glove.IOT.UI.Portal.Controllers.HomeController, Glove.IOT.UI.Portal" singleton="false" >
-    <property name="UserInfoService" ref="UserInfoService" />
-  </object>
+
 
   <object type="Glove.IOT.UI.Portal.Controllers.DeviceController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="DeviceInfoService" ref="DeviceInfoService" />

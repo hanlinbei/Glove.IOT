@@ -30,7 +30,6 @@ namespace Glove.IOT.Model
         public bool IsDeleted { get; set; }
         public string Remark { get; set; }
         public System.DateTime SubTime { get; set; }
-    
         public virtual ICollection<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
     }
 }

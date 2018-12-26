@@ -11,5 +11,6 @@ namespace Glove.IOT.IBLL
     public partial interface IDeviceParameterInfoService : IBaseService<DeviceParameterInfo>
     {
         IQueryable<DeviceParameter> GetDeviceParameter(string deviceId);
+        IQueryable<DeviceParameter> GetHistoryParameter(string deviceId);
     }
 }

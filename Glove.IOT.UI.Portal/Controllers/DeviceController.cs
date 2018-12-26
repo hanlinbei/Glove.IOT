@@ -116,8 +116,12 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 获取所有设备信息
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetAllDeviceInfos(string limit,string page,string schDeviceId,string schStatusFlag)
+        public ActionResult GetAllDeviceInfos()
         {
+            string limit = Request.QueryString["limit"];
+            string page = Request.QueryString["page"];
+            string schDeviceId = Request.QueryString["deviceId"];
+            string schStatusFlag = Request.QueryString["statusFlag"];
             int pageSize = int.Parse(limit ?? "10");
             int pageIndex = int.Parse(page ?? "1");
 
@@ -167,9 +171,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult GetDeviceParameterInfo(string deviceId)
         {
-           
+
             var deviceParameter = DeviceParameterInfoService.GetDeviceParameter(deviceId);
-            var data = deviceParameter.ToList();
+            var parameterHistory = DeviceParameterInfoService.GetHistoryParameter(deviceId);
+            var data = new { deviceParameter = deviceParameter.ToList(), parameterHistory = parameterHistory.ToList() };
             //写操作日志
             OperationLog operationLog = new OperationLog
             {

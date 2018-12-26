@@ -143,6 +143,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult Edit(UserInfo userInfo)
         {
             userInfo.SubTime = DateTime.Now;
+            userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == userInfo.Id).Select(u => u.Pwd).FirstOrDefault();
             UserInfoService.Update(userInfo);
             //写操作日志
             OperationLog operationLog = new OperationLog
