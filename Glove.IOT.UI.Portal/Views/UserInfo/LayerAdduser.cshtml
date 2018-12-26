@@ -23,6 +23,21 @@
     <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/layer.css" rel="stylesheet" />
+    <style>
+        .StatusFlagerror {
+            position: absolute;
+            top: 0px;
+            left: 150px;
+            height: 38px;
+            width: 100px;
+            line-height: 38px;
+            text-align: center;
+            vertical-align: middle;
+            color: #f00;
+            /*border:1px #000 solid;*/
+            display: none;
+        }
+    </style>
     <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
 <body>
@@ -30,25 +45,25 @@
         <div class="layer-content">
             <div class="layui-form" lay-filter="userAdd">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">员工名字：</label>
+                    <label class="layui-form-label"><span style="color:red">*</span>员工名字：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="UName" required lay-verify="required" placeholder="只允许输入英文+数字" autocomplete="off" class="layui-input">
+                        <input type="text" name="UName" required lay-verify="required" placeholder="请输入员工名字" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">员工编码：</label>
+                    <label class="layui-form-label"><span style="color:red">*</span>员工编码：</label>
                     <div class="layui-input-block">
                         <input type="text" name="UCode" required lay-verify="required" placeholder="请输入员工编码" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">员工密码：</label>
+                    <label class="layui-form-label"><span style="color:red">*</span>初始密码：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="Pwd" required lay-verify="required" placeholder="请输入员工编码" autocomplete="off" class="layui-input">
+                        <input type="text" name="Pwd" required lay-verify="required" placeholder="请输入初始密码" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">角色类型：</label>
+                    <label class="layui-form-label"><span style="color:red">*</span>角色类型：</label>
                     <div class="layui-input-block">
                         <select  name="RoleName" lay-verify="required">
                             <!--<option value="操作工">操作工</option>
@@ -66,10 +81,11 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">角色状态：</label>
+                    <label class="layui-form-label"><span style="color:red">*</span>角色状态：</label>
                     <div class="layui-input-block Userdelflag">
                         <input type="radio" name="StatusFlag" value=true title="有效">
                         <input type="radio" name="StatusFlag" value=false title="无效">
+                        <div class="StatusFlagerror">请选择角色状态</div>
                     </div>
                 </div>
             </div>
@@ -86,6 +102,22 @@
     <script src="~/Content/DH/js/3.js"></script>
     <script>
         getRolename();
+        $('input[name="UName"]').focus(function () {
+            $('input[name="UName"]').removeClass("red");
+            $('input[name="UName"]').attr('placeholder', '请输入员工名字');
+        })
+        $('input[name="UCode"]').focus(function () {
+            $('input[name="UCode"]').removeClass("red");
+            $('input[name="UCode"]').attr('placeholder', '请输入员工编码');
+        })
+        $('input[name="Pwd"]').focus(function () {
+            $('input[name="Pwd"]').removeClass("red");
+            $('input[name="Pwd"]').attr('placeholder', '请输入员工密码');
+        })
+        $('input[name="StatusFlag"]').focus(function () {
+
+            $('.StatusFlag').hide();
+        })
     </script>
 </body>
 </html>

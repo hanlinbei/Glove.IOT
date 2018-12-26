@@ -198,7 +198,6 @@
     <Content Include="Config\services.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\DH\css\layer.css" />
     <Content Include="Content\DH\css\main.css" />
     <Content Include="Content\DH\css\main1.css" />
     <Content Include="Content\DH\css\mainUI.css" />
@@ -1774,6 +1773,7 @@
     <Content Include="Content\DH\lib\layui\font\iconfont.eot" />
     <Content Include="Content\DH\lib\layui\font\iconfont.ttf" />
     <Content Include="Content\DH\lib\layui\font\iconfont.woff" />
+    <Content Include="Content\DH\css\layer.css" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\datapattern.js" />
@@ -1798,11 +1798,10 @@
     <Content Include="Views\Device\LayerAdddevice.cshtml" />
     <Content Include="Views\UserLogin\Index.cshtml" />
     <Content Include="Views\Device\LayerSearchdevice.cshtml" />
-    <Content Include="Views\Home\Devicemanage.cshtml" />
     <Content Include="Views\OperationLog\Operationlog.cshtml" />
+    <Content Include="Views\OperationLog\LayerSearcholog.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
-    <None Include="Views\UserInfo\t.cshtml" />
     <None Include="Views\UserInfo\LayerSearchuser.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1819,7 +1818,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\UserLogin\Index1.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\TreeIndex.cshtml" />
     <Content Include="Views\ActionInfo\Index.cshtml" />

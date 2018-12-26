@@ -221,21 +221,24 @@ function layerShowEdituser(title, url, w, h, data) {
                 }
             } 
             //ajax发送post请求 给后端发送数据
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', "/UserInfo/Edit");
-            xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
-            xhr.send('UName=' + res.UName
-                + '&UCode=' + res.UCode
-                + '&Pwd=' + res.Pwd
-                + '&RId=' + RId
-                + '&Remark=' + res.Remark
-                + '&StatusFlag=' + res.StatusFlag
-                + '&Id=' + data.UId);//多发一个id数据
-            //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&DelFlag=${res.DelFlag}`)//反单引号 模板字符串
-            xhr.onreadystatechange = function () {
-                if (this.readyState !== 4) return;
-                console.log(this.responseText);
-            }
+            $.post("/UserInfo/Edit", {
+                UName: res.UName, UCode: res.UCode, Pwd: " ", RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, Id: data.UId
+            });
+            //var xhr = new XMLHttpRequest();
+            //xhr.open('POST', "/UserInfo/Edit");
+            //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
+            //xhr.send('UName=' + res.UName
+            //    + '&UCode=' + res.UCode
+            //    + '&Pwd=' + res.Pwd
+            //    + '&RId=' + RId
+            //    + '&Remark=' + res.Remark
+            //    + '&StatusFlag=' + res.StatusFlag
+            //    + '&Id=' + data.UId);//多发一个id数据
+            ////xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&DelFlag=${res.DelFlag}`)//反单引号 模板字符串
+            //xhr.onreadystatechange = function () {
+            //    if (this.readyState !== 4) return;
+            //    console.log(this.responseText);
+            //}
             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
             globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
             //表格重载
@@ -292,48 +295,70 @@ function layerShowAdduser(title, url, w, h, data) {
         yes: function (index) {
             //当点击‘确定’按钮的时候，获取弹出层返回的值
             var res = window["layui-layer-iframe" + index].callbackdata(index, 'adduser');
-            //ajax发送post请求 给后端发送数据
-            for (var i = 0; i < Rid_Rolename.length; i++) {
-                if (Rid_Rolename[i][1] === res.RoleName) {
-                    RId = Rid_Rolename[i][0];
-                    break;
-                }
-            }     
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', "/UserInfo/Add");
-            xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');         
-            xhr.send('UName=' + res.UName
-                + '&UCode=' + res.UCode
-                + '&Pwd=' + res.Pwd
-                + '&RId=' + RId
-                + '&Remark=' + res.Remark
-                + '&StatusFlag=' + res.StatusFlag);
-            //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
-            //xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&DelFlag=${res.DelFlag}`)//反单引号 模板字符串
-            xhr.onreadystatechange = function () {
-                if (this.readyState !== 4) return;
-                console.log(this.responseText);
+            var body = layer.getChildFrame('body', index);
+            if (res.UName === "") {
+                $(body).find('input[name="UName"]').attr('placeholder', '员工名字不能为空');
+                $(body).find('input[name="UName"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            } else if (res.UCode === "") {
+                $(body).find('input[name="UCode"]').attr('placeholder', '员工编码不能为空');
+                $(body).find('input[name="UCode"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            } else if (res.Pwd === "") {
+                $(body).find('input[name="Pwd"]').attr('placeholder', '初试密码不能为空');
+                $(body).find('input[name="Pwd"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            } else if (typeof (res.StatusFlag) == "undefined") {
+                $(body).find(".StatusFlagerror").show();
+                $(window.frames[0].document).scrollTop("70");//垂直滚动条移动
             }
-            //表格重载 跳转到操作页面
-            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            globalPage = Math.ceil(num_p / globalLimit);//获取页码值
-            if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
-            updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", globalPage, globalLimit);
-            //最后关闭弹出层
-            layer.close(index);
+            else {
+                //ajax发送post请求 给后端发送数据
+                for (var i = 0; i < Rid_Rolename.length; i++) {
+                    if (Rid_Rolename[i][1] === res.RoleName) {
+                        RId = Rid_Rolename[i][0];
+                        break;
+                    }
+                }
+                $.post("/UserInfo/Add", {
+                    UName: res.UName, UCode: res.UCode, Pwd: res.Pwd, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag
+                });
+                //表格重载 跳转到操作页面
+                globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+                if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
+                updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", globalPage, globalLimit);
+                //最后关闭弹出层
+                layer.close(index);
+            }
+            
         },
         success: function (layero, index) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', "/UserInfo/GetAllRoles");
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                if (this.readyState !== 4) return;
-                var obj = eval("(" + this.responseText + ")");//JSON.parse安全
-                for (var i = 0; i < obj.length; i++) {//保存查询用
-                    console.log(obj[i].Id + "+" + obj[i].RoleName)
-                    Rid_Rolename[i] = [obj[i].Id, obj[i].RoleName];
+            $.get("/UserInfo/GetAllRoles", {}, function (data) {
+                for (var i = 0; i < data.length; i++) {//保存查询用
+                    Rid_Rolename[i] = [data[i].Id, data[i].RoleName];
                 }
-            }
+            })
+            //var xhr = new XMLHttpRequest();
+            //xhr.open('GET', "/UserInfo/GetAllRoles");
+            //xhr.send();
+            //xhr.onreadystatechange = function () {
+            //    if (this.readyState !== 4) return;
+            //    var obj = eval("(" + this.responseText + ")");//JSON.parse安全
+            //    for (var i = 0; i < obj.length; i++) {//保存查询用
+            //        console.log(obj[i].Id + "+" + obj[i].RoleName)
+            //        Rid_Rolename[i] = [obj[i].Id, obj[i].RoleName];
+            //    }
+            //}
             //获取iframe页面
             //var body = layer.getChildFrame('body', index);
             //获取新窗口对象
@@ -707,33 +732,40 @@ function layerShowAdddevice(title, url, w, h, data) {
         yes: function (index) {
             //当点击‘确定’按钮的时候，获取弹出层返回的值
             var res = window["layui-layer-iframe" + index].callbackdata(index, 'adddevice');
-            //ajax发送post请求 给后端发送数据
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', "/Device/Add");
-            xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
-            xhr.send('DeviceId=' + res.DeviceId);//多发一个id数据
-            xhr.onreadystatechange = function () {
-                if (this.readyState !== 4) return;
-                console.log(this.responseText);
-                if (this.responseText === "fail") {
-                    layui.use('layer', function () {//弹窗
-                        var layer = layui.layer;
-                        layer.msg('<span style = "font-size: 20px; line-height:90px; vertical-align:middle;">ID已存在</span>', {
-                            time: 2000,
-                            area:['200px',  '120px']
-                        });
-                    });
-                }
-                else{
-                    //表格重载 跳转到操作页面
-                    globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                    globalPage = Math.ceil(num_p / globalLimit);//获取页码值
-                    if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
-                    updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "员工管理", globalPage, globalLimit);
-                }
-            };   
-            //最后关闭弹出层
-            layer.close(index);
+            if (res.DeviceId !== "") {
+                //ajax发送post请求 给后端发送数据
+                $.post("/Device/Add", { DeviceId: res.DeviceId }, function (data) {
+                    if (data !== 'fail') {//判断是否重复
+                        //表格重载 跳转到操作页面
+                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                        globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+                        if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
+                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "员工管理", globalPage, globalLimit);
+                    }
+                    else {
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">设备已存在</span>', {
+                                time: 2000,
+                                area: ['200px', '100px'],
+                                shade: 0.4,
+                                shadeClose:true
+                            });
+                        }); 
+                    }
+                });
+                //最后关闭弹出层
+                layer.close(index);
+            }
+            else {
+                var body = layer.getChildFrame('body', index);
+                $(body).find('input[name="DeviceId"]').attr('placeholder', '设备ID不能为空');
+                $(body).find('input[name="DeviceId"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            }
         }
     });
 }
@@ -830,7 +862,7 @@ layui.use('table', function () {//打开网页刷新表格
         , limits: [5, 10, 15, 20]
         , cols: [[ //表头
             //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
-            , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
+            { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center', fixed: 'left'}
             , { field: 'UName', title: '员工姓名', minWidth: 80, align: 'center' }
             , { field: 'ActionType', title: '操作功能', minWidth: 80, sort: true, align: 'center' }
             , { field: 'ActionName', title: '操作类型', minWidth: 80, align: 'center' }
@@ -950,7 +982,7 @@ $(document)
     })
 $(document).ready(function () {
     $("button[name='添加员工']").click(function () {
-        layerShowAdduser('添加员工', 'LayerAdduser', 500, 450, "null");
+        layerShowAdduser('添加员工', 'LayerAdduser', 550, 450, "null");
     });
     $("button[name='删除员工']").click(function () {
         someDel('user');
