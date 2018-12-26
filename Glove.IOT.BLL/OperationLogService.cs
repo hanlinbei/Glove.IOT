@@ -21,7 +21,7 @@ namespace Glove.IOT.BLL
             var temp = DbSession.OperationLogDal.GetEntities(u => u.IsDeleted == false);
             operationLogQueryParam.Total = temp.Count();
             //分页
-            return temp.OrderBy(u => u.Id)
+            return temp.OrderByDescending(u => u.SubTime)
                 .Skip(operationLogQueryParam.PageSize * (operationLogQueryParam.PageIndex - 1))
                 .Take(operationLogQueryParam.PageSize).AsQueryable();
         }

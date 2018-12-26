@@ -16,6 +16,7 @@ namespace Glove.IOT.Common
         public Nullable<short> SingleProgress { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
         public Nullable<System.DateTime> StopTime { get; set; }
+        public System.DateTime SubTime { get; set; }
 
     }
 }
