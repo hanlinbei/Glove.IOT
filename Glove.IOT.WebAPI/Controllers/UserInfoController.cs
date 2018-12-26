@@ -15,18 +15,23 @@ namespace Glove.IOT.WebAPI.Controllers
     {
       public IUserInfoService UserInfoService { get; set; }
 
+        //[HttpGet]
+        //public IHttpActionResult GetAllChargingData()
+        //{
+        //    var temp = UserInfoService.GetEntities(u => u.UName == "admin");
+        //    var data = temp.Select(u => new {
+        //        u.UName,
+        //        u.UCode,
+        //        u.Pwd
+        //    }).ToList();
+        //    return Json(data);
+        //}
         [HttpGet]
-        public IHttpActionResult GetAllChargingData()
+        public string GetAllChargingData()
         {
-            var temp = UserInfoService.GetEntities(u => u.UName == "admin");
-            var data = temp.Select(u => new {
-                u.UName,
-                u.UCode,
-                u.Pwd
-            }).ToList();
-            return Json(data);
+          
+            return "Success";
         }
-
 
     }
 }
