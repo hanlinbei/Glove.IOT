@@ -1,5 +1,6 @@
 ﻿
 using Glove.IOT.Tcp;
+using Spring.Web.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Web.Routing;
 
 namespace Glove.IOT.UI.Portal
 {
-    public class MvcApplication : Spring.Web.Mvc.SpringMvcApplication//System.Web.HttpApplication
+    public class MvcApplication :SpringMvcApplication//System.Web.HttpApplication
     {   
         protected void Application_Start()
         {

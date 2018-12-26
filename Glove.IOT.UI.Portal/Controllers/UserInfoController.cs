@@ -143,6 +143,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult Edit(UserInfo userInfo)
         {
             userInfo.SubTime = DateTime.Now;
+            userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == userInfo.Id).Select(u => u.Pwd).FirstOrDefault();
             UserInfoService.Update(userInfo);
             //写操作日志
             OperationLog operationLog = new OperationLog
@@ -210,7 +211,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult GetAllRoles()
         {
             //把所有的角色发送到前台
-            var AllRoles = RoleInfoService.GetEntities(r=>r.IsDeleted ==false).ToList();
+            var AllRoles = RoleInfoService.GetEntities(r=>r.IsDeleted ==false).OrderByDescending(r=>r.Id).ToList();
             var temp = AllRoles.Select(u => new {
                 u.Id,
                 u.RoleName

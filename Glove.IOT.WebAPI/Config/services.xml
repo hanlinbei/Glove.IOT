@@ -27,4 +27,14 @@
     <property name="DbSession" ref="DbSession" />
     <property name="CurrentDal" ref="DeviceParameterInfoDal" />
   </object>
+
+  <object name="R_RoleInfo_ActionInfoService" type="Glove.IOT.BLL.R_RoleInfo_ActionInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="R_RoleInfo_ActionInfoDal" />
+  </object>
+  <object name="OperationLogService" type="Glove.IOT.BLL.OperationLogService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="OperationLogDal" />
+  </object>
+
 </objects>

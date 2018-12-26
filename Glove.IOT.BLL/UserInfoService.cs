@@ -57,6 +57,7 @@ namespace Glove.IOT.BLL
                             UCode = t1.UCode,
                             UName = t1.UName,
                             RoleName = t3.RoleName,
+                            Remark=t1.Remark,
                             StatusFlag = t1.StatusFlag
                         };
 
@@ -81,19 +82,7 @@ namespace Glove.IOT.BLL
 
 
 
-        //设置角色
-        public bool SetRole(int userId, List<int> roleIds)
-        {
-            //var user = DbSession.UserInfoDal.GetEntities(u => u.Id == userId).FirstOrDefault();
-            //user.R_UserInfo_RoleInfo.Clear();//全剁掉
-            //var allRoles = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => roleIds.Contains(r.Id));
-            //foreach (var roleInfo in allRoles)
-            //{
-            //    user.R_UserInfo_RoleInfo.Add(roleInfo);//加最新的角色
-            //}
-            //DbSession.SaveChanges();
-            return true;
-        }
+  
 
     }
 }
