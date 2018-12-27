@@ -572,6 +572,23 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
             }
         });
     }
+    else if (id === 'table_olog') {
+        table.reload(id, {
+            elem: elem
+            //, height: height
+            , url: url//数据接口
+            , title: title
+            , page: {
+                curr: page
+            }//重新制定page和limit
+            , limit: limit
+            , where: { FirstTime: res.FirstTime, LastTime: res.LastTime, UName: res.UName, ActionType: res.ActionType, ActionName: res.ActionName }
+            , method: 'post'
+            , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+                console.log("表格渲染完成");
+            }
+        });
+    }
 }
 function updatatable(id, elem, height, url, title, page, limit) {//表格重载 跳转到操作页面
     var table = layui.table;
@@ -1047,7 +1064,7 @@ function layerShowSearcholog(title, url, w, h, data) {
             } else {
                 //表格重载 跳转到操作页面
                 globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                updatatable_search('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", 1, globalLimit, res);
+                updatatable_search('table_olog', '#table_olog', 550, '/Device/xxxx', "操作日志", 1, globalLimit, res);
                 //最后关闭弹出层
                 layer.close(index);
             }
