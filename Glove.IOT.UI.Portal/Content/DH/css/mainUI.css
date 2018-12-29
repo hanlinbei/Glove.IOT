@@ -421,34 +421,34 @@ margin-top:70px;  */
     margin-right: 10px;
     color: #999;
 }
-#main .layui-input-block {
-    position: relative;
-    float: left;
-    width: 300px; /*右边的框*/
-    margin-left: 0px;
-    margin-right: 10px;
-    display: inline-block;
-    vertical-align: middle;
-}
-#main .layui-input-textarea {
-    position: relative;
-    float: left;
-    width: 600px; /*右边的框*/
-    margin-left: 0px;
-    margin-right: 10px;
-    display: inline-block;
-    vertical-align: middle;
-}
+    #main .layui-input-block {
+        position: relative;
+        float: left;
+        width: 300px; /*右边的框*/
+        margin-left: 0px;
+        margin-right: 10px;
+        display: block;
+        vertical-align: middle;
+    }
+    #main .layui-input-textarea {
+        position: relative;
+        float: left;
+        width: 600px; /*右边的框*/
+        margin-left: 0px;
+        margin-right: 10px;
+        display: block;
+        vertical-align: middle;
+    }
 #main .layui-input-button {
     margin-left:110px;
 }
-#main .user-form-btn-container {
-    display: inline-block;
-    float: left;
-    vertical-align: middle;
-    line-height: 80px;
-    margin-left: 20px;
-}
+    #main .user-form-btn-container {
+        display: block;
+        float: left;
+        vertical-align: middle;
+        line-height: 80px;
+        margin-left: 20px;
+    }
         /*#main .table .layer {
     display: none;
     position: fixed;

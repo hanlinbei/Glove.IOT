@@ -138,7 +138,7 @@
             </div>
             <div class="user-form">
                 <div class="layer-content">
-                    <form class="layui-form" lay-filter="userDetail" method="post" action="/UserInfo/Delete">
+                    <form class="layui-form" lay-filter="userDetail" method="post" >
                         <div class="layui-form-item">
                             <label class="layui-form-label">我的头像：</label>
                             <div class="layui-input-block">
@@ -155,14 +155,14 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">我的角色：</label>
                             <div class="layui-input-block">
-                                <input type="text" name="RoleName" readonly="readonly" autocomplete="off" class="layui-input">
+                                <input type="text" name="MyRoleName" readonly="readonly" autocomplete="off" class="layui-input">
                             </div>
                             <div class="user-form-tip">当前角色不可更改为其它角色</div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">用户名：</label>
                             <div class="layui-input-block">
-                                <input type="text" name="UName" readonly="readonly" autocomplete="off" class="layui-input">
+                                <input type="text" name="MyUName" readonly="readonly" autocomplete="off" class="layui-input">
                             </div>
                             <div class="user-form-tip">当前用户名不可更改</div>
                         </div>
@@ -195,7 +195,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-button">
-                                <button class="layui-btn" lay-submit lay-filter="setmyinfo">确认修改</button>
+                                <button class="layui-btn" type="button" name="确认修改">确认修改</button>
                                 <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
                             </div>
                         </div>
@@ -218,14 +218,17 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
+        //获取数据
+        uploadDevicedetail('get');
+
         $("#upload").click(function () {
             $('#chooseImage').click();
         })
-        $('#chooseImage').on('change', function () {
+        $('#chooseImage').on('change', function (data) {
             var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
                 fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),//获取文件后缀名
                 src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
-            // 检查是否是图片
+                //src = window.URL.createObjectURL(data.target.files[0]); //同理都可以获取文件
             if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
                 //error_prompt_alert('上传错误,文件格式必须为：png/jpg/jpeg');
                 layui.use('layer', function () {
@@ -240,6 +243,10 @@
                 return;
             }
             $('#Hportrait').attr('src', src);
+            userDetail.delete('Picture');//清空
+            userDetail.append('Picture', data.target.files[0]); 
+            console.log(this.files[0]);
+            console.log(data.target.files[0]);
         });
 
     </script>

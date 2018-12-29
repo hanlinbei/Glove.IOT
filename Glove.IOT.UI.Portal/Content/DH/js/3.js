@@ -7,6 +7,7 @@ var UIdtable = new Array();//保存当前表格内数据是否被选中 在批�
 var DIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
 var Rid_Rolename = new Array();//保存UId 编辑的时候用
 var RId = 0;
+var userDetail = new FormData();
 layui.config({
     version: false //一般用于更新模块缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
     ,debug: false //用于开启调试模式，默认false，如果设为true，则JS模块的节点会保留在页面
@@ -1072,8 +1073,64 @@ function layerShowSearcholog(title, url, w, h, data) {
         skin: 'demo-class'
     });
 }
-
-
+function uploadDevicedetail(data) {
+    if (data === "get") {
+        $.post("/UserInfo/GetUserDetail", {}, function (data) {
+            console.log(data.RoleName);
+            if (data.Picture !== null) {
+                $('#Hportrait').attr('src', data.Picture);
+            }
+            $("input[name='MyRoleName']").val(data.RoleName);
+            $("input[name='MyUName']").val(data.UName);
+            if (data.Gender === '男') {
+                $("input[title='男']").attr('checked', true);
+            }
+            else if (data.Gender === '女') {
+                $("input[title='女']").attr('checked', true);
+            }
+            $("input[name='Pnumber']").val(data.Phone);
+            $("input[name='Email']").val(data.Email);
+            $("input[name='Remark']").val(data.Remark);
+            layui.use('form', function () {
+                var form = layui.form;
+                form.render();
+            });
+        })
+    }
+    else if (data === "upload") {
+        //头像文件在上传的时候已经添加
+        userDetail.append('RoleName', $('input[name="MyRoleName"]').val());
+        userDetail.append('UName', $('input[name="MyUName"]').val());
+        if ($('input:radio[title="男"]:checked').val() === 'true') {
+            console.log($('input:radio[title="男"]:checked').val());
+            userDetail.append('Gender', '男');
+        }
+        else if ($('input:radio[title="女"]:checked').val() === 'true') {
+            userDetail.append('Gender', '女');
+        }
+        else {
+            userDetail.append('Gender', '');
+        }
+        userDetail.append('Phone', $('input[name="Pnumber"]').val());
+        userDetail.append('Email', $('input[name="Email"]').val());
+        userDetail.append('Remark', $('input[name="Remark"]').val());
+        console.log(userDetail.getAll('Picture'));
+        $.ajax({
+            url: "/UserInfo/EditUserDetail",
+            type: "POST",
+            data: userDetail,
+            processData: false,  // 直接发送formdata格式要特殊处理 告诉jQuery不要去处理发送的数据
+            contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
+            success: function () {
+                userDetail = new FormData();//全部清空 释放旧的
+            }
+        });
+        //$.post("/UserInfo/EditUserDetail",  userDetail , function (data) {
+        //    userDetail = new FormData();//全部清空 释放旧的
+        //})
+    }
+}
+//日期表
 layui.use('laydate', function () {
     var laydate = layui.laydate;
 
@@ -1119,5 +1176,8 @@ $(document).ready(function () {
     });
     $("button[name='查找日志']").click(function () {
         layerShowSearcholog('查找日志', 'LayerSearcholog', 500, 450, "null");
+    });
+    $("button[name='确认修改']").click(function () {
+        uploadDevicedetail('upload');
     });
 });
