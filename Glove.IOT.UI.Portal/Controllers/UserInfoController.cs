@@ -32,7 +32,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
         
         /// <summary>
-        /// 获取用户所有信息
+        /// 获取用户基本信息
         /// </summary>
         /// <returns>Json数据</returns>
         public ActionResult GetAllUserInfos(string limit,string page,string schCode,string schRoleName)
@@ -82,6 +82,13 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
 
+        public ActionResult Userdetail()
+        {
+
+            var data = UserInfoService.GetUserDetailInfo(LoginInfo.UName);
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
 
         /// <summary>
         /// 添加用户

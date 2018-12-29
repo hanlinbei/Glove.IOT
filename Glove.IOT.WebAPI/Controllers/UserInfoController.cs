@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.IBLL;
+using Glove.IOT.WebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Glove.IOT.WebAPI.Controllers
     /// <summary>
     /// 测试API Test Client
     /// </summary>
+    [WebApiExceptionFilter]
+    //[RequestAuthorize]
     public class UserInfoController : ApiController
     {
       public IUserInfoService UserInfoService { get; set; }
@@ -32,6 +35,11 @@ namespace Glove.IOT.WebAPI.Controllers
           
             return "Success";
         }
+        [HttpGet]
+        public string GetAll()
+        {
 
+            throw new NotImplementedException("fjafjeoifj    ");
+        }
     }
 }

@@ -60,6 +60,12 @@ namespace Glove.IOT.BLL
 	
 	    
 		}
+	
+	    public partial class WarningInfoService : BaseService<WarningInfo>, IWarningInfoService
+        {
+	
+	    
+		}
 
 
 }

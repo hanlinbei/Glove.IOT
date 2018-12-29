@@ -48,6 +48,11 @@ namespace Glove.IOT.IDAL
     {
        
     }   
+	
+	public partial interface IWarningInfoDal : IBaseDal<WarningInfo>
+    {
+       
+    }   
 
 
 }
