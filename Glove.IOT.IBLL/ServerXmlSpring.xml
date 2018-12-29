@@ -16,5 +16,7 @@
 		   </object>
 		  <object name="UserInfoService" type="Glove.IOT.BLL.UserInfoService, Glove.IOT.BLL" singleton="false" >
 		   </object>
+		  <object name="WarningInfoService" type="Glove.IOT.BLL.WarningInfoService, Glove.IOT.BLL" singleton="false" >
+		   </object>
 
 </objects>

@@ -35,6 +35,28 @@ namespace Glove.IOT.BLL
         }
 
 
+        public UserInfoRoleInfo GetUserDetailInfo(string uName)
+        {
+
+            var temp = DbSession.UserInfoDal.GetEntities((u => u.IsDeleted == false&&u.UName==uName)).FirstOrDefault();
+            var roleId = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => (r.UserInfoId == temp.Id && r.IsDeleted == false)).FirstOrDefault();
+            var roleName = DbSession.RoleInfoDal.GetEntities(r => (r.Id == roleId.RoleInfoId && r.IsDeleted == false)).FirstOrDefault();
+            var data = new UserInfoRoleInfo
+            {
+                Email=temp.Email,
+                Gender= temp.Gender,
+                Phone= temp.Phone,
+                Picture=temp.Picture,
+                Remark= temp.Remark,
+                UCode= temp.UCode,
+                UName= temp.UName,
+                RoleName= roleName.RoleName
+            };
+            return data;
+
+        }
+
+
         /// <summary>
         /// 内连接查询
         /// </summary>
@@ -82,7 +104,6 @@ namespace Glove.IOT.BLL
 
 
 
-  
 
     }
 }

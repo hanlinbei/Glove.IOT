@@ -20,6 +20,8 @@ namespace Glove.IOT.IDAL
 		IRoleInfoDal RoleInfoDal { get; }
 	 
 		IUserInfoDal UserInfoDal { get; }
+	 
+		IWarningInfoDal WarningInfoDal { get; }
 	
 	}
 

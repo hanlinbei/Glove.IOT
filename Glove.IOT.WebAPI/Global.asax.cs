@@ -1,4 +1,5 @@
-﻿using Spring.Web.Mvc;
+﻿using Glove.IOT.WebAPI.Models;
+using Spring.Web.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,9 @@ namespace Glove.IOT.WebAPI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //从配置文件读取log4net的配置，然后进行一个初始化的工作
+            log4net.Config.XmlConfigurator.Configure();
+            GlobalConfiguration.Configuration.Filters.Add(new WebApiExceptionFilterAttribute());
         }
         public override void Init()
         {

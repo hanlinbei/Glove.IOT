@@ -33,5 +33,6 @@ namespace Glove.IOT.Model
         public DbSet<DeviceInfo> DeviceInfo { get; set; }
         public DbSet<DeviceParameterInfo> DeviceParameterInfo { get; set; }
         public DbSet<OperationLog> OperationLog { get; set; }
+        public DbSet<WarningInfo> WarningInfo { get; set; }
     }
 }

@@ -3,13 +3,45 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Scripts/Home/Index.js"></script>
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <link href="~/Content/theme/bootstrap.css" rel="stylesheet" />
+    <script>
+        $(function () {
+            $.ajax({
+                type: "get",
+                url: "http://localhost:63305/api/UserInfo/GetAllChargingData",
+                data: {},
+                beforeSend: function (XHR) {
+                    //发送ajax请求之前向http的head里面加入验证信息
+                    XHR.setRequestHeader('Authorization', 'BasicAuth ' + Ticket);
+                },
+                success: function (data, status) {
+                    if (status == "success") {
+                        $("#div_test").html(data);
+                    }
+                },
+                error: function (e) {
+                    $("#div_test").html("Error");
+                },
+                complete: function () {
+
+                }
+
+            });
+        });
+        </script>>
+    <script type="text/javascript">
+        //打开页面的时候保存票据信息
+        var UserName = '@ViewBag.UserName';
+        var Ticket = '@ViewBag.Ticket';
+    </script>
 </head>
 <body>
-    测试结果：
-    <div id="div_test"></div>
+    <div>当前登录用户：'@ViewBag.UserName'</div>
+
+    <div id="div_test">
+
+    </div>
 </body>
 </html>
 

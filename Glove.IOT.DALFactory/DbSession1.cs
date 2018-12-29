@@ -51,6 +51,11 @@ namespace Glove.IOT.DALFactory
 		 {
 			get { return StaticDalFactory.GetUserInfoDal(); }
 		 }
+	
+		 public IWarningInfoDal WarningInfoDal
+		 {
+			get { return StaticDalFactory.GetWarningInfoDal(); }
+		 }
 
 	}
 

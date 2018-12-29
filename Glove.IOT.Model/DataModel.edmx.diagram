@@ -17,7 +17,8 @@
         <EntityTypeShape EntityType="DataModel.DeviceInfo" Width="1.5" PointX="6.5" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.DeviceParameterInfo" Width="1.5" PointX="9.625" PointY="4.625" />
         <AssociationConnector Association="DataModel.DeviceInfoDeviceParameterInfo" />
-        <EntityTypeShape EntityType="DataModel.OperationLog" Width="1.5" PointX="1.875" PointY="5" />
+        <EntityTypeShape EntityType="DataModel.OperationLog" Width="1.5" PointX="1.875" PointY="5.5" />
+        <EntityTypeShape EntityType="DataModel.WarningInfo" Width="1.5" PointX="4.375" PointY="5.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

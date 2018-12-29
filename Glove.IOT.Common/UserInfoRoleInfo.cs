@@ -16,6 +16,10 @@ namespace Glove.IOT.Common
         public int UId { get; set; }
         public string UCode { get; set; }
         public string UName { get; set; }
+        public string Gender { get; set; }
+        public string Picture { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
         public bool  StatusFlag { get; set; }
         public string Remark { get; set; }
         public System.DateTime SubTime { get; set; }
