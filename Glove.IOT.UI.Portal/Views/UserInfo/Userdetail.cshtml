@@ -1,7 +1,6 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -22,6 +21,7 @@
     <![endif]-->
     <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/DH/css/layer.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
     <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
@@ -60,7 +60,7 @@
                     <ul class="nav navbar-nav navbar-right topbar-right">
                         <li><i class="iconfont icon-bell">&#xe6f1;</i></li>
                         <li><i class="iconfont icon-vline">&#xe63a;</i></li>
-                        <li><i ><a class="iconfont icon-user" href="../UserLogin/Index">&#xe638;</a></i></li>
+                        <li><i class="iconfont icon-user">&#xe638;</i></li>
                     </ul>
                 </div>
                 <!-- 最小宽度时出现汉堡菜单-->
@@ -84,15 +84,17 @@
             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
             <li class="layui-nav-item">
                 <a href="javascript:;">
+                    <i class="iconfont icon-machine">&#xe617;</i>
                     设备管理
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
+                    <i class="iconfont icon-machine">&#xe64a;</i>
                     班组管理
                     <span class="layui-nav-more"></span>
                 </a>
@@ -102,11 +104,13 @@
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
+                    <i class="iconfont icon-machine">&#xe6a8;</i>
                     报警处理
                 </a>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
+                    <i class="iconfont icon-machine">&#xe65b;</i>
                     系统管理
                     <span class="layui-nav-more"></span>
                 </a>
@@ -114,7 +118,6 @@
                     <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
                     <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
                     <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
-                    <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
                     <dd><a href="#">数据字典</a></dd>
                     <dd><a href="#">用户管理</a></dd>
                 </dl>
@@ -123,33 +126,82 @@
     </section>
     <section id="main">
         <div class="navigation">
-            <!-- 面包屑 -->
             <span class="layui-breadcrumb">
-                <a>设备管理</a>
-                <a href="Devicemanage"><cite>设备工作情况</cite></a>
+                <a>系统管理</a>
+                <a href=""><cite>个人资料</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
-        <div class="button">
-            <button class="layui-btn layui-btn-normal col-xs-1" name="添加设备">
-                <i class="iconfont icon-add">&#xe726;</i>
-                添加设备
-            </button>
-            <button class="layui-btn layui-btn-danger col-xs-1" name="删除设备">
-                <i class="iconfont icon-delete">&#xe62f;</i>
-                删除设备
-            </button>
-            <span class="col-xs-8"></span>
-            <button class="layui-btn col-xs-1" name="查找设备">
-                <i class="iconfont icon-seek">&#xe618;</i>
-                查找设备
-            </button>
-        </div>
-        <div class="table">
-            <div class="table-title">
-                设备管理
+        <div class="user-form-border">
+            <div class="user-form-title">
+                <p>个人资料</p>
             </div>
-            <table id="table_device" lay-filter="table_device" lay-data="{id: 'idTest'}"></table>
+            <div class="user-form">
+                <div class="layer-content">
+                    <form class="layui-form" lay-filter="userDetail" method="post" >
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">我的头像：</label>
+                            <div class="layui-input-block">
+                                <div style="display: inline-block;float:left;">
+                                    <img id="Hportrait" src="~/Content/DH/img/人物.png" width="80" height="80" alt="Head portrait" title="用户头像" />
+                                </div>
+                                <div class="user-form-btn-container">
+                                    <button class="layui-btn layui-btn-primary" id="upload" type="button">上传照片</button> @*原生按钮默认submit类型type="button"防止点击提交*@ 
+                                    <input type="file" id="chooseImage" name="file" style="display: none">
+                                </div>
+                                <div style="line-height: 20px;color: #999;padding: 30px 0px !important;width:250px;margin-left:220px;">头像格式必须为：png/jpg/jpeg</div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">我的角色：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="MyRoleName" readonly="readonly" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="user-form-tip">当前角色不可更改为其它角色</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户名：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="MyUName" readonly="readonly" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="user-form-tip">当前用户名不可更改</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">性别：</label>
+                            <div class="layui-input-block Userdelflag">
+                                <input type="radio" name="Sex" value=true title="男" lay-filter="Sex">
+                                <input type="radio" name="Sex" value=false title="女" lay-filter="Sex">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">手机：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="Pnumber" placeholder="请输入您的手机号码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">邮箱：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="Email" placeholder="请输您的邮箱地址" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">备注：</label>
+                                <div class="layui-input-textarea">
+                                    <textarea name="Remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-button">
+                                <button class="layui-btn" type="button" name="确认修改">确认修改</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
     <!-- 底部固定区域 -->
@@ -161,14 +213,42 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs a_disabled layui-btn-disabled a_disabled layui-btn-disabled" lay-event="detail" name="查看">查看</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs a_disabled layui-btn-disabled" lay-event="del" name="删除">删除</a>
+        <a class="layui-btn layui-btn-xs layui-btn-disabled a_disabled" lay-event="edit" name="编辑">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled a_disabled" lay-event="del" name="删除">删除</a>
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
-        $('button').addClass('layui-btn-disabled');
-        $('button').attr('disabled', 'disabled');
-        //Power('device');
+        //获取数据
+        uploadDevicedetail('get');
+
+        $("#upload").click(function () {
+            $('#chooseImage').click();
+        })
+        $('#chooseImage').on('change', function (data) {
+            var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
+                fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),//获取文件后缀名
+                src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
+                //src = window.URL.createObjectURL(data.target.files[0]); //同理都可以获取文件
+            if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
+                //error_prompt_alert('上传错误,文件格式必须为：png/jpg/jpeg');
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">文件格式错误</span>', {
+                        time: 2000,
+                        area: ['200px', '100px'],
+                        shade: 0.4,
+                        shadeClose: true
+                    });
+                });
+                return;
+            }
+            $('#Hportrait').attr('src', src);
+            userDetail.delete('Picture');//清空
+            userDetail.append('Picture', data.target.files[0]); 
+            console.log(this.files[0]);
+            console.log(data.target.files[0]);
+        });
+
     </script>
 
 </body>

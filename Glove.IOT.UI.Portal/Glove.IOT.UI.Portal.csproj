@@ -205,9 +205,11 @@
     <Content Include="Content\DH\img\c_06.jpg" />
     <Content Include="Content\DH\img\favicon.ico" />
     <Content Include="Content\DH\img\LOGO.png" />
+    <Content Include="Content\DH\img\人物.png" />
     <Content Include="Content\DH\img\手套机2.jpg" />
     <Content Include="Content\DH\img\验证码.png" />
     <Content Include="Content\DH\js\3.js" />
+    <Content Include="Content\DH\lib\echarts\echarts.js" />
     <Content Include="Content\DH\lib\layui\css\layui.css" />
     <Content Include="Content\DH\lib\layui\layui.js" />
     <Content Include="Content\DH\lib\bootstrap\css\bootstrap-theme.css" />
@@ -1800,6 +1802,7 @@
     <Content Include="Views\Device\LayerSearchdevice.cshtml" />
     <Content Include="Views\OperationLog\Operationlog.cshtml" />
     <Content Include="Views\OperationLog\LayerSearcholog.cshtml" />
+    <Content Include="Views\Device\test.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\LayerSearchuser.cshtml" />
@@ -1828,6 +1831,7 @@
     </Content>
     <Content Include="Views\UserInfo\LayerAdduser.cshtml" />
     <Content Include="Views\RoleInfo\Userpower.cshtml" />
+    <Content Include="Views\UserInfo\Userdetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

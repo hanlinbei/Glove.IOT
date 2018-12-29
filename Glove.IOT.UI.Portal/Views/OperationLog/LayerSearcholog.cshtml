@@ -35,21 +35,40 @@
         <div class="layer-content">
             <div class="layui-form">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">设备ID：</label>
+                    <label class="layui-form-label"><span style="color:red">*</span>时间范围：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="DeviceId" required lay-verify="required" placeholder="请输入要查找的设备ID" autocomplete="off" class="layui-input">
+                        <input name="FirstTime" type="text" class="layui-input" id="date1" autocomplete="off" placeholder="请输入搜索的时间"><!-- 不要缓存 -->
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">运行状态：</label>
+                    <label class="layui-form-label">~</label>
                     <div class="layui-input-block">
-                        <select name="StatusFlag" lay-verify="required">
-                            <option value="">请选择一种运行状态</option>
-                            <option value="0">关机中</option>
-                            <option value="1">运行中</option>
-                            <option value="2">暂停中</option>
-                            <option value="3">故障中</option>
-                            <option value="4">未连接</option>
+                        <input name="LastTime" type="text" class="layui-input" id="date2" autocomplete="off" placeholder="请输入搜索的时间">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">员工姓名：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="UName" placeholder="请输入要查找的员工姓名" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">操作功能：</label>
+                    <div class="layui-input-block">
+                        <select name="ActionType" lay-filter="ActionType">
+                            <option value="">请选择要查找的操作功能</option>
+                            <option value="设备管理">设备管理</option>
+                            <option value="人员管理">人员管理</option>
+                            <option value="报警管理">报警管理</option>
+                            <option value="系统管理">系统管理</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">操作类型：</label>
+                    <div class="layui-input-block">
+                        <select name="ActionName" lay-filter="ActionName" id="at">
+                            <option value="">请先选择要查找的操作功能</option>
                         </select>
                     </div>
                 </div>
@@ -59,7 +78,56 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
     <script src="~/Content/DH/js/3.js"></script>
+    <script>
+        $('input[name="FirstTime"]').focus(function () {
+            $('input[name="FirstTime"]').removeClass("red");
+            $('input[name="FirstTime"]').attr('placeholder', '请输入搜索的时间');
+        })
+        $('input[name="LastTime"]').focus(function () {
+            $('input[name="LastTime"]').removeClass("red");
+            $('input[name="LastTime"]').attr('placeholder', '请输入搜索的时间');
+        })
+        layui.use('form', function () {//操作功能选择后 变化
+            var form = layui.form;
+            form.on('select(ActionType)', function (data) {
+                if (data.value === "设备管理") {
+                    $('select[name="ActionName"]').empty(); //删除Select中的选项
+                    $('select[name="ActionName"]').append('<option value="">请选择要查找的操作功能</option>');
+                    $('select[name="ActionName"]').append('<option value="查看设备">查看设备</option>');
+                    $('select[name="ActionName"]').append('<option value="删除设备">删除设备</option>');
+                    $('select[name="ActionName"]').append('<option value="添加设备">添加设备</option>');
+                    $('select[name="ActionName"]').append('<option value="查找设备">查找设备</option>');
+                    $('input[name="ActionName"]').attr('placeholder', '请选择要查找的操作功能');
+                }
+                else if (data.value === "人员管理") {
+                    $('select[name="ActionName"]').empty(); //删除Select中的选项
+                    $('select[name="ActionName"]').append('<option value="">请选择要查找的操作功能</option>');
+                    $('select[name="ActionName"]').append('<option value="人员查看">人员查看</option>');
+                    $('select[name="ActionName"]').append('<option value="人员删除">人员删除</option>');
+                }
+                else if (data.value === "报警管理") {
+                    $('select[name="ActionName"]').empty(); //删除Select中的选项
+                    $('select[name="ActionName"]').append('<option value="">请选择要查找的操作功能</option>');
+                    $('select[name="ActionName"]').append('<option value="报警查看">报警查看</option>');
+                    $('select[name="ActionName"]').append('<option value="报警删除">报警删除</option>');
+                }
+                else if (data.value === "系统管理") {
+                    $('select[name="ActionName"]').empty(); //删除Select中的选项
+                    $('select[name="ActionName"]').append('<option value="">请选择要查找的操作功能</option>');
+                    $('select[name="ActionName"]').append('<option value="编辑员工">编辑员工</option>');
+                    $('select[name="ActionName"]').append('<option value="删除员工">删除员工</option>');
+                    $('select[name="ActionName"]').append('<option value="添加员工">添加员工</option>');
+                    $('select[name="ActionName"]').append('<option value="查找员工">查找员工</option>');
+                }
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render('select');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
