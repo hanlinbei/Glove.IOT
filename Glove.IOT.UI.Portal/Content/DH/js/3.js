@@ -278,7 +278,7 @@ function layerShowEdituser(title, url, w, h, data) {
             var body = layer.getChildFrame('body', index);
             $(body).find('input[name="UName"]').attr("value", data.UName);//输入父页面的姓名
             $(body).find('input[name="UCode"]').attr("value", data.UCode);//输入父页面的角色编码
-            $(body).find('textarea[name="Remark"]').val(data.Remark);//输入父页面的描述 
+            $(body).find('textarea[name="Remark"]').val(data.Remark);//输入父页面的备注
             if (data.StatusFlag == "无效") {//输入父页面的角色状态
                 $(body).find('input[title="有效"]').attr('checked', false);
                 $(body).find('input[title="无效"]').attr('checked', true);
