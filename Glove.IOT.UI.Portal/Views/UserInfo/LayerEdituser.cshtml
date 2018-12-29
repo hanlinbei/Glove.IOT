@@ -34,19 +34,19 @@
         <div class="layer-content">
             <form class="layui-form" action="">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">员工名字：</label>
+                    <label class="layui-form-label"><span style="color:red">*</span>员工名字：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="UName" required lay-verify="required" placeholder="只允许输入英文+数字" autocomplete="off" class="layui-input">
+                        <input type="text" name="UName" required lay-verify="required" placeholder="请输入员工名字" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">员工编码：</label>
+                    <label class="layui-form-label"><span style="color:red">*</span>员工编码：</label>
                     <div class="layui-input-block">
                         <input type="text" name="UCode" required lay-verify="required" placeholder="请输入员工编码" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">角色类型：</label>
+                    <label class="layui-form-label"><span style="color:red">*</span>角色类型：</label>
                     <div class="layui-input-block">
                         <select name="RoleName" lay-verify="required">
                             @*<option value="超级管理员">超级管理员</option>
@@ -58,14 +58,14 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">描述：</label>
+                        <label class="layui-form-label">备注：</label>
                         <div class="layui-input-block">
                             <textarea name="Remark" placeholder="请输入内容" class="layui-textarea"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">角色状态：</label>
+                    <label class="layui-form-label"><span style="color:red">*</span>角色状态：</label>
                     <div class="layui-input-block">
                         <input type="radio" name="StatusFlag" value=true title="有效">
                         <input type="radio" name="StatusFlag" value=false title="无效">
@@ -93,6 +93,18 @@
     <script src="~/Content/DH/js/3.js"></script>
     <script>
         getRolename();
+        $('input[name="UName"]').focus(function () {
+            $('input[name="UName"]').removeClass("red");
+            $('input[name="UName"]').attr('placeholder', '请输入员工名字');
+        })
+        $('input[name="UCode"]').focus(function () {
+            $('input[name="UCode"]').removeClass("red");
+            $('input[name="UCode"]').attr('placeholder', '请输入员工编码');
+        })
+        $('input[name="Pwd"]').focus(function () {
+            $('input[name="Pwd"]').removeClass("red");
+            $('input[name="Pwd"]').attr('placeholder', '请输入员工密码');
+        })
     </script>
 </body>
 </html>

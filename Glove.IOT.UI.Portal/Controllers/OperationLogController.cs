@@ -48,5 +48,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult LayerSearcholog()
+        {
+            return View();
+        }
     }
 }

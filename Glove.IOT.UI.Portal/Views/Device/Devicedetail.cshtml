@@ -244,27 +244,29 @@
             xhr.onreadystatechange = function () {
                 if (this.readyState !== 4) return; 
                 var deviceInfos = eval("(" + this.responseText + ")");//JSON.parse安全
-                $('input[name="设备ID"]').val(deviceInfos[0].DeviceId);
-                if (deviceInfos[0].StatusFlag === "0")
+                console.log(deviceInfos);
+                console.log(deviceInfos.deviceParameter[0].DeviceId);
+               
+                $('input[name="设备ID"]').val(deviceInfos.deviceParameter[0].DeviceId);
+                if (deviceInfos.deviceParameter[0].StatusFlag === "关机中")
                     $('input[name="运行状态"]').val("关机中");
-                else if (deviceInfos[0].StatusFlag === "1")
+                else if (deviceInfos.deviceParameter[0].StatusFlag === "运行中")
                     $('input[name="运行状态"]').val("运行中");
-                else if (deviceInfos[0].StatusFlag === "2")
+                else if (deviceInfos.deviceParameter[0].StatusFlag === "暂停中")
                     $('input[name="运行状态"]').val("暂停中");
-                else if (deviceInfos[0].StatusFlag === "3")
+                else if (deviceInfos.deviceParameter[0].StatusFlag === "故障中")
                     $('input[name="运行状态"]').val("故障中");
-                else if (deviceInfos[0].StatusFlag === "未连接")
+                else if (deviceInfos.deviceParameter[0].StatusFlag === "未连接")
                     $('input[name="运行状态"]').val("未连接");
                 //解析时间
-                console.log(deviceInfos[0].StartTime);
-                var StartTime = (eval(deviceInfos[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
-                var StopTime = (eval(deviceInfos[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                var StartTime = (eval(deviceInfos.deviceParameter[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                var StopTime = (eval(deviceInfos.deviceParameter[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
                 $('input[name="运行时间"]').val(StartTime);
                 $('input[name="停机时间"').val(StopTime);
-                $('input[name="目标产量"').val(deviceInfos[0].TargetOutput);
-                //$('textarea[name="历史记录"]').val(deviceInfos[0].DeviceId);
-                $('p[name="单个进度"').text(deviceInfos[0].SingleProgress + '%');
-                $('p[name="整体进度"').text(Math.floor((deviceInfos[0].NowOutput / deviceInfos[0].TargetOutput) * 100) + '%');
+                $('input[name="目标产量"').val(deviceInfos.deviceParameter[0].TargetOutput);
+                $('textarea[name="历史记录"]').val(deviceInfos.parameterHistory[0].DeviceId);
+                $('p[name="单个进度"').text(deviceInfos.deviceParameter[0].SingleProgress + '%');
+                $('p[name="整体进度"').text(Math.floor((deviceInfos.deviceParameter[0].NowOutput / deviceInfos.deviceParameter[0].TargetOutput) * 100) + '%');
             };
         }
     </script>

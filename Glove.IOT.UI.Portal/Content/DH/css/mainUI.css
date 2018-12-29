@@ -43,8 +43,8 @@
   } 
    
 .btn-glove .badge { 
-color: #E92322; 
-background-color: #ffffff; 
+    color: #E92322; 
+    background-color: #ffffff; 
 }
 
 .navbar-glove {
@@ -162,7 +162,7 @@ body {
 
 /*字体图标设置 字体图标就是制作一种字体但都是图标 优点：容量小 矢量 可以改变颜色大小*/
 @font-face{
-    font-family: 'iconfont';/*自己定义一个名为 微金所 的字体*/
+    font-family: 'iconfont';/*自己定义一个名为 iconfont 的字体*/
     src:url('../font/iconfont/iconfont.eot');
     src: url('../font/iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
     url('../font/iconfont/iconfont.woff') format('woff'),
@@ -202,10 +202,15 @@ body {
     color: #fff;
     vertical-align:middle;
 }
-.icon-aside-top-user{
+.icon-machine {
+    font-size: 30px;
+    color: #fff;
+    vertical-align: middle;
+}
+.icon-aside-top-user {
     font-size: 50px;
     color: #fff;
-    vertical-align:middle; 
+    vertical-align: middle;
 }
 .icon-add{
     font-size: 20px;
@@ -379,8 +384,72 @@ margin-top:70px;  */
     font-size: 30px;
     z-index: 3000;
 }
-
-    /*#main .table .layer {
+#main .user-form-border {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    width: 100%;
+    padding: 10px 15px;
+}
+#main .user-form-title {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 40px;
+    background-color: #fff;
+    font-size: 20px;
+    line-height: 40px;
+    vertical-align: middle;
+    padding-left: 20px;
+    border-bottom: 0.5px solid #009688;
+}
+#main .user-form {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    padding:20px 30px;
+    background-color: #fff;
+}
+#main .user-form-tip {
+    position: relative;
+    float: left;
+    display: block;
+    padding: 9px 0px !important;
+    line-height: 20px;
+    margin-right: 10px;
+    color: #999;
+}
+    #main .layui-input-block {
+        position: relative;
+        float: left;
+        width: 300px; /*右边的框*/
+        margin-left: 0px;
+        margin-right: 10px;
+        display: block;
+        vertical-align: middle;
+    }
+    #main .layui-input-textarea {
+        position: relative;
+        float: left;
+        width: 600px; /*右边的框*/
+        margin-left: 0px;
+        margin-right: 10px;
+        display: block;
+        vertical-align: middle;
+    }
+#main .layui-input-button {
+    margin-left:110px;
+}
+    #main .user-form-btn-container {
+        display: block;
+        float: left;
+        vertical-align: middle;
+        line-height: 80px;
+        margin-left: 20px;
+    }
+        /*#main .table .layer {
     display: none;
     position: fixed;
     top: 20%;
@@ -414,7 +483,7 @@ margin-top:70px;  */
     width: inherit;
     padding: 10px 20px;
 }*/
-#footer{
+        #footer{
     position: fixed; 
     left: 200px; 
     right: 0; 

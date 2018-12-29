@@ -82,13 +82,14 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
 
-        public ActionResult Userdetail()
+        public ActionResult GetUserdetail()
         {
 
             var data = UserInfoService.GetUserDetailInfo(LoginInfo.UName);
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
+
 
         /// <summary>
         /// 添加用户
@@ -294,6 +295,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
-     
+        public ActionResult Userdetail()
+        {
+            return View();
+        }
     }
 }
