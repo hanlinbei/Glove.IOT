@@ -99,21 +99,21 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult EditUserDetail( )
         {
-            UserInfo userInfo = new UserInfo
-            {
-                SubTime = DateTime.Now
-            };
-            userInfo.Email = Request["Email"];
-            userInfo.Gender = Request["Gender"];
-            userInfo.Phone = Request["Phone"];
-            userInfo.Remark = Request["Remark"];
-            userInfo.UCode = Request["UCode"];
-            userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).Select(u => u.Pwd).FirstOrDefault();
-            var file = Request.Files["fileMenuIcon"];
+            //UserInfo userInfo = new UserInfo
+            //{
+            //    SubTime = DateTime.Now
+            //};
+            //userInfo.Email = Request["Email"];
+            //userInfo.Gender = Request["Gender"];
+            //userInfo.Phone = Request["Phone"];
+            //userInfo.Remark = Request["Remark"];
+            //userInfo.UCode = Request["UCode"];
+            //userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).Select(u => u.Pwd).FirstOrDefault();
+            var file = Request.Files["file"];
             string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + file.FileName;
             file.SaveAs(Request.MapPath(path));
-            userInfo.Picture = path;
-            UserInfoService.Update(userInfo);
+            //userInfo.Picture = path;
+            //UserInfoService.Update(userInfo);
             return Content("ok");
 
         }
@@ -336,6 +336,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
-     
+        public ActionResult Userdetail()
+        {
+            return View();
+        }
     }
 }

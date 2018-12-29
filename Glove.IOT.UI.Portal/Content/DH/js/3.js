@@ -1114,20 +1114,20 @@ function uploadDevicedetail(data) {
         userDetail.append('Phone', $('input[name="Pnumber"]').val());
         userDetail.append('Email', $('input[name="Email"]').val());
         userDetail.append('Remark', $('input[name="Remark"]').val());
-        console.log(userDetail.getAll('Picture'));
-        $.ajax({
-            url: "/UserInfo/EditUserDetail",
-            type: "POST",
-            data: userDetail,
-            processData: false,  // 直接发送formdata格式要特殊处理 告诉jQuery不要去处理发送的数据
-            contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
-            success: function () {
-                userDetail = new FormData();//全部清空 释放旧的
-            }
-        });
-        //$.post("/UserInfo/EditUserDetail",  userDetail , function (data) {
-        //    userDetail = new FormData();//全部清空 释放旧的
-        //})
+        //console.log(userDetail.getAll('Picture'));
+        //$.ajax({
+        //    url: "/UserInfo/EditUserDetail",
+        //    type: "POST",
+        //    data: userDetail,
+        //    processData: false,  // 直接发送formdata格式要特殊处理 告诉jQuery不要去处理发送的数据
+        //    contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
+        //    success: function () {
+        //        userDetail = new FormData();//全部清空 释放旧的
+        //    }
+        //});
+        $.post("/UserInfo/EditUserDetail", { 'Picture':$('#chooseImage').val()} , function (data) {
+            //userDetail = new FormData();//全部清空 释放旧的
+        })
     }
 }
 //日期表
@@ -1178,6 +1178,11 @@ $(document).ready(function () {
         layerShowSearcholog('查找日志', 'LayerSearcholog', 500, 450, "null");
     });
     $("button[name='确认修改']").click(function () {
-        uploadDevicedetail('upload');
+        $("form").ajaxSubmit({
+
+            url: "/UserInfo/EditUserDetail",
+            type:"POST",
+        })
     });
+   
 });
