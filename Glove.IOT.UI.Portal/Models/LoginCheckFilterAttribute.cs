@@ -11,18 +11,14 @@ namespace Glove.IOT.UI.Portal.Models
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-           
             bool isAnoy = filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true) ||
                    filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true);
             var identity = filterContext.HttpContext.User.Identity;
             if (!isAnoy && !identity.IsAuthenticated)
             {
-               
-              
-                    FormsAuthentication.RedirectToLoginPage();
-
-                
+                FormsAuthentication.RedirectToLoginPage();
             }
+          
         }
 
     }
