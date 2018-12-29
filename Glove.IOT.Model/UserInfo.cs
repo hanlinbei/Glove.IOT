@@ -26,10 +26,15 @@ namespace Glove.IOT.Model
         public string UCode { get; set; }
         public string UName { get; set; }
         public string Pwd { get; set; }
+        public string Remark { get; set; }
+        public string Gender { get; set; }
+        public string Picture { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
         public bool StatusFlag { get; set; }
         public bool IsDeleted { get; set; }
-        public string Remark { get; set; }
         public System.DateTime SubTime { get; set; }
+    
         public virtual ICollection<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
     }
 }

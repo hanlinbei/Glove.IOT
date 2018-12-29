@@ -40,6 +40,10 @@ namespace Glove.IOT.IBLL
 		public partial interface IUserInfoService:IBaseService<UserInfo>
         {
         }
+	
+		public partial interface IWarningInfoService:IBaseService<WarningInfo>
+        {
+        }
 
 
 }

@@ -63,6 +63,12 @@ namespace Glove.IOT.DALFactory
             return Assembly.Load(assemblyName).CreateInstance(assemblyName+".UserInfoDal")
                  as IUserInfoDal;
         }
+	
+		public static IWarningInfoDal GetWarningInfoDal()
+        {                
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".WarningInfoDal")
+                 as IWarningInfoDal;
+        }
 
 	}
 

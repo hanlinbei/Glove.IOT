@@ -12,7 +12,7 @@ namespace Glove.IOT.IBLL
     {
         IQueryable<UserInfo>  LoagPageData(Model.Param.UserQueryParam userQueryParam);
         IQueryable<UserInfoRoleInfo> LoagUserPageData(Model.Param.UserQueryParam userQueryParam);
+        UserInfoRoleInfo GetUserDetailInfo(string Uname);
 
-   
     }
 }

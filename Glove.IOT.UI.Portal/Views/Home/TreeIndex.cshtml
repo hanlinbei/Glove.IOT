@@ -13,7 +13,7 @@
                    data: { strUser: $("#txt_username").val(), strPwd: $("#txt_password").val() },
                    success: function (data, status) {
                    if (status == "success") {
-                       if (!data.bRes) {
+                       if (!data.BRes) {
                          alert("登录失败");
                          return;
                        }

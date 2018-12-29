@@ -51,6 +51,11 @@ namespace Glove.IOT.EFDAL
     {
 
 	}
+	
+	public partial class WarningInfoDal:BaseDal<WarningInfo>,IWarningInfoDal
+    {
+
+	}
 
 
 }

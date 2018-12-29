@@ -2,6 +2,7 @@
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Data.Objects;
@@ -45,7 +46,7 @@ namespace Glove.IOT.BLL
             return query;
 
         }
-
+        
          public IQueryable<DeviceParameter> GetHistoryParameter(string deviceId)
          {
             var deviceParameterInfo = DbSession.DeviceParameterInfoDal.GetEntities(d => true);

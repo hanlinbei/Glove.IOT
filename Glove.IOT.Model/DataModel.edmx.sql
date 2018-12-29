@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/22/2018 20:13:18
+-- Date Created: 12/29/2018 15:36:06
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -58,6 +58,12 @@ GO
 IF OBJECT_ID(N'[dbo].[DeviceParameterInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[DeviceParameterInfo];
 GO
+IF OBJECT_ID(N'[dbo].[OperationLog]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[OperationLog];
+GO
+IF OBJECT_ID(N'[dbo].[WarningInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[WarningInfo];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -69,9 +75,13 @@ CREATE TABLE [dbo].[UserInfo] (
     [UCode] nvarchar(32)  NOT NULL,
     [UName] nvarchar(32)  NULL,
     [Pwd] nvarchar(64)  NOT NULL,
+    [Remark] nvarchar(256)  NULL,
+    [Gender] nvarchar(64)  NULL,
+    [Picture] nvarchar(512)  NULL,
+    [Phone] nvarchar(256)  NULL,
+    [Email] nvarchar(max)  NULL,
     [StatusFlag] bit  NOT NULL,
     [IsDeleted] bit  NOT NULL,
-    [Remark] nvarchar(256)  NULL,
     [SubTime] datetime  NOT NULL
 );
 GO
@@ -153,6 +163,18 @@ CREATE TABLE [dbo].[OperationLog] (
 );
 GO
 
+-- Creating table 'WarningInfo'
+CREATE TABLE [dbo].[WarningInfo] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DeviceId] nvarchar(256)  NOT NULL,
+    [WarningMessage] nvarchar(256)  NOT NULL,
+    [StartTime] datetime  NULL,
+    [StopTime] datetime  NULL,
+    [IsDeleted] bit  NOT NULL,
+    [SubTime] datetime  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -202,6 +224,12 @@ GO
 -- Creating primary key on [Id] in table 'OperationLog'
 ALTER TABLE [dbo].[OperationLog]
 ADD CONSTRAINT [PK_OperationLog]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'WarningInfo'
+ALTER TABLE [dbo].[WarningInfo]
+ADD CONSTRAINT [PK_WarningInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

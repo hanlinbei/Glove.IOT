@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using Glove.IOT.WebAPI.Models;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Glove.IOT.WebAPI
