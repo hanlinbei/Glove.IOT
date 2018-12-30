@@ -1,5 +1,6 @@
 ﻿using Glove.IOT.IBLL;
 using Glove.IOT.Model.Param;
+using Glove.IOT.UI.Portal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
+    [LoginCheckFilter]
     public class OperationLogController : BaseController
     {
         public IOperationLogService OperationLogService { get; set; }

@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
+    [LoginCheckFilter]
     public class UserInfoController : BaseController
     {
         // GET: UserInfo
@@ -30,12 +31,12 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
-        
+
         /// <summary>
         /// 获取用户基本信息
         /// </summary>
         /// <returns>Json数据</returns>
-        public ActionResult GetAllUserInfos(string limit,string page,string schCode,string schRoleName)
+        public ActionResult GetAllUserInfos(string limit, string page, string schCode, string schRoleName)
         {
             //jquery easyui:table:{total:32,row:[{},{}]}
             // easyui:table 在初始化的时候自动发送以下俩个参数值
@@ -51,10 +52,10 @@ namespace Glove.IOT.UI.Portal.Controllers
                 SchRoleName = schRoleName,
                 Total = 0,
             };
-         
+
             var pageData = UserInfoService.LoagUserPageData(queryParam).ToList();
-            var data = new { code=0,msg="",count = queryParam.Total, data = pageData.ToList() };
-            if (!string.IsNullOrEmpty(schCode)||!string.IsNullOrEmpty(schRoleName))
+            var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
+            if (!string.IsNullOrEmpty(schCode) || !string.IsNullOrEmpty(schRoleName))
             {
                 //写操作日志
                 OperationLog operationLog = new OperationLog
@@ -77,16 +78,43 @@ namespace Glove.IOT.UI.Portal.Controllers
                 OperationLogService.Add(operationLog);
 
             }
-     
+
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
-
-        public ActionResult GetUserdetail()
+       /// <summary>
+       /// 获取用户详细信息
+       /// </summary>
+       /// <returns></returns>
+        public ActionResult GetUserDetail()
         {
-
             var data = UserInfoService.GetUserDetailInfo(LoginInfo.UName);
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 编辑用户详细信息
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        public ActionResult EditUserDetail( )
+        {
+            //UserInfo userInfo = new UserInfo
+            //{
+            //    SubTime = DateTime.Now
+            //};
+            //userInfo.Email = Request["Email"];
+            //userInfo.Gender = Request["Gender"];
+            //userInfo.Phone = Request["Phone"];
+            //userInfo.Remark = Request["Remark"];
+            //userInfo.UCode = Request["UCode"];
+            //userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).Select(u => u.Pwd).FirstOrDefault();
+            var file = Request.Files["Picture"];
+            string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + file.FileName;
+            file.SaveAs(Request.MapPath(path));
+            //userInfo.Picture = path;
+            //UserInfoService.Update(userInfo);
+            return Content("ok");
 
         }
         public ActionResult EditUserDetail()
@@ -275,7 +303,20 @@ namespace Glove.IOT.UI.Portal.Controllers
             }
 
          }
+        /// <summary>
+        /// 上传图片处理
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UploadImage()
+        {
+            var file = Request.Files["fileMenuIcon"];
 
+            string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + file.FileName;
+
+            file.SaveAs(Request.MapPath(path));
+
+            return Content(path);
+        }
 
         public ActionResult t()
         {

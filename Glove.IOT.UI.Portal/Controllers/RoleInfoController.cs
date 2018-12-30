@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
+    [LoginCheckFilter]
     public class RoleInfoController : BaseController
     {
         // GET: RoleInfo
