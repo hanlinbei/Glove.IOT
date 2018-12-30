@@ -99,6 +99,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult EditUserDetail( )
         {
+            var user = UserInfoService.GetEntities(u => u.UName == LoginInfo.UName).FirstOrDefault();
             UserInfo userInfo = new UserInfo
             {
                 SubTime = DateTime.Now
@@ -108,23 +109,21 @@ namespace Glove.IOT.UI.Portal.Controllers
             userInfo.Phone = Request["Phone"];
             userInfo.Remark = Request["Remark"];
             userInfo.UCode = Request["UCode"];
-            userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).Select(u => u.Pwd).FirstOrDefault();
+            userInfo.Pwd = user.Pwd;
+            userInfo.UCode = user.UCode;
+            userInfo.UName = user.UName;
             var file = Request.Files["Picture"];
-            string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + 1;
+            string fileName = file.FileName;
+            fileName = fileName.Substring(fileName.LastIndexOf("\\") + 1,fileName.Length- fileName.LastIndexOf("\\")-1);
+            string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + fileName;
             file.SaveAs(Request.MapPath(path));
-            userInfo.Id = LoginInfo.Id;
             userInfo.Picture = path;
+            userInfo.Id =user.Id;
             UserInfoService.Update(userInfo);
             return Content("ok");
 
         }
-        //public ActionResult EditUserDetail()
-        //{
 
-        //    var data = UserInfoService.GetUserDetailInfo(LoginInfo.UName);
-        //    return Json(data, JsonRequestBehavior.AllowGet);
-
-        //}
 
         /// <summary>
         /// 添加用户
