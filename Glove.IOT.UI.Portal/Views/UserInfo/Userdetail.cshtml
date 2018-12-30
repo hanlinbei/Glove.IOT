@@ -24,6 +24,32 @@
     <link href="~/Content/DH/css/layer.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
+    <style>
+        .phoneerror {
+            position: absolute;
+            top: 288px;
+            left: 446px;
+            height: 38px;
+            width: 150px;
+            line-height: 38px;
+            text-align: center;
+            vertical-align: middle;
+            color: #f00;
+            display: none;
+        }
+        .emailerror {
+            position: absolute;
+            top: 346px;
+            left: 446px;
+            height: 38px;
+            width: 150px;
+            line-height: 38px;
+            text-align: center;
+            vertical-align: middle;
+            color: #f00;
+            display: none;
+        }
+    </style>
     <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
 <body>
@@ -84,8 +110,8 @@
             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <i class="iconfont icon-machine">&#xe617;</i>
-                    设备管理
+                    <i class="iconfont icon-machine">&#xe6a3;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">设备管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
@@ -94,8 +120,8 @@
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <i class="iconfont icon-machine">&#xe64a;</i>
-                    班组管理
+                    <i class="iconfont icon-class">&#xe64a;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">班组管理</span>                  
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
@@ -104,20 +130,21 @@
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <i class="iconfont icon-machine">&#xe6a8;</i>
-                    报警处理
+                    <i class="iconfont icon-alarm">&#xe6a8;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警处理</span>       
                 </a>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <i class="iconfont icon-machine">&#xe65b;</i>
-                    系统管理
+                    <i class="iconfont icon-gear">&#xe65b;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">系统管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
                     <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
                     <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
+                    <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
                     <dd><a href="#">数据字典</a></dd>
                     <dd><a href="#">用户管理</a></dd>
                 </dl>
@@ -169,8 +196,8 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">性别：</label>
                             <div class="layui-input-block Userdelflag">
-                                <input type="radio" name="Gender" value=true title="男" lay-filter="Sex">
-                                <input type="radio" name="Gender" value=false title="女" lay-filter="Sex">
+                                <input type="radio" name="Gender" value="男" title="男" lay-filter="Sex">
+                                <input type="radio" name="Gender" value="女" title="女" lay-filter="Sex">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -198,6 +225,12 @@
                                 <button class="layui-btn" type="button" name="确认修改">确认修改</button>
                                 <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
                             </div>
+                        </div>
+                        <div class="phoneerror">
+                            <p>请输入正确的手机号码</p>
+                        </div>
+                        <div class="emailerror">
+                            <p>请输入正确的邮箱地址</p>
                         </div>
                     </form>
                 </div>
@@ -239,7 +272,6 @@
                 src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
             //src = window.URL.createObjectURL(data.target.files[0]); //同理都可以获取文件
             if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
-                //error_prompt_alert('上传错误,文件格式必须为：png/jpg/jpeg');
                 layui.use('layer', function () {
                     var layer = layui.layer;
                     layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">文件格式错误</span>', {
@@ -251,13 +283,9 @@
                 });
                 return;
             }
-
             $('#Hportrait').attr('src', src);
             userDetail.delete('Picture');//清空
             userDetail.append('Picture', data.target.files[0]);
-            //userDetail = data.target.files[0];
-            console.log(this.files[0]);
-            console.log(data.target.files[0]);
         });
 
     </script>

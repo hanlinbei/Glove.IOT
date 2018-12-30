@@ -203,7 +203,22 @@ body {
     vertical-align:middle;
 }
 .icon-machine {
-    font-size: 30px;
+    font-size: 23px;
+    color: #fff;
+    vertical-align: middle;
+}
+.icon-class {
+    font-size: 24px;
+    color: #fff;
+    vertical-align: middle;
+}
+.icon-alarm {
+    font-size: 24px;
+    color: #fff;
+    vertical-align: middle;
+}
+.icon-gear {
+    font-size: 24px;
     color: #fff;
     vertical-align: middle;
 }

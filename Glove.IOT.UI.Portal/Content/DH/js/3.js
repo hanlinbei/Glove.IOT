@@ -8,6 +8,8 @@ var DIdtable = new Array();//保存当前表格内数据是否被选中 在批�
 var Rid_Rolename = new Array();//保存UId 编辑的时候用
 var RId = 0;
 var userDetail = new FormData();
+var name;
+var tPicture;
 //var userDetail;
 layui.config({
     version: false //一般用于更新模块缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
@@ -38,6 +40,7 @@ function send() {
             vCode: $("input[name='vCode']").val()
         }, function (data) {
             if (data === 'OK') {
+                
                 window.location.href = '../Device/Devicemanage';
             }
             else if (data === '验证码错误!') {
@@ -1077,7 +1080,7 @@ function layerShowSearcholog(title, url, w, h, data) {
 function uploadDevicedetail(data) {
     if (data === "get") {
         $.post("/UserInfo/GetUserDetail", {}, function (data) {
-            console.log(data.RoleName);
+            console.log(data.Phone);
             if (data.Picture !== null) {
                 $('#Hportrait').attr('src', data.Picture);
             }
@@ -1091,7 +1094,7 @@ function uploadDevicedetail(data) {
             }
             $("input[name='Phone']").val(data.Phone);
             $("input[name='Email']").val(data.Email);
-            $("input[name='Remark']").val(data.Remark);
+            $("textarea[name='Remark']").val(data.Remark);
             layui.use('form', function () {
                 var form = layui.form;
                 form.render();
@@ -1194,9 +1197,21 @@ $(document).ready(function () {
     //    uploadDevicedetail('upload');
     //});
     $("button[name='确认修改']").click(function () {
-        $("form").ajaxSubmit({
-            url: "/UserInfo/EditUserDetail",
-            type: "POST",
-        })
+        var myReg = /^[-_A-Za-z0-9]+@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/;//邮箱格式的正则表达式
+        if (String($("input[name='Phone']").val()).length !== 11) {
+            $(".phoneerror").show();
+        }
+        else if (!(myReg.test($("input[name='Email']").val()))) {
+            $(".emailerror").show();
+        }
+        else {
+            $("form").ajaxSubmit({
+                url: "/UserInfo/EditUserDetail",
+                type: "POST",
+                success: function () {
+                    window.location.href = '../UserInfo/Userdetail';
+                }
+            })
+        }
     });
 });
