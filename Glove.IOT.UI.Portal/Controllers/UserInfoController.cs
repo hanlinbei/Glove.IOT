@@ -109,7 +109,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             //userInfo.Remark = Request["Remark"];
             //userInfo.UCode = Request["UCode"];
             //userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).Select(u => u.Pwd).FirstOrDefault();
-            var file = Request.Files["file"];
+            var file = Request.Files["Picture"];
             string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + file.FileName;
             file.SaveAs(Request.MapPath(path));
             //userInfo.Picture = path;
