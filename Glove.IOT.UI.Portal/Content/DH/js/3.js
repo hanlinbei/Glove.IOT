@@ -1081,15 +1081,15 @@ function uploadDevicedetail(data) {
             if (data.Picture !== null) {
                 $('#Hportrait').attr('src', data.Picture);
             }
-            $("input[name='MyRoleName']").val(data.RoleName);
-            $("input[name='MyUName']").val(data.UName);
+            $("input[name='RoleName']").val(data.RoleName);
+            $("input[name='UName']").val(data.UName);
             if (data.Gender === '男') {
                 $("input[title='男']").attr('checked', true);
             }
             else if (data.Gender === '女') {
                 $("input[title='女']").attr('checked', true);
             }
-            $("input[name='Pnumber']").val(data.Phone);
+            $("input[name='Phone']").val(data.Phone);
             $("input[name='Email']").val(data.Email);
             $("input[name='Remark']").val(data.Remark);
             layui.use('form', function () {
