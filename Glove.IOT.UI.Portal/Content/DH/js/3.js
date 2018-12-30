@@ -1125,8 +1125,8 @@ function uploadDevicedetail(data) {
                 userDetail = new FormData();//全部清空 释放旧的
             }
         });
-        //$.post("/UserInfo/EditUserDetail",  userDetail , function (data) {
-        //    userDetail = new FormData();//全部清空 释放旧的
+        //$.post("/UserInfo/EditUserDetail", { 'Picture':$('#chooseImage').val()} , function (data) {
+        //    //userDetail = new FormData();//全部清空 释放旧的
         //})
     }
 }

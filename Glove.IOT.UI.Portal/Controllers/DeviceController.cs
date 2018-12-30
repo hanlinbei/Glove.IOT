@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-   
+   [LoginCheckFilter]
     public class DeviceController:BaseController
     {
         public IOperationLogService OperationLogService { get; set; }

@@ -99,12 +99,23 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
 
-
-
-
+        /// <summary>
+        /// 登录起始视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
-            return View();
+            //如果存在cookies直接跳过登录进去
+            if (User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("/Device/Devicemanage");
+                return Content("ok");
+            }
+            //转到登录页
+            else
+            {
+                return View();
+            }
         }
 
     }

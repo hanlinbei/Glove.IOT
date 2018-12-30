@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
+    [LoginCheckFilter]
     public class ActionInfoController : BaseController
     {
         // GET: ActionInfo
