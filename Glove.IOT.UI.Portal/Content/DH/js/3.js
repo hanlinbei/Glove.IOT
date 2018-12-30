@@ -1126,20 +1126,21 @@ function uploadDevicedetail(data) {
         //}
 
 
-        //$.ajax({
-        //    url: "/UserInfo/EditUserDetail",
-        //    type: "POST",
-        //    data: userDetail,
-        //    processData: false,  // 直接发送formdata格式要特殊处理 告诉jQuery不要去处理发送的数据
-        //    contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
-        //    success: function () {
-        //        userDetail = new FormData();//全部清空 释放旧的
-        //    }
-        //});
+        $.ajax({
+            url: "/UserInfo/EditUserDetail",
+            type: "POST",
+            data: userDetail,
+            cache: false,
+            processData: false,  // 直接发送formdata格式要特殊处理 告诉jQuery不要去处理发送的数据
+            contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
+            success: function () {
+                userDetail = new FormData();//全部清空 释放旧的
+            }
+        });
         //console.log(userDetail);
-        $.post("/UserInfo/EditUserDetail", { 'Picture': $('#chooseImage').val()} , function (data) {
+        //$.post("/UserInfo/EditUserDetail", { 'Picture': $('#chooseImage').val()} , function (data) {
             
-        })
+        //})
     }
 }
 //日期表
@@ -1189,13 +1190,13 @@ $(document).ready(function () {
     $("button[name='查找日志']").click(function () {
         layerShowSearcholog('查找日志', 'LayerSearcholog', 500, 450, "null");
     });
-    $("button[name='确认修改']").click(function () {
-        uploadDevicedetail('upload');
-    });
     //$("button[name='确认修改']").click(function () {
-    //    $("form").ajaxSubmit({
-    //        url: "/UserInfo/EditUserDetail",
-    //        type: "POST",
-    //    })
+    //    uploadDevicedetail('upload');
     //});
+    $("button[name='确认修改']").click(function () {
+        $("form").ajaxSubmit({
+            url: "/UserInfo/EditUserDetail",
+            type: "POST",
+        })
+    });
 });

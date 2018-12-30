@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="user-form-btn-container">
                                     <button class="layui-btn layui-btn-primary" id="upload" type="button">上传照片</button> @*原生按钮默认submit类型type="button"防止点击提交*@
-                                    <input type="file" id="chooseImage" name="file" style="display: none">
+                                    <input type="file" id="chooseImage" name="Picture" style="display: none" accept="image/*">
                                 </div>
                                 <div style="line-height: 20px;color: #999;padding: 30px 0px !important;width:250px;margin-left:220px;">头像格式必须为：png/jpg/jpeg</div>
                             </div>
@@ -216,8 +216,7 @@
         <a class="layui-btn layui-btn-xs layui-btn-disabled a_disabled" lay-event="edit" name="编辑">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled a_disabled" lay-event="del" name="删除">删除</a>
     </script>
-    <script src="~/Scripts/MyAjaxForm.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Content/DH/lib/jquery.form.js"></script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
         //获取数据
@@ -227,6 +226,14 @@
             $('#chooseImage').click();
         })
         $('#chooseImage').on('change', function (data) {
+            //var reader = new FileReader();
+            //reader.onload = function (e) {
+            //    console.log(reader.result);  //或者 e.target.result都是一样的，都是base64码
+            //    $('#Hportrait').attr('src', reader.result);
+            //    userDetail.delete('Picture');//清空
+            //    userDetail.append('Picture', reader.result);
+            //}
+            //reader.readAsDataURL(this.files[0]);
             var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
                 fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),//获取文件后缀名
                 src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
@@ -244,6 +251,7 @@
                 });
                 return;
             }
+
             $('#Hportrait').attr('src', src);
             userDetail.delete('Picture');//清空
             userDetail.append('Picture', data.target.files[0]);
