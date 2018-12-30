@@ -138,7 +138,7 @@
             </div>
             <div class="user-form">
                 <div class="layer-content">
-                    <form class="layui-form" lay-filter="userDetail" method="post" >
+                    <form class="layui-form" lay-filter="userDetail" method="post">
                         <div class="layui-form-item">
                             <label class="layui-form-label">我的头像：</label>
                             <div class="layui-input-block">
@@ -146,7 +146,7 @@
                                     <img id="Hportrait" src="~/Content/DH/img/人物.png" width="80" height="80" alt="Head portrait" title="用户头像" />
                                 </div>
                                 <div class="user-form-btn-container">
-                                    <button class="layui-btn layui-btn-primary" id="upload" type="button">上传照片</button> @*原生按钮默认submit类型type="button"防止点击提交*@ 
+                                    <button class="layui-btn layui-btn-primary" id="upload" type="button">上传照片</button> @*原生按钮默认submit类型type="button"防止点击提交*@
                                     <input type="file" id="chooseImage" name="file" style="display: none">
                                 </div>
                                 <div style="line-height: 20px;color: #999;padding: 30px 0px !important;width:250px;margin-left:220px;">头像格式必须为：png/jpg/jpeg</div>
@@ -216,6 +216,8 @@
         <a class="layui-btn layui-btn-xs layui-btn-disabled a_disabled" lay-event="edit" name="编辑">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled a_disabled" lay-event="del" name="删除">删除</a>
     </script>
+    <script src="~/Scripts/MyAjaxForm.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
         //获取数据
@@ -228,7 +230,7 @@
             var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
                 fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),//获取文件后缀名
                 src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
-                //src = window.URL.createObjectURL(data.target.files[0]); //同理都可以获取文件
+            //src = window.URL.createObjectURL(data.target.files[0]); //同理都可以获取文件
             if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
                 //error_prompt_alert('上传错误,文件格式必须为：png/jpg/jpeg');
                 layui.use('layer', function () {
@@ -244,7 +246,8 @@
             }
             $('#Hportrait').attr('src', src);
             userDetail.delete('Picture');//清空
-            userDetail.append('Picture', data.target.files[0]); 
+            userDetail.append('Picture', data.target.files[0]);
+            //userDetail = data.target.files[0];
             console.log(this.files[0]);
             console.log(data.target.files[0]);
         });

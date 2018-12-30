@@ -89,7 +89,13 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult EditUserDetail()
+        {
 
+            var data = UserInfoService.GetUserDetailInfo(LoginInfo.UName);
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
 
         /// <summary>
         /// 添加用户
