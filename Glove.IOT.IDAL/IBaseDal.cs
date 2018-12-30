@@ -24,7 +24,6 @@ namespace Glove.IOT.IDAL
         //更新用户数据
         bool Update(T entity);
 
-
         //删除数据
         bool Delete(T entity);
 

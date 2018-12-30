@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -26,7 +27,7 @@ namespace Glove.IOT.EFDAL
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
 
-            return Db.Set<T>().Where(whereLambda).AsQueryable();
+            return Db.Set<T>().AsNoTracking().Where(whereLambda).AsQueryable();
 
         }
         /// <summary>
@@ -80,13 +81,18 @@ namespace Glove.IOT.EFDAL
             return entity;
 
         }
-        //更新用户数据
+        /// <summary>
+        /// 修改一条记录全部
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public bool Update(T entity)
         {
             Db.Entry(entity).State = EntityState.Modified;
             //return Db.SaveChanges() > 0;
             return true;
         }
+  
 
         /// <summary>
         /// 逻辑删除一条记录

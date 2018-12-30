@@ -1114,7 +1114,7 @@ function uploadDevicedetail(data) {
         userDetail.append('Phone', $('input[name="Pnumber"]').val());
         userDetail.append('Email', $('input[name="Email"]').val());
         userDetail.append('Remark', $('input[name="Remark"]').val());
-        console.log(userDetail.getAll('Picture'));
+        //console.log(userDetail.getAll('Picture'));
         $.ajax({
             url: "/UserInfo/EditUserDetail",
             type: "POST",

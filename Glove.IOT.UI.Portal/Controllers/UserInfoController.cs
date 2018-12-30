@@ -99,21 +99,24 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult EditUserDetail( )
         {
-            //UserInfo userInfo = new UserInfo
-            //{
-            //    SubTime = DateTime.Now
-            //};
-            //userInfo.Email = Request["Email"];
-            //userInfo.Gender = Request["Gender"];
-            //userInfo.Phone = Request["Phone"];
-            //userInfo.Remark = Request["Remark"];
-            //userInfo.UCode = Request["UCode"];
-            //userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).Select(u => u.Pwd).FirstOrDefault();
-            var file = Request.Files["Picture"];
-            string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + file.FileName;
-            file.SaveAs(Request.MapPath(path));
-            //userInfo.Picture = path;
-            //UserInfoService.Update(userInfo);
+            var user = UserInfoService.GetEntities(u => u.UName == LoginInfo.UName).FirstOrDefault();
+            UserInfo userInfo = new UserInfo
+            {
+                SubTime = DateTime.Now
+            };
+            userInfo.Email = Request["Email"];
+            userInfo.Gender = Request["Gender"];
+            userInfo.Phone = Request["Phone"];
+            userInfo.Remark = Request["Remark"];
+            userInfo.UCode = Request["UCode"];
+            userInfo.Pwd = user.Pwd;
+            userInfo.UCode = user.UCode;
+            //var file = Request.Files["Picture"];
+            //string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + file.FileName;
+            //file.SaveAs(Request.MapPath(path));
+            userInfo.Picture = "ssdf";
+            userInfo.Id =user.Id;
+            UserInfoService.Update(userInfo);
             return Content("ok");
 
         }
