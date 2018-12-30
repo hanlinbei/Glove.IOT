@@ -111,10 +111,13 @@ namespace Glove.IOT.UI.Portal.Controllers
             userInfo.UCode = Request["UCode"];
             userInfo.Pwd = user.Pwd;
             userInfo.UCode = user.UCode;
-            //var file = Request.Files["Picture"];
-            //string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + file.FileName;
-            //file.SaveAs(Request.MapPath(path));
-            userInfo.Picture = "ssdf";
+            userInfo.UName = user.UName;
+            var file = Request.Files["Picture"];
+            string fileName = file.FileName;
+            fileName = fileName.Substring(fileName.LastIndexOf("\\") + 1,fileName.Length- fileName.LastIndexOf("\\")-1);
+            string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + fileName;
+            file.SaveAs(Request.MapPath(path));
+            userInfo.Picture = path;
             userInfo.Id =user.Id;
             UserInfoService.Update(userInfo);
             return Content("ok");

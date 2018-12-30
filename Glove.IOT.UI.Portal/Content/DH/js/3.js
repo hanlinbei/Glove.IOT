@@ -8,6 +8,7 @@ var DIdtable = new Array();//保存当前表格内数据是否被选中 在批�
 var Rid_Rolename = new Array();//保存UId 编辑的时候用
 var RId = 0;
 var userDetail = new FormData();
+//var userDetail;
 layui.config({
     version: false //一般用于更新模块缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
     ,debug: false //用于开启调试模式，默认false，如果设为true，则JS模块的节点会保留在页面
@@ -1115,18 +1116,30 @@ function uploadDevicedetail(data) {
         userDetail.append('Email', $('input[name="Email"]').val());
         userDetail.append('Remark', $('input[name="Remark"]').val());
         //console.log(userDetail.getAll('Picture'));
+        //var xhr = new XMLHttpRequest();
+        //xhr.open('POST', "/UserInfo/EditUserDetail");
+        ////xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
+        //xhr.send(userDetail);
+        //xhr.onreadystatechange = function () {
+        //    if (this.readyState !== 4) return;
+        //    userDetail = new FormData();//全部清空 释放旧的
+        //}
+
+
         $.ajax({
             url: "/UserInfo/EditUserDetail",
             type: "POST",
             data: userDetail,
+            cache: false,
             processData: false,  // 直接发送formdata格式要特殊处理 告诉jQuery不要去处理发送的数据
             contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
             success: function () {
                 userDetail = new FormData();//全部清空 释放旧的
             }
         });
-        //$.post("/UserInfo/EditUserDetail", { 'Picture':$('#chooseImage').val()} , function (data) {
-        //    //userDetail = new FormData();//全部清空 释放旧的
+        //console.log(userDetail);
+        //$.post("/UserInfo/EditUserDetail", { 'Picture': $('#chooseImage').val()} , function (data) {
+            
         //})
     }
 }
@@ -1177,7 +1190,13 @@ $(document).ready(function () {
     $("button[name='查找日志']").click(function () {
         layerShowSearcholog('查找日志', 'LayerSearcholog', 500, 450, "null");
     });
+    //$("button[name='确认修改']").click(function () {
+    //    uploadDevicedetail('upload');
+    //});
     $("button[name='确认修改']").click(function () {
-        uploadDevicedetail('upload');
+        $("form").ajaxSubmit({
+            url: "/UserInfo/EditUserDetail",
+            type: "POST",
+        })
     });
 });
