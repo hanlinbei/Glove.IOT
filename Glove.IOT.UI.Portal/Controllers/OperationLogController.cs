@@ -46,6 +46,35 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
         /// <summary>
+        /// 搜索具体范围时间内的日志
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public ActionResult SearchOperationLogs(string page,string limit,OperationLogQueryParam operationLogQueryParam)
+        {
+            int pageSize = int.Parse(limit ?? "10");
+            int pageIndex = int.Parse(page ?? "1");
+            operationLogQueryParam.PageSize = pageSize;
+            operationLogQueryParam.PageIndex = pageIndex;
+           
+           
+
+            var pageData = OperationLogService.SearchOperationLogPageData(operationLogQueryParam);
+            var temp = pageData.Select(o => new
+            {
+                o.UName,
+                o.ActionType,
+                o.ActionName,
+                o.OperationObj,
+                o.Id,
+                o.SubTime
+            });
+            var data = new { code = 0, msg = "", count = operationLogQueryParam.Total, data = temp.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
+        /// <summary>
         public ActionResult Operationlog()
         {
             return View();

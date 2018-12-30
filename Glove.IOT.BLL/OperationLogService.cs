@@ -25,6 +25,37 @@ namespace Glove.IOT.BLL
                 .Skip(operationLogQueryParam.PageSize * (operationLogQueryParam.PageIndex - 1))
                 .Take(operationLogQueryParam.PageSize).AsQueryable();
         }
+        /// <summary>
+        /// 查找指定时段的日志信息
+        /// </summary>
+        /// <param name="operationLogQueryParam"></param>
+        /// <returns></returns>
+        public IQueryable<OperationLog> SearchOperationLogPageData(OperationLogQueryParam operationLogQueryParam)
+        {
+            var firstTime=Convert.ToDateTime(operationLogQueryParam.FirstTime);
+            var lastTime=Convert.ToDateTime(operationLogQueryParam.LastTime);
+            var temp = DbSession.OperationLogDal.GetEntities(u => (u.IsDeleted == false&&(u.SubTime>firstTime&&u.SubTime<lastTime)));
+            //按操作人员筛选
+            if (!string.IsNullOrEmpty(operationLogQueryParam.UName))
+            {
+                temp = temp.Where(o => o.UName.Contains(operationLogQueryParam.UName)).AsQueryable();
+            }
+            //按操作类型筛选
+            if (!string.IsNullOrEmpty(operationLogQueryParam.ActionType))
+            {
+                temp = temp.Where(o => o.ActionType.Contains(operationLogQueryParam.ActionType)).AsQueryable();
+            }
+            //按操作名称查找
+            if (!string.IsNullOrEmpty(operationLogQueryParam.ActionName))
+            {
+                temp = temp.Where(o => o.ActionName.Contains(operationLogQueryParam.ActionName)).AsQueryable();
+            }
 
+            operationLogQueryParam.Total = temp.Count();
+            //分页
+            return temp.OrderByDescending(u => u.SubTime)
+                .Skip(operationLogQueryParam.PageSize * (operationLogQueryParam.PageIndex - 1))
+                .Take(operationLogQueryParam.PageSize).AsQueryable();
+        }
     }
 }
