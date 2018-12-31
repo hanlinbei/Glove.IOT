@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.Model;
+using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Glove.IOT.IBLL
 {
     public partial interface IOperationLogService : IBaseService<OperationLog>
     {
-        IQueryable<OperationLog> LoagOperationLogPageData(Model.Param.OperationLogQueryParam operationLogQueryParam);
+        IQueryable<OperationLog> LoagOperationLogPageData(OperationLogQueryParam operationLogQueryParam);
+        IQueryable<OperationLog> SearchOperationLogPageData(OperationLogQueryParam operationLogQueryParam);
     }
 }

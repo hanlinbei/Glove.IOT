@@ -8,8 +8,11 @@ namespace Glove.IOT.Model.Param
 {
     public class OperationLogQueryParam:BaseParam
     {
-        public string SchCode { get; set; }
-        public string SchRoleName { get; set; }
+        public string FirstTime { get; set; }
+        public string LastTime { get; set; }
+        public string UName { get; set; }
+        public string ActionType { get; set; }
+        public string ActionName { get; set; }
 
       
     }
