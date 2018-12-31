@@ -1066,7 +1066,7 @@ function layerShowSearcholog(title, url, w, h, data) {
             } else {
                 //表格重载 跳转到操作页面
                 globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                updatatable_search('table_olog', '#table_olog', 550, '/Device/xxxx', "操作日志", 1, globalLimit, res);
+                updatatable_search('table_olog', '#table_olog', 550, '/OperationLog/SearchOperationLogs', "操作日志", 1, globalLimit, res);
                 //最后关闭弹出层
                 layer.close(index);
             }
