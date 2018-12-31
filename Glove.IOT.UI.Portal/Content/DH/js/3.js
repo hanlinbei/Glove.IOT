@@ -16,6 +16,17 @@ layui.config({
     ,debug: false //用于开启调试模式，默认false，如果设为true，则JS模块的节点会保留在页面
     ,base: '' //设定扩展的Layui模块的所在目录，一般用于外部模块扩展
 });
+//记住密码
+function getCookie(data) {
+    var name = data + '=';
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+}
 //登录
 function send() {
     if ($('input[name="LoginCode"]').val() === "") {
@@ -40,7 +51,20 @@ function send() {
             vCode: $("input[name='vCode']").val()
         }, function (data) {
             if (data === 'OK') {
-                
+                document.cookie = 'LoginCode=;';//删除
+                document.cookie = 'LoginPwd=;';
+                if (document.getElementById("rePwd").checked) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
+                    document.cookie = 'LoginCode=' + $("input[name='LoginCode']").val() + ';' + "expires=" + date.toGMTString();
+                    document.cookie = 'LoginPwd=' + $("input[name='LoginPwd']").val() + ';' + "expires=" + date.toGMTString();
+                    name = $("input[name='LoginCode']").val();
+                    console.log(name);
+                } else {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
+                    document.cookie = 'LoginCode=' + $("input[name='LoginCode']").val() + ';' + "expires=" + date.toGMTString();
+                }
                 window.location.href = '../Device/Devicemanage';
             }
             else if (data === '验证码错误!') {
@@ -80,6 +104,12 @@ function send() {
     //        changeCheckCode();
     //    }
     //}
+}
+//显示左上角的用户信息
+function userMessage() {
+    console.log(tPicture);
+    $('img[name="tPicture"]').attr('src', tPicture);
+    $('p[name="userName"]').html(name);
 }
 function changeCheckCode() {
     var old = $("#imgCode").attr("src");
@@ -1214,4 +1244,10 @@ $(document).ready(function () {
             })
         }
     });
+    $(".icon-user").mouseover(function () {
+        $(".layui-nav-bar").css("opacity", '1');
+    })
+    $(".icon-user").mouseout(function () {
+        $(".layui-nav-bar").css("opacity", '0');
+    })
 });

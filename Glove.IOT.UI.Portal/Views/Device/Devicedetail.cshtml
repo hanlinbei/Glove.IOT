@@ -91,8 +91,8 @@
     </header>
     <section id="aside" class="hidden-xs">
         <div class="aside-top">
-            <div class="text-right col-xs-5"><i class="iconfont icon-aside-top-user">&#xe638;</i></div>
-            <div class="aside-top__username col-xs-7">张三</div>
+            <div class="text-right col-xs-4" style="padding:0 10px 0 10px;"> <img src="~/Content/DH/img/人物.png" name="tPicture" height="50" width="50" /></div>
+            <div class="aside-top__username col-xs-8" style="padding:0 0 0 0"><p name="userName" style="text-align:center;"></p></div>
         </div>
         <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
@@ -239,6 +239,8 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
+        //更新左上角用户信息
+        userMessage();
         var category = window.location.search;
         var cateval = category.substring(category.lastIndexOf('=') + 1, category.length);
         if (cateval !== "") {

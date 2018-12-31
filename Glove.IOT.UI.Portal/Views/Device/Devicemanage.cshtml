@@ -61,6 +61,7 @@
                         <li><i class="iconfont icon-bell">&#xe6f1;</i></li>
                         <li><i class="iconfont icon-vline">&#xe63a;</i></li>
                         <li><i ><a class="iconfont icon-user" href="../UserInfo/Userdetail">&#xe638;</a></i></li>
+                        @*<span class="layui-nav-bar" style="left: 1365px; top: 60px; width: 30px; opacity: 0;background-color:#fff"></span>*@
                     </ul>
                 </div>
                 <!-- 最小宽度时出现汉堡菜单-->
@@ -77,8 +78,8 @@
     </header>
     <section id="aside" class="hidden-xs">
         <div class="aside-top">
-            <div class="text-right col-xs-5"> <img src="~/Content/DH/img/人物.png" height="50" width="50" /></div>
-            <div class="aside-top__username col-xs-7">张三</div>
+            <div class="text-right col-xs-4" style="padding:0 10px 0 10px;"> <img src="~/Content/DH/img/人物.png" name="tPicture" height="50" width="50" /></div>
+            <div class="aside-top__username col-xs-8"style="padding:0 0 0 0"><p name="userName" style="text-align:center;"></p></div>
         </div>
         <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
@@ -178,9 +179,9 @@
             }
             else {
                 tPicture = "~/Content/DH/img/人物.png";
-            }
-            $('img').attr('src', tPicture);
-            console.log(tPicture);
+            }   
+            //更新左上角用户信息
+            userMessage();
         })
         
         //Power('device');
