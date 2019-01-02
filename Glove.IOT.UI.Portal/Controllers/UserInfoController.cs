@@ -58,24 +58,25 @@ namespace Glove.IOT.UI.Portal.Controllers
             if (!string.IsNullOrEmpty(schCode) || !string.IsNullOrEmpty(schRoleName))
             {
                 //写操作日志
-                OperationLog operationLog = new OperationLog
-                {
-                    ActionName = "查找员工",
-                    ActionType = "系统管理",
-                    Ip = LoginInfo.Ip,
-                    Mac = LoginInfo.Mac,
-                    SubTime = DateTime.Now,
-                    UName = LoginInfo.UName
-                };
-                if (!string.IsNullOrEmpty(schCode))
-                {
-                    operationLog.OperationObj = schCode;
-                }
-                if (!string.IsNullOrEmpty(schRoleName))
-                {
-                    operationLog.OperationObj = schRoleName;
-                }
-                OperationLogService.Add(operationLog);
+                OperationLogService.Add("查找员工", "系统管理", LoginInfo, schCode, schRoleName);
+                //OperationLog operationLog = new OperationLog
+                //{
+                //    ActionName = "查找员工",
+                //    ActionType = "系统管理",
+                //    Ip = LoginInfo.Ip,
+                //    Mac = LoginInfo.Mac,
+                //    SubTime = DateTime.Now,
+                //    UName = LoginInfo.UName
+                //};
+                //if (!string.IsNullOrEmpty(schCode))
+                //{
+                //    operationLog.OperationObj = schCode;
+                //}
+                //if (!string.IsNullOrEmpty(schRoleName))
+                //{
+                //    operationLog.OperationObj = schRoleName;
+                //}
+                //OperationLogService.Add(operationLog);
 
             }
 
@@ -323,6 +324,15 @@ namespace Glove.IOT.UI.Portal.Controllers
             file.SaveAs(Request.MapPath(path));
 
             return Content(path);
+        }
+        /// <summary>
+        /// 获取登录用户头像
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetUserPicture()
+        {
+            var picture = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).Select(u => u.Picture).FirstOrDefault();
+            return Json(picture, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult t()
