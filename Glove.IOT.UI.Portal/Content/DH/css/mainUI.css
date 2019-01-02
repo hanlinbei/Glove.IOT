@@ -541,3 +541,17 @@ margin-top:70px;  */
     /* placeholder颜色  */
     color: #f00;
 }
+/*放置鼠标放置出现下划线*/
+.layui-nav-item-no {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: middle;
+    line-height: 60px;
+}
+.layui-nav-bar,
+.layui-nav .layui-this:after,
+.layui-nav-tree .layui-nav-itemed:after {
+    height: 3px;
+}

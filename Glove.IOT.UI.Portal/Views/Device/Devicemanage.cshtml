@@ -57,11 +57,19 @@
                             </span>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right topbar-right">
-                        <li><i class="iconfont icon-bell">&#xe6f1;</i></li>
-                        <li><i class="iconfont icon-vline">&#xe63a;</i></li>
-                        <li><i ><a class="iconfont icon-user" href="../UserInfo/Userdetail">&#xe638;</a></i></li>
-                        @*<span class="layui-nav-bar" style="left: 1365px; top: 60px; width: 30px; opacity: 0;background-color:#fff"></span>*@
+                    <ul class="layui-nav layui-layout-right">
+                        <li class="layui-nav-item">
+                            <i><a class="iconfont icon-bell" href='' style='text-decoration:none;'>&#xe6f1;</a></i>
+                        </li>
+                        <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li class="layui-nav-item">
+                            <i><a class="iconfont layui-hide-xs icon-user" href="../UserInfo/Userdetail" style='text-decoration:none;'>&#xe638;</a></i>
+                            <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                                <dd><a>基本资料</a></dd>
+                                <dd><a>修改密码</a></dd>
+                                <dd style="text-align: center;"><a>退出</a></dd>
+                            </dl>
+                        </li>
                     </ul>
                 </div>
                 <!-- 最小宽度时出现汉堡菜单-->
