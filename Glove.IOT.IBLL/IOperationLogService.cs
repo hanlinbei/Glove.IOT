@@ -12,5 +12,6 @@ namespace Glove.IOT.IBLL
     {
         IQueryable<OperationLog> LoagOperationLogPageData(OperationLogQueryParam operationLogQueryParam);
         IQueryable<OperationLog> SearchOperationLogPageData(OperationLogQueryParam operationLogQueryParam);
+        OperationLog Add(string axtionName, string actionType, OperationLog loginInfo, string schCode, string schRoleName);
     }
 }
