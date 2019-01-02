@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI.WebControls;
 
 namespace Glove.IOT.BLL
 {
@@ -34,7 +37,11 @@ namespace Glove.IOT.BLL
                 .Take(userQueryParam.PageSize).AsQueryable();
         }
 
-
+        /// <summary>
+        /// 查询用户详细信息
+        /// </summary>
+        /// <param name="uName"></param>
+        /// <returns></returns>
         public UserInfoRoleInfo GetUserDetailInfo(string uName)
         {
 
@@ -55,7 +62,6 @@ namespace Glove.IOT.BLL
             return data;
 
         }
-
 
         /// <summary>
         /// 内连接查询
@@ -101,9 +107,19 @@ namespace Glove.IOT.BLL
                   .Take(userQueryParam.PageSize).AsQueryable();
 
         }
-
-
-
+        /// <summary>
+        /// 用户注销
+        /// </summary>
+        public void Logout()
+        {
+            FormsAuthentication.SignOut();
+            var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+        }
 
     }
 }

@@ -117,6 +117,20 @@ namespace Glove.IOT.UI.Portal.Controllers
                 return View();
             // }
         }
+        
+        /// <summary>
+        /// 用户注销
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Logout()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                UserInfoService.Logout();
+            }
+            return RedirectToAction("Index");
+
+        }
 
     }
 }

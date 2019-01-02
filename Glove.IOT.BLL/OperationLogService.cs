@@ -57,5 +57,29 @@ namespace Glove.IOT.BLL
                 .Skip(operationLogQueryParam.PageSize * (operationLogQueryParam.PageIndex - 1))
                 .Take(operationLogQueryParam.PageSize).AsQueryable();
         }
+
+
+        public OperationLog Add(string actionName, string actionType, OperationLog loginInfo, string schCode, string schRoleName)
+        {   
+                //写操作日志
+                OperationLog operationLog = new OperationLog
+                {
+                    ActionName = actionName,
+                    ActionType = actionType,
+                    Ip = loginInfo.Ip,
+                    Mac = loginInfo.Mac,
+                    SubTime = DateTime.Now,
+                    UName = loginInfo.UName
+                };
+                if (!string.IsNullOrEmpty(schCode))
+                {
+                    operationLog.OperationObj = schCode;
+                }
+                if (!string.IsNullOrEmpty(schRoleName))
+                {
+                    operationLog.OperationObj = schRoleName;
+                }
+                return DbSession.OperationLogDal.Add(operationLog); 
+        }
     }
 }
