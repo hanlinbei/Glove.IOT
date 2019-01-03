@@ -35,11 +35,11 @@ namespace Glove.IOT.WebAPI.Controllers
           
             return "Success";
         }
-        [HttpGet]
-        public string GetAll()
-        {
+        //[HttpGet]
+        //public string GetAll()
+        //{
 
-            throw new NotImplementedException("fjafjeoifj    ");
-        }
+        //    throw new NotImplementedException("fjafjeoifj    ");
+        //}
     }
 }

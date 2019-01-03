@@ -7,12 +7,10 @@
     <property name="ActionInfoService" ref="ActionInfoService" />
     <property name="R_UserInfo_RoleInfoService" ref="R_UserInfo_RoleInfoService" />
     <property name="OperationLogService" ref="OperationLogService" />
-    <property name="Md5Helper" ref="Md5Helper" />
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.UserLoginController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="UserInfoService" ref="UserInfoService" />
-    <property name="Md5Helper" ref="Md5Helper" />
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.ActionInfoController, Glove.IOT.UI.Portal" singleton="false" >

@@ -39,18 +39,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 };
                 DeviceParameterInfoService.Add(deviceParameterInfo);
                 //写操作日志
-                OperationLog operationLog = new OperationLog
-                {
-                    ActionName = "添加设备",
-                    ActionType = "设备管理",
-                    Ip = LoginInfo.Ip,
-                    Mac = LoginInfo.Mac,
-                    OperationObj = deviceInfo.DeviceId,
-                    SubTime = DateTime.Now,
-                    UName = LoginInfo.UName
-
-                };
-                OperationLogService.Add(operationLog);
+                OperationLogService.Add("添加设备", "设备管理", LoginInfo, deviceInfo.DeviceId,"");
                 return Content("Ok");
             }
             else
@@ -94,19 +83,9 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             foreach (var id in idList)
             {
+                var deviceId = DeviceInfoService.GetEntities(d => d.Id == id).Select(d => d.DeviceId).FirstOrDefault();
                 //写操作日志
-                OperationLog operationLog = new OperationLog
-                {
-                    ActionName = "删除设备",
-                    ActionType = "设备管理",
-                    Ip = LoginInfo.Ip,
-                    Mac = LoginInfo.Mac,
-                    OperationObj = DeviceInfoService.GetEntities(d => d.Id == id).Select(d => d.DeviceId).FirstOrDefault(),
-                    SubTime = DateTime.Now,
-                    UName = LoginInfo.UName
-                };
-                OperationLogService.Add(operationLog);
-
+                OperationLogService.Add("删除设备", "设备管理", LoginInfo, deviceId, "");
             }
 
             return Content("ok");
@@ -135,32 +114,13 @@ namespace Glove.IOT.UI.Portal.Controllers
                 SchStatusFlag=schStatusFlag,
                 Total = 0
             };
-
             var pageData = DeviceInfoService.LoagDevicePageData(queryParam).ToList();
             var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
 
             if (!string.IsNullOrEmpty(schDeviceId) || !string.IsNullOrEmpty(schStatusFlag))
             {
                 //写操作日志
-                OperationLog operationLog = new OperationLog
-                {
-                    ActionName = "查找设备",
-                    ActionType = "设备管理",
-                    Ip = LoginInfo.Ip,
-                    Mac = LoginInfo.Mac,
-                    SubTime = DateTime.Now,
-                    UName = LoginInfo.UName
-                };
-                if (!string.IsNullOrEmpty(schDeviceId))
-                {
-                    operationLog.OperationObj = schDeviceId;
-                }
-                if (!string.IsNullOrEmpty(schStatusFlag))
-                {
-                    operationLog.OperationObj = schStatusFlag;
-                }
-                OperationLogService.Add(operationLog);
-
+                OperationLogService.Add("查找设备", "设备管理", LoginInfo, schDeviceId, schStatusFlag);
             }
             return Json(data, JsonRequestBehavior.AllowGet);
 
@@ -174,19 +134,9 @@ namespace Glove.IOT.UI.Portal.Controllers
 
             var deviceParameter = DeviceParameterInfoService.GetDeviceParameter(deviceId);
             var parameterHistory = DeviceParameterInfoService.GetHistoryParameter(deviceId);
-            var data = new { deviceParameter = deviceParameter.ToList(), parameterHistory = parameterHistory.ToList() };
+            var data = new { deviceParameter, parameterHistory = parameterHistory.ToList() };
             //写操作日志
-            OperationLog operationLog = new OperationLog
-            {
-                ActionName = "查看设备",
-                ActionType = "设备管理",
-                Ip = LoginInfo.Ip,
-                Mac = LoginInfo.Mac,
-                OperationObj = deviceId,
-                SubTime = DateTime.Now,
-                UName = LoginInfo.UName
-            };
-            OperationLogService.Add(operationLog);
+            OperationLogService.Add("查看设备", "设备管理", LoginInfo, deviceId, "");
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }

@@ -17,6 +17,7 @@ namespace Glove.IOT.Common
         public Nullable<System.DateTime> StartTime { get; set; }
         public Nullable<System.DateTime> StopTime { get; set; }
         public System.DateTime SubTime { get; set; }
+        public String RunTime { get; set; }
 
     }
 }

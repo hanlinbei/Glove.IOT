@@ -58,8 +58,6 @@ namespace Glove.IOT.UI.Portal.Controllers
             operationLogQueryParam.PageSize = pageSize;
             operationLogQueryParam.PageIndex = pageIndex;
            
-           
-
             var pageData = OperationLogService.SearchOperationLogPageData(operationLogQueryParam);
             var temp = pageData.Select(o => new
             {
@@ -75,10 +73,17 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
         /// <summary>
+        /// 操作日志视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Operationlog()
         {
             return View();
         }
+        /// <summary>
+        /// 查询操作日志视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LayerSearcholog()
         {
             return View();

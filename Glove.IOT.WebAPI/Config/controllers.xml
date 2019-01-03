@@ -7,5 +7,9 @@
   <object type="Glove.IOT.WebAPI.Controllers.UserLoginController, Glove.IOT.WebAPI" singleton="false" >
     <property name="UserInfoService" ref="UserInfoService" />
   </object>
+  <object type="Glove.IOT.WebAPI.Controllers.DeviceController, Glove.IOT.WebAPI" singleton="false" >
+    <property name="DeviceInfoService" ref="DeviceInfoService" />
+  <property name="DeviceParameterInfoService" ref="DeviceParameterInfoService" />
+  </object>
   
 </objects>

@@ -13,9 +13,13 @@ namespace Glove.IOT.BLL
 {
     public partial class DeviceInfoService : BaseService<DeviceInfo>, IDeviceInfoService
     {
+        /// <summary>
+        /// 查询设备信息
+        /// </summary>
+        /// <param name="deviceQueryParam"></param>
+        /// <returns>分页设备数据</returns>
         public IQueryable<Device> LoagDevicePageData(DeviceQueryParam deviceQueryParam)
-        {
-           
+        {         
             var deviceParameterInfo = DbSession.DeviceParameterInfoDal.GetEntities(t => true);
             var deviceInfo = DbSession.DeviceInfoDal.GetEntities(d => d.IsDeleted == false);
             //查询每台机器的最新一条数据（分组查询）

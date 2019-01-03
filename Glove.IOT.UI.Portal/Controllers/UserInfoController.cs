@@ -1,6 +1,6 @@
 ﻿using Glove.IOT.BLL;
 using Glove.IOT.Common;
-using Glove.IOT.Common.Md5;
+using Glove.IOT.Common.Extention;
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
@@ -22,7 +22,6 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IActionInfoService ActionInfoService { get; set; }
         public IR_UserInfo_RoleInfoService R_UserInfo_RoleInfoService { get; set; }
         public IOperationLogService OperationLogService { get; set; }
-        public IMd5Helper Md5Helper { get; set; }
         /// <summary>
         /// 用户起始视图
         /// </summary>
@@ -38,8 +37,6 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns>Json数据</returns>
         public ActionResult GetAllUserInfos(string limit, string page, string schCode, string schRoleName)
         {
-            //jquery easyui:table:{total:32,row:[{},{}]}
-            // easyui:table 在初始化的时候自动发送以下俩个参数值
             int pageSize = int.Parse(limit ?? "10");
             int pageIndex = int.Parse(page ?? "1");
             //过滤的用户名 过滤备注schName schRemark
@@ -59,25 +56,6 @@ namespace Glove.IOT.UI.Portal.Controllers
             {
                 //写操作日志
                 OperationLogService.Add("查找员工", "系统管理", LoginInfo, schCode, schRoleName);
-                //OperationLog operationLog = new OperationLog
-                //{
-                //    ActionName = "查找员工",
-                //    ActionType = "系统管理",
-                //    Ip = LoginInfo.Ip,
-                //    Mac = LoginInfo.Mac,
-                //    SubTime = DateTime.Now,
-                //    UName = LoginInfo.UName
-                //};
-                //if (!string.IsNullOrEmpty(schCode))
-                //{
-                //    operationLog.OperationObj = schCode;
-                //}
-                //if (!string.IsNullOrEmpty(schRoleName))
-                //{
-                //    operationLog.OperationObj = schRoleName;
-                //}
-                //OperationLogService.Add(operationLog);
-
             }
 
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -107,21 +85,45 @@ namespace Glove.IOT.UI.Portal.Controllers
             };
             userInfo.Email = Request["Email"];
             userInfo.Gender = Request["Gender"];
-            userInfo.Phone = Request["Phone"];
+            userInfo.Phone = Request["Pnumber"];
             userInfo.Remark = Request["Remark"];
             userInfo.UCode = Request["UCode"];
-            userInfo.Pwd = user.Pwd;
-            userInfo.UCode = user.UCode;
-            userInfo.UName = user.UName;
             var file = Request.Files["Picture"];
-            string fileName = file.FileName;
-            fileName = fileName.Substring(fileName.LastIndexOf("\\") + 1,fileName.Length- fileName.LastIndexOf("\\")-1);
-            string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + fileName;
-            file.SaveAs(Request.MapPath(path));
-            userInfo.Picture = path;
-            userInfo.Id =user.Id;
-            UserInfoService.Update(userInfo);
-            return Content("ok");
+            //校验邮箱格式与可为空
+            if (userInfo.Email.IsValidEmail()|| userInfo.Email.IsBlank())
+            {
+                //校验手机号码与可为空
+                if (userInfo.Phone.IsValidMobile()|| userInfo.Phone.IsBlank())
+                {
+                    userInfo.Pwd = user.Pwd;
+                    userInfo.UCode = user.UCode;
+                    userInfo.UName = user.UName;
+                    //如果文件为空 用回原来已存在的图片
+                    if (file == null)
+                    {
+                        userInfo.Picture = user.Picture;
+                    }
+                    else
+                    {
+                        string fileName = file.FileName;
+                        fileName = fileName.Substring(fileName.LastIndexOf("\\") + 1, fileName.Length - fileName.LastIndexOf("\\") - 1);
+                        string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + fileName;
+                        file.SaveAs(Request.MapPath(path));
+                        userInfo.Picture = path;
+                    }
+                    userInfo.Id = user.Id;
+                    UserInfoService.Update(userInfo);
+                    return Content("ok");
+                }
+                else
+                {
+                    return Content("手机号码格式不正确");
+                }
+            }
+            else
+            {
+                return Content("邮箱格式不正确");
+            }
 
         }
 
@@ -132,41 +134,26 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="userInfo">前端用户信息</param>
         /// <returns>OK</returns>
         public ActionResult Add(UserInfoRoleInfo userInfoRoleInfo)
-        {
-            
+        { 
             var uCode = UserInfoService.GetEntities(u => (u.UCode == userInfoRoleInfo.UCode&&u.IsDeleted==false)).FirstOrDefault();
             if (uCode == null)
             {
                 UserInfo userInfo = new UserInfo
-                {
-                    //MD5加密
-                    //userInfo.UCode = "2";
-                    //userInfo.Remark = "3";
-                    //userInfo.Pwd = Md5Helper.GetMd5(userInfo.Pwd);
+                { 
                     UCode = userInfoRoleInfo.UCode,
                     UName = userInfoRoleInfo.UName,
-                    Pwd = userInfoRoleInfo.Pwd,
+                    Pwd = userInfoRoleInfo.Pwd.ToMD5(), //MD5加密
                     StatusFlag = userInfoRoleInfo.StatusFlag,
                     Remark = userInfoRoleInfo.Remark,
                     SubTime = DateTime.Now
                 };
+                
                 int insertedUserId = UserInfoService.Add(userInfo).Id;
                 int roleId = userInfoRoleInfo.RId;
-                ProcessSetRole(insertedUserId, roleId);
+                //设置用户角色
+                R_UserInfo_RoleInfoService.ProcessSetRole(insertedUserId, roleId);
                 //写操作日志
-                OperationLog operationLog = new OperationLog
-                {
-                    ActionName = "添加员工",
-                    ActionType = "系统管理",
-                    Ip = LoginInfo.Ip,
-                    Mac = LoginInfo.Mac,
-                    OperationObj = userInfoRoleInfo.UName,
-                    SubTime = DateTime.Now,
-                    UName = LoginInfo.UName
-
-                };
-                OperationLogService.Add(operationLog);
-
+                OperationLogService.Add("添加员工", "系统管理", LoginInfo, userInfoRoleInfo.UName,"");
                 return Content("Ok");
             }
             else
@@ -189,18 +176,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == userInfo.Id).Select(u => u.Pwd).FirstOrDefault();
             UserInfoService.Update(userInfo);
             //写操作日志
-            OperationLog operationLog = new OperationLog
-            {
-                ActionName = "编辑员工",
-                ActionType = "系统管理",
-                Ip = LoginInfo.Ip,
-                Mac = LoginInfo.Mac,
-                OperationObj = userInfo.UName,
-                SubTime = DateTime.Now,
-                UName = LoginInfo.UName
-
-            };
-            OperationLogService.Add(operationLog);
+            OperationLogService.Add("编辑员工", "系统管理", LoginInfo, userInfo.UName, "");
             return Content("ok");
         }
 
@@ -226,25 +202,12 @@ namespace Glove.IOT.UI.Portal.Controllers
             UserInfoService.DeleteListByLogical(idList);
             foreach (var id in idList)
             {
+                var uName = UserInfoService.GetEntities(u => u.Id == id).Select(u => u.UName).FirstOrDefault();
                 //写操作日志
-                OperationLog operationLog = new OperationLog
-                {
-                    ActionName = "删除员工",
-                    ActionType = "系统管理",
-                    Ip = LoginInfo.Ip,
-                    Mac = LoginInfo.Mac,
-                    OperationObj = UserInfoService.GetEntities(u=>u.Id==id).Select(u=>u.UName).FirstOrDefault(),
-                    SubTime = DateTime.Now,
-                    UName = LoginInfo.UName
-                };
-                OperationLogService.Add(operationLog);
-
+                OperationLogService.Add("删除员工", "系统管理", LoginInfo,uName, "");
             }
-
                 return Content("del ok");
-
         }
-
 
         /// <summary>
         /// 设置角色
@@ -261,63 +224,8 @@ namespace Glove.IOT.UI.Portal.Controllers
             });
             var data = temp.ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
-
         }
 
-        /// <summary>
-        /// 给用户设置角色
-        /// </summary>
-        /// <param name="UId">用户Id</param>
-        /// <returns>OK</returns>
-         void ProcessSetRole(int uId,int rId)
-         {
-            //第一：当前用户的id ----uid
-            //第二：当前用户在角色关联表中的ID
-            UserInfo user = UserInfoService.GetEntities(u => u.Id == uId).FirstOrDefault();
-            var allUserInfoIds = (from r in user.R_UserInfo_RoleInfo
-                                  where r.UserInfoId == uId && r.IsDeleted ==false
-                                  select r.Id).ToList();
-
-            for (int i = 0; i < allUserInfoIds.Count(); i++)
-            {
-                int userInfoId = Convert.ToInt32(allUserInfoIds[i]);
-                var rUserRole = R_UserInfo_RoleInfoService.GetEntities(r =>
-                r.Id== userInfoId).FirstOrDefault();
-                R_UserInfo_RoleInfoService.Delete(rUserRole);
-             }
-
-            //第三：所有打上对勾的角色 ----list
-                 List<int> setRoleIdList = new List<int>();
-                 setRoleIdList.Add(rId);
-
-            for (int i = 0; i < setRoleIdList.Count; i++)
-            {
-                int roleId = Convert.ToInt32(setRoleIdList[i]);
-                R_UserInfo_RoleInfo rUserInfoRoleInfo = new R_UserInfo_RoleInfo
-                {
-                    UserInfoId = uId,
-                    RoleInfoId = roleId,
-                    IsDeleted = false
-                };
-                R_UserInfo_RoleInfoService.Add(rUserInfoRoleInfo);
-              
-            }
-
-         }
-        /// <summary>
-        /// 上传图片处理
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult UploadImage()
-        {
-            var file = Request.Files["fileMenuIcon"];
-
-            string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + file.FileName;
-
-            file.SaveAs(Request.MapPath(path));
-
-            return Content(path);
-        }
         /// <summary>
         /// 获取登录用户头像
         /// </summary>
@@ -325,7 +233,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult GetUserPicture()
         {
             var picture = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).Select(u => u.Picture).FirstOrDefault();
-            return Json(picture, JsonRequestBehavior.AllowGet);
+            var data = new { Name = LoginInfo.UName,Picture = picture};
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult t()

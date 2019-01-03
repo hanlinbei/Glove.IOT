@@ -113,7 +113,7 @@ namespace Glove.IOT.BLL
         public T Add(T entity)
         {
              CurrentDal.Add(entity);
-            DbSession.SaveChanges();
+            //DbSession.SaveChanges();
             return entity;
         }
     
