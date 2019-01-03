@@ -78,7 +78,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult EditUserDetail( )
         {
-            var user = UserInfoService.GetEntities(u => u.UName == LoginInfo.UName).FirstOrDefault();
+            var user = UserInfoService.GetEntities(u => u.UName == LoginInfo.UName&&u.IsDeleted==false).FirstOrDefault();
+            
             UserInfo userInfo = new UserInfo
             {
                 SubTime = DateTime.Now
@@ -89,36 +90,57 @@ namespace Glove.IOT.UI.Portal.Controllers
             userInfo.Remark = Request["Remark"];
             userInfo.UCode = Request["UCode"];
             var file = Request.Files["Picture"];
+            
             //校验邮箱格式与可为空
             if (userInfo.Email.IsValidEmail()|| userInfo.Email.IsBlank())
             {
-                //校验手机号码与可为空
-                if (userInfo.Phone.IsValidMobile()|| userInfo.Phone.IsBlank())
+                var email = UserInfoService.GetEntities(u => u.Email == userInfo.Email&&u.IsDeleted==false);
+                //之前不存在该邮箱则允许更改
+                if (email == null)
                 {
-                    userInfo.Pwd = user.Pwd;
-                    userInfo.UCode = user.UCode;
-                    userInfo.UName = user.UName;
-                    //如果文件为空 用回原来已存在的图片
-                    if (file == null)
+                    //校验手机号码与可为空
+                    if (userInfo.Phone.IsValidMobile() || userInfo.Phone.IsBlank())
                     {
-                        userInfo.Picture = user.Picture;
+                        var phone= UserInfoService.GetEntities(u => u.Phone == userInfo.Phone && u.IsDeleted == false);
+                        //之前不存在该手机号 则允许添加
+                        if (phone == null)
+                        {
+                            userInfo.Pwd = user.Pwd;
+                            userInfo.UCode = user.UCode;
+                            userInfo.UName = user.UName;
+                            //如果文件为空 用回原来已存在的图片
+                            if (file == null)
+                            {
+                                userInfo.Picture = user.Picture;
+                            }
+                            else
+                            {
+                                string fileName = file.FileName;
+                                fileName = fileName.Substring(fileName.LastIndexOf("\\") + 1, fileName.Length - fileName.LastIndexOf("\\") - 1);
+                                string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + fileName;
+                                file.SaveAs(Request.MapPath(path));
+                                userInfo.Picture = path;
+                            }
+                            userInfo.Id = user.Id;
+                            UserInfoService.Update(userInfo);
+                            return Content("ok");
+                        }
+                        else
+                        {
+                            return Content("手机号码已存在");
+                        }
                     }
                     else
                     {
-                        string fileName = file.FileName;
-                        fileName = fileName.Substring(fileName.LastIndexOf("\\") + 1, fileName.Length - fileName.LastIndexOf("\\") - 1);
-                        string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + fileName;
-                        file.SaveAs(Request.MapPath(path));
-                        userInfo.Picture = path;
+                        return Content("手机号码格式不正确");
                     }
-                    userInfo.Id = user.Id;
-                    UserInfoService.Update(userInfo);
-                    return Content("ok");
                 }
                 else
                 {
-                    return Content("手机号码格式不正确");
+                    return Content("邮箱已存在");
                 }
+              
+               
             }
             else
             {
@@ -232,8 +254,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult GetUserPicture()
         {
-            var picture = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).Select(u => u.Picture).FirstOrDefault();
-            var data = new { Name = LoginInfo.UName,Picture = picture};
+            var user = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).FirstOrDefault();
+            var data = new { user.UCode, LoginInfo.UName, user.Picture};
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
