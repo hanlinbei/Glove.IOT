@@ -14,8 +14,6 @@ namespace Glove.IOT.BLL
 {
     public partial class ActionInfoService : BaseService<ActionInfo>, IActionInfoService
     {
-    
-
 
     }
 }

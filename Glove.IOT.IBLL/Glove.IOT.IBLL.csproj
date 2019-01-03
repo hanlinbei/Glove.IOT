@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IR_UserInfo_RoleInfoService.cs" />
     <Compile Include="IDeviceParameterInfoService.cs" />
     <Compile Include="IDeviceInfoService.cs" />
     <Compile Include="IOperationLogService.cs" />

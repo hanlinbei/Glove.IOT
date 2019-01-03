@@ -11,6 +11,7 @@ namespace Glove.IOT.BLL
 {
     public partial class OperationLogService : BaseService<OperationLog>, IOperationLogService
     {
+
         /// <summary>
         /// 多条件查询
         /// </summary>
@@ -58,7 +59,15 @@ namespace Glove.IOT.BLL
                 .Take(operationLogQueryParam.PageSize).AsQueryable();
         }
 
-
+        /// <summary>
+        /// 写操作日志
+        /// </summary>
+        /// <param name="actionName"></param>
+        /// <param name="actionType"></param>
+        /// <param name="loginInfo"></param>
+        /// <param name="schCode"></param>
+        /// <param name="schRoleName"></param>
+        /// <returns></returns>
         public OperationLog Add(string actionName, string actionType, OperationLog loginInfo, string schCode, string schRoleName)
         {   
                 //写操作日志

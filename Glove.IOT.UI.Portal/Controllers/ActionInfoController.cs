@@ -48,24 +48,6 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(actionName, JsonRequestBehavior.AllowGet);
 
         }
-    
-  
-        
-
-        /// <summary>
-        /// 上传图片处理
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult UploadImage()
-        {
-            var file = Request.Files["fileMenuIcon"];
-
-            string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + file.FileName;
-
-            file.SaveAs(Request.MapPath(path));
-
-            return Content(path);
-        }
  
     }
 }

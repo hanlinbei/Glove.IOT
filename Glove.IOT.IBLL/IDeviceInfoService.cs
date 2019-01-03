@@ -10,6 +10,11 @@ namespace Glove.IOT.IBLL
 {
     public partial interface IDeviceInfoService:IBaseService<DeviceInfo>
     {
+        /// <summary>
+        /// 查询设备信息
+        /// </summary>
+        /// <param name="deviceQueryParam"></param>
+        /// <returns>分页设备数据</returns>
         IQueryable<Device> LoagDevicePageData(Model.Param.DeviceQueryParam deviceQueryParam);
     }
 }

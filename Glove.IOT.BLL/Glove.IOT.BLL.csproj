@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseService.cs" />
+    <Compile Include="R_UserInfo_RoleInfoService.cs" />
     <Compile Include="DeviceParameterInfoService.cs" />
     <Compile Include="DeviceInfoService.cs" />
     <Compile Include="OperationLogService.cs" />
