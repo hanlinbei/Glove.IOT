@@ -86,7 +86,7 @@
     </header>
     <section id="aside" class="hidden-xs">
         <div class="aside-top">
-            <div class="text-right col-xs-4" style="padding:0 10px 0 10px;"> <img src="~/Content/DH/img/人物.png" name="tPicture" height="50" width="50" /></div>
+            <div class="text-right col-xs-4" style="padding:0 10px 0 10px;"> <img src="" name="tPicture" height="50" width="50" /></div>
             <div class="aside-top__username col-xs-8"style="padding:0 0 0 0"><p name="userName" style="text-align:center;"></p></div>
         </div>
         <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
@@ -114,8 +114,11 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <i class="iconfont icon-alarm">&#xe6a8;</i>
-                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警处理</span>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警管理</span>
                 </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../WarningInfo/Warningmanage">当前报警</a></dd>
+                </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -181,18 +184,8 @@
     <script>
         $('button').addClass('layui-btn-disabled');
         $('button').attr('disabled', 'disabled');
-        $.post("/UserInfo/GetUserDetail", {}, function (data) {
-            if (data.Picture !== null) {
-                tPicture = data.Picture;
-            }
-            else {
-                tPicture = "~/Content/DH/img/人物.png";
-            }   
-            //更新左上角用户信息
-            userMessage();
-        })
-        
-        //Power('device');
+        //更新左上角用户信息
+        userMessage();
     </script>
 
 </body>

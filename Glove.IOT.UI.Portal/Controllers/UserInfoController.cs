@@ -332,7 +332,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult GetUserPicture()
         {
             var picture = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).Select(u => u.Picture).FirstOrDefault();
-            return Json(picture, JsonRequestBehavior.AllowGet);
+            var data = new {Name = LoginInfo.UName, Picture = picture};
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult t()

@@ -8,8 +8,6 @@ var DIdtable = new Array();//保存当前表格内数据是否被选中 在批�
 var Rid_Rolename = new Array();//保存UId 编辑的时候用
 var RId = 0;
 var userDetail = new FormData();
-var name;
-var tPicture;
 //var userDetail;
 layui.config({
     version: false //一般用于更新模块缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
@@ -107,9 +105,16 @@ function send() {
 }
 //显示左上角的用户信息
 function userMessage() {
-    console.log(tPicture);
-    $('img[name="tPicture"]').attr('src', tPicture);
-    $('p[name="userName"]').html(name);
+    $.get("/UserInfo/GetUserPicture", {}, function (data) {
+        if (data.Picture !== null) {
+            $('p[name="userName"]').html(data.Name);
+            $('img[name="tPicture"]').prop('src', data.Picture);
+        }
+        else {
+            $('p[name="userName"]').html(data.Name);
+            $('img[name="tPicture"]').prop('src', "../Content/DH/img/人物.png");
+        }
+    })
 }
 function changeCheckCode() {
     var old = $("#imgCode").attr("src");
@@ -136,7 +141,7 @@ layui.use('table', function () {//打开网页刷新表格
             { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
             , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
-            , { field: 'UCode', title: '角色编码', minWidth: 80, align: 'center' }
+            , { field: 'UCode', title: '员工编码', minWidth: 80, align: 'center' }
             , { field: 'UName', title: '姓名', minWidth: 80, sort: true, align: 'center' }
             , { field: 'RoleName', title: '角色名', minWidth: 150, align: 'center' }
             , { field: 'StatusFlag', title: '角色状态', minWidth: 80, align: 'center' }
@@ -1107,12 +1112,15 @@ function layerShowSearcholog(title, url, w, h, data) {
         skin: 'demo-class'
     });
 }
-function uploadDevicedetail(data) {
+function uploadUserdetail(data) {
     if (data === "get") {
         $.post("/UserInfo/GetUserDetail", {}, function (data) {
             console.log(data.Phone);
             if (data.Picture !== null) {
-                $('#Hportrait').attr('src', data.Picture);
+                $('#Hportrait').prop('src', data.Picture);
+            }
+            else {
+                $('#Hportrait').prop('src', "../Content/DH/img/人物.png");
             }
             $("input[name='RoleName']").val(data.RoleName);
             $("input[name='UName']").val(data.UName);
@@ -1176,6 +1184,46 @@ function uploadDevicedetail(data) {
         //})
     }
 }
+/////////////////////////////////报警表格/////////////////////////
+layui.use('table', function () {//打开网页刷新表格
+    var table = layui.table;
+    table.render({
+        elem: '#table_warning'
+        //, height: 520
+        , url: '/OperationLog/GetAllOperationLogs' //数据接口
+        , title: "当前报警"
+        , page: true //开启分页
+        , limit: 10
+        , limits: [5, 10, 15, 20]
+        , cols: [[ //表头
+            //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+            { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center', fixed: 'left' }
+            , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
+            , { field: 'ActionType', title: '报警信息', minWidth: 80, sort: true, align: 'center' }
+            , { field: 'ActionName', title: '开始时间', minWidth: 80, align: 'center' }
+            , { field: 'OperationObj', title: '报警时长', minWidth: 80, align: 'center' }
+            // , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+        ]]
+        , toolbar: true
+        , parseData: function (res) { //修改原始数据
+            console.log(res.data[1].SubTime);
+            for (var i = 0; i < res.data.length; i++) {
+                res.data[i].SubTime = (eval(res.data[i].SubTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+            }
+            return {
+                "code": res.code, //解析接口状态
+                "msg": res.msg, //解析提示文本
+                "count": res.count, //解析数据长度
+                "data": res.data //解析数据列表
+            };
+        }
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+
+        }
+        , skin: 'line'
+
+    });
+});
 //日期表
 layui.use('laydate', function () {
     var laydate = layui.laydate;

@@ -177,6 +177,7 @@
     <Compile Include="Controllers\RoleInfoController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserLoginController.cs" />
+    <Compile Include="Controllers\WarningInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1833,6 +1834,7 @@
     <Content Include="Views\UserInfo\LayerAdduser.cshtml" />
     <Content Include="Views\RoleInfo\Userpower.cshtml" />
     <Content Include="Views\UserInfo\Userdetail.cshtml" />
+    <Content Include="Views\WarningInfo\Warningmanage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
