@@ -202,8 +202,28 @@ body {
     color: #fff;
     vertical-align:middle;
 }
+.icon-user:hover {
+    font-size: 24px;
+    color: #fff;
+    vertical-align: middle;
+}
 .icon-machine {
-    font-size: 30px;
+    font-size: 23px;
+    color: #fff;
+    vertical-align: middle;
+}
+.icon-class {
+    font-size: 24px;
+    color: #fff;
+    vertical-align: middle;
+}
+.icon-alarm {
+    font-size: 24px;
+    color: #fff;
+    vertical-align: middle;
+}
+.icon-gear {
+    font-size: 24px;
     color: #fff;
     vertical-align: middle;
 }
@@ -292,7 +312,7 @@ body {
     z-index: 3100; /*最高*/
 }
 #aside .aside-top__username{
-    font-size:36px;
+    font-size:22px;
 }
 /*#aside .aside-top__usericon{
     float:left;
@@ -520,4 +540,18 @@ margin-top:70px;  */
 .red::-webkit-input-placeholder {/*placeholder的颜色  可能会有兼容性问题*/
     /* placeholder颜色  */
     color: #f00;
+}
+/*放置鼠标放置出现下划线*/
+.layui-nav-item-no {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: middle;
+    line-height: 60px;
+}
+.layui-nav-bar,
+.layui-nav .layui-this:after,
+.layui-nav-tree .layui-nav-itemed:after {
+    height: 3px;
 }

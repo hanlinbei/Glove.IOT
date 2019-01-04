@@ -57,10 +57,19 @@
                             </span>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right topbar-right">
-                        <li><i class="iconfont icon-bell">&#xe6f1;</i></li>
-                        <li><i class="iconfont icon-vline">&#xe63a;</i></li>
-                        <li><i ><a class="iconfont icon-user" href="../UserLogin/Index">&#xe638;</a></i></li>
+                    <ul class="layui-nav layui-layout-right">
+                        <li class="layui-nav-item">
+                            <i><a class="iconfont icon-bell" href='' style='text-decoration:none;'>&#xe6f1;</a></i>
+                        </li>
+                        <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li class="layui-nav-item">
+                            <i><a class="iconfont layui-hide-xs icon-user" style='text-decoration:none;'>&#xe638;</a></i>
+                            <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                                <dd><a href="../UserInfo/Userdetail">基本资料</a></dd>
+                                <dd><a href="../UserInfo/Userpassword">修改密码</a></dd>
+                                <dd style="text-align: center;"><a id="logout">注销</a></dd>
+                            </dl>
+                        </li>
                     </ul>
                 </div>
                 <!-- 最小宽度时出现汉堡菜单-->
@@ -77,37 +86,45 @@
     </header>
     <section id="aside" class="hidden-xs">
         <div class="aside-top">
-            <div class="text-right col-xs-5"><i class="iconfont icon-aside-top-user">&#xe638;</i></div>
-            <div class="aside-top__username col-xs-7">张三</div>
+            <div class="text-right col-xs-5" style="padding:0 5px 0 25px" id="tPicture"></div>
+            <div class="aside-top__username col-xs-7" style="padding:0 25px 0 5px"><p name="userName" style="text-align:center;"></p></div>
         </div>
         <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    设备管理
+                    <i class="iconfont icon-machine">&#xe6a3;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">设备管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    班组管理
+                    <i class="iconfont icon-class">&#xe64a;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">班组管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="#">班组设置</a></dd>
+                    <dd><a href="../ClassInfo/Classmanage">班号管理</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    报警处理
+                    <i class="iconfont icon-alarm">&#xe6a8;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警管理</span>
                 </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../WarningInfo/Warningmanage">当前报警</a></dd>
+                </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    系统管理
+                    <i class="iconfont icon-gear">&#xe65b;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">系统管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
@@ -168,7 +185,25 @@
     <script>
         $('button').addClass('layui-btn-disabled');
         $('button').attr('disabled', 'disabled');
-        //Power('device');
+        //更新左上角用户信息
+        userMessage();
+        $('#logout').click(function () {
+            $.post('/UserLogin/Logout', {}, function (data) {
+                if (data === 'ok') {
+                    //清除cookie
+                    var date = new Date();
+                    date.setTime(date.getTime() - 1);
+                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                    if (keys) {
+                        for (var i = keys.length; i--;)
+                            document.cookie = keys[i] + "=; expire=" + date.toGMTString() + "; path=/UserLogin";
+                    }  
+                    //document.cookie = 'LoginCode=;';//删除
+                    //document.cookie = 'LoginPwd=;';
+                    window.location.href = '../UserLogin/Index';
+                }
+            })
+        })
     </script>
 
 </body>

@@ -44,7 +44,8 @@ namespace Glove.IOT.BLL
             {
                 deviceId,
                 deviceParameterInfo.StatusFlag,
-                RunTime= runTime.ToString(),
+                //RunTime= runTime.ToString(),
+                RunTime = runTime,
                 deviceParameterInfo.StopTime,
                 deviceParameterInfo.TargetOutput,
                 deviceParameterInfo.SingleProgress,

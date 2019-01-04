@@ -105,7 +105,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <i class="iconfont icon-alarm">&#xe6a8;</i>
-                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警处理</span>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警管理</span>
                 </a>
             </li>
             <li class="layui-nav-item">
@@ -117,7 +117,7 @@
                 <dl class="layui-nav-child">
                     <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
                     <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
-                    <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
+                    <dd><a href="Operationlog">操作日志</a></dd>
                     <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
                     <dd><a href="#">数据字典</a></dd>
                     <dd><a href="#">用户管理</a></dd>
@@ -128,37 +128,23 @@
     <section id="main">
         <div class="navigation">
             <span class="layui-breadcrumb">
-                <a>系统管理</a>
-                <a href=""><cite>员工管理</cite></a>
+                <a>报警管理</a>
+                <a href=""><cite>当前报警</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
-            <button class="layui-btn layui-btn-normal col-xs-1" name="添加员工">
-                <i class="iconfont icon-add">&#xe726;</i>
-                添加员工
-            </button>
-            <button class="layui-btn layui-btn-danger col-xs-1" name="删除员工">
-                <i class="iconfont icon-delete">&#xe62f;</i>
-                删除员工
-            </button>
-            <!--
-            <button class="layui-btn layui-btn-warm col-xs-1">
-                <i class="iconfont icon-modify">&#xe6b8;</i>
-                修改员工
-            </button>
-                -->
-            <span class="col-xs-8"></span>
-            <button class="layui-btn col-xs-1" name="查找员工">
+            <span class="col-xs-10"></span>
+            <button class="layui-btn col-xs-1" name="查找日志">
                 <i class="iconfont icon-seek">&#xe618;</i>
-                查找员工
+                查找报警
             </button>
         </div>
         <div class="table">
             <div class="table-title">
-                员工管理
+                当前报警
             </div>
-            <table id="table_ry" lay-filter="table_ry" lay-data="{id: 'idTest'}"></table>
+            <table id="table_warning" lay-filter="table_warning" lay-data="{id: 'idTest'}"></table>
         </div>
 
     </section>
@@ -166,22 +152,19 @@
     <footer id="footer">
         <p class="text-right">© 版权所有 © 绍兴金隆机械制造有限公司</p>
     </footer>
+    <!-- 解析时间 -->
+    <script src="~/Scripts/datapattern.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs layui-btn-disabled a_disabled" lay-event="edit" name="编辑">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled a_disabled" lay-event="del" name="删除">删除</a>
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
         //更新左上角用户信息
         userMessage();
-        //禁用所有按钮
-        $('button').addClass('layui-btn-disabled');
-        $('button').attr('disabled', 'disabled'); 
-        //Power('user');
     </script>
 
 </body>
