@@ -86,7 +86,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             };
             userInfo.Email = Request["Email"];
             userInfo.Gender = Request["Gender"];
-            userInfo.Phone = Request["Pnumber"];
+            userInfo.Phone = Request["Phone"];
             userInfo.Remark = Request["Remark"];
             userInfo.UCode = Request["UCode"];
             var file = Request.Files["Picture"];

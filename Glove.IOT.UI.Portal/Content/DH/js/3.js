@@ -1462,8 +1462,19 @@ $(document).ready(function () {
              $("form").ajaxSubmit({
                 url: "/UserInfo/EditUserDetail",
                 type: "POST",
-                success: function () {
-                    window.location.href = '../UserInfo/Userdetail';
+                 success: function (data) {
+                     if (data === 'ok') {
+                         window.location.href = '../UserInfo/Userdetail';
+                     }
+                     layui.use('layer', function () {
+                         var layer = layui.layer;
+                         layer.msg('<span style="font-size:16px;vertical-align:middle;line-height:76px;">' + data + '</span>', {
+                             time: 2000,
+                             area: ['200px', '100px'],
+                             shade: 0.4,
+                             shadeClose: true
+                         });
+                     });
                 }
              })
         }

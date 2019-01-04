@@ -63,11 +63,11 @@
                         </li>
                         <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
                         <li class="layui-nav-item">
-                            <i><a class="iconfont layui-hide-xs icon-user" href="../UserInfo/Userdetail" style='text-decoration:none;'>&#xe638;</a></i>
+                            <i><a class="iconfont layui-hide-xs icon-user" style='text-decoration:none;'>&#xe638;</a></i>
                             <dl class="layui-nav-child layui-anim layui-anim-upbit">
-                                <dd><a>基本资料</a></dd>
+                                <dd><a href="../UserInfo/Userdetail">基本资料</a></dd>
                                 <dd><a href="../UserInfo/Userpassword">修改密码</a></dd>
-                                <dd style="text-align: center;"><a>退出</a></dd>
+                                <dd style="text-align: center;"><a id="logout">注销</a></dd>
                             </dl>
                         </li>
                     </ul>
@@ -187,6 +187,23 @@
         $('button').attr('disabled', 'disabled');
         //更新左上角用户信息
         userMessage();
+        $('#logout').click(function () {
+            $.post('/UserLogin/Logout', {}, function (data) {
+                if (data === 'ok') {
+                    //清除cookie
+                    var date = new Date();
+                    date.setTime(date.getTime() - 1);
+                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                    if (keys) {
+                        for (var i = keys.length; i--;)
+                            document.cookie = keys[i] + "=; expire=" + date.toGMTString() + "; path=/UserLogin";
+                    }  
+                    //document.cookie = 'LoginCode=;';//删除
+                    //document.cookie = 'LoginPwd=;';
+                    window.location.href = '../UserLogin/Index';
+                }
+            })
+        })
     </script>
 
 </body>

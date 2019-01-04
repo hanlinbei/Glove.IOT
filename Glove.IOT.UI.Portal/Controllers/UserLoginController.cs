@@ -126,7 +126,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             {
                 UserInfoService.Logout();
             }
-            return RedirectToAction("Index");
+            return Content("ok");
 
         }
 
