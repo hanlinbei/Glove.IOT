@@ -45,7 +45,7 @@ where StartTime=SubTime
 select  
 t2.DeviceInfoId,
 t2.最新开机时间,
-运行时长=t1.SubTime-t2.最新开机时间,
+运行时长=t4.最新正常运行时间-t2.最新开机时间,
 t4.最新正常运行时间,
 t3.DeviceId,
 t1.StatusFlag,
