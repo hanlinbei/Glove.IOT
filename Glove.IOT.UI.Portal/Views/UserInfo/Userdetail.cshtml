@@ -103,8 +103,8 @@
     </header>
     <section id="aside" class="hidden-xs">
         <div class="aside-top">
-            <div class="text-right col-xs-4" style="padding:0 10px 0 10px;"> <img src="~/Content/DH/img/人物.png" name="tPicture" height="50" width="50" /></div>
-            <div class="aside-top__username col-xs-8" style="padding:0 0 0 0"><p name="userName" style="text-align:center;"></p></div>
+            <div class="text-right col-xs-5" style="padding:0 5px 0 25px" id="tPicture"></div>
+            <div class="aside-top__username col-xs-7" style="padding:0 25px 0 5px"><p name="userName" style="text-align:center;"></p></div>
         </div>
         <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
@@ -223,7 +223,7 @@
                         <div class="layui-form-item">
                             <div class="layui-input-button">
                                 <button class="layui-btn" type="button" name="确认修改">确认修改</button>
-                                <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
+                                <button class="layui-btn layui-btn-primary" type="button" name="重新填写">重新填写</button>
                             </div>
                         </div>
                         <div class="phoneerror">
@@ -257,6 +257,16 @@
         //获取数据
         uploadUserdetail('get');  
 
+        $('button[name="重新填写"]').click(function () {
+            $(':input', '.layui-form')
+                .not('input[name="RoleName"], input[name="UName"]') //去除不需要重置的input类型
+                .val('');
+            $('input[type=radio][name="Gender"]:checked').prop("checked", false);//清空按钮
+            layui.use('form', function () {
+                var form = layui.form;
+                form.render();
+            });
+        })
         $("#upload").click(function () {
             $('#chooseImage').click();
         })

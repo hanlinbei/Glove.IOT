@@ -23,23 +23,7 @@
     <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
-    <style>
-        .layer {
-            padding-top: 20px;
-        }
-
-        .layui-form-label {
-            width: 100px; /*左边的字*/
-        }
-
-        .layui-input, .layui-textarea {
-            width: 97%; /*右边的框*/
-        }
-
-        p {
-            padding-left: 15px;
-        }
-    </style>
+    <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
     <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
 <body>
@@ -116,12 +100,13 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="#">班组设置</a></dd>
+                    <dd><a href="../ClassInfo/Classmanage">班号管理</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <i class="iconfont icon-alarm">&#xe6a8;</i>
-                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警管理</span>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警处理</span>
                 </a>
             </li>
             <li class="layui-nav-item">
@@ -143,142 +128,61 @@
     </section>
     <section id="main">
         <div class="navigation">
-            <!-- 面包屑 -->
             <span class="layui-breadcrumb">
-                <a>设备管理</a>
-                <a href="Devicemanage">设备工作情况</a>
-                <a><cite>设备详细情况</cite></a>
+                <a>班组管理</a>
+                <a href=""><cite>班号管理</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
-            <span class="col-xs-10"></span>
-            <a href="Devicemanage">
-                <button class="layui-btn col-xs-1" name="返回">
-                    <i class="iconfont icon-seek">&#xe618;</i>
-                    返回
-                </button>
-            </a>
+            <button class="layui-btn layui-btn-normal col-xs-1" name="添加班号">
+                <i class="iconfont icon-add">&#xe726;</i>
+                添加班号
+            </button>
+            <button class="layui-btn layui-btn-danger col-xs-1" name="删除班号">
+                <i class="iconfont icon-delete">&#xe62f;</i>
+                删除班号
+            </button>
+            <!--
+            <button class="layui-btn layui-btn-warm col-xs-1">
+                <i class="iconfont icon-modify">&#xe6b8;</i>
+                修改员工
+            </button>
+                -->
+            <span class="col-xs-8"></span>
+            <button class="layui-btn col-xs-1" name="查找班号">
+                <i class="iconfont icon-seek">&#xe618;</i>
+                查找班号
+            </button>
         </div>
-        <!-- 设备详情内容 -->
         <div class="table">
-        <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-md6" style="height:200px;"><!-- 加高度防止下面上移 临时解决办法 -->
-                    <div class="layer">
-                        <div class="layui-form" lay-filter="userAdd">
-                            <div class="layui-form-item">
-                            <label class="layui-form-label">设备ID：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="设备ID" required lay-verify="required" placeholder="设备ID" autocomplete="off" class="layui-input">
-                            </div>
-                            </div>
-                            <div class="layui-form-item">
-                            <label class="layui-form-label">运行状态：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="运行状态" required lay-verify="required" placeholder="运行状态" autocomplete="off" class="layui-input">
-                            </div>
-                            </div>
-                            <div class="layui-form-item">
-                            <label class="layui-form-label">运行时间：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="运行时间" required lay-verify="required" placeholder="运行时间" autocomplete="off" class="layui-input">
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-md6" style="height:200px;">
-                    <div class="layer">
-                        <div class="layui-form" lay-filter="userAdd">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">停机时间：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="停机时间" required lay-verify="required" placeholder="停机时间" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">目标产量：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="目标产量" required lay-verify="required" placeholder="目标产量" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            <div class="layui-col-md3">
-                <p name="单个进度" style="color:#009688; font-size: 36px; text-align: center;  padding-top:30px">单个进度</p>
-                <p style="text-align: center;font-size:18px;padding-top:27px;">单个进度</p>
+            <div class="table-title">
+                班号管理
             </div>
-            <div class="layui-col-md6">
-                <div class="layui-form-item">
-                    <div class="layui-form-item layui-form-text">
-                        <textarea name="历史记录" placeholder="历史记录" class="layui-textarea"></textarea>
-                        <p style="text-align: center;font-size:18px;padding-top:5px;">历史记录</p>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <p name="整体进度" style="color:#FFB800; font-size: 36px; text-align: center;  padding-top:30px">整体进度</p>
-                <p style="text-align: center;font-size:18px;padding-top:27px;">整体进度</p>
-            </div>
-            </div>
+            <table id="table_class" lay-filter="table_class" lay-data="{id: 'idTest'}"></table>
         </div>
-        </div>
+
     </section>
     <!-- 底部固定区域 -->
     <footer id="footer">
         <p class="text-right">© 版权所有 © 绍兴金隆机械制造有限公司</p>
     </footer>
-    <script src="~/Scripts/datapattern.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="detail ">查看</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-xs layui-btn-disabled a_disabled" lay-event="edit" name="编辑">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled a_disabled" lay-event="del" name="删除">删除</a>
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
         //更新左上角用户信息
         userMessage();
-        var category = window.location.search;
-        var cateval = category.substring(category.lastIndexOf('=') + 1, category.length);
-        if (cateval !== "") {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', "/Device/GetDeviceParameterInfo?DeviceId=" + cateval);
-            //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
-            xhr.send();//多发一个id数据
-            xhr.onreadystatechange = function () {
-                if (this.readyState !== 4) return; 
-                var deviceInfos = eval("(" + this.responseText + ")");//JSON.parse安全
-               
-                $('input[name="设备ID"]').val(deviceInfos.deviceParameter.deviceId);
-                if (deviceInfos.deviceParameter.StatusFlag === "关机中")
-                    $('input[name="运行状态"]').val("关机中");
-                else if (deviceInfos.deviceParameter.StatusFlag === "运行中")
-                    $('input[name="运行状态"]').val("运行中");
-                else if (deviceInfos.deviceParameter.StatusFlag === "暂停中")
-                    $('input[name="运行状态"]').val("暂停中");
-                else if (deviceInfos.deviceParameter.StatusFlag === "故障中")
-                    $('input[name="运行状态"]').val("故障中");
-                else if (deviceInfos.deviceParameter.StatusFlag === "未连接")
-                    $('input[name="运行状态"]').val("未连接");
-                //解析时间
-                //var StartTime = (eval(deviceInfos.deviceParameter.StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
-                var RunTime = Math.round(deviceInfos.deviceParameter.RunTime.TotalHours * 100) / 100;
-                if (deviceInfos.deviceParameter.StopTime !== null) {
-                    var StopTime = (eval(deviceInfos.deviceParameter.StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
-                }
-                $('input[name="运行时间"]').val(RunTime + ' 小时');
-                $('input[name="停机时间"').val(StopTime);
-                $('input[name="目标产量"').val(deviceInfos.deviceParameter.TargetOutput);
-                $('textarea[name="历史记录"]').val(deviceInfos.parameterHistory[0].NowOutput);
-                $('p[name="单个进度"').text(deviceInfos.deviceParameter.SingleProgress + '%');
-                $('p[name="整体进度"').text(Math.floor((deviceInfos.deviceParameter.NowOutput / deviceInfos.deviceParameter.TargetOutput) * 100) + '%');
-            };
-        }
+        //禁用所有按钮
+        //$('button').addClass('layui-btn-disabled');
+        //$('button').attr('disabled', 'disabled');
     </script>
+
 </body>
 </html>
