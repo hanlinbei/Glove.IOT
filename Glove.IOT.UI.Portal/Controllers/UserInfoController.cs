@@ -94,14 +94,14 @@ namespace Glove.IOT.UI.Portal.Controllers
             //校验邮箱格式与可为空
             if (userInfo.Email.IsValidEmail()|| userInfo.Email.IsBlank())
             {
-                var email = UserInfoService.GetEntities(u => u.Email == userInfo.Email&&u.IsDeleted==false);
+                var email = UserInfoService.GetEntities(u => u.Email == userInfo.Email&&u.IsDeleted==false&&u.UName!= LoginInfo.UName).FirstOrDefault();
                 //之前不存在该邮箱则允许更改
                 if (email == null)
                 {
                     //校验手机号码与可为空
                     if (userInfo.Phone.IsValidMobile() || userInfo.Phone.IsBlank())
                     {
-                        var phone= UserInfoService.GetEntities(u => u.Phone == userInfo.Phone && u.IsDeleted == false);
+                        var phone= UserInfoService.GetEntities(u => u.Phone == userInfo.Phone && u.IsDeleted == false&&u.UName != LoginInfo.UName).FirstOrDefault();
                         //之前不存在该手机号 则允许添加
                         if (phone == null)
                         {
