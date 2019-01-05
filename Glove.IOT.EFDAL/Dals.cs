@@ -17,7 +17,22 @@ namespace Glove.IOT.EFDAL
 
 	}
 	
-	public partial class R_UserInfo_ActionInfoDal:BaseDal<R_UserInfo_ActionInfo>,IR_UserInfo_ActionInfoDal
+	public partial class DeviceInfoDal:BaseDal<DeviceInfo>,IDeviceInfoDal
+    {
+
+	}
+	
+	public partial class DeviceParameterInfoDal:BaseDal<DeviceParameterInfo>,IDeviceParameterInfoDal
+    {
+
+	}
+	
+	public partial class OperationLogDal:BaseDal<OperationLog>,IOperationLogDal
+    {
+
+	}
+	
+	public partial class R_RoleInfo_ActionInfoDal:BaseDal<R_RoleInfo_ActionInfo>,IR_RoleInfo_ActionInfoDal
     {
 
 	}
@@ -33,6 +48,11 @@ namespace Glove.IOT.EFDAL
 	}
 	
 	public partial class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
+    {
+
+	}
+	
+	public partial class WarningInfoDal:BaseDal<WarningInfo>,IWarningInfoDal
     {
 
 	}

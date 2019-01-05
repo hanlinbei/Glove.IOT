@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IR_UserInfo_RoleInfoService.cs" />
+    <Compile Include="IDeviceParameterInfoService.cs" />
+    <Compile Include="IDeviceInfoService.cs" />
+    <Compile Include="IOperationLogService.cs" />
     <Compile Include="IService.cs">
       <DependentUpon>IService.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -49,6 +53,7 @@
     <Compile Include="IBaseService.cs" />
     <Compile Include="IActionInfoService.cs" />
     <Compile Include="IUserInfoService.cs" />
+    <Compile Include="IWarningInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

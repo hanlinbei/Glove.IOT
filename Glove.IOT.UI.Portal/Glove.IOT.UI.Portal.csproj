@@ -171,13 +171,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActionInfoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OperationLogController.cs" />
     <Compile Include="Controllers\RoleInfoController.cs" />
+    <Compile Include="Controllers\TeamInfoController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserLoginController.cs" />
+    <Compile Include="Controllers\WarningInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActionCheckFilterAttribute.cs" />
     <Compile Include="Models\LoginCheckFilterAttribute.cs" />
     <Compile Include="Models\MyExceptionFilterAttribut.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -200,8 +205,14 @@
     <Content Include="Content\DH\css\mainUI.css" />
     <Content Include="Content\DH\font\iconfont\iconfont.svg" />
     <Content Include="Content\DH\img\c_06.jpg" />
+    <Content Include="Content\DH\img\favicon.ico" />
     <Content Include="Content\DH\img\LOGO.png" />
+    <Content Include="Content\DH\img\人物.png" />
+    <Content Include="Content\DH\img\手套机2.jpg" />
+    <Content Include="Content\DH\img\验证码.png" />
     <Content Include="Content\DH\js\3.js" />
+    <Content Include="Content\DH\lib\echarts\echarts.js" />
+    <Content Include="Content\DH\lib\jquery.form.js" />
     <Content Include="Content\DH\lib\layui\css\layui.css" />
     <Content Include="Content\DH\lib\layui\layui.js" />
     <Content Include="Content\DH\lib\bootstrap\css\bootstrap-theme.css" />
@@ -317,6 +328,8 @@
     <Content Include="Content\DH\lib\layui\lay\modules\tree.js" />
     <Content Include="Content\DH\lib\layui\lay\modules\upload.js" />
     <Content Include="Content\DH\lib\layui\lay\modules\util.js" />
+    <Content Include="Content\DH\lib\NProgress\nprogress.css" />
+    <Content Include="Content\DH\lib\NProgress\nprogress.js" />
     <Content Include="Content\theme\bootstrap-theme.css" />
     <Content Include="Content\theme\bootstrap-theme.min.css" />
     <Content Include="Content\theme\bootstrap.css" />
@@ -1751,9 +1764,6 @@
     <Content Include="Content\jquery-easyui-1.3.1\demo\tree_data.json" />
     <Content Include="Content\jquery-easyui-1.3.1\themes\default\images\Thumbs.db" />
     <Content Include="Content\jquery-easyui-1.3.1\themes\gray\images\Thumbs.db" />
-    <Content Include="Content\DH\font\iconfont\iconfont.eot" />
-    <Content Include="Content\DH\font\iconfont\iconfont.ttf" />
-    <Content Include="Content\DH\font\iconfont\iconfont.woff" />
     <Content Include="Content\DH\lib\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="Content\DH\lib\bootstrap\css\bootstrap-theme.min.css.map" />
     <Content Include="Content\DH\lib\bootstrap\css\bootstrap.css.map" />
@@ -1765,6 +1775,10 @@
     <Content Include="Content\DH\lib\layui\font\iconfont.eot" />
     <Content Include="Content\DH\lib\layui\font\iconfont.ttf" />
     <Content Include="Content\DH\lib\layui\font\iconfont.woff" />
+    <Content Include="Content\DH\css\layer.css" />
+    <Content Include="Content\DH\font\iconfont\iconfont.eot" />
+    <Content Include="Content\DH\font\iconfont\iconfont.ttf" />
+    <Content Include="Content\DH\font\iconfont\iconfont.woff" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\datapattern.js" />
@@ -1784,9 +1798,19 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\MyAjaxForm.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Device\Devicemanage.cshtml" />
+    <Content Include="Views\Device\Devicedetail.cshtml" />
+    <Content Include="Views\Device\LayerAdddevice.cshtml" />
+    <None Include="Views\TeamInfo\Classmanage.cshtml" />
+    <Content Include="Views\UserLogin\Index.cshtml" />
+    <Content Include="Views\Device\LayerSearchdevice.cshtml" />
+    <Content Include="Views\OperationLog\Operationlog.cshtml" />
+    <Content Include="Views\OperationLog\LayerSearcholog.cshtml" />
+    <Content Include="Views\Device\test.cshtml" />
+    <Content Include="Views\TeamInfo\LayerAddclass.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
-    <Content Include="Views\UserInfo\Personnel_management.cshtml" />
-    <None Include="Views\UserInfo\t.cshtml" />
+    <Content Include="Views\UserInfo\Usermanage.cshtml" />
+    <None Include="Views\UserInfo\LayerSearchuser.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1802,22 +1826,20 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\UserInfo\Create.cshtml" />
-    <Content Include="Views\UserLogin\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\TreeIndex.cshtml" />
-    <Content Include="Views\UserInfo\Index.cshtml" />
-    <Content Include="Views\UserInfo\Edit.cshtml" />
     <Content Include="Views\ActionInfo\Index.cshtml" />
     <Content Include="Views\ActionInfo\Edit.cshtml" />
-    <Content Include="Views\RoleInfo\Index.cshtml" />
-    <Content Include="Views\UserInfo\SetRole.cshtml" />
     <Content Include="Views\ActionInfo\SetRole.cshtml" />
-    <Content Include="Views\UserInfo\SetAction.cshtml" />
-    <Content Include="Views\UserInfo\tck_ry_bj.cshtml">
+    <Content Include="Views\UserInfo\LayerEdituser.cshtml">
       <BrowseToURL>~/UserInfo/tck</BrowseToURL>
     </Content>
-    <Content Include="Views\UserInfo\tck_ry_tj.cshtml" />
+    <Content Include="Views\UserInfo\LayerAdduser.cshtml" />
+    <Content Include="Views\RoleInfo\Userpower.cshtml" />
+    <Content Include="Views\UserInfo\Userdetail.cshtml" />
+    <Content Include="Views\WarningInfo\Warningmanage.cshtml" />
+    <Content Include="Views\UserInfo\Userpassword.cshtml" />
+    <Content Include="Views\WarningInfo\LayerSearchwarning.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1866,10 +1888,20 @@
       <Project>{61203463-03bb-4b9d-927b-75b0c9272b76}</Project>
       <Name>Glove.IOT.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Glove.IOT.Tcp\Glove.IOT.Tcp.csproj">
+      <Project>{4833C4A4-3E68-4191-B6B1-65687E9CA769}</Project>
+      <Name>Glove.IOT.Tcp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

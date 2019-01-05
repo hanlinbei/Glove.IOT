@@ -9,6 +9,6 @@ namespace Glove.IOT.IBLL
 {
     public partial interface IActionInfoService:IBaseService<ActionInfo>
     {
-        bool SetRole(int userId, List<int> roleIds);
+        
     }
 }

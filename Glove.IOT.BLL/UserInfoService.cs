@@ -10,70 +10,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI.WebControls;
 
 namespace Glove.IOT.BLL
 {
     public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
 
-
-        #region
-        //依赖接口编程
-        //IUserInfoDal UserInfoDal = new UserInfoDal();
-
-        //private IUserInfoDal UserInfoDal = StaticDalFactory.GetUserInfoDal();
-        //DbSession dbSession = new DbSession();
-        //IDbSession dbSession = new DbSession();
-        //private IDbSession dbSession = DbSessionFactory.GetCurrentDbSession();
-        #endregion
-        //public UserInfoService(IDbSession dbSession)
-        //    :base(dbSession)
-        //    {
-        //    //this.DbSession = dbSession;
-
-        //    }
-
-        #region 由模版自动生成
-        //public override void SetCurrentDal()
-        //{
-        //    CurrentDal = this.DbSession.UserInfoDal;
-        //}
-        #endregion
-        #region
-        //public UserInfo Add(UserInfo userInfo)
-        //{
-
-        //    dbSession.UserInfoDal.Add(userInfo);
-        //    if (dbSession.SaveChanges() > 0)
-        //    {
-
-
-        //    }
-        //    dbSession.UserInfoDal.Add(new UserInfo());
-
-        //    dbSession.SaveChanges();
-        //    //return UserInfoDal.Add(userInfo);
-
-
-        //}
-        #endregion
-
-        #region 多条件查询
+        /// <summary>
+        /// 多条件查询
+        /// </summary>
+        /// <param name="userQueryParam">查询条件</param>
+        /// <returns>查询结果</returns>
         public IQueryable<UserInfo> LoagPageData(UserQueryParam userQueryParam)
         {
-            short normalFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
 
-            var temp = DbSession.UserInfoDal.GetEntities(u => (u.DelFlag == 0 || u.DelFlag == 1));
-
-       
-            //var date=from t1 in DbSession.UserInfoDal
-        
-
-            //过滤
-            //if (!string.IsNullOrEmpty(userQueryParam.SchName))
-            //{
-            //    temp = temp.Where(u => u.UName.Contains(userQueryParam.SchName)).AsQueryable();
-            //}
+            var temp = DbSession.UserInfoDal.GetEntities(u => u.IsDeleted==false);
 
             userQueryParam.Total = temp.Count();
 
@@ -82,52 +36,89 @@ namespace Glove.IOT.BLL
                 .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
                 .Take(userQueryParam.PageSize).AsQueryable();
         }
-        #endregion
 
-
-        #region 内连接查询
-        public IQueryable<UserInfoRoleInfo> LoagUserPageData(UserQueryParam userQueryParam)
+        /// <summary>
+        /// 查询用户详细信息
+        /// </summary>
+        /// <param name="uName"></param>
+        /// <returns></returns>
+        public UserInfoRoleInfo GetUserDetailInfo(string uName)
         {
-            short normalFlag = (short)Glove.IOT.Model.Enum.DelFlagEnum.Normal;
-            DataModelContainer model = new DataModelContainer();
-            //内连接查询
-            var query = from t1 in model.UserInfo
-                        join t2 in model.R_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
-                        join t3 in model.RoleInfo on t2.RoleInfoId equals t3.Id
-                        where (t2.DelFlag == normalFlag && t1.DelFlag == normalFlag && t3.DelFlag == normalFlag)
-                        select new UserInfoRoleInfo
-                        {
-                            Id = t1.Id,
-                            UName = t1.UName,
-                            UCode = t1.UCode,
-                            RoleName = t3.RoleName
-                        };
 
-            return query.OrderBy(u=>u.Id)
-                  .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
-                .Take(userQueryParam.PageSize).AsQueryable();
-
-
-
+            var temp = DbSession.UserInfoDal.GetEntities((u => u.IsDeleted == false&&u.UName==uName)).FirstOrDefault();
+            var roleId = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => (r.UserInfoId == temp.Id && r.IsDeleted == false)).FirstOrDefault();
+            var roleName = DbSession.RoleInfoDal.GetEntities(r => (r.Id == roleId.RoleInfoId && r.IsDeleted == false)).FirstOrDefault();
+            var data = new UserInfoRoleInfo
+            {
+                Email=temp.Email,
+                Gender= temp.Gender,
+                Phone= temp.Phone,
+                Picture=temp.Picture,
+                Remark= temp.Remark,
+                UCode= temp.UCode,
+                UName= temp.UName,
+                RoleName= roleName.RoleName
+            };
+            return data;
 
         }
 
-
-
-        #endregion
-
-        //设置角色
-        public bool SetRole(int userId, List<int> roleIds)
+        /// <summary>
+        /// 内连接查询
+        /// </summary>
+        /// <param name="userQueryParam">查询条件</param>
+        /// <returns>查询结果</returns>
+        public IQueryable<UserInfoRoleInfo> LoagUserPageData(UserQueryParam userQueryParam)
         {
-            //var user = DbSession.UserInfoDal.GetEntities(u => u.Id == userId).FirstOrDefault();
-            //user.R_UserInfo_RoleInfo.Clear();//全剁掉
-            //var allRoles = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => roleIds.Contains(r.Id));
-            //foreach (var roleInfo in allRoles)
-            //{
-            //    user.R_UserInfo_RoleInfo.Add(roleInfo);//加最新的角色
-            //}
-            //DbSession.SaveChanges();
-            return true;
+            var userInfo = DbSession.UserInfoDal.GetEntities(u => u.IsDeleted==false);
+            var r_UserInfo_RoleInfo = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => r.IsDeleted == false);
+            var roleInfo = DbSession.RoleInfoDal.GetEntities(r => r.IsDeleted == false);
+
+            //内连接查询 查询人员信息
+            var query = from t1 in userInfo
+                        join t2 in r_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
+                        join t3 in roleInfo on t2.RoleInfoId equals t3.Id
+                        select new UserInfoRoleInfo
+                        {
+                            UId = t1.Id,
+                            RId = t3.Id,
+                            UCode = t1.UCode,
+                            UName = t1.UName,
+                            RoleName = t3.RoleName,
+                            Remark=t1.Remark,
+                            StatusFlag = t1.StatusFlag
+                        };
+
+           //按员工编号筛选
+            if (!string.IsNullOrEmpty(userQueryParam.SchCode))
+            {
+                query = query.Where(u => u.UCode.Contains(userQueryParam.SchCode)).AsQueryable();
+            }
+            //按角色名筛选
+            if (!string.IsNullOrEmpty(userQueryParam.SchRoleName))
+            {
+                query = query.Where(u => u.RoleName.Contains(userQueryParam.SchRoleName)).AsQueryable();
+            }
+
+            userQueryParam.Total = query.Count();
+
+            return query.OrderBy(u=>u.UId)
+                  .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
+                  .Take(userQueryParam.PageSize).AsQueryable();
+
+        }
+        /// <summary>
+        /// 用户注销
+        /// </summary>
+        public void Logout()
+        {
+            FormsAuthentication.SignOut();
+            var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
         }
 
     }

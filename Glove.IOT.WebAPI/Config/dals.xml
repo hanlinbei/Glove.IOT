@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!--<object name="DbSessionFactory" type="Glove.IOT.DALFactory.DbSessionFactory, Glove.IOT.DALFactory" singleton="true"  >
+  </object>-->
+  <!--spring.net 通过工厂的实例方法来创建对象的配置demo-->
+  <!---<object name="DbSession" type="Glove.IOT.DALFactory.DbSession, Glove.IOT.DALFactory" 
+          singleton="false"  factory-method="GetCurrentDbSession" factory-object="DbSessionFactory" >
+  </object>-->
+  <!--spring.net 通过工厂的一个静态方法来创建对象的 配置demo。  type就直接配置到工厂类型就可以了。-->
+  <object name="DbSession" type="Glove.IOT.DALFactory.DbSessionFactory,Glove.IOT.DALFactory" singleton="false"  
+          factory-method="GetCurrentDbSession"  >
+  </object>
+  <object name="UserInfoDal" type="Glove.IOT.EFDAL.UserInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+  <object name="ActionInfoDal" type="Glove.IOT.EFDAL.ActionInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+  <object name="RoleInfoDal" type="Glove.IOT.EFDAL.RoleInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+
+  <object name="R_UserInfo_RoleInfoDal" type="Glove.IOT.EFDAL.R_UserInfo_RoleInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+  <object name="DeviceInfoDal" type="Glove.IOT.EFDAL.DeviceInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+  <object name="DeviceParameterInfoDal" type="Glove.IOT.EFDAL.DeviceParameterInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+
+  <object name="R_RoleInfo_ActionInfoDal" type="Glove.IOT.EFDAL.R_RoleInfo_ActionInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+  <object name="OperationLogDal" type="Glove.IOT.EFDAL.OperationLogDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+</objects>

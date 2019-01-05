@@ -1,0 +1,284 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Glove Machine IoT</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+    <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
+    <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
+    <style>
+        .layer {
+            padding-top: 20px;
+        }
+
+        .layui-form-label {
+            width: 100px; /*左边的字*/
+        }
+
+        .layui-input, .layui-textarea {
+            width: 97%; /*右边的框*/
+        }
+
+        p {
+            padding-left: 15px;
+        }
+    </style>
+    <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header id="header" class="layui-header">
+        <nav class="navbar navbar-glove navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header text-left">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_list" aria-expanded="false">
+                        <span class="sr-only">切换菜单</span>
+                        <span class="icon-bar"></span><!--汉堡菜单方框里的横线-->
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand topbar-left" href="#">
+                        <span class="topbar-left__alignmen">
+                            <img src="~/Content/DH/img/LOGO.png" height="60" width="60" alt="品牌LOGO">
+                        </span>
+                        <span class="topbar-left__font-size-l">金隆物联</span>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse topbar-middle">
+                    <ul class="nav navbar-nav topbar-middle text-left">
+                        <li><i class="iconfont icon-telephone">&#xe62a;</i></li>
+                        <li class="hidden-sm"><span class="topbar-middle__alignment">客服电话：400-12345678(9:00~21:00)</span></li>
+                        <li><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li>
+                            <span class="topbar-middle__link">
+                                <span class="topbar-middle__alignment">微信小程序二维码</span>
+                                <img src="~/Content/DH/img/c_06.jpg" height="140" width="124" alt="二维码">
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right topbar-right">
+                        <li><i class="iconfont icon-bell">&#xe6f1;</i></li>
+                        <li><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li><i class="iconfont icon-user">&#xe638;</i></li>
+                    </ul>
+                </div>
+                <!-- 最小宽度时出现汉堡菜单-->
+                <div class="collapse navbar-collapse" id="nav_list">
+                    <ul class="nav navbar-nav">
+                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">设备管理</a></li>
+                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">班组管理</a></li>
+                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">报警处理</a></li>
+                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">系统管理</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section id="aside" class="hidden-xs">
+        <div class="aside-top">
+            <div class="text-right col-xs-4" style="padding:0 10px 0 10px;"> <img src="~/Content/DH/img/人物.png" name="tPicture" height="50" width="50" /></div>
+            <div class="aside-top__username col-xs-8" style="padding:0 0 0 0"><p name="userName" style="text-align:center;"></p></div>
+        </div>
+        <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
+            <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-machine">&#xe6a3;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">设备管理</span>
+                    <span class="layui-nav-more"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-class">&#xe64a;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">班组管理</span>
+                    <span class="layui-nav-more"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="#">班组设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-alarm">&#xe6a8;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警管理</span>
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-gear">&#xe65b;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">系统管理</span>
+                    <span class="layui-nav-more"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
+                    <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
+                    <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
+                    <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
+                    <dd><a href="#">数据字典</a></dd>
+                    <dd><a href="#">用户管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </section>
+    <section id="main">
+        <div class="navigation">
+            <!-- 面包屑 -->
+            <span class="layui-breadcrumb">
+                <a>设备管理</a>
+                <a href="Devicemanage">设备工作情况</a>
+                <a><cite>设备详细情况</cite></a>
+            </span>
+        </div>
+        <!-- 该页面的主要内容 -->
+        <div class="button">
+            <span class="col-xs-10"></span>
+            <a href="Devicemanage">
+                <button class="layui-btn col-xs-1" name="返回">
+                    <i class="iconfont icon-seek">&#xe618;</i>
+                    返回
+                </button>
+            </a>
+        </div>
+        <!-- 设备详情内容 -->
+        <div class="table">
+        <div class="layui-container">
+            <div class="layui-row">
+                <div class="layui-col-md6" style="height:200px;"><!-- 加高度防止下面上移 临时解决办法 -->
+                    <div class="layer">
+                        <div class="layui-form" lay-filter="userAdd">
+                            <div class="layui-form-item">
+                            <label class="layui-form-label">设备ID：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="设备ID" required lay-verify="required" placeholder="设备ID" autocomplete="off" class="layui-input">
+                            </div>
+                            </div>
+                            <div class="layui-form-item">
+                            <label class="layui-form-label">运行状态：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="运行状态" required lay-verify="required" placeholder="运行状态" autocomplete="off" class="layui-input">
+                            </div>
+                            </div>
+                            <div class="layui-form-item">
+                            <label class="layui-form-label">运行时间：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="运行时间" required lay-verify="required" placeholder="运行时间" autocomplete="off" class="layui-input">
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6" style="height:200px;">
+                    <div class="layer">
+                        <div class="layui-form" lay-filter="userAdd">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">停机时间：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="停机时间" required lay-verify="required" placeholder="停机时间" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">目标产量：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="目标产量" required lay-verify="required" placeholder="目标产量" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="layui-col-md3">
+                <p name="单个进度" style="color:#009688; font-size: 36px; text-align: center;  padding-top:30px">单个进度</p>
+                <p style="text-align: center;font-size:18px;padding-top:27px;">单个进度</p>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-form-item">
+                    <div class="layui-form-item layui-form-text">
+                        <textarea name="历史记录" placeholder="历史记录" class="layui-textarea"></textarea>
+                        <p style="text-align: center;font-size:18px;padding-top:5px;">历史记录</p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <p name="整体进度" style="color:#FFB800; font-size: 36px; text-align: center;  padding-top:30px">整体进度</p>
+                <p style="text-align: center;font-size:18px;padding-top:27px;">整体进度</p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- 底部固定区域 -->
+    <footer id="footer">
+        <p class="text-right">© 版权所有 © 绍兴金隆机械制造有限公司</p>
+    </footer>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="detail ">查看</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script src="~/Content/DH/js/3.js"></script>
+    <script>
+        //更新左上角用户信息
+        userMessage();
+        var category = window.location.search;
+        var cateval = category.substring(category.lastIndexOf('=') + 1, category.length);
+        if (cateval !== "") {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', "/Device/GetDeviceParameterInfo?DeviceId=" + cateval);
+            //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
+            xhr.send();//多发一个id数据
+            xhr.onreadystatechange = function () {
+                if (this.readyState !== 4) return; 
+                var deviceInfos = eval("(" + this.responseText + ")");//JSON.parse安全
+               
+                $('input[name="设备ID"]').val(deviceInfos.deviceParameter.deviceId);
+                if (deviceInfos.deviceParameter.StatusFlag === "关机中")
+                    $('input[name="运行状态"]').val("关机中");
+                else if (deviceInfos.deviceParameter.StatusFlag === "运行中")
+                    $('input[name="运行状态"]').val("运行中");
+                else if (deviceInfos.deviceParameter.StatusFlag === "暂停中")
+                    $('input[name="运行状态"]').val("暂停中");
+                else if (deviceInfos.deviceParameter.StatusFlag === "故障中")
+                    $('input[name="运行状态"]').val("故障中");
+                else if (deviceInfos.deviceParameter.StatusFlag === "未连接")
+                    $('input[name="运行状态"]').val("未连接");
+                //解析时间
+                //var StartTime = (eval(deviceInfos.deviceParameter.StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                var RunTime = Math.round(deviceInfos.deviceParameter.RunTime.TotalHours * 100) / 100;
+                if (deviceInfos.deviceParameter.StopTime !== null) {
+                    var StopTime = (eval(deviceInfos.deviceParameter.StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                }
+                $('input[name="运行时间"]').val(RunTime + ' 小时');
+                $('input[name="停机时间"').val(StopTime);
+                $('input[name="目标产量"').val(deviceInfos.deviceParameter.TargetOutput);
+                $('textarea[name="历史记录"]').val(deviceInfos.parameterHistory[0].NowOutput);
+                $('p[name="单个进度"').text(deviceInfos.deviceParameter.SingleProgress + '%');
+                $('p[name="整体进度"').text(Math.floor((deviceInfos.deviceParameter.NowOutput / deviceInfos.deviceParameter.TargetOutput) * 100) + '%');
+            };
+        }
+    </script>
+</body>
+</html>
