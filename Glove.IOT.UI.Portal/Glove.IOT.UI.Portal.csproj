@@ -1839,6 +1839,7 @@
     <Content Include="Views\UserInfo\Userdetail.cshtml" />
     <Content Include="Views\WarningInfo\Warningmanage.cshtml" />
     <Content Include="Views\UserInfo\Userpassword.cshtml" />
+    <Content Include="Views\WarningInfo\LayerSearchwarning.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
