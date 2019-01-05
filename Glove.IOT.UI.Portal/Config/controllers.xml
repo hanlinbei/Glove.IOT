@@ -36,4 +36,8 @@
   <object type="Glove.IOT.UI.Portal.Controllers.OperationLogController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="OperationLogService" ref="OperationLogService" />
   </object>
+   <object type="Glove.IOT.UI.Portal.Controllers.WarningInfoController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="WarningInfoService" ref="WarningInfoService" />
+  </object>
+
 </objects>

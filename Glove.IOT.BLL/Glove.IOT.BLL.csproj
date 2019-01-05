@@ -57,6 +57,7 @@
     <Compile Include="ActionInfoService.cs" />
     <Compile Include="UserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WarningInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glove.IOT.Common\Glove.IOT.Common.csproj">

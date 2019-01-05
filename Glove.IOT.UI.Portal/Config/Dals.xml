@@ -28,4 +28,6 @@
   </object>
   <object name="OperationLogDal" type="Glove.IOT.EFDAL.OperationLogDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
+  <object name="WarningInfoDal" type="Glove.IOT.EFDAL.WarningInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
 </objects>
