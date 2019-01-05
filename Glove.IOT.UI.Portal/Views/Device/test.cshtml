@@ -24,34 +24,167 @@
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
-    <style>
-        .style {
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            height:400px;
-            width:400px;
-        }
-    </style>
     <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
 <body>
-    <ul class="layui-nav" lay-filter="">
-        <li class="layui-nav-item"><a href="">最新活动</a></li>
-        <li class="layui-nav-item layui-this"><a href="">产品</a></li>
-        <li class="layui-nav-item"><a href="">大数据</a></li>
-        <li class="layui-nav-item">
-            <a href="javascript:;">解决方案</a>
-            <dl class="layui-nav-child">
-                <!-- 二级菜单 -->
-                <dd><a href="">移动模块</a></dd>
-                <dd><a href="">后台模版</a></dd>
-                <dd><a href="">电商平台</a></dd>
-            </dl>
-        </li>
-        <li class="layui-nav-item"><a href="">社区</a></li>
-    </ul>
-
+    <!-- 头部区域 -->
+    <header id="header">
+        <nav class="navbar navbar-glove navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header text-left">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_list" aria-expanded="false">
+                        <span class="sr-only">切换菜单</span>
+                        <span class="icon-bar"></span><!--汉堡菜单方框里的横线-->
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand topbar-left" href="#">
+                        <span class="topbar-left__alignmen">
+                            <img src="~/Content/DH/img/LOGO.png" height="60" width="60" alt="品牌LOGO">
+                        </span>
+                        <span class="topbar-left__font-size-l">金隆物联</span>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse topbar-middle">
+                    <ul class="nav navbar-nav topbar-middle text-left">
+                        <li><i class="iconfont icon-telephone">&#xe62a;</i></li>
+                        <li class="hidden-sm"><span class="topbar-middle__alignment">客服电话：400-12345678(9:00~21:00)</span></li>
+                        <li><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li>
+                            <span class="topbar-middle__link">
+                                <span class="topbar-middle__alignment">微信小程序二维码</span>
+                                <img src="~/Content/DH/img/c_06.jpg" height="140" width="124" alt="二维码">
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" class="iconfont icon-vline">&#xe6f1;</a></li>
+                        <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle iconfont icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&#xe638;<span class="caret"></span></a>
+                            <ul class="dropdown-menu" style="min-width: 50px; text-align:center;">
+                                <li><a href="../UserInfo/Userdetail">基本资料</a></li>
+                                <li><a href="../UserInfo/Userpassword">修改密码</a></li>
+                                <li><a id="logout">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    @*<ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <i><a class="iconfont icon-bell" href='' style='text-decoration:none;'>&#xe6f1;</a></i>
+            </li>
+            <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
+            <li class="layui-nav-item">
+                <i><a class="iconfont layui-hide-xs icon-user" style='text-decoration:none;'>&#xe638;</a></i>
+                <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                    <dd><a href="../UserInfo/Userdetail">基本资料</a></dd>
+                    <dd><a href="../UserInfo/Userpassword">修改密码</a></dd>
+                    <dd style="text-align: center;"><a id="logout">注销</a></dd>
+                </dl>
+            </li>
+        </ul>*@
+                </div>
+                <!-- 最小宽度时出现汉堡菜单-->
+                <div class="collapse navbar-collapse" id="nav_list">
+                    <ul class="nav navbar-nav">
+                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">设备管理</a></li>
+                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">班组管理</a></li>
+                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">报警处理</a></li>
+                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">系统管理</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section id="aside" class="hidden-xs">
+        <div class="aside-top">
+            <div class="text-right col-xs-5" style="padding:0 5px 0 25px" id="tPicture"></div>
+            <div class="aside-top__username col-xs-7" style="padding:0 25px 0 5px"><p name="userName" style="text-align:center;"></p></div>
+        </div>
+        <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
+            <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-machine">&#xe6a3;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">设备管理</span>
+                    <span class="layui-nav-more"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-class">&#xe64a;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">班组管理</span>
+                    <span class="layui-nav-more"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="#">班组设置</a></dd>
+                    <dd><a href="../ClassInfo/Classmanage">班号管理</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-alarm">&#xe6a8;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警管理</span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../WarningInfo/Warningmanage">当前报警</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-gear">&#xe65b;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">系统管理</span>
+                    <span class="layui-nav-more"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
+                    <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
+                    <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
+                    <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
+                    <dd><a href="#">数据字典</a></dd>
+                    <dd><a href="#">用户管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </section>
+    <section id="main">
+        <div class="navigation">
+            <!-- 面包屑 -->
+            <span class="layui-breadcrumb">
+                <a>设备管理</a>
+                <a href="Devicemanage"><cite>设备工作情况</cite></a>
+            </span>
+        </div>
+        <!-- 该页面的主要内容 -->
+        <div class="button">
+            <button class="layui-btn layui-btn-normal col-xs-1" name="添加设备">
+                <i class="iconfont icon-add">&#xe726;</i>
+                添加设备
+            </button>
+            <button class="layui-btn layui-btn-danger col-xs-1" name="删除设备">
+                <i class="iconfont icon-delete">&#xe62f;</i>
+                删除设备
+            </button>
+            <span class="col-xs-8"></span>
+            <button class="layui-btn col-xs-1" name="查找设备">
+                <i class="iconfont icon-seek">&#xe618;</i>
+                查找设备
+            </button>
+        </div>
+        <div class="table">
+            <div class="table-title">
+                设备管理
+            </div>
+            <table id="table_device" lay-filter="table_device" lay-data="{id: 'idTest'}"></table>
+        </div>
+    </section>
+    <!-- 底部固定区域 -->
+    <footer id="footer">
+        <p class="text-right">© 版权所有 © 绍兴金隆机械制造有限公司</p>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
@@ -60,7 +193,30 @@
         <a class="layui-btn layui-btn-xs a_disabled layui-btn-disabled a_disabled layui-btn-disabled" lay-event="detail" name="查看">查看</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs a_disabled layui-btn-disabled" lay-event="del" name="删除">删除</a>
     </script>
-    <script src="~/Content/DH/lib/echarts/echarts.js"></script>
     <script src="~/Content/DH/js/3.js"></script>
+    <script>
+        $('button').addClass('layui-btn-disabled');
+        $('button').attr('disabled', 'disabled');
+        //更新左上角用户信息
+        userMessage();
+        $('#logout').click(function () {
+            $.post('/UserLogin/Logout', {}, function (data) {
+                if (data === 'ok') {
+                    //清除cookie
+                    var date = new Date();
+                    date.setTime(date.getTime() - 1);
+                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                    if (keys) {
+                        for (var i = keys.length; i--;)
+                            document.cookie = keys[i] + "=; expire=" + date.toGMTString() + "; path=/UserLogin";
+                    }
+                    //document.cookie = 'LoginCode=;';//删除
+                    //document.cookie = 'LoginPwd=;';
+                    window.location.href = '../UserLogin/Index';
+                }
+            })
+        })
+    </script>
+
 </body>
 </html>
