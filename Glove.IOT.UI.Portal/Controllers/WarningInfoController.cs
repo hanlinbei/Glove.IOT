@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-    public class WarningInfoController : Controller
+    public class WarningInfoController : BaseController
     {
         // GET: Warning
-        public ActionResult Warningmanage()
+        public ActionResult GetWarningInfo()
         {
             return View();
         }
