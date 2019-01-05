@@ -35,7 +35,7 @@ namespace Glove.IOT.BLL
         //public abstract void SetCurrentDal();//抽象方法要求子类必须实现
 
         /// <summary>
-        /// 查询
+        /// 追踪查询
         /// </summary>
         /// <param name="whereLambda">表达式条件</param>
         /// <returns>查询结果</returns>
@@ -44,6 +44,17 @@ namespace Glove.IOT.BLL
             return CurrentDal.GetEntities(whereLambda);
 
         }
+        /// <summary>
+        /// 不追踪查询
+        /// </summary>
+        /// <param name="whereLambda">表达式条件</param>
+        /// <returns>查询结果</returns>
+        public IQueryable<T> GetEntitiesNoTracking(Expression<Func<T, bool>> whereLambda)
+        {
+            return CurrentDal.GetEntitiesNoTracking(whereLambda);
+
+        }
+
 
         /// <summary>
         /// 分页查询

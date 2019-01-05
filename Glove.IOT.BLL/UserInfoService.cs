@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.Common;
+using Glove.IOT.Common.Extention;
 using Glove.IOT.DALFactory;
 using Glove.IOT.EFDAL;
 using Glove.IOT.IBLL;
@@ -119,6 +120,29 @@ namespace Glove.IOT.BLL
                 cookie.Expires = DateTime.Now.AddDays(-1);
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
+        }
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="oldpwd">旧密码</param>
+        /// <param name="newPwd">新密码</param>
+        /// <param name="uId">登录用户ID</param>
+        /// <returns></returns>
+        public string EditPwd(string oldpwd, string newPwd,int uId)
+        {
+            var user = DbSession.UserInfoDal.GetEntities(u => u.Id == uId).FirstOrDefault();
+            if (user.Pwd != oldpwd.ToMD5())
+            {
+                return "原密码错误";
+            }
+            else
+            {
+                user.Pwd = newPwd.ToMD5();
+                DbSession.UserInfoDal.Update(user);
+                return "密码修改成功";
+            }
+
         }
 
     }

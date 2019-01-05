@@ -32,6 +32,14 @@ namespace Glove.IOT.IBLL
         /// 用户注销
         /// </summary>
         void Logout();
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="oldpwd">旧密码</param>
+        /// <param name="newPwd">新密码</param>
+        /// <param name="uId">登录用户ID</param>
+        /// <returns></returns>
+        string EditPwd(string oldpwd, string newPwd, int uId);
 
     }
 }

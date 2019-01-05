@@ -78,7 +78,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult EditUserDetail( )
         {
-            var user = UserInfoService.GetEntities(u => u.UName == LoginInfo.UName&&u.IsDeleted==false).FirstOrDefault();
+            var user = UserInfoService.GetEntitiesNoTracking(u => u.UName == LoginInfo.UName&&u.IsDeleted==false).FirstOrDefault();
             
             UserInfo userInfo = new UserInfo
             {
@@ -257,6 +257,17 @@ namespace Glove.IOT.UI.Portal.Controllers
             var user = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).FirstOrDefault();
             var data = new { user.UCode, LoginInfo.UName, user.Picture};
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="oldPwd">旧密码</param>
+        /// <param name="newPwd">新密码</param>
+        /// <returns></returns>
+        public ActionResult EditPwd(string oldPwd, string newPwd)
+        {
+            var msg=UserInfoService.EditPwd(oldPwd, newPwd, LoginInfo.Id);
+            return Content(msg);
         }
 
         public ActionResult t()

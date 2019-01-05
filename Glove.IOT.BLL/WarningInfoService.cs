@@ -26,19 +26,17 @@ namespace Glove.IOT.BLL
             var query = from t1 in warningInfo
                         from t2 in warningInfo.GroupBy(w => w.DeviceId).Select(p => new
                         {
-                            newestSubTime = p.Max(q => q.SubTime),
-                            warningStartTime = p.Min(q => q.SubTime),
+                            NewestSubTime = p.Max(q => q.SubTime),
+                            WarningStartTime = p.Min(q => q.SubTime),
                             deviceId = p.Key
                         })
-                        where t1.DeviceId == t2.deviceId && t1.SubTime == t2.newestSubTime
+                        where t1.DeviceId == t2.deviceId && t1.SubTime == t2.NewestSubTime
                         select new
                         {
                             t1.DeviceId,
                             t1.WarningMessage,
-                            t2.warningStartTime,
-                            day = EntityFunctions.DiffDays(t2.warningStartTime, t2.newestSubTime),
-                            hour= EntityFunctions.DiffHours(t2.warningStartTime, t2.newestSubTime),
-                            minute=EntityFunctions.DiffMinutes(t2.warningStartTime, t2.newestSubTime),
+                            t2.WarningStartTime,
+                            minute=EntityFunctions.DiffMinutes(t2.WarningStartTime, t2.NewestSubTime),
                         };
             //按设备ID编号筛选
             if (!string.IsNullOrEmpty(warningQueryParam.SchDeviceId))
@@ -53,7 +51,7 @@ namespace Glove.IOT.BLL
             //按报警时间查询
             if (!string.IsNullOrEmpty(warningQueryParam.FirstTime)&& !string.IsNullOrEmpty(warningQueryParam.LastTime))
             {
-                query = query.Where(w=>(w.warningStartTime>firstTime&&w.warningStartTime<lastTime)).AsQueryable();
+                query = query.Where(w=>(w.WarningStartTime>firstTime&&w.WarningStartTime<lastTime)).AsQueryable();
             }
             //总条数
             warningQueryParam.Total = query.Count();

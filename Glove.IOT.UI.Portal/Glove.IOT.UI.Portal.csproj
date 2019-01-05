@@ -175,7 +175,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OperationLogController.cs" />
     <Compile Include="Controllers\RoleInfoController.cs" />
-    <Compile Include="Controllers\ClassInfoController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserLoginController.cs" />
     <Compile Include="Controllers\WarningInfoController.cs" />

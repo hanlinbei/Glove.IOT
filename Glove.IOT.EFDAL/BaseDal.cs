@@ -20,13 +20,23 @@ namespace Glove.IOT.EFDAL
             get { return DbContextFactory.GetCurrentDbContext(); }
         }
         /// <summary>
-        /// 查询
+        /// 追终查询
         /// </summary>
         /// <param name="whereLambda">查询条件</param>
         /// <returns></returns>
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
 
+            return Db.Set<T>().Where(whereLambda).AsQueryable();
+
+        }
+        /// <summary>
+        /// 不追终查询
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <returns></returns>
+        public IQueryable<T> GetEntitiesNoTracking(Expression<Func<T, bool>> whereLambda)
+        {
             return Db.Set<T>().AsNoTracking().Where(whereLambda).AsQueryable();
 
         }
