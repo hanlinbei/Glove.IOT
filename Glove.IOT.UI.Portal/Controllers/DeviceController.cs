@@ -95,17 +95,12 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 获取所有设备信息
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetAllDeviceInfos()
+        public ActionResult GetAllDeviceInfos(string limit,string page,string schDeviceId, string schStatusFlag)
         {
-            string limit = Request.QueryString["limit"];
-            string page = Request.QueryString["page"];
-            string schDeviceId = Request.QueryString["deviceId"];
-            string schStatusFlag = Request.QueryString["statusFlag"];
             int pageSize = int.Parse(limit ?? "10");
             int pageIndex = int.Parse(page ?? "1");
 
             //过滤的设备名 过滤备注schDeviceId schStatusFlag
-
             var queryParam = new DeviceQueryParam()
             {
                 PageSize = pageSize,

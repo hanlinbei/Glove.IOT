@@ -36,5 +36,9 @@
     <property name="DbSession" ref="DbSession" />
     <property name="CurrentDal" ref="OperationLogDal" />
   </object>
+  <object name="WarningInfoService" type="Glove.IOT.BLL.WarningInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="WarningInfoDal" />
+  </object>
 
 </objects>

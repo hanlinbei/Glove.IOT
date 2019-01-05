@@ -1,4 +1,4 @@
-﻿ 
+﻿
 using Glove.IOT.Model;
 using System;
 using System.Collections.Generic;
@@ -43,6 +43,7 @@ namespace Glove.IOT.IBLL
 	
 		public partial interface IWarningInfoService:IBaseService<WarningInfo>
         {
+           
         }
 
 
