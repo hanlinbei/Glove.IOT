@@ -50,7 +50,7 @@
 .navbar-glove {
     background-color: #393d49;
     border: none; 
-    padding: 0 50px 0 10px;/*自己添加的*/
+    padding: 0 30px 0 10px;/*自己添加的*/
 }
 .navbar-glove .navbar-brand {
     color: #777;
@@ -66,7 +66,7 @@ color: #777;
 }
 .navbar-glove .navbar-nav > li > a {
 color: #ddd;
-line-height: 36px;
+line-height: 40px;
 font-size: 20px;
 }
 .navbar-glove .navbar-nav > li > a:hover,
@@ -548,7 +548,7 @@ margin-top:70px;  */
     *display: inline;
     *zoom: 1;
     vertical-align: middle;
-    line-height: 60px;
+    line-height: 70px;
 }
 .layui-nav-bar,
 .layui-nav .layui-this:after,
