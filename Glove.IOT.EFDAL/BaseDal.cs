@@ -99,8 +99,7 @@ namespace Glove.IOT.EFDAL
         public bool Update(T entity)
         {
             Db.Entry(entity).State = EntityState.Modified;
-            //return Db.SaveChanges() > 0;
-            return true;
+            return Db.SaveChanges() > 0;
         }
   
 
@@ -112,10 +111,10 @@ namespace Glove.IOT.EFDAL
         public bool Delete(T entity)
         {
             //Db.Entry(entity).State = EntityState.Deleted;
-            //return Db.SaveChanges() > 0;
+            
             Db.Entry(entity).Property("IsDeleted").CurrentValue = true;
             Db.Entry(entity).Property("IsDeleted").IsModified = true;
-            return true;
+             return Db.SaveChanges() > 0;
         }
         /// <summary>
         /// 根据id单个逻辑删除

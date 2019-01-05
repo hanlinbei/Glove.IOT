@@ -111,9 +111,7 @@ namespace Glove.IOT.BLL
         /// <returns>true</returns>
         public bool Delete(int id)
         {
-            CurrentDal.Delete(id);
-            return DbSession.SaveChanges() > 0;
-
+            return CurrentDal.Delete(id);
         }
 
         /// <summary>
@@ -124,7 +122,6 @@ namespace Glove.IOT.BLL
         public T Add(T entity)
         {
              CurrentDal.Add(entity);
-            //DbSession.SaveChanges();
             return entity;
         }
     
@@ -137,8 +134,7 @@ namespace Glove.IOT.BLL
         /// <returns>true</returns>
         public bool Update(T entity)
         {
-             CurrentDal.Update(entity);
-            return DbSession.SaveChanges() > 0;
+            return CurrentDal.Update(entity);  
         }
 
 
@@ -149,8 +145,7 @@ namespace Glove.IOT.BLL
         /// <returns>true</returns>
         public bool Delete(T entity)
         {
-             CurrentDal.Delete(entity);
-            return DbSession.SaveChanges() > 0;
+            return CurrentDal.Delete(entity); 
         }
 
     }

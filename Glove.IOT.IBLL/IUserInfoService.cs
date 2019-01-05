@@ -40,6 +40,13 @@ namespace Glove.IOT.IBLL
         /// <param name="uId">登录用户ID</param>
         /// <returns></returns>
         string EditPwd(string oldpwd, string newPwd, int uId);
+        /// <summary>
+        /// 编辑个人资料
+        /// </summary>
+        /// <param name="userInfo">用户信息</param>
+        /// <param name="user">登录用户信息</param>
+        /// <returns></returns>
+        string EditUserDetail(UserInfo userInfo, UserInfo user);
 
     }
 }

@@ -145,5 +145,58 @@ namespace Glove.IOT.BLL
 
         }
 
+        /// <summary>
+        /// 编辑个人资料
+        /// </summary>
+        /// <param name="userInfo">用户信息</param>
+        /// <param name="user">登录用户信息</param>
+        /// <returns></returns>
+        public string EditUserDetail(UserInfo userInfo, UserInfo user)
+        {
+            //校验邮箱格式与可为空
+            if (userInfo.Email.IsValidEmail() || userInfo.Email.IsBlank())
+            {
+                var email = DbSession.UserInfoDal.GetEntities(u => u.Email == userInfo.Email && u.IsDeleted == false && u.Id != user.Id).FirstOrDefault();
+                //之前不存在该邮箱则允许更改
+                if (email == null)
+                {
+                    //校验手机号码与可为空
+                    if (userInfo.Phone.IsValidMobile() || userInfo.Phone.IsBlank())
+                    {
+                        var phone = DbSession.UserInfoDal.GetEntities(u => u.Phone == userInfo.Phone && u.IsDeleted == false && u.Id != user.Id).FirstOrDefault();
+                        //之前不存在该手机号 则允许添加
+                        if (phone == null)
+                        {
+                            userInfo.Pwd = user.Pwd;
+                            userInfo.UCode = user.UCode;
+                            userInfo.UName = user.UName;                
+                            userInfo.Id = user.Id;
+                            DbSession.UserInfoDal.Update(userInfo);
+                            return "ok";
+                        }
+                        else
+                        {
+                            return "手机号码已存在";
+                        }
+                    }
+                    else
+                    {
+                        return "手机号码格式不正确";
+                    }
+                }
+                else
+                {
+                    return "邮箱已存在";
+                }
+
+
+            }
+            else
+            {
+                return "邮箱格式不正确";
+            }
+
+
+        }
     }
 }
