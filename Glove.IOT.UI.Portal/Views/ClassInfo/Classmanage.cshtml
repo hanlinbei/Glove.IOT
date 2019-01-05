@@ -100,6 +100,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="#">班组设置</a></dd>
+                    <dd><a href="../ClassInfo/Classmanage">班号管理</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -128,19 +129,19 @@
     <section id="main">
         <div class="navigation">
             <span class="layui-breadcrumb">
-                <a>系统管理</a>
-                <a href=""><cite>员工管理</cite></a>
+                <a>班组管理</a>
+                <a href=""><cite>班号管理</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
-            <button class="layui-btn layui-btn-normal col-xs-1" name="添加员工">
+            <button class="layui-btn layui-btn-normal col-xs-1" name="添加班号">
                 <i class="iconfont icon-add">&#xe726;</i>
-                添加员工
+                添加班号
             </button>
-            <button class="layui-btn layui-btn-danger col-xs-1" name="删除员工">
+            <button class="layui-btn layui-btn-danger col-xs-1" name="删除班号">
                 <i class="iconfont icon-delete">&#xe62f;</i>
-                删除员工
+                删除班号
             </button>
             <!--
             <button class="layui-btn layui-btn-warm col-xs-1">
@@ -149,16 +150,16 @@
             </button>
                 -->
             <span class="col-xs-8"></span>
-            <button class="layui-btn col-xs-1" name="查找员工">
+            <button class="layui-btn col-xs-1" name="查找班号">
                 <i class="iconfont icon-seek">&#xe618;</i>
-                查找员工
+                查找班号
             </button>
         </div>
         <div class="table">
             <div class="table-title">
-                员工管理
+                班号管理
             </div>
-            <table id="table_ry" lay-filter="table_ry" lay-data="{id: 'idTest'}"></table>
+            <table id="table_class" lay-filter="table_class" lay-data="{id: 'idTest'}"></table>
         </div>
 
     </section>
@@ -179,9 +180,8 @@
         //更新左上角用户信息
         userMessage();
         //禁用所有按钮
-        $('button').addClass('layui-btn-disabled');
-        $('button').attr('disabled', 'disabled'); 
-        //Power('user');
+        //$('button').addClass('layui-btn-disabled');
+        //$('button').attr('disabled', 'disabled');
     </script>
 
 </body>

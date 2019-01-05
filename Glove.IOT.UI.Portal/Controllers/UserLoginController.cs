@@ -104,16 +104,16 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult Index()
         {
             //如果存在cookies直接跳过登录进去
-            if (User.Identity.IsAuthenticated)
-            {
-                Response.Redirect("/Device/Devicemanage");
-                return Content("ok");
-            }
-            //转到登录页
-            else
-            {
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    Response.Redirect("/Device/Devicemanage");
+            //    return Content("ok");
+            //}
+            ////转到登录页
+            //else
+            //{
                 return View();
-            }
+            // }
         }
         
         /// <summary>
@@ -126,7 +126,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             {
                 UserInfoService.Logout();
             }
-            return RedirectToAction("Index");
+            return Content("ok");
 
         }
 

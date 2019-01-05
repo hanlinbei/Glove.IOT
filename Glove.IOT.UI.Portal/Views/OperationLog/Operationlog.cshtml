@@ -77,14 +77,15 @@
     </header>
     <section id="aside" class="hidden-xs">
         <div class="aside-top">
-            <div class="text-right col-xs-5"><i class="iconfont icon-aside-top-user">&#xe638;</i></div>
-            <div class="aside-top__username col-xs-7">张三</div>
+            <div class="text-right col-xs-4" style="padding:0 10px 0 10px;"> <img src="~/Content/DH/img/人物.png" name="tPicture" height="50" width="50" /></div>
+            <div class="aside-top__username col-xs-8" style="padding:0 0 0 0"><p name="userName" style="text-align:center;"></p></div>
         </div>
         <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    设备管理
+                    <i class="iconfont icon-machine">&#xe6a3;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">设备管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
@@ -93,7 +94,8 @@
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    班组管理
+                    <i class="iconfont icon-class">&#xe64a;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">班组管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
@@ -102,18 +104,21 @@
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    报警处理
+                    <i class="iconfont icon-alarm">&#xe6a8;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警处理</span>
                 </a>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    系统管理
+                    <i class="iconfont icon-gear">&#xe65b;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">系统管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
                     <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
                     <dd><a href="Operationlog">操作日志</a></dd>
+                    <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
                     <dd><a href="#">数据字典</a></dd>
                     <dd><a href="#">用户管理</a></dd>
                 </dl>
@@ -162,9 +167,8 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
-                //$('button').addClass('layui-btn-disabled');
-                //$('button').attr('disabled', 'disabled');
-                //Power('user');
+        //更新左上角用户信息
+        userMessage();
     </script>
 
 </body>

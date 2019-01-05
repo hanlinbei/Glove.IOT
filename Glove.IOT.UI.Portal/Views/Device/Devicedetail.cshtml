@@ -20,6 +20,7 @@
       <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
     <![endif]-->
+    <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
     <style>
@@ -39,6 +40,7 @@
             padding-left: 15px;
         }
     </style>
+    <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
 <body>
     <!-- 头部区域 -->
@@ -91,23 +93,25 @@
     </header>
     <section id="aside" class="hidden-xs">
         <div class="aside-top">
-            <div class="text-right col-xs-5"><i class="iconfont icon-aside-top-user">&#xe638;</i></div>
-            <div class="aside-top__username col-xs-7">张三</div>
+            <div class="text-right col-xs-4" style="padding:0 10px 0 10px;"> <img src="~/Content/DH/img/人物.png" name="tPicture" height="50" width="50" /></div>
+            <div class="aside-top__username col-xs-8" style="padding:0 0 0 0"><p name="userName" style="text-align:center;"></p></div>
         </div>
         <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    设备管理
+                    <i class="iconfont icon-machine">&#xe6a3;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">设备管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    班组管理
+                    <i class="iconfont icon-class">&#xe64a;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">班组管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
@@ -116,18 +120,21 @@
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    报警处理
+                    <i class="iconfont icon-alarm">&#xe6a8;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警管理</span>
                 </a>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    系统管理
+                    <i class="iconfont icon-gear">&#xe65b;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">系统管理</span>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
                     <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
                     <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
+                    <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
                     <dd><a href="#">数据字典</a></dd>
                     <dd><a href="#">用户管理</a></dd>
                 </dl>
@@ -234,6 +241,8 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
+        //更新左上角用户信息
+        userMessage();
         var category = window.location.search;
         var cateval = category.substring(category.lastIndexOf('=') + 1, category.length);
         if (cateval !== "") {
@@ -244,29 +253,30 @@
             xhr.onreadystatechange = function () {
                 if (this.readyState !== 4) return; 
                 var deviceInfos = eval("(" + this.responseText + ")");//JSON.parse安全
-                console.log(deviceInfos);
-                console.log(deviceInfos.deviceParameter[0].DeviceId);
                
-                $('input[name="设备ID"]').val(deviceInfos.deviceParameter[0].DeviceId);
-                if (deviceInfos.deviceParameter[0].StatusFlag === "关机中")
+                $('input[name="设备ID"]').val(deviceInfos.deviceParameter.deviceId);
+                if (deviceInfos.deviceParameter.StatusFlag === "关机中")
                     $('input[name="运行状态"]').val("关机中");
-                else if (deviceInfos.deviceParameter[0].StatusFlag === "运行中")
+                else if (deviceInfos.deviceParameter.StatusFlag === "运行中")
                     $('input[name="运行状态"]').val("运行中");
-                else if (deviceInfos.deviceParameter[0].StatusFlag === "暂停中")
+                else if (deviceInfos.deviceParameter.StatusFlag === "暂停中")
                     $('input[name="运行状态"]').val("暂停中");
-                else if (deviceInfos.deviceParameter[0].StatusFlag === "故障中")
+                else if (deviceInfos.deviceParameter.StatusFlag === "故障中")
                     $('input[name="运行状态"]').val("故障中");
-                else if (deviceInfos.deviceParameter[0].StatusFlag === "未连接")
+                else if (deviceInfos.deviceParameter.StatusFlag === "未连接")
                     $('input[name="运行状态"]').val("未连接");
                 //解析时间
-                var StartTime = (eval(deviceInfos.deviceParameter[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
-                var StopTime = (eval(deviceInfos.deviceParameter[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
-                $('input[name="运行时间"]').val(StartTime);
+                //var StartTime = (eval(deviceInfos.deviceParameter.StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                var RunTime = Math.round(deviceInfos.deviceParameter.RunTime.TotalHours * 100) / 100;
+                if (deviceInfos.deviceParameter.StopTime !== null) {
+                    var StopTime = (eval(deviceInfos.deviceParameter.StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                }
+                $('input[name="运行时间"]').val(RunTime + ' 小时');
                 $('input[name="停机时间"').val(StopTime);
-                $('input[name="目标产量"').val(deviceInfos.deviceParameter[0].TargetOutput);
-                $('textarea[name="历史记录"]').val(deviceInfos.parameterHistory[0].DeviceId);
-                $('p[name="单个进度"').text(deviceInfos.deviceParameter[0].SingleProgress + '%');
-                $('p[name="整体进度"').text(Math.floor((deviceInfos.deviceParameter[0].NowOutput / deviceInfos.deviceParameter[0].TargetOutput) * 100) + '%');
+                $('input[name="目标产量"').val(deviceInfos.deviceParameter.TargetOutput);
+                $('textarea[name="历史记录"]').val(deviceInfos.parameterHistory[0].NowOutput);
+                $('p[name="单个进度"').text(deviceInfos.deviceParameter.SingleProgress + '%');
+                $('p[name="整体进度"').text(Math.floor((deviceInfos.deviceParameter.NowOutput / deviceInfos.deviceParameter.TargetOutput) * 100) + '%');
             };
         }
     </script>

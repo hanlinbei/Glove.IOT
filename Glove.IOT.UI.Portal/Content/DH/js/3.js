@@ -14,6 +14,17 @@ layui.config({
     ,debug: false //用于开启调试模式，默认false，如果设为true，则JS模块的节点会保留在页面
     ,base: '' //设定扩展的Layui模块的所在目录，一般用于外部模块扩展
 });
+//记住密码
+function getCookie(data) {
+    var name = data + '=';
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+}
 //登录
 function send() {
     if ($('input[name="LoginCode"]').val() === "") {
@@ -38,6 +49,20 @@ function send() {
             vCode: $("input[name='vCode']").val()
         }, function (data) {
             if (data === 'OK') {
+                document.cookie = 'LoginCode=;';//删除
+                document.cookie = 'LoginPwd=;';
+                if (document.getElementById("rePwd").checked) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
+                    document.cookie = 'LoginCode=' + $("input[name='LoginCode']").val() + ';' + "expires=" + date.toGMTString();
+                    document.cookie = 'LoginPwd=' + $("input[name='LoginPwd']").val() + ';' + "expires=" + date.toGMTString();
+                    name = $("input[name='LoginCode']").val();
+                    console.log(name);
+                } else {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
+                    document.cookie = 'LoginCode=' + $("input[name='LoginCode']").val() + ';' + "expires=" + date.toGMTString();
+                }
                 window.location.href = '../Device/Devicemanage';
             }
             else if (data === '验证码错误!') {
@@ -78,6 +103,21 @@ function send() {
     //    }
     //}
 }
+//显示左上角的用户信息
+function userMessage() {
+    $.get("/UserInfo/GetUserPicture", {}, function (data) {
+        if (data.Picture !== null) {
+            $('p[name="userName"]').html(data.UCode);
+            //$('img[name="tPicture"]').prop('src', data.Picture);
+            $('#tPicture').html('<img src=" '+ data.Picture + ' " name="tPicture" height="50" width="50" />');
+        }
+        else {
+            $('p[name="userName"]').html(data.UCode);
+            $('#tPicture').html('<img src=" ' + "../Content/DH/img/人物.png" + ' " name="tPicture" height="50" width="50" />');
+            //$('img[name="tPicture"]').prop('src', "../Content/DH/img/人物.png");
+        }
+    })
+}
 function changeCheckCode() {
     var old = $("#imgCode").attr("src");
     var now = new Date();
@@ -103,7 +143,7 @@ layui.use('table', function () {//打开网页刷新表格
             { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
             , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
-            , { field: 'UCode', title: '角色编码', minWidth: 80, align: 'center' }
+            , { field: 'UCode', title: '员工编码', minWidth: 80, align: 'center' }
             , { field: 'UName', title: '姓名', minWidth: 80, sort: true, align: 'center' }
             , { field: 'RoleName', title: '角色名', minWidth: 150, align: 'center' }
             , { field: 'StatusFlag', title: '角色状态', minWidth: 80, align: 'center' }
@@ -1074,24 +1114,27 @@ function layerShowSearcholog(title, url, w, h, data) {
         skin: 'demo-class'
     });
 }
-function uploadDevicedetail(data) {
+function uploadUserdetail(data) {
     if (data === "get") {
         $.post("/UserInfo/GetUserDetail", {}, function (data) {
-            console.log(data.RoleName);
+            console.log(data.Phone);
             if (data.Picture !== null) {
-                $('#Hportrait').attr('src', data.Picture);
+                $('#Hportrait').prop('src', data.Picture);
             }
-            $("input[name='MyRoleName']").val(data.RoleName);
-            $("input[name='MyUName']").val(data.UName);
+            else {
+                $('#Hportrait').prop('src', "../Content/DH/img/人物.png");
+            }
+            $("input[name='RoleName']").val(data.RoleName);
+            $("input[name='UName']").val(data.UName);
             if (data.Gender === '男') {
                 $("input[title='男']").attr('checked', true);
             }
             else if (data.Gender === '女') {
                 $("input[title='女']").attr('checked', true);
             }
-            $("input[name='Pnumber']").val(data.Phone);
+            $("input[name='Phone']").val(data.Phone);
             $("input[name='Email']").val(data.Email);
-            $("input[name='Remark']").val(data.Remark);
+            $("textarea[name='Remark']").val(data.Remark);
             layui.use('form', function () {
                 var form = layui.form;
                 form.render();
@@ -1143,6 +1186,212 @@ function uploadDevicedetail(data) {
         //})
     }
 }
+/////////////////////////////////报警表格/////////////////////////
+layui.use('table', function () {//打开网页刷新表格
+    var table = layui.table;
+    table.render({
+        elem: '#table_warning'
+        //, height: 520
+        , url: '/OperationLog/GetAllOperationLogs' //数据接口
+        , title: "当前报警"
+        , page: true //开启分页
+        , limit: 10
+        , limits: [5, 10, 15, 20]
+        , cols: [[ //表头
+            //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+            { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center', fixed: 'left' }
+            , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
+            , { field: 'ActionType', title: '报警信息', minWidth: 80, sort: true, align: 'center' }
+            , { field: 'ActionName', title: '开始时间', minWidth: 80, align: 'center' }
+            , { field: 'OperationObj', title: '报警时长', minWidth: 80, align: 'center' }
+            // , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+        ]]
+        , toolbar: true
+        , parseData: function (res) { //修改原始数据
+            console.log(res.data[1].SubTime);
+            for (var i = 0; i < res.data.length; i++) {
+                res.data[i].SubTime = (eval(res.data[i].SubTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+            }
+            return {
+                "code": res.code, //解析接口状态
+                "msg": res.msg, //解析提示文本
+                "count": res.count, //解析数据长度
+                "data": res.data //解析数据列表
+            };
+        }
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+
+        }
+        , skin: 'line'
+
+    });
+});
+////////////////////////////班号设置////////////////////////////////
+layui.use('table', function () {//打开网页刷新表格
+    var table = layui.table;
+    //第一个实例
+    table.render({
+        elem: '#table_class'
+        //, height: 520
+        , url: '/UserInfo/GetAllUserInfos' //数据接口
+        , title: "班号管理"
+        , page: true //开启分页
+        , limit: 10
+        , limits: [5, 10, 15, 20]
+        , cols: [[ //表头
+            { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+            //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
+            , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
+            , { field: 'UCode', title: '班号', minWidth: 80, align: 'center' }
+            , { field: 'UName', title: '工作时间', minWidth: 80, sort: true, align: 'center' }
+            , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+        ]]
+        , toolbar: true
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+            //Power('user');
+           
+        }
+        , skin: 'line'
+
+    });
+    table.on('tool(table_ry)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var data = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+        if (layEvent === 'del') { //删除
+            console.log(data);
+            layer.confirm('确定删除？', function (index) {
+                layer.close(index);
+                //向服务端发送删除指令
+                ids = "" + data.UId;
+                $.post("/UserInfo/Delete", { ids: ids }, function (data) {
+                    num_p = num_p - 1;
+                    globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                    globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+                    if (num_p % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
+                    //表格重载
+                    updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", globalPage, globalLimit);
+                })
+            });
+        } else if (layEvent === 'edit') { //编辑
+            layerShowEdituser('编辑员工', 'LayerEdituser', 500, 450, obj.data);
+        }
+    });
+    table.on('checkbox(table_ry)', function (obj) {
+        console.log(obj.checked); //当前是否选中状态
+        console.log(obj.data); //选中行的相关数据
+        console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+        if (obj.type === "all") {
+            if (obj.checked === true) {
+                for (var i = 0; i < UIdtable.length; i++) {
+                    UIdtable[i][1] = 1;
+                }
+            }
+            else {
+                for (var i = 0; i < UIdtable.length; i++) {
+                    UIdtable[i][1] = 0;
+                }
+            }
+        }
+        else if (obj.checked === true) {
+            for (var i = 0; i < UIdtable.length; i++) {
+                if (UIdtable[i][0] === obj.data.UId) {
+                    UIdtable[i][1] = 1;
+                    break;
+                }
+            }
+        }
+        else if (obj.checked === false) {
+            for (var i = 0; i < UIdtable.length; i++) {
+                if (UIdtable[i][0] === obj.data.UId) {
+                    UIdtable[i][1] = 0;
+                    break;
+                }
+            }
+        }
+    });
+});
+function layerShowAddclass(title, url, w, h, data) {
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade: 0.4,
+        title: title,
+        content: url,
+        btn: ['确定'],
+        yes: function (index) {
+            //当点击‘确定’按钮的时候，获取弹出层返回的值
+            var res = window["layui-layer-iframe" + index].callbackdata(index, 'adduser');
+            var body = layer.getChildFrame('body', index);
+            if (res.UName === "") {
+                $(body).find('input[name="UName"]').attr('placeholder', '员工名字不能为空');
+                $(body).find('input[name="UName"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            } else if (res.UCode === "") {
+                $(body).find('input[name="UCode"]').attr('placeholder', '员工编码不能为空');
+                $(body).find('input[name="UCode"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            } else if (res.Pwd === "") {
+                $(body).find('input[name="Pwd"]').attr('placeholder', '初试密码不能为空');
+                $(body).find('input[name="Pwd"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            } else if (typeof (res.StatusFlag) == "undefined") {
+                $(body).find(".StatusFlagerror").show();
+                $(window.frames[0].document).scrollTop("70");//垂直滚动条移动
+            }
+            else {
+                //ajax发送post请求 给后端发送数据
+                for (var i = 0; i < Rid_Rolename.length; i++) {
+                    if (Rid_Rolename[i][1] === res.RoleName) {
+                        RId = Rid_Rolename[i][0];
+                        break;
+                    }
+                }
+                $.post("/UserInfo/Add", { UName: res.UName, UCode: res.UCode, Pwd: res.Pwd, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag },
+                    function (data) {
+                        if (data !== 'fail') {
+                            //表格重载 跳转到操作页面
+                            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                            globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+                            if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
+                            updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", globalPage, globalLimit);
+                        } else {
+                            layui.use('layer', function () {
+                                var layer = layui.layer;
+                                layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">员工已存在</span>', {
+                                    time: 2000,
+                                    area: ['200px', '100px'],
+                                    shade: 0.4,
+                                    shadeClose: true
+                                });
+                            });
+                        }
+                        layer.close(index);
+                    });
+            }
+        },
+        success: function (layero, index) {
+            $.get("/UserInfo/GetAllRoles", {}, function (data) {
+                for (var i = 0; i < data.length; i++) {//保存查询用
+                    Rid_Rolename[i] = [data[i].Id, data[i].RoleName];
+                }
+            })
+        }
+    });
+}
 //日期表
 layui.use('laydate', function () {
     var laydate = layui.laydate;
@@ -1154,6 +1403,14 @@ layui.use('laydate', function () {
     laydate.render({
         elem: '#date2' //指定元素
         , type: 'datetime'//日期时间选择器
+    });
+    laydate.render({
+        elem: '#first-classWorktime' //指定元素
+        , type: 'time'//日期时间选择器
+    });
+    laydate.render({
+        elem: '#last-classWorktime' //指定元素
+        , type: 'time'//日期时间选择器
     });
 });
 
@@ -1193,10 +1450,42 @@ $(document).ready(function () {
     //$("button[name='确认修改']").click(function () {
     //    uploadDevicedetail('upload');
     //});
-    $("button[name='确认修改']").click(function () {
-        $("form").ajaxSubmit({
-            url: "/UserInfo/EditUserDetail",
-            type: "POST",
-        })
+    $("button[name='确认修改']").click(function () {    
+        var myReg = /^[-_A-Za-z0-9]+@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/;//邮箱格式的正则表达式
+        if ($("input[name='Phone']").val() !== '' && String($("input[name='Phone']").val()).length !== 11) {
+            $(".phoneerror").show();
+        }
+        else if ($("input[name='Email']").val() !== '' && !(myReg.test($("input[name='Email']").val()))) {
+            $(".emailerror").show();
+        }
+        else {
+             $("form").ajaxSubmit({
+                url: "/UserInfo/EditUserDetail",
+                type: "POST",
+                 success: function (data) {
+                     if (data === 'ok') {
+                         window.location.href = '../UserInfo/Userdetail';
+                     }
+                     layui.use('layer', function () {
+                         var layer = layui.layer;
+                         layer.msg('<span style="font-size:16px;vertical-align:middle;line-height:76px;">' + data + '</span>', {
+                             time: 2000,
+                             area: ['200px', '100px'],
+                             shade: 0.4,
+                             shadeClose: true
+                         });
+                     });
+                }
+             })
+        }
     });
+    $("button[name='添加班号']").click(function () {
+        layerShowAddclass('添加班组', 'LayerAddclass', 550, 450, "null");
+    });
+    //$(".icon-user").mouseover(function () {
+    //    $(".layui-nav-bar").css("opacity", '1');
+    //})
+    //$(".icon-user").mouseout(function () {
+    //    $(".layui-nav-bar").css("opacity", '0');
+    //})
 });
