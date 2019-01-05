@@ -6,6 +6,7 @@ select * from ActionInfo
 select * from DeviceInfo
 select * from DeviceParameterInfo
 select * from OperationLog
+select * from WarningInfo
 
 Use Test
 
@@ -68,3 +69,6 @@ t1.SubTime
 		group by DeviceInfoId) as t4
 		where
 		t1.SubTime=t2.SubTime and t1.DeviceInfoId=t2.DeviceInfoId and t1.DeviceInfoId=t4.DeviceInfoId
+
+		select * from WarningInfo
+		where StartTime=SubTime and IsDeleted=0
