@@ -5,28 +5,39 @@
     <property name="UserInfoService" ref="UserInfoService" />
     <property name="RoleInfoService" ref="RoleInfoService" />
     <property name="ActionInfoService" ref="ActionInfoService" />
-    <property name="R_UserInfo_ActionInfoService" ref="R_UserInfo_ActionInfoService" />
     <property name="R_UserInfo_RoleInfoService" ref="R_UserInfo_RoleInfoService" />
-    <property name="Md5Helper" ref="Md5Helper" />
+    <property name="OperationLogService" ref="OperationLogService" />
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.UserLoginController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="UserInfoService" ref="UserInfoService" />
-    <property name="Md5Helper" ref="Md5Helper" />
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.ActionInfoController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="UserInfoService" ref="UserInfoService" />
+    <property name="R_RoleInfo_ActionInfoService" ref="R_RoleInfo_ActionInfoService" />
     <property name="ActionInfoService" ref="ActionInfoService" />
-    <property name="RoleInfoService" ref="RoleInfoService" />
+    <property name="R_UserInfo_RoleInfoService" ref="R_UserInfo_RoleInfoService" />
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.RoleInfoController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="RoleInfoService" ref="RoleInfoService" />
+    <property name="ActionInfoService" ref="ActionInfoService" />
+    <property name="R_RoleInfo_ActionInfoService" ref="R_RoleInfo_ActionInfoService" />
+  </object>
+
+
+  <object type="Glove.IOT.UI.Portal.Controllers.DeviceController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="DeviceInfoService" ref="DeviceInfoService" />
+    <property name="DeviceParameterInfoService" ref="DeviceParameterInfoService" />
+    <property name="OperationLogService" ref="OperationLogService" />
   </object>
   
-    <object type="Glove.IOT.UI.Portal.Controllers.HomeController, Glove.IOT.UI.Portal" singleton="false" >
-    <property name="UserInfoService" ref="UserInfoService" />
-    <property name="ActionInfoService" ref="ActionInfoService" />
+  <object type="Glove.IOT.UI.Portal.Controllers.OperationLogController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="OperationLogService" ref="OperationLogService" />
+  </object>
+   <object type="Glove.IOT.UI.Portal.Controllers.WarningInfoController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="WarningInfoService" ref="WarningInfoService" />
   </object>
 
 </objects>

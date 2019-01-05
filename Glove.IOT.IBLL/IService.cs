@@ -1,4 +1,4 @@
-﻿ 
+﻿
 using Glove.IOT.Model;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,19 @@ namespace Glove.IOT.IBLL
         {
         }
 	
-		public partial interface IR_UserInfo_ActionInfoService:IBaseService<R_UserInfo_ActionInfo>
+		public partial interface IDeviceInfoService:IBaseService<DeviceInfo>
+        {
+        }
+	
+		public partial interface IDeviceParameterInfoService:IBaseService<DeviceParameterInfo>
+        {
+        }
+	
+		public partial interface IOperationLogService:IBaseService<OperationLog>
+        {
+        }
+	
+		public partial interface IR_RoleInfo_ActionInfoService:IBaseService<R_RoleInfo_ActionInfo>
         {
         }
 	
@@ -27,6 +39,11 @@ namespace Glove.IOT.IBLL
 	
 		public partial interface IUserInfoService:IBaseService<UserInfo>
         {
+        }
+	
+		public partial interface IWarningInfoService:IBaseService<WarningInfo>
+        {
+           
         }
 
 

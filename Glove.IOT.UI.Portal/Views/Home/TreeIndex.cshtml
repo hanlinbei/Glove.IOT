@@ -1,108 +1,46 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
+﻿<html>
+  <head>
     <meta name="viewport" content="width=device-width" />
-    <title>TreeIndex</title>
-    <link href="~/Content/JQuery%20zTree%20v3.5.12/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <link href="~/Content/theme/bootstrap.css" rel="stylesheet" />
+    <script>    
+      $(function () {
+          $("#btn_login").click(function () {
+                $.ajax({
+                   type: "get",
+                   url: "http://localhost:63305/api/UserLogin/Login",
+                   data: { strUser: $("#txt_username").val(), strPwd: $("#txt_password").val() },
+                   success: function (data, status) {
+                   if (status == "success") {
+                       if (!data.BRes) {
+                         alert("登录失败");
+                         return;
+                       }
+                      alert("登录成功");
+                     //登录成功之后将用户名和用户票据带到主界面
+                      window.location = "/Home/Index?UserName=" + data.UserName + "&Ticket=" + data.Ticket;
+                   }
+                   },
+                    error: function (e) {
+                    },
+                    complete: function () {
 
-    <link href="~/Content/ligerui/Source/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
-    <link href="~/Content/ligerui/Source/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" />
-    <script src="~/Content/ligerui/Source/lib/jquery/jquery-1.5.2.min.js"></script>
-    <script src="~/Content/ligerui/Source/lib/ligerUI/js/core/base.js"></script>
-    <script src="~/Content/ligerui/Source/lib/ligerUI/js/ligerui.all.js"></script>
+                    }
 
-    <script src="~/Content/JQuery%20zTree%20v3.5.12/js/jquery.ztree.all-3.5.js"></script>
-
-    <script type="text/javascript">
-        $(function () {
-
-            $("#layout1").ligerLayout({ leftWidth: 251 });
-        });
-
+                });
+          });
+      });
     </script>
+  </head>
 
-    <SCRIPT type="text/javascript">
-		<!--
-    var setting = {
-        data: {
-            simpleData: {
-                enable: true
-            }
-        },
-        callback: {
-            onClick: function (event, treeId, treeNode) {
-                alert(treeId);
-                alert(treeNode.name + "   " + treeNode.pId);
-            }
-        },
-        check: {
-            enable: true,
-            chkStyle: "radio",
-            chkboxType: { "Y": "p", "N": "s" }
-        }
-
-    };
-
-    var zNodes = [
-        { id: 1, pId: 0, name: "父节点1 - 展开", open: true },
-        { id: 11, pId: 1, name: "父节点11 - 折叠" },
-        { id: 111, pId: 11, name: "叶子节点111" },
-        { id: 112, pId: 11, name: "叶子节点112" },
-        { id: 113, pId: 11, name: "叶子节点113" },
-        { id: 114, pId: 11, name: "叶子节点114" },
-        { id: 12, pId: 1, name: "父节点12 - 折叠" },
-        { id: 121, pId: 12, name: "叶子节点121" },
-        { id: 122, pId: 12, name: "叶子节点122" },
-        { id: 123, pId: 12, name: "叶子节点123" },
-        { id: 124, pId: 12, name: "叶子节点124" },
-        { id: 13, pId: 1, name: "父节点13 - 没有子节点", isParent: true },
-        { id: 2, pId: 0, name: "父节点2 - 折叠" },
-        { id: 21, pId: 2, name: "父节点21 - 展开", open: true },
-        { id: 211, pId: 21, name: "叶子节点211" },
-        { id: 212, pId: 21, name: "叶子节点212" },
-        { id: 213, pId: 21, name: "叶子节点213" },
-        { id: 214, pId: 21, name: "叶子节点214" },
-        { id: 22, pId: 2, name: "父节点22 - 折叠" },
-        { id: 221, pId: 22, name: "叶子节点221" },
-        { id: 222, pId: 22, name: "叶子节点222" },
-        { id: 223, pId: 22, name: "叶子节点223" },
-        { id: 224, pId: 22, name: "叶子节点224" },
-        { id: 23, pId: 2, name: "父节点23 - 折叠" },
-        { id: 231, pId: 23, name: "叶子节点231" },
-        { id: 232, pId: 23, name: "叶子节点232" },
-        { id: 233, pId: 23, name: "叶子节点233" },
-        { id: 234, pId: 23, name: "叶子节点234" },
-        { id: 3, pId: 0, name: "父节点3 - 没有子节点", isParent: true }
-    ];
-
-    $(document).ready(function () {
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-    });
-    //-->
-    </SCRIPT>
-
-</head>
-<body>
-    <div id="layout1">
-        <div position="left">
-            <ul id="treeDemo" class="ztree"></ul>
-
+    <body>
+        <div style="text-align:center;">
+            <div>用户名：<input type="text" id="txt_username" /></div>
+            <div>密  码：<input type="password" id="txt_password" /></div>
+            <div><input type="button" value="登录" id="btn_login" class="btn-default" /></div>
         </div>
-        <div position="center" title="标题">
-            <h4>$("#layout1").ligerLayout(); </h4>
-            默认为固定layout的高度百分一百
-        </div>
-        <div position="right"></div>
-        <div position="top"></div>
-        <div position="bottom"></div>
-    </div>
+    </body>
 
-    <div style="display: none;">
-    </div>
-</body>
+
 </html>

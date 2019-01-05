@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -26,7 +27,7 @@ namespace Glove.IOT.EFDAL
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
 
-            return Db.Set<T>().Where(whereLambda).AsQueryable();
+            return Db.Set<T>().AsNoTracking().Where(whereLambda).AsQueryable();
 
         }
         /// <summary>
@@ -76,17 +77,22 @@ namespace Glove.IOT.EFDAL
         public T Add(T entity)
         {
             Db.Set<T>().Add(entity);
-            //Db.SaveChanges();
+            Db.SaveChanges();
             return entity;
 
         }
-        //更新用户数据
+        /// <summary>
+        /// 修改一条记录全部
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public bool Update(T entity)
         {
             Db.Entry(entity).State = EntityState.Modified;
             //return Db.SaveChanges() > 0;
             return true;
         }
+  
 
         /// <summary>
         /// 逻辑删除一条记录
@@ -97,27 +103,35 @@ namespace Glove.IOT.EFDAL
         {
             //Db.Entry(entity).State = EntityState.Deleted;
             //return Db.SaveChanges() > 0;
-            Db.Entry(entity).Property("DelFlag").CurrentValue = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
-            Db.Entry(entity).Property("DelFlag").IsModified = true;
+            Db.Entry(entity).Property("IsDeleted").CurrentValue = true;
+            Db.Entry(entity).Property("IsDeleted").IsModified = true;
             return true;
         }
-
+        /// <summary>
+        /// 根据id单个逻辑删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool Delete(int id)
         {
             var entity = Db.Set<T>().Find(id);
             //Db.Set<T>().Remove(entity);
-            Db.Entry(entity).Property("DelFlag").CurrentValue = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
-            Db.Entry(entity).Property("DelFlag").IsModified = true;
+            Db.Entry(entity).Property("IsDeleted").CurrentValue = true;
+            Db.Entry(entity).Property("IsDeleted").IsModified = true;
             return true;
         }
-
+        /// <summary>
+        /// 批量逻辑删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         public int DeleteListByLogical(List<int> ids)
         {
             foreach (var id in ids)
             {
                 var entity = Db.Set<T>().Find(id);
-                Db.Entry(entity).Property("DelFlag").CurrentValue = (short)Glove.IOT.Model.Enum.DelFlagEnum.Deleted;
-                Db.Entry(entity).Property("DelFlag").IsModified = true;
+                Db.Entry(entity).Property("IsDeleted").CurrentValue = true;
+                Db.Entry(entity).Property("IsDeleted").IsModified = true;
             }
             return ids.Count;
 

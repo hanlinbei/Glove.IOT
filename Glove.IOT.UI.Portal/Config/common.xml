@@ -13,8 +13,4 @@
            type="Glove.IOT.Common.Cache.CacheHelper, Glove.IOT.Common" singleton="false" >
     <property name="CacheWriter" ref="CacheWriter" />
   </object>
-  
-  <object name="Md5Helper"
-           type="Glove.IOT.Common.Md5.Md5Helper, Glove.IOT.Common" singleton="false" >
-  </object>
 </objects>
