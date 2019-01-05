@@ -18,6 +18,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult LayerSearchwarning()
+        {
+            return View();
+        }
         public IWarningInfoService WarningInfoService { get; set; }
         // GET: Warning
         /// <summary>

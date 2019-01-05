@@ -501,8 +501,6 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
             }
             break;
         case 'searcholog':
-            var a = new Date($('input[name="FirstTime"]').val());
-            console.log(a);
             var data = {
                 //FirstTime: Date.parse(new Date($('input[name="FirstTime"]').val())),
                 //LastTime: Date.parse(new Date($('input[name="LastTime"]').val())),
@@ -513,6 +511,12 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
                 ActionName: $('select[name="ActionName"] option:selected').val()
             }
             break;
+        case 'warning':
+            var data = {
+                DeviceId: $('input[name="DeviceId"]').val(),
+                WarningMessage: $('select[name="WarningMessage"] option:selected').val(),
+                warningStartTime: $('input[name="warningStartTime"]').val()
+            }
     }
     return data;
 }
@@ -568,7 +572,7 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
             , limit: limit
             , where: { SchCode: res.UCode, SchRoleName: res.RoleName }
             , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
-                console.log("表格渲染完成");
+                console.log("表格重载完成");
                 globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
                 globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
                 if (id === 'table_ry') {
@@ -602,7 +606,7 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
             , limit: limit
             , where: { deviceId: res.DeviceId, statusFlag: res.StatusFlag }
             , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
-                console.log("表格渲染完成");
+                console.log("表格重载完成");
                 globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
                 globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
                 Power('device');
@@ -627,7 +631,23 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
             , where: { FirstTime: res.FirstTime, LastTime: res.LastTime, UName: res.UName, ActionType: res.ActionType, ActionName: res.ActionName }
             , method: 'post'
             , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
-                console.log("表格渲染完成");
+                console.log("表格重载完成");
+            }
+        });
+    }
+    else if (id === 'table_warning') {
+        table.reload(id, {
+            elem: elem
+            //, height: height
+            , url: url//数据接口
+            , title: title
+            , page: {
+                curr: page
+            }//重新制定page和limit
+            , limit: limit
+            , where: { schDeviceId: res.DeviceId, schMessage: res.WarningMessage, firsTime: res.warningStartTime }
+            , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+                console.log("表格重载完成");
             }
         });
     }
@@ -1192,7 +1212,7 @@ layui.use('table', function () {//打开网页刷新表格
     table.render({
         elem: '#table_warning'
         //, height: 520
-        , url: '/OperationLog/GetAllOperationLogs' //数据接口
+        , url: '/WarningInfo/GetWarningInfo' //数据接口
         , title: "当前报警"
         , page: true //开启分页
         , limit: 10
@@ -1201,16 +1221,23 @@ layui.use('table', function () {//打开网页刷新表格
             //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center', fixed: 'left' }
             , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
-            , { field: 'ActionType', title: '报警信息', minWidth: 80, sort: true, align: 'center' }
-            , { field: 'ActionName', title: '开始时间', minWidth: 80, align: 'center' }
-            , { field: 'OperationObj', title: '报警时长', minWidth: 80, align: 'center' }
+            , { field: 'WarningMessage', title: '报警信息', minWidth: 80, sort: true, align: 'center' }
+            , { field: 'warningStartTime', title: '开始时间', minWidth: 80, align: 'center' }
+            , { field: 'warningTime', title: '报警时长', minWidth: 80, align: 'center' }
             // , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , toolbar: true
         , parseData: function (res) { //修改原始数据
             console.log(res.data[1].SubTime);
             for (var i = 0; i < res.data.length; i++) {
-                res.data[i].SubTime = (eval(res.data[i].SubTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                res.data[i].warningStartTime = (eval(res.data[i].warningStartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                var m = Math.floor(res.data[i].minute % 60);
+                var h = Math.floor(res.data[i].minute / 60 % 24);
+                var d = Math.floor(res.data[i].minute / 60 / 24);
+                if (m < 10) m = "0" + m;
+                if (h < 10) h = "0" + h;
+                if (d < 10) d = "0" + d;  
+                res.data[i].warningTime = d + ' 天 ' + h + ' 时 ' + m + ' 分';
             }
             return {
                 "code": res.code, //解析接口状态
@@ -1223,9 +1250,33 @@ layui.use('table', function () {//打开网页刷新表格
 
         }
         , skin: 'line'
-
     });
 });
+function layerShowSearchwarning(title, url, w, h, data) {
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade: 0.4,
+        title: title,
+        content: url,
+        btn: ['确定'],
+        yes: function (index) {
+            //当点击‘确定’按钮的时候，获取弹出层返回的值
+            var res = window["layui-layer-iframe" + index].callbackdata(index, 'warning');
+            //表格重载 跳转到操作页面
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            updatatable_search('table_warning', '#table_warning', 550, '/WarningInfo/GetWarningInfo', "当前报警", 1, globalLimit, res);
+            //最后关闭弹出层
+            layer.close(index);
+        },
+        success: function (layero, index) {
+           
+        }
+    });
+}
 ////////////////////////////班号设置////////////////////////////////
 layui.use('table', function () {//打开网页刷新表格
     var table = layui.table;
@@ -1412,6 +1463,10 @@ layui.use('laydate', function () {
         elem: '#last-classWorktime' //指定元素
         , type: 'time'//日期时间选择器
     });
+    laydate.render({
+        elem: '#warningStartTime' //指定元素
+        , type: 'datetime'//日期时间选择器
+    });
 });
 
 //全局加载进度条
@@ -1479,9 +1534,14 @@ $(document).ready(function () {
              })
         }
     });
+    $("button[name='查找报警']").click(function () {
+        console.log(111);
+        layerShowSearchwarning('查找报警', 'LayerSearchwarning', 550, 450, "null");
+    });
     $("button[name='添加班号']").click(function () {
         layerShowAddclass('添加班组', 'LayerAddclass', 550, 450, "null");
     });
+    
     //$(".icon-user").mouseover(function () {
     //    $(".layui-nav-bar").css("opacity", '1');
     //})
