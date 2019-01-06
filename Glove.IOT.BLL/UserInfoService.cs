@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.Common;
+using Glove.IOT.Common.Extention;
 using Glove.IOT.DALFactory;
 using Glove.IOT.EFDAL;
 using Glove.IOT.IBLL;
@@ -57,7 +58,7 @@ namespace Glove.IOT.BLL
                 Remark= temp.Remark,
                 UCode= temp.UCode,
                 UName= temp.UName,
-                RoleName= roleName.RoleName
+                RoleName= roleName.RoleName,
             };
             return data;
 
@@ -86,7 +87,7 @@ namespace Glove.IOT.BLL
                             UName = t1.UName,
                             RoleName = t3.RoleName,
                             Remark=t1.Remark,
-                            StatusFlag = t1.StatusFlag
+                            StatusFlag = t1.StatusFlag,
                         };
 
            //按员工编号筛选
@@ -121,5 +122,81 @@ namespace Glove.IOT.BLL
             }
         }
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="oldpwd">旧密码</param>
+        /// <param name="newPwd">新密码</param>
+        /// <param name="uId">登录用户ID</param>
+        /// <returns></returns>
+        public string EditPwd(string oldpwd, string newPwd,int uId)
+        {
+            var user = DbSession.UserInfoDal.GetEntities(u => u.Id == uId).FirstOrDefault();
+            if (user.Pwd != oldpwd.ToMD5())
+            {
+                return "原密码错误";
+            }
+            else
+            {
+                user.Pwd = newPwd.ToMD5();
+                DbSession.UserInfoDal.Update(user);
+                return "密码修改成功";
+            }
+
+        }
+
+        /// <summary>
+        /// 编辑个人资料
+        /// </summary>
+        /// <param name="userInfo">用户信息</param>
+        /// <param name="user">登录用户信息</param>
+        /// <returns></returns>
+        public string EditUserDetail(UserInfo userInfo, UserInfo user)
+        {
+            //校验邮箱格式与可为空
+            if (userInfo.Email.IsValidEmail() || userInfo.Email.IsBlank())
+            {
+                var email = DbSession.UserInfoDal.GetEntities(u => u.Email == userInfo.Email && u.IsDeleted == false && u.Id != user.Id).FirstOrDefault();
+                //之前不存在该邮箱则允许更改
+                if (email == null)
+                {
+                    //校验手机号码与可为空
+                    if (userInfo.Phone.IsValidMobile() || userInfo.Phone.IsBlank())
+                    {
+                        var phone = DbSession.UserInfoDal.GetEntities(u => u.Phone == userInfo.Phone && u.IsDeleted == false && u.Id != user.Id).FirstOrDefault();
+                        //之前不存在该手机号 则允许添加
+                        if (phone == null)
+                        {
+                            userInfo.Pwd = user.Pwd;
+                            userInfo.UCode = user.UCode;
+                            userInfo.UName = user.UName;                
+                            userInfo.Id = user.Id;
+                            DbSession.UserInfoDal.Update(userInfo);
+                            return "ok";
+                        }
+                        else
+                        {
+                            return "手机号码已存在";
+                        }
+                    }
+                    else
+                    {
+                        return "手机号码格式不正确";
+                    }
+                }
+                else
+                {
+                    return "邮箱已存在";
+                }
+
+
+            }
+            else
+            {
+                return "邮箱格式不正确";
+            }
+
+
+        }
     }
 }

@@ -78,8 +78,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult EditUserDetail( )
         {
-            var user = UserInfoService.GetEntities(u => u.UName == LoginInfo.UName&&u.IsDeleted==false).FirstOrDefault();
-            
+            var user = UserInfoService.GetEntitiesNoTracking(u => u.UName == LoginInfo.UName && u.IsDeleted == false).FirstOrDefault();
             UserInfo userInfo = new UserInfo
             {
                 SubTime = DateTime.Now
@@ -89,64 +88,25 @@ namespace Glove.IOT.UI.Portal.Controllers
             userInfo.Phone = Request["Phone"];
             userInfo.Remark = Request["Remark"];
             userInfo.UCode = Request["UCode"];
+            userInfo.GroupInfoId = user.GroupInfoId;
+            userInfo.TeamInfoId = user.TeamInfoId;
             var file = Request.Files["Picture"];
-            
-            //校验邮箱格式与可为空
-            if (userInfo.Email.IsValidEmail()|| userInfo.Email.IsBlank())
+            //如果头像为空 用回原来已存在的
+            if (file == null)
             {
-                var email = UserInfoService.GetEntities(u => u.Email == userInfo.Email&&u.IsDeleted==false&&u.UName!= LoginInfo.UName).FirstOrDefault();
-                //之前不存在该邮箱则允许更改
-                if (email == null)
-                {
-                    //校验手机号码与可为空
-                    if (userInfo.Phone.IsValidMobile() || userInfo.Phone.IsBlank())
-                    {
-                        var phone= UserInfoService.GetEntities(u => u.Phone == userInfo.Phone && u.IsDeleted == false&&u.UName != LoginInfo.UName).FirstOrDefault();
-                        //之前不存在该手机号 则允许添加
-                        if (phone == null)
-                        {
-                            userInfo.Pwd = user.Pwd;
-                            userInfo.UCode = user.UCode;
-                            userInfo.UName = user.UName;
-                            //如果文件为空 用回原来已存在的图片
-                            if (file == null)
-                            {
-                                userInfo.Picture = user.Picture;
-                            }
-                            else
-                            {
-                                string fileName = file.FileName;
-                                fileName = fileName.Substring(fileName.LastIndexOf("\\") + 1, fileName.Length - fileName.LastIndexOf("\\") - 1);
-                                string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + fileName;
-                                file.SaveAs(Request.MapPath(path));
-                                userInfo.Picture = path;
-                            }
-                            userInfo.Id = user.Id;
-                            UserInfoService.Update(userInfo);
-                            return Content("ok");
-                        }
-                        else
-                        {
-                            return Content("手机号码已存在");
-                        }
-                    }
-                    else
-                    {
-                        return Content("手机号码格式不正确");
-                    }
-                }
-                else
-                {
-                    return Content("邮箱已存在");
-                }
-              
-               
+                userInfo.Picture = user.Picture;
             }
+            //如果是新头像，保存到本地
             else
             {
-                return Content("邮箱格式不正确");
+                string fileName = file.FileName;
+                fileName = fileName.Substring(fileName.LastIndexOf("\\") + 1, fileName.Length - fileName.LastIndexOf("\\") - 1);
+                string path = "/UploadFiles/UploadImgs/" + Guid.NewGuid().ToString() + "-" + fileName;
+                file.SaveAs(Request.MapPath(path));
+                userInfo.Picture = path;
             }
-
+            string msg = UserInfoService.EditUserDetail(userInfo, user);
+            return Content(msg);
         }
 
 
@@ -195,7 +155,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult Edit(UserInfo userInfo)
         {
             userInfo.SubTime = DateTime.Now;
-            userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == userInfo.Id).Select(u => u.Pwd).FirstOrDefault();
+            var user = UserInfoService.GetEntities(u => u.Id == userInfo.Id).FirstOrDefault();
+            userInfo.Pwd = user.Pwd;
+            userInfo.TeamInfoId = user.TeamInfoId;
+            userInfo.GroupInfoId = user.GroupInfoId;
             UserInfoService.Update(userInfo);
             //写操作日志
             OperationLogService.Add("编辑员工", "系统管理", LoginInfo, userInfo.UName, "");
@@ -257,6 +220,17 @@ namespace Glove.IOT.UI.Portal.Controllers
             var user = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).FirstOrDefault();
             var data = new { user.UCode, LoginInfo.UName, user.Picture};
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="oldPwd">旧密码</param>
+        /// <param name="newPwd">新密码</param>
+        /// <returns></returns>
+        public ActionResult EditPwd(string oldPwd, string newPwd)
+        {
+            var msg=UserInfoService.EditPwd(oldPwd, newPwd, LoginInfo.Id);
+            return Content(msg);
         }
 
         public ActionResult t()

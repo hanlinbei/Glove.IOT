@@ -70,5 +70,28 @@ t1.SubTime
 		where
 		t1.SubTime=t2.SubTime and t1.DeviceInfoId=t2.DeviceInfoId and t1.DeviceInfoId=t4.DeviceInfoId
 
-		select * from WarningInfo
-		where StartTime=SubTime and IsDeleted=0
+		select * from DeviceParameterInfo
+
+
+		select * from WarningInfo as t1
+		left join DeviceInfo as t2 on t1.DeviceId=t2.DeviceId 
+
+		--select * from DeviceInfo as t2
+		left join DeviceParameterInfo as t3
+		on (t3.DeviceInfoId=t2.Id)
+		where t3.StatusFlag='故障中' and t2.IsDeleted=0
+
+select 
+t1.DeviceId,
+t1.WarningMessage,
+t2.报警开始时间,
+t1.SubTime,
+t2.最新提交时间,
+报警时长=t2.最新提交时间-t2.报警开始时间
+ from WarningInfo as t1 
+inner join	(select
+		DeviceId ,
+		最新提交时间=MAX(SubTime),
+		报警开始时间=Min(SubTime)
+		from WarningInfo
+		group by DeviceId)as t2 on t1.DeviceId=t2.DeviceId and t1.SubTime=t2.最新提交时间

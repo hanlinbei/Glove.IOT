@@ -24,6 +24,11 @@ namespace Glove.IOT.IDAL
        
     }   
 	
+	public partial interface IGroupInfoDal : IBaseDal<GroupInfo>
+    {
+       
+    }   
+	
 	public partial interface IOperationLogDal : IBaseDal<OperationLog>
     {
        
@@ -40,6 +45,11 @@ namespace Glove.IOT.IDAL
     }   
 	
 	public partial interface IRoleInfoDal : IBaseDal<RoleInfo>
+    {
+       
+    }   
+	
+	public partial interface ITeamInfoDal : IBaseDal<TeamInfo>
     {
        
     }   

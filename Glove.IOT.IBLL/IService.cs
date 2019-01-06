@@ -1,4 +1,4 @@
-﻿
+﻿ 
 using Glove.IOT.Model;
 using System;
 using System.Collections.Generic;
@@ -21,6 +21,10 @@ namespace Glove.IOT.IBLL
         {
         }
 	
+		public partial interface IGroupInfoService:IBaseService<GroupInfo>
+        {
+        }
+	
 		public partial interface IOperationLogService:IBaseService<OperationLog>
         {
         }
@@ -37,13 +41,16 @@ namespace Glove.IOT.IBLL
         {
         }
 	
+		public partial interface ITeamInfoService:IBaseService<TeamInfo>
+        {
+        }
+	
 		public partial interface IUserInfoService:IBaseService<UserInfo>
         {
         }
 	
 		public partial interface IWarningInfoService:IBaseService<WarningInfo>
         {
-           
         }
 
 

@@ -34,7 +34,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="schMessage"></param>
         /// <param name="schDeviceId"></param>
         /// <returns></returns>
-        public ActionResult GetWarningInfo(string limit, string page, string firsTime,string lastTime, string schMessage,string schDeviceId)
+        public ActionResult GetWarningInfo(string limit, string page, string firsTime, string schMessage,string schDeviceId)
         {
             int pageSize = int.Parse(limit ?? "10");
             int pageIndex = int.Parse(page ?? "1");
@@ -45,7 +45,6 @@ namespace Glove.IOT.UI.Portal.Controllers
                 PageSize = pageSize,
                 PageIndex = pageIndex,
                 FirstTime = firsTime,
-                LastTime=lastTime,
                 SchMessage = schMessage,
                 SchDeviceId= schDeviceId,
                 Total = 0,
