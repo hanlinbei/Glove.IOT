@@ -30,4 +30,6 @@
   </object>
   <object name="WarningInfoDal" type="Glove.IOT.EFDAL.WarningInfoDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
+  <object name="TeamInfoDal" type="Glove.IOT.EFDAL.TeamInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
 </objects>

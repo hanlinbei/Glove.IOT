@@ -40,5 +40,9 @@
     <property name="DbSession" ref="DbSession" />
     <property name="CurrentDal" ref="WarningInfoDal" />
   </object>
+  <object name="TeamInfoService" type="Glove.IOT.BLL.TeamInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="TeamInfoDal" />
+  </object>
 
 </objects>
