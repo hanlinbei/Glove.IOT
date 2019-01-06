@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.IBLL;
+using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,18 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
+
+        //public ActionResult AddTeamInfo(string tName, string startTime, string stopTime)
+        //{
+            
+        //    TeamInfo teamInfo = new TeamInfo
+        //    {
+        //        TName = tName,
+        //        StartTime = startTime,
+        //        StopTime = stopTime
+        //    };
+
+        //}
 
     }
 }
