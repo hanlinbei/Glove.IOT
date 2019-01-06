@@ -1801,13 +1801,12 @@
     <Content Include="Views\Device\Devicemanage.cshtml" />
     <Content Include="Views\Device\Devicedetail.cshtml" />
     <Content Include="Views\Device\LayerAdddevice.cshtml" />
-    <Content Include="Views\Device\LayerAddgroup.cshtml" />
-    <None Include="Views\TeamInfo\Classmanage.cshtml" />
     <Content Include="Views\UserLogin\Index.cshtml" />
     <Content Include="Views\Device\LayerSearchdevice.cshtml" />
     <Content Include="Views\OperationLog\Operationlog.cshtml" />
     <Content Include="Views\OperationLog\LayerSearcholog.cshtml" />
     <Content Include="Views\Device\test.cshtml" />
+    <Content Include="Views\TeamInfo\Classmanage.cshtml" />
     <Content Include="Views\TeamInfo\LayerAddclass.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
@@ -1840,7 +1839,6 @@
     <Content Include="Views\UserInfo\Userdetail.cshtml" />
     <Content Include="Views\WarningInfo\Warningmanage.cshtml" />
     <Content Include="Views\UserInfo\Userpassword.cshtml" />
-    <Content Include="Views\WarningInfo\LayerSearchwarning.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -39,5 +39,7 @@
    <object type="Glove.IOT.UI.Portal.Controllers.WarningInfoController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="WarningInfoService" ref="WarningInfoService" />
   </object>
-
+  <object type="Glove.IOT.UI.Portal.Controllers.TeamInfoController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="TeamInfoService" ref="TeamInfoService" />
+  </object>
 </objects>

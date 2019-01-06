@@ -83,6 +83,7 @@
     <Compile Include="Param\BaseParam.cs" />
     <Compile Include="Param\DeviceQueryParam.cs" />
     <Compile Include="Param\OperationLogQueryParam.cs" />
+    <Compile Include="Param\TeamQueryParam.cs" />
     <Compile Include="Param\UserQueryParam.cs" />
     <Compile Include="Param\WarningQueryParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
