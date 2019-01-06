@@ -49,17 +49,49 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
 
-        //public ActionResult AddTeamInfo(string tName, string startTime, string stopTime)
-        //{
-            
-        //    TeamInfo teamInfo = new TeamInfo
-        //    {
-        //        TName = tName,
-        //        StartTime = startTime,
-        //        StopTime = stopTime
-        //    };
+        /// <summary>
+        /// 添加班信息
+        /// </summary>
+        /// <param name="tName"></param>
+        /// <param name="startTime"></param>
+        /// <param name="stopTime"></param>
+        /// <returns></returns>
+        public ActionResult AddTeamInfo(string tName, string startTime, string stopTime)
+        {
+            TeamInfo teamInfo = new TeamInfo
+            {
+                TName = tName,
+                StartTime = Convert.ToDateTime(startTime),
+                StopTime = Convert.ToDateTime(stopTime),
+                SubTime=DateTime.Now
+            };
+            TeamInfoService.Add(teamInfo);
+            return Content("Ok");
+        }
 
-        //}
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="ids">用户id</param>
+        /// <returns>del ok</returns>
+        public ActionResult Delete(string ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("请选中要删除的数据！");
+            }
+            //正常处理
+            string[] strIds = ids.Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+
+            }
+            TeamInfoService.DeleteListByLogical(idList);
+            return Content("del ok");
+        }
 
     }
 }
