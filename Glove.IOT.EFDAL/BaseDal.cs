@@ -20,13 +20,23 @@ namespace Glove.IOT.EFDAL
             get { return DbContextFactory.GetCurrentDbContext(); }
         }
         /// <summary>
-        /// 查询
+        /// 追终查询
         /// </summary>
         /// <param name="whereLambda">查询条件</param>
         /// <returns></returns>
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
 
+            return Db.Set<T>().Where(whereLambda).AsQueryable();
+
+        }
+        /// <summary>
+        /// 不追终查询
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <returns></returns>
+        public IQueryable<T> GetEntitiesNoTracking(Expression<Func<T, bool>> whereLambda)
+        {
             return Db.Set<T>().AsNoTracking().Where(whereLambda).AsQueryable();
 
         }
@@ -89,8 +99,7 @@ namespace Glove.IOT.EFDAL
         public bool Update(T entity)
         {
             Db.Entry(entity).State = EntityState.Modified;
-            //return Db.SaveChanges() > 0;
-            return true;
+            return Db.SaveChanges() > 0;
         }
   
 
@@ -102,10 +111,10 @@ namespace Glove.IOT.EFDAL
         public bool Delete(T entity)
         {
             //Db.Entry(entity).State = EntityState.Deleted;
-            //return Db.SaveChanges() > 0;
+            
             Db.Entry(entity).Property("IsDeleted").CurrentValue = true;
             Db.Entry(entity).Property("IsDeleted").IsModified = true;
-            return true;
+             return Db.SaveChanges() > 0;
         }
         /// <summary>
         /// 根据id单个逻辑删除

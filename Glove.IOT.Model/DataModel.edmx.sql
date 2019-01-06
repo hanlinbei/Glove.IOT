@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/29/2018 15:36:06
+-- Date Created: 01/06/2019 14:37:22
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -31,6 +31,12 @@ IF OBJECT_ID(N'[dbo].[FK_R_RoleInfo_ActionInfoActionInfo]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_DeviceInfoDeviceParameterInfo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[DeviceParameterInfo] DROP CONSTRAINT [FK_DeviceInfoDeviceParameterInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TeamInfoUserInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfo] DROP CONSTRAINT [FK_TeamInfoUserInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GroupInfoDeviceInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DeviceInfo] DROP CONSTRAINT [FK_GroupInfoDeviceInfo];
 GO
 
 -- --------------------------------------------------
@@ -64,6 +70,12 @@ GO
 IF OBJECT_ID(N'[dbo].[WarningInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[WarningInfo];
 GO
+IF OBJECT_ID(N'[dbo].[TeamInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TeamInfo];
+GO
+IF OBJECT_ID(N'[dbo].[GroupInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[GroupInfo];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -82,7 +94,9 @@ CREATE TABLE [dbo].[UserInfo] (
     [Email] nvarchar(max)  NULL,
     [StatusFlag] bit  NOT NULL,
     [IsDeleted] bit  NOT NULL,
-    [SubTime] datetime  NOT NULL
+    [SubTime] datetime  NOT NULL,
+    [TeamInfoId] int  NOT NULL,
+    [GroupInfoId] int  NOT NULL
 );
 GO
 
@@ -131,21 +145,22 @@ CREATE TABLE [dbo].[DeviceInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DeviceId] nvarchar(256)  NOT NULL,
     [IsDeleted] bit  NOT NULL,
-    [SubTime] datetime  NOT NULL
+    [SubTime] datetime  NOT NULL,
+    [GroupInfoId] int  NOT NULL
 );
 GO
 
 -- Creating table 'DeviceParameterInfo'
 CREATE TABLE [dbo].[DeviceParameterInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [DeviceInfoId] int  NOT NULL,
     [NowOutput] int  NULL,
     [TargetOutput] int  NULL,
     [SingleProgress] smallint  NULL,
     [StatusFlag] nvarchar(256)  NOT NULL,
     [StartTime] datetime  NULL,
     [StopTime] datetime  NULL,
-    [SubTime] datetime  NOT NULL
+    [SubTime] datetime  NOT NULL,
+    [DeviceInfoId] int  NOT NULL
 );
 GO
 
@@ -170,6 +185,26 @@ CREATE TABLE [dbo].[WarningInfo] (
     [WarningMessage] nvarchar(256)  NOT NULL,
     [StartTime] datetime  NULL,
     [StopTime] datetime  NULL,
+    [IsDeleted] bit  NOT NULL,
+    [SubTime] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'TeamInfo'
+CREATE TABLE [dbo].[TeamInfo] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [TName] nvarchar(256)  NULL,
+    [StartTime] datetime  NULL,
+    [StopTime] datetime  NULL,
+    [IsDeleted] bit  NOT NULL,
+    [SubTime] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'GroupInfo'
+CREATE TABLE [dbo].[GroupInfo] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [GName] nvarchar(256)  NULL,
     [IsDeleted] bit  NOT NULL,
     [SubTime] datetime  NOT NULL
 );
@@ -230,6 +265,18 @@ GO
 -- Creating primary key on [Id] in table 'WarningInfo'
 ALTER TABLE [dbo].[WarningInfo]
 ADD CONSTRAINT [PK_WarningInfo]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'TeamInfo'
+ALTER TABLE [dbo].[TeamInfo]
+ADD CONSTRAINT [PK_TeamInfo]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'GroupInfo'
+ALTER TABLE [dbo].[GroupInfo]
+ADD CONSTRAINT [PK_GroupInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -310,6 +357,51 @@ GO
 CREATE INDEX [IX_FK_DeviceInfoDeviceParameterInfo]
 ON [dbo].[DeviceParameterInfo]
     ([DeviceInfoId]);
+GO
+
+-- Creating foreign key on [TeamInfoId] in table 'UserInfo'
+ALTER TABLE [dbo].[UserInfo]
+ADD CONSTRAINT [FK_TeamInfoUserInfo]
+    FOREIGN KEY ([TeamInfoId])
+    REFERENCES [dbo].[TeamInfo]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TeamInfoUserInfo'
+CREATE INDEX [IX_FK_TeamInfoUserInfo]
+ON [dbo].[UserInfo]
+    ([TeamInfoId]);
+GO
+
+-- Creating foreign key on [GroupInfoId] in table 'DeviceInfo'
+ALTER TABLE [dbo].[DeviceInfo]
+ADD CONSTRAINT [FK_GroupInfoDeviceInfo]
+    FOREIGN KEY ([GroupInfoId])
+    REFERENCES [dbo].[GroupInfo]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GroupInfoDeviceInfo'
+CREATE INDEX [IX_FK_GroupInfoDeviceInfo]
+ON [dbo].[DeviceInfo]
+    ([GroupInfoId]);
+GO
+
+-- Creating foreign key on [GroupInfoId] in table 'UserInfo'
+ALTER TABLE [dbo].[UserInfo]
+ADD CONSTRAINT [FK_GroupInfoUserInfo]
+    FOREIGN KEY ([GroupInfoId])
+    REFERENCES [dbo].[GroupInfo]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GroupInfoUserInfo'
+CREATE INDEX [IX_FK_GroupInfoUserInfo]
+ON [dbo].[UserInfo]
+    ([GroupInfoId]);
 GO
 
 -- --------------------------------------------------

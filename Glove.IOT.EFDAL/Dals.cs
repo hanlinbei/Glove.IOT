@@ -27,6 +27,11 @@ namespace Glove.IOT.EFDAL
 
 	}
 	
+	public partial class GroupInfoDal:BaseDal<GroupInfo>,IGroupInfoDal
+    {
+
+	}
+	
 	public partial class OperationLogDal:BaseDal<OperationLog>,IOperationLogDal
     {
 
@@ -43,6 +48,11 @@ namespace Glove.IOT.EFDAL
 	}
 	
 	public partial class RoleInfoDal:BaseDal<RoleInfo>,IRoleInfoDal
+    {
+
+	}
+	
+	public partial class TeamInfoDal:BaseDal<TeamInfo>,ITeamInfoDal
     {
 
 	}

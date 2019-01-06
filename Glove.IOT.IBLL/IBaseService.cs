@@ -10,7 +10,7 @@ namespace Glove.IOT.IBLL
     public interface IBaseService<T> where T :class,new()
     {
         IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda);
-
+        IQueryable<T> GetEntitiesNoTracking(Expression<Func<T, bool>> whereLambda);
 
         IQueryable<T> GetPageEntities<S>(int pageSize, int pageIndex, out int total,
                                                Expression<Func<T, bool>> whereLambda,

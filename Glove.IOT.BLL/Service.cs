@@ -31,6 +31,12 @@ namespace Glove.IOT.BLL
 	    
 		}
 	
+	    public partial class GroupInfoService : BaseService<GroupInfo>, IGroupInfoService
+        {
+	
+	    
+		}
+	
 	    public partial class OperationLogService : BaseService<OperationLog>, IOperationLogService
         {
 	
@@ -50,6 +56,12 @@ namespace Glove.IOT.BLL
 		}
 	
 	    public partial class RoleInfoService : BaseService<RoleInfo>, IRoleInfoService
+        {
+	
+	    
+		}
+	
+	    public partial class TeamInfoService : BaseService<TeamInfo>, ITeamInfoService
         {
 	
 	    
