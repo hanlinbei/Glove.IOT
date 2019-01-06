@@ -58,7 +58,9 @@ namespace Glove.IOT.BLL
                 Remark= temp.Remark,
                 UCode= temp.UCode,
                 UName= temp.UName,
-                RoleName= roleName.RoleName
+                RoleName= roleName.RoleName,
+                TeamInfoId=temp.TeamInfoId,
+                GroupInfoId=temp.GroupInfoId
             };
             return data;
 
@@ -87,7 +89,9 @@ namespace Glove.IOT.BLL
                             UName = t1.UName,
                             RoleName = t3.RoleName,
                             Remark=t1.Remark,
-                            StatusFlag = t1.StatusFlag
+                            StatusFlag = t1.StatusFlag,
+                            TeamInfoId=t1.TeamInfoId,
+                            GroupInfoId=t1.GroupInfoId
                         };
 
            //按员工编号筛选

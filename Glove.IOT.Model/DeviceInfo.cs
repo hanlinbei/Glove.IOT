@@ -18,6 +18,7 @@ namespace Glove.IOT.Model
         public DeviceInfo()
         {
             this.IsDeleted = false;
+            this.GroupInfoId = 1;
             this.DeviceParameterInfo = new HashSet<DeviceParameterInfo>();
         }
     
@@ -25,7 +26,9 @@ namespace Glove.IOT.Model
         public string DeviceId { get; set; }
         public bool IsDeleted { get; set; }
         public System.DateTime SubTime { get; set; }
+        public int GroupInfoId { get; set; }
     
         public virtual ICollection<DeviceParameterInfo> DeviceParameterInfo { get; set; }
+        public virtual GroupInfo GroupInfo { get; set; }
     }
 }

@@ -18,8 +18,7 @@ namespace Glove.IOT.BLL
         /// <returns></returns>
         public IQueryable<dynamic> GetWarningInfo(WarningQueryParam warningQueryParam)
         {
-            var firstTime = Convert.ToDateTime(warningQueryParam.FirstTime);
-            var lastTime = Convert.ToDateTime(warningQueryParam.LastTime);
+
             //获取报警信息表实体
             var warningInfo = DbSession.WarningInfoDal.GetEntities(w => w.IsDeleted == false);
 
@@ -49,9 +48,10 @@ namespace Glove.IOT.BLL
                 query = query.Where(w => w.WarningMessage.Contains(warningQueryParam.SchMessage)).AsQueryable();
             }
             //按报警时间查询
-            if (!string.IsNullOrEmpty(warningQueryParam.FirstTime)&& !string.IsNullOrEmpty(warningQueryParam.LastTime))
+            if (!string.IsNullOrEmpty(warningQueryParam.FirstTime))
             {
-                query = query.Where(w=>(w.WarningStartTime>firstTime&&w.WarningStartTime<lastTime)).AsQueryable();
+                var firstTime = Convert.ToDateTime(warningQueryParam.FirstTime);
+                query = query.Where(w=>(w.WarningStartTime>firstTime&&w.WarningStartTime<DateTime.Now)).AsQueryable();
             }
             //总条数
             warningQueryParam.Total = query.Count();

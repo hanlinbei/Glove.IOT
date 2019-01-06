@@ -74,6 +74,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Enum\StatusFlagEnum.cs" />
+    <Compile Include="GroupInfo.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="OperationLog.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -90,6 +93,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="R_UserInfo_RoleInfo.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TeamInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserInfo.cs">

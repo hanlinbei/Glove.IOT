@@ -27,6 +27,11 @@ namespace Glove.IOT.DALFactory
 			get { return StaticDalFactory.GetDeviceParameterInfoDal(); }
 		 }
 	
+		 public IGroupInfoDal GroupInfoDal
+		 {
+			get { return StaticDalFactory.GetGroupInfoDal(); }
+		 }
+	
 		 public IOperationLogDal OperationLogDal
 		 {
 			get { return StaticDalFactory.GetOperationLogDal(); }
@@ -45,6 +50,11 @@ namespace Glove.IOT.DALFactory
 		 public IRoleInfoDal RoleInfoDal
 		 {
 			get { return StaticDalFactory.GetRoleInfoDal(); }
+		 }
+	
+		 public ITeamInfoDal TeamInfoDal
+		 {
+			get { return StaticDalFactory.GetTeamInfoDal(); }
 		 }
 	
 		 public IUserInfoDal UserInfoDal
