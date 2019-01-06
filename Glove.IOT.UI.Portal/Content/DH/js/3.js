@@ -1365,7 +1365,7 @@ layui.use('table', function () {//打开网页刷新表格
     table.render({
         elem: '#table_class'
         //, height: 520
-        , url: '/UserInfo/GetAllUserInfos' //数据接口
+        , url: '/TeamInfo/GetTeamInfos' //数据接口
         , title: "班号管理"
         , page: true //开启分页
         , limit: 10
