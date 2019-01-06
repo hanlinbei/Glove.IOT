@@ -87,10 +87,17 @@ namespace Glove.IOT.UI.Portal.Controllers
             foreach (var strId in strIds)
             {
                 idList.Add(int.Parse(strId));
-
             }
             TeamInfoService.DeleteListByLogical(idList);
             return Content("del ok");
+        }
+
+        /// <returns>ok</returns>
+        public ActionResult Edit(TeamInfo teamInfo)
+        {
+            teamInfo.SubTime = DateTime.Now;
+            TeamInfoService.Update(teamInfo);
+            return Content("ok");
         }
 
     }

@@ -95,3 +95,29 @@ inner join	(select
 		报警开始时间=Min(SubTime)
 		from WarningInfo
 		group by DeviceId)as t2 on t1.DeviceId=t2.DeviceId and t1.SubTime=t2.最新提交时间
+
+		select * from DeviceInfo
+		
+		select 
+		--年=year(SubTime),
+		--月=month(Subtime),
+		--日=day(SubTime),
+		Convert(char(10),SubTime,120),
+		COUNT (*)
+		from DeviceInfo
+		--group by year(SubTime),month(Subtime),day(SubTime)
+		group by Convert(char(10),SubTime,120)
+
+		select * from DeviceParameterInfo
+
+		select 
+		日期=Convert(char(10),SubTime,120),
+		今日车间产量=Sum (NowOutput)
+		from DeviceParameterInfo
+		group by Convert(char(10),SubTime,120)
+		order by Convert(char(10),SubTime,120)
+
+		select * from DeviceInfo
+		select * from GroupInfo
+
+		 
