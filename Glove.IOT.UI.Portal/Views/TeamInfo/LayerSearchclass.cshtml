@@ -45,21 +45,15 @@
         <div class="layer-content">
             <div class="layui-form" lay-filter="userAdd">
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color:red">*</span>班号名字：</label>
+                    <label class="layui-form-label">班号名字：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="TName" required lay-verify="required" placeholder="请输入班号名字" autocomplete="off" class="layui-input">
+                        <input type="text" name="schTName" required lay-verify="required" placeholder="请输入搜索班号名字" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color:red">*</span>工作时间：</label>
+                    <label class="layui-form-label">工作时间：</label>
                     <div class="layui-input-block">
-                        <input name="StartTime" type="text" class="layui-input" id="first-classWorktime" autocomplete="off" placeholder="请输入开始工作的时间">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">~</label>
-                    <div class="layui-input-block">
-                        <input name="StopTime" type="text" class="layui-input" id="last-classWorktime" autocomplete="off" placeholder="请输入结束工作的时间">
+                        <input name="schTime" type="text" class="layui-input" id="first-classWorktime" autocomplete="off" placeholder="请输入搜索工作的时间">
                     </div>
                 </div>
             </div>
@@ -76,17 +70,13 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
-        $('input[name="TName"]').focus(function () {
-            $('input[name="TName"]').removeClass("red");
-            $('input[name="TName"]').attr('placeholder', '请输入班号名字');
+        $('input[name="schTName"]').focus(function () {
+            $('input[name="schTName"]').removeClass("red");
+            $('input[name="schTName"]').attr('placeholder', '请输入搜索班号名字');
         })
-        $('input[name="StartTime"]').focus(function () {
-            $('input[name="StartTime"]').removeClass("red");
-            $('input[name="StartTime"]').attr('placeholder', '请输入开始工作的时间');
-        })
-        $('input[name="StopTime"]').focus(function () {
-            $('input[name="StopTime"]').removeClass("red");
-            $('input[name="StopTime"]').attr('placeholder', '请输入结束工作的时间');
+        $('input[name="schTime"]').focus(function () {
+            $('input[name="schTime"]').removeClass("red");
+            $('input[name="schTime"]').attr('placeholder', '请输入搜索工作的时间');
         })
     </script>
 </body>
