@@ -18,7 +18,6 @@ namespace Glove.IOT.BLL
         /// <returns></returns>
         public IQueryable<dynamic> GetWarningInfo(WarningQueryParam warningQueryParam)
         {
-
             //获取报警信息表实体
             var warningInfo = DbSession.WarningInfoDal.GetEntities(w => w.IsDeleted == false);
 
