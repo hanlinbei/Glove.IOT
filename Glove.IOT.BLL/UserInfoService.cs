@@ -134,13 +134,13 @@ namespace Glove.IOT.BLL
             var user = DbSession.UserInfoDal.GetEntities(u => u.Id == uId).FirstOrDefault();
             if (user.Pwd != oldpwd.ToMD5())
             {
-                return "原密码错误";
+                return "false";
             }
             else
             {
                 user.Pwd = newPwd.ToMD5();
                 DbSession.UserInfoDal.Update(user);
-                return "密码修改成功";
+                return "true";
             }
 
         }

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Glove.IOT.UI.Portal.Controllers
 {
-    public class TeamController : Controller
+    public class TeamInfoController : Controller
     {
         // GET: TeamInfo
         public ActionResult Classmanage()

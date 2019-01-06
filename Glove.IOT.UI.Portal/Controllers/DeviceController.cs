@@ -160,6 +160,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult LayerAddgroup()
+        {
+            return View();
+        }
         public ActionResult test()
         {
             return View();

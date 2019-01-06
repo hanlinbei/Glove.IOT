@@ -515,7 +515,7 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
             var data = {
                 DeviceId: $('input[name="DeviceId"]').val(),
                 WarningMessage: $('select[name="WarningMessage"] option:selected').val(),
-                warningStartTime: $('input[name="warningStartTime"]').val()
+                WarningStartTime: $('input[name="WarningStartTime"]').val()
             }
     }
     return data;
@@ -645,7 +645,7 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
                 curr: page
             }//重新制定page和limit
             , limit: limit
-            , where: { schDeviceId: res.DeviceId, schMessage: res.WarningMessage, firsTime: res.warningStartTime }
+            , where: { schDeviceId: res.DeviceId, schMessage: res.WarningMessage, firsTime: res.WarningStartTime }
             , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
                 console.log("表格重载完成");
             }
@@ -809,6 +809,8 @@ layui.use('table', function () {//打开网页刷新表格
                     }
                 });
             });
+        } else if (layEvent === 'group') { //分组
+            layerShowAddgroup('设备分组', 'LayerAddgroup', 500, 250, obj.data);
         }
     });
     table.on('checkbox(table_device)', function (obj) {
@@ -976,7 +978,87 @@ function Power(index) {
         });
     }
 }
+function layerShowAddgroup(title, url, w, h, data) {
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade: 0.4,
+        title: title,
+        content: url,
+        btn: ['确定'],
+        yes: function (index) {
+            //当点击‘确定’按钮的时候，获取弹出层返回的值
+            var res = window["layui-layer-iframe" + index].callbackdata(index, 'adduser');
+            var body = layer.getChildFrame('body', index);
+            if (res.UName === "") {
+                $(body).find('input[name="UName"]').attr('placeholder', '员工名字不能为空');
+                $(body).find('input[name="UName"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            } else if (res.UCode === "") {
+                $(body).find('input[name="UCode"]').attr('placeholder', '员工编码不能为空');
+                $(body).find('input[name="UCode"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            } else if (res.Pwd === "") {
+                $(body).find('input[name="Pwd"]').attr('placeholder', '初试密码不能为空');
+                $(body).find('input[name="Pwd"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            } else {
+                //ajax发送post请求 给后端发送数据
+                for (var i = 0; i < Rid_Rolename.length; i++) {
+                    if (Rid_Rolename[i][1] === res.RoleName) {
+                        RId = Rid_Rolename[i][0];
+                        break;
+                    }
+                }
+                $.post("/UserInfo/Edit", {
+                    UName: res.UName, UCode: res.UCode, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, Id: data.UId
+                });
+                globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
+                globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
+                //表格重载
+                updatatable('table_ry', '#table_ry', 550, "/UserInfo/GetAllUserInfos", "员工管理", globalPage, globalLimit);
+                layer.close(index);
+            }
+        },
+        success: function (layero, index) {
+            //获取iframe页面   
+            console.log(data.Id);
+            var body = layer.getChildFrame('body', index);
+            $(body).find('input[name="UName"]').attr("value", data.UName);//输入父页面的姓名
 
+            $.get("/UserInfo/GetAllRoles", {}, function (data_return) {
+                var obj = data_return;
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i].RoleName === data.RoleName)
+                        $(body).find('select[name="RoleName"]').val(data.RoleName);
+                }
+                for (var i = 0; i < obj.length; i++) {//保存查询用
+                    Rid_Rolename[i] = [obj[i].Id, obj[i].RoleName];
+                }
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render('select');
+                });
+                //获取新窗口对象
+                var iframeWindow = layero.find('iframe')[0].contentWindow;
+                //重新渲染
+                iframeWindow.layui.form.render();
+            })
+        }
+    });
+}
 
 layui.use('table', function () {//打开网页刷新表格
     var table = layui.table;
@@ -1222,22 +1304,21 @@ layui.use('table', function () {//打开网页刷新表格
             { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center', fixed: 'left' }
             , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
             , { field: 'WarningMessage', title: '报警信息', minWidth: 80, sort: true, align: 'center' }
-            , { field: 'warningStartTime', title: '开始时间', minWidth: 80, align: 'center' }
-            , { field: 'warningTime', title: '报警时长', minWidth: 80, align: 'center' }
+            , { field: 'WarningStartTime', title: '开始时间', minWidth: 80, align: 'center' }
+            , { field: 'WarningTime', title: '报警时长', minWidth: 80, align: 'center' }
             // , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , toolbar: true
         , parseData: function (res) { //修改原始数据
-            console.log(res.data[1].SubTime);
             for (var i = 0; i < res.data.length; i++) {
-                res.data[i].warningStartTime = (eval(res.data[i].warningStartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                res.data[i].WarningStartTime = (eval(res.data[i].WarningStartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
                 var m = Math.floor(res.data[i].minute % 60);
                 var h = Math.floor(res.data[i].minute / 60 % 24);
                 var d = Math.floor(res.data[i].minute / 60 / 24);
                 if (m < 10) m = "0" + m;
                 if (h < 10) h = "0" + h;
                 if (d < 10) d = "0" + d;  
-                res.data[i].warningTime = d + ' 天 ' + h + ' 时 ' + m + ' 分';
+                res.data[i].WarningTime = d + ' 天 ' + h + ' 时 ' + m + ' 分';
             }
             return {
                 "code": res.code, //解析接口状态
@@ -1464,7 +1545,7 @@ layui.use('laydate', function () {
         , type: 'time'//日期时间选择器
     });
     laydate.render({
-        elem: '#warningStartTime' //指定元素
+        elem: '#WarningStartTime' //指定元素
         , type: 'datetime'//日期时间选择器
     });
 });
