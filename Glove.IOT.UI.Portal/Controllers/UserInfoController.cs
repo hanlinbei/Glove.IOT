@@ -88,6 +88,8 @@ namespace Glove.IOT.UI.Portal.Controllers
             userInfo.Phone = Request["Phone"];
             userInfo.Remark = Request["Remark"];
             userInfo.UCode = Request["UCode"];
+            userInfo.GroupInfoId = user.GroupInfoId;
+            userInfo.TeamInfoId = user.TeamInfoId;
             var file = Request.Files["Picture"];
             //如果头像为空 用回原来已存在的
             if (file == null)
@@ -153,7 +155,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult Edit(UserInfo userInfo)
         {
             userInfo.SubTime = DateTime.Now;
-            userInfo.Pwd = UserInfoService.GetEntities(u => u.Id == userInfo.Id).Select(u => u.Pwd).FirstOrDefault();
+            var user = UserInfoService.GetEntities(u => u.Id == userInfo.Id).FirstOrDefault();
+            userInfo.Pwd = user.Pwd;
+            userInfo.TeamInfoId = user.TeamInfoId;
+            userInfo.GroupInfoId = user.GroupInfoId;
             UserInfoService.Update(userInfo);
             //写操作日志
             OperationLogService.Add("编辑员工", "系统管理", LoginInfo, userInfo.UName, "");

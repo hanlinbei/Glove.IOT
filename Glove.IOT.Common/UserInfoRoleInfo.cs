@@ -23,7 +23,5 @@ namespace Glove.IOT.Common
         public bool  StatusFlag { get; set; }
         public string Remark { get; set; }
         public System.DateTime SubTime { get; set; }
-        public int TeamInfoId { get; set; }
-        public int GroupInfoId { get; set; }
     }
 }
