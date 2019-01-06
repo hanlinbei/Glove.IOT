@@ -1365,7 +1365,7 @@ layui.use('table', function () {//打开网页刷新表格
     table.render({
         elem: '#table_class'
         //, height: 520
-        , url: '/TeamInfo/GetTeamInfos' //数据接口
+        , url: '/TeamInfo/GetTeamInfo' //数据接口
         , title: "班号管理"
         , page: true //开启分页
         , limit: 10
@@ -1374,11 +1374,22 @@ layui.use('table', function () {//打开网页刷新表格
             { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
             , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
-            , { field: 'UCode', title: '班号', minWidth: 80, align: 'center' }
-            , { field: 'UName', title: '工作时间', minWidth: 80, sort: true, align: 'center' }
+            , { field: 'TName', title: '班号', minWidth: 80, align: 'center' }
+            , { field: 'wTime', title: '工作时间', minWidth: 80, sort: true, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , toolbar: true
+        , parseData: function (res) { //修改原始数据
+            for (var i = 0; i < res.data.length; i++) {
+                res.data[i].wTime = res.data[i].StartTime + ' ~ ' + res.data[i].StopTime;
+            }
+            return {
+                "code": res.code, //解析接口状态
+                "msg": res.msg, //解析提示文本
+                "count": res.count, //解析数据长度
+                "data": res.data //解析数据列表
+            };
+        }
         , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
             //Power('user');
            
