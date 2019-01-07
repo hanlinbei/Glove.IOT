@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -26,35 +27,14 @@
 </head>
 <body>
     <div class="layer">
-        <!--
-        <div class="layer-top">
-            员工编辑
-            <i class="layui-icon layui-icon-close layer-close" style="font-size: 25px; float:right; text-align:center;"></i>
-        </div>-->
-        <div class="layer-content">
-            <div class="layui-form">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">设备ID：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="DeviceId" required lay-verify="required" placeholder="请输入设备ID" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">报警信息：</label>
-                    <div class="layui-input-block">
-                        <select name="WarningMessage" lay-verify="required">
-                            <option value="">请选择一种报警信息</option>
-                            <option value="报警信息1">报警信息1</option>
-                            <option value="报警信息2">报警信息2</option>
-                            <option value="报警信息3">报警信息3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">开始时间：</label>
-                    <div class="layui-input-block">
-                        <input name="WarningStartTime" type="text" class="layui-input" id="WarningStartTime" autocomplete="off" placeholder="请输入搜索的时间"><!-- 不要缓存 -->
-                    </div>
+        <div class="layui-form" lay-filter="userGroup">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>设备分组：</label>
+                <div class="layui-input-block">
+                    <select name="GroupName" lay-verify="required">
+                        <option value="">请选择组号</option>
+
+                    </select>
                 </div>
             </div>
         </div>
@@ -63,6 +43,10 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
         

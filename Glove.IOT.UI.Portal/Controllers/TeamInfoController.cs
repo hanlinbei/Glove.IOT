@@ -21,6 +21,14 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult LayerEditclass()
+        {
+            return View();
+        }
+        public ActionResult LayerSearchclass()
+        {
+            return View();
+        }
         /// <summary>
         /// 获取班信息
         /// </summary>
