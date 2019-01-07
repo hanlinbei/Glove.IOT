@@ -117,7 +117,13 @@ inner join	(select
 		group by Convert(char(10),SubTime,120)
 		order by Convert(char(10),SubTime,120)
 
-		select * from DeviceInfo
+		select * from DeviceParameterInfo
 		select * from GroupInfo
 
-		 
+		select 
+		DeviceInfoId,
+		开机时间=min(SubTime)
+		from DeviceParameterInfo 
+		where StatusFlag='运行中'
+		group by DeviceInfoId
+		
