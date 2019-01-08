@@ -1810,6 +1810,9 @@
     <Content Include="Views\TeamInfo\LayerAddclass.cshtml" />
     <Content Include="Views\TeamInfo\LayerEditclass.cshtml" />
     <Content Include="Views\TeamInfo\LayerSearchclass.cshtml" />
+    <Content Include="Views\TeamInfo\Groupmanage.cshtml" />
+    <Content Include="Views\TeamInfo\LayerAddgroup.cshtml" />
+    <Content Include="Views\TeamInfo\Groupdetail.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\LayerSearchuser.cshtml" />

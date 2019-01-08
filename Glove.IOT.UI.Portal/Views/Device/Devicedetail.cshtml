@@ -73,10 +73,17 @@
                             </span>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right topbar-right">
-                        <li><i class="iconfont icon-bell">&#xe6f1;</i></li>
-                        <li><i class="iconfont icon-vline">&#xe63a;</i></li>
-                        <li><i class="iconfont icon-user">&#xe638;</i></li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" class="iconfont icon-vline">&#xe6f1;</a></li>
+                        <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle iconfont icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&#xe638;<span class="caret"></span></a>
+                            <ul class="dropdown-menu" style="min-width: 50px; text-align:center;">
+                                <li><a href="../UserInfo/Userdetail">基本资料</a></li>
+                                <li><a href="../UserInfo/Userpassword">修改密码</a></li>
+                                <li><a id="logout">注销</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <!-- 最小宽度时出现汉堡菜单-->
@@ -93,8 +100,8 @@
     </header>
     <section id="aside" class="hidden-xs">
         <div class="aside-top">
-            <div class="text-right col-xs-4" style="padding:0 10px 0 10px;"> <img src="~/Content/DH/img/人物.png" name="tPicture" height="50" width="50" /></div>
-            <div class="aside-top__username col-xs-8" style="padding:0 0 0 0"><p name="userName" style="text-align:center;"></p></div>
+            <div class="text-right col-xs-5" style="padding:0 5px 0 25px" id="tPicture"></div>
+            <div class="aside-top__username col-xs-7" style="padding:0 25px 0 5px"><p name="userName" style="text-align:center;"></p></div>
         </div>
         <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->

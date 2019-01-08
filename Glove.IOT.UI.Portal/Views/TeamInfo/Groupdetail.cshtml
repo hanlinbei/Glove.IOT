@@ -137,7 +137,7 @@
         <div class="navigation">
             <span class="layui-breadcrumb">
                 <a>班组管理</a>
-                <a href=""><cite>班号管理</cite></a>
+                <a href=""><cite>组号详情</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
@@ -151,20 +151,27 @@
                 删除班号
             </button>
             <!--
-            <button class="layui-btn layui-btn-warm col-xs-1">
-                <i class="iconfont icon-modify">&#xe6b8;</i>
-                修改员工
-            </button>
-                -->
+        <button class="layui-btn layui-btn-warm col-xs-1">
+            <i class="iconfont icon-modify">&#xe6b8;</i>
+            修改员工
+        </button>
+            -->
             <span class="col-xs-8"></span>
             <button class="layui-btn col-xs-1" name="查找班号">
                 <i class="iconfont icon-seek">&#xe618;</i>
                 查找班号
             </button>
         </div>
-        <div class="table">
+        <div class="table-left">
             <div class="table-title">
-                班号管理
+                树状结构
+            </div>
+            <ul id="group-tree"></ul>
+            <button id="addcate" class="layui-btn  layui-btn-primary" style="margin-top:20px; margin-left:28px; width:70%;">添加分类</button>
+        </div>
+        <div class="table-right">
+            <div class="table-title">
+                关联设备
             </div>
             <table id="table_class" lay-filter="table_class" lay-data="{id: 'idTest'}"></table>
         </div>
@@ -187,9 +194,119 @@
     <script>
         //更新左上角用户信息
         userMessage();
-        //禁用所有按钮
-        //$('button').addClass('layui-btn-disabled');
-        //$('button').attr('disabled', 'disabled');
+        //删除layui-tree 自带的样式      
+        $("i.layui-tree-branch").remove();
+        $("i.layui-tree-leaf").remove();  
+        $("ul#group-tree").append("<li>" +
+            "<a ><cite>组号</cite> </a>" +
+            "<i class='layui-icon layui-icon-add-1 hide tree-select'></i>" +
+            "<i class='layui-icon layui-icon-delete hide tree-select'></i>" +
+            "<i class='layui-icon layui-icon-edit hide tree-select'></i>" +
+            "</li>");
+        //显示/隐藏 分类的操作栏
+        $("ul#group-tree").on({
+            mouseover: function (event) {
+                event.stopPropagation();
+                $(this).children(".tree-select").removeClass("hide");
+            },
+            mouseout: function (event) {
+                event.stopPropagation();
+                $(this).children(".tree-select").addClass("hide");
+            },
+        }, "li", "a")
+        ////重命名
+        //$("ul#group-tree").on("click", "li .layui-icon-edit", function () {
+        //    var node = $(this).parent().children("a").children("cite");
+        //    var id = $(this).parent().attr("id")
+        //    var that = $(this).closest("li");
+        //    layer.prompt({ title: '输入新的分类名称，并确认', value: node.text(), formType: 0 }, function (text, index) {
+        //        layer.close(index);
+        //        //TODO 可以ajax到后台操作，这里只做模拟
+        //        layer.load(2);
+        //        setTimeout(function () {
+        //            layer.closeAll("loading");
+        //            node.text(text);
+        //        }, 1000)
+        //    });
+        //})
+        //删除分类
+        $("ul#group-tree").on("click", "li .layui-icon-delete", function () {
+            var that = $(this).closest("li");
+            if (that.children("ul").length > 0) {
+                layer.msg("该分类下含有子分类不能删除")
+                return;
+            }
+            var id = $(this).parent().attr("id")
+            layer.confirm('确定要删除？该分类下的课程亦将删除！', {
+                btn: ['删除', '取消']
+            }, function (index) {
+                //TODO 可以ajax到后台操作，这里只做模拟
+                layer.load(2);
+                setTimeout(function () {
+                    layer.closeAll("loading");
+                    if ((that.parent("ul").children("li").length == 1) && (that.parent("ul").parent("li").children("i.layui-tree-spread").length = 1)) {
+                        //要把分类名前的三角符号和ul标签删除
+                        that.parent("ul").parent("li").children("i.layui-tree-spread").remove();
+                    }
+                    that.remove();
+                    layer.close(index);
+                }, 1000)
+            });
+        })
+        //添加子分类
+        $("ul#group-tree ").on("click", "li .layui-icon-add-1", function () {
+            var pid = $(this).closest("li").attr("id");//将父级类目的id作为父类id
+            var that = $(this).closest("li");
+            layer.prompt({ title: '输入子分类名称，并确认', formType: 0 }, function (text, index) {
+                layer.close(index);
+                //TODO 可以ajax到后台操作，这里只做模拟
+                layer.load(2);
+                setTimeout(function () {
+                    layer.closeAll("loading");
+                    if (that.children("ul").length == 0) {
+                        //表示要新增   i 以及 ul 标签
+                        that.prepend('<i class="layui-icon layui-tree-spread"></i>');
+                        that.append("<ul class='layui-show'><li><a><cite>" + text + "</cite></a><i class= 'layui-icon layui-icon-add-1 hide tree-select' ></i ><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></ul>");
+                    } else {
+                        that.children("ul").append("<li><a><cite>" + text + "</cite> </a><i class= 'layui-icon layui-icon-add-1 hide tree-select' ></i ><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></li>");
+                    }
+                }, 1000)
+            });
+        })
+        //添加顶级分类
+        $("#addcate").on("click", function () {
+            layer.prompt({ title: '输入分类名称，并确认', formType: 0 }, function (text, index) {
+                layer.close(index);
+                //TODO 可以ajax到后台操作，这里只做模拟
+                layer.load(2);
+                setTimeout(function () {
+                    layer.closeAll("loading");
+                    $("ul#group-tree").append("<li>" +
+                        "<a ><cite>" + text + "</cite> </a>" +
+                        "<i class='layui-icon layui-icon-add-1 hide tree-select'></i>" +
+                        "<i class='layui-icon layui-icon-delete hide tree-select'></i>" +
+                        "<i class='layui-icon layui-icon-edit hide tree-select'></i>" +
+                        "</li>");
+                }, 1000)
+            });
+        })
+        //打开/关闭菜单
+        $("ul#group-tree").on({
+            click: function (event) {
+                event.stopPropagation();
+                event.preventDefault();
+                if ($(this).parent().children("ul").hasClass("layui-show")) {
+                    $(this).html("");
+                    $(this).parent().children("ul").removeClass("layui-show");
+                    return;
+                } else {
+                    $(this).html("");
+                    $(this).parent().children("ul").addClass("layui-show");
+                    return;
+                }
+                return;
+            }
+        }, 'i.layui-tree-spread');
     </script>
 
 </body>
