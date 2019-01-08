@@ -36,5 +36,6 @@ namespace Glove.IOT.Model
         public DbSet<WarningInfo> WarningInfo { get; set; }
         public DbSet<TeamInfo> TeamInfo { get; set; }
         public DbSet<GroupInfo> GroupInfo { get; set; }
+        public DbSet<R_GroupInfo_DeviceInfo> R_GroupInfo_DeviceInfo { get; set; }
     }
 }

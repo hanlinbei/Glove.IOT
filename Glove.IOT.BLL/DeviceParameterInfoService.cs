@@ -79,7 +79,6 @@ namespace Glove.IOT.BLL
                    .Take(5);
 
          }
-
         /// <summary>
         /// 获取设备的实时数据
         /// </summary>
@@ -96,7 +95,7 @@ namespace Glove.IOT.BLL
                         from t2 in deviceParameterInfo.GroupBy(m => m.DeviceInfoId).Select(p => new
                         {
                             newestSubTime = p.Max(q => q.SubTime),
-                            latestStartTime = p.Max(q => q.StartTime),
+                            latestStartTime = p.Max(q => q.StartTime.Value),
                             deviceInfoId = p.Key
                         })
                         from t4 in deviceParameterInfo

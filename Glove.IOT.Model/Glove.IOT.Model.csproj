@@ -82,12 +82,16 @@
     </Compile>
     <Compile Include="Param\BaseParam.cs" />
     <Compile Include="Param\DeviceQueryParam.cs" />
+    <Compile Include="Param\GroupQueryParam.cs" />
     <Compile Include="Param\OperationLogQueryParam.cs" />
     <Compile Include="Param\TeamQueryParam.cs" />
     <Compile Include="Param\UserQueryParam.cs" />
     <Compile Include="Param\WarningQueryParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleInfo.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="R_GroupInfo_DeviceInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="R_RoleInfo_ActionInfo.cs">

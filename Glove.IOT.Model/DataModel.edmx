@@ -17,6 +17,7 @@
     <EntitySet Name="WarningInfo" EntityType="DataModel.Store.WarningInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TeamInfo" EntityType="DataModel.Store.TeamInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="GroupInfo" EntityType="DataModel.Store.GroupInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="R_GroupInfo_DeviceInfo" EntityType="DataModel.Store.R_GroupInfo_DeviceInfo" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserInfoR_UserInfo_RoleInfo" Association="DataModel.Store.UserInfoR_UserInfo_RoleInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="R_UserInfo_RoleInfo" EntitySet="R_UserInfo_RoleInfo" />
@@ -41,13 +42,17 @@
       <End Role="TeamInfo" EntitySet="TeamInfo" />
       <End Role="UserInfo" EntitySet="UserInfo" />
     </AssociationSet>
-    <AssociationSet Name="GroupInfoDeviceInfo" Association="DataModel.Store.GroupInfoDeviceInfo">
-      <End Role="GroupInfo" EntitySet="GroupInfo" />
-      <End Role="DeviceInfo" EntitySet="DeviceInfo" />
-    </AssociationSet>
     <AssociationSet Name="GroupInfoUserInfo" Association="DataModel.Store.GroupInfoUserInfo">
       <End Role="GroupInfo" EntitySet="GroupInfo" />
       <End Role="UserInfo" EntitySet="UserInfo" />
+    </AssociationSet>
+    <AssociationSet Name="GroupInfoR_GroupInfo_DeviceInfo" Association="DataModel.Store.GroupInfoR_GroupInfo_DeviceInfo">
+      <End Role="GroupInfo" EntitySet="GroupInfo" />
+      <End Role="R_GroupInfo_DeviceInfo" EntitySet="R_GroupInfo_DeviceInfo" />
+    </AssociationSet>
+    <AssociationSet Name="R_GroupInfo_DeviceInfoDeviceInfo" Association="DataModel.Store.R_GroupInfo_DeviceInfoDeviceInfo">
+      <End Role="R_GroupInfo_DeviceInfo" EntitySet="R_GroupInfo_DeviceInfo" />
+      <End Role="DeviceInfo" EntitySet="DeviceInfo" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserInfo">
@@ -117,7 +122,6 @@
     <Property Name="DeviceId" Type="nvarchar" Nullable="false" MaxLength="256" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
-    <Property Name="GroupInfoId" Type="int" Nullable="false" DefaultValue="1" />
   </EntityType>
   <EntityType Name="DeviceParameterInfo">
     <Key>
@@ -178,6 +182,15 @@
     <Property Name="GName" Type="nvarchar" Nullable="true" MaxLength="256" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="R_GroupInfo_DeviceInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupInfoId" Type="int" Nullable="false" />
+    <Property Name="DeviceInfoId" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
   </EntityType>
   <Association Name="UserInfoR_UserInfo_RoleInfo">
     <End Role="UserInfo" Type="DataModel.Store.UserInfo" Multiplicity="1" />
@@ -251,18 +264,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="GroupInfoDeviceInfo">
-    <End Role="GroupInfo" Type="DataModel.Store.GroupInfo" Multiplicity="1" />
-    <End Role="DeviceInfo" Type="DataModel.Store.DeviceInfo" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="GroupInfo">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="DeviceInfo">
-        <PropertyRef Name="GroupInfoId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="GroupInfoUserInfo">
     <End Role="GroupInfo" Type="DataModel.Store.GroupInfo" Multiplicity="1" />
     <End Role="UserInfo" Type="DataModel.Store.UserInfo" Multiplicity="*" />
@@ -272,6 +273,30 @@
       </Principal>
       <Dependent Role="UserInfo">
         <PropertyRef Name="GroupInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupInfoR_GroupInfo_DeviceInfo">
+    <End Role="GroupInfo" Type="DataModel.Store.GroupInfo" Multiplicity="1" />
+    <End Role="R_GroupInfo_DeviceInfo" Type="DataModel.Store.R_GroupInfo_DeviceInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="R_GroupInfo_DeviceInfo">
+        <PropertyRef Name="GroupInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_GroupInfo_DeviceInfoDeviceInfo">
+    <End Role="R_GroupInfo_DeviceInfo" Type="DataModel.Store.R_GroupInfo_DeviceInfo" Multiplicity="*" />
+    <End Role="DeviceInfo" Type="DataModel.Store.DeviceInfo" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="DeviceInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="R_GroupInfo_DeviceInfo">
+        <PropertyRef Name="DeviceInfoId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -315,13 +340,18 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
           <EntitySet Name="GroupInfo" EntityType="DataModel.GroupInfo" />
-          <AssociationSet Name="GroupInfoDeviceInfo" Association="DataModel.GroupInfoDeviceInfo">
-            <End Role="GroupInfo" EntitySet="GroupInfo" />
-            <End Role="DeviceInfo" EntitySet="DeviceInfo" />
-          </AssociationSet>
           <AssociationSet Name="GroupInfoUserInfo" Association="DataModel.GroupInfoUserInfo">
             <End Role="GroupInfo" EntitySet="GroupInfo" />
             <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <EntitySet Name="R_GroupInfo_DeviceInfo" EntityType="DataModel.R_GroupInfo_DeviceInfo" />
+          <AssociationSet Name="GroupInfoR_GroupInfo_DeviceInfo" Association="DataModel.GroupInfoR_GroupInfo_DeviceInfo">
+            <End Role="GroupInfo" EntitySet="GroupInfo" />
+            <End Role="R_GroupInfo_DeviceInfo" EntitySet="R_GroupInfo_DeviceInfo" />
+          </AssociationSet>
+          <AssociationSet Name="R_GroupInfo_DeviceInfoDeviceInfo" Association="DataModel.R_GroupInfo_DeviceInfoDeviceInfo">
+            <End Role="R_GroupInfo_DeviceInfo" EntitySet="R_GroupInfo_DeviceInfo" />
+            <End Role="DeviceInfo" EntitySet="DeviceInfo" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserInfo">
@@ -450,8 +480,7 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" DefaultValue="False" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DeviceParameterInfo" Relationship="DataModel.DeviceInfoDeviceParameterInfo" FromRole="DeviceInfo" ToRole="DeviceParameterInfo" />
-          <NavigationProperty Name="GroupInfo" Relationship="DataModel.GroupInfoDeviceInfo" FromRole="DeviceInfo" ToRole="GroupInfo" />
-          <Property Name="GroupInfoId" Type="Int32" Nullable="false" DefaultValue="1" />
+          <NavigationProperty Name="R_GroupInfo_DeviceInfo" Relationship="DataModel.R_GroupInfo_DeviceInfoDeviceInfo" FromRole="DeviceInfo" ToRole="R_GroupInfo_DeviceInfo" />
         </EntityType>
         <EntityType Name="DeviceParameterInfo">
           <Key>
@@ -538,21 +567,9 @@
           <Property Name="GName" Type="String" Nullable="true" MaxLength="256" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" DefaultValue="False" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="DeviceInfo" Relationship="DataModel.GroupInfoDeviceInfo" FromRole="GroupInfo" ToRole="DeviceInfo" />
           <NavigationProperty Name="UserInfo" Relationship="DataModel.GroupInfoUserInfo" FromRole="GroupInfo" ToRole="UserInfo" />
+          <NavigationProperty Name="R_GroupInfo_DeviceInfo" Relationship="DataModel.GroupInfoR_GroupInfo_DeviceInfo" FromRole="GroupInfo" ToRole="R_GroupInfo_DeviceInfo" />
         </EntityType>
-        <Association Name="GroupInfoDeviceInfo">
-          <End Type="DataModel.GroupInfo" Role="GroupInfo" Multiplicity="1" />
-          <End Type="DataModel.DeviceInfo" Role="DeviceInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupInfo">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DeviceInfo">
-              <PropertyRef Name="GroupInfoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="GroupInfoUserInfo">
           <End Type="DataModel.GroupInfo" Role="GroupInfo" Multiplicity="1" />
           <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="*" />
@@ -562,6 +579,41 @@
             </Principal>
             <Dependent Role="UserInfo">
               <PropertyRef Name="GroupInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="R_GroupInfo_DeviceInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="GroupInfo" Relationship="DataModel.GroupInfoR_GroupInfo_DeviceInfo" FromRole="R_GroupInfo_DeviceInfo" ToRole="GroupInfo" />
+          <Property Name="GroupInfoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DeviceInfo" Relationship="DataModel.R_GroupInfo_DeviceInfoDeviceInfo" FromRole="R_GroupInfo_DeviceInfo" ToRole="DeviceInfo" />
+          <Property Name="DeviceInfoId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="GroupInfoR_GroupInfo_DeviceInfo">
+          <End Type="DataModel.GroupInfo" Role="GroupInfo" Multiplicity="1" />
+          <End Type="DataModel.R_GroupInfo_DeviceInfo" Role="R_GroupInfo_DeviceInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="R_GroupInfo_DeviceInfo">
+              <PropertyRef Name="GroupInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_GroupInfo_DeviceInfoDeviceInfo">
+          <End Type="DataModel.R_GroupInfo_DeviceInfo" Role="R_GroupInfo_DeviceInfo" Multiplicity="*" />
+          <End Type="DataModel.DeviceInfo" Role="DeviceInfo" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="R_GroupInfo_DeviceInfo">
+              <PropertyRef Name="DeviceInfoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -642,7 +694,6 @@
           <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
-          <ScalarProperty Name="GroupInfoId" ColumnName="GroupInfoId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -708,6 +759,16 @@
           <ScalarProperty Name="GName" ColumnName="GName" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="R_GroupInfo_DeviceInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.R_GroupInfo_DeviceInfo)">
+        <MappingFragment StoreEntitySet="R_GroupInfo_DeviceInfo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GroupInfoId" ColumnName="GroupInfoId" />
+          <ScalarProperty Name="DeviceInfoId" ColumnName="DeviceInfoId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

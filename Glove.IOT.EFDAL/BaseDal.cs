@@ -14,6 +14,7 @@ namespace Glove.IOT.EFDAL
     public class BaseDal<T>where T : class, new()
     {
         //DataModelContainer db = new DataModelContainer();
+        
         //依赖抽象编程
         public DbContext Db
         {
@@ -26,7 +27,7 @@ namespace Glove.IOT.EFDAL
         /// <returns></returns>
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
-
+            
             return Db.Set<T>().Where(whereLambda).AsQueryable();
 
         }

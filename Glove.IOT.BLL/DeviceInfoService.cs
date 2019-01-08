@@ -55,5 +55,32 @@ namespace Glove.IOT.BLL
                   .Take(deviceQueryParam.PageSize).AsQueryable();
 
         }
+
+        /// <summary>
+        /// 汇总每天的车间总产量
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<dynamic> ApiGetSumOutput()
+        {
+            var deviceParameterInfo = DbSession.DeviceParameterInfoDal.GetEntities(t => true);
+            //按天分组查询
+            var query = from t1 in deviceParameterInfo
+                        .GroupBy(s => EntityFunctions.TruncateTime(s.SubTime))
+                        .Select(s => new
+                        {
+                            s.Key,
+                            sumOutput = s.Sum(p => p.NowOutput)
+                        })
+                        select new
+                        {
+                            Day=t1.Key,
+                            SumOutput=t1.sumOutput
+                        };
+
+            return query; 
+        }
+
+
+
     }
 }

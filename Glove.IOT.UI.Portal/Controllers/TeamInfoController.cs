@@ -95,11 +95,21 @@ namespace Glove.IOT.UI.Portal.Controllers
             foreach (var strId in strIds)
             {
                 idList.Add(int.Parse(strId));
-
             }
             TeamInfoService.DeleteListByLogical(idList);
             return Content("del ok");
         }
-
+            
+        /// <summary>
+        /// 编辑班信息
+        /// </summary>
+        /// <param name="teamInfo"></param>
+        /// <returns></returns>
+        public ActionResult Edit(TeamInfo teamInfo)
+        {
+            teamInfo.SubTime = DateTime.Now;
+            TeamInfoService.Update(teamInfo);
+            return Content("Ok");
+        }
     }
 }
