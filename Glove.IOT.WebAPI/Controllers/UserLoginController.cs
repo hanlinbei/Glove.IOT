@@ -1,4 +1,5 @@
-﻿using Glove.IOT.IBLL;
+﻿using Glove.IOT.Common.Extention;
+using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,14 @@ namespace Glove.IOT.WebAPI.Controllers
         [HttpGet]
         public object Login(string strUser,string strPwd)
         {
-            if (!ValidateUser(strUser, strPwd))
+            if (!ValidateUser(strUser, strPwd.ToMD5()))
             {
                 return new { BRes = false };
             }
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(0, strUser, DateTime.Now,
                 DateTime.Now.AddHours(1), true, string.Format("{0}&{1}", strUser, strPwd), FormsAuthentication.FormsCookiePath);
             //返回登录结果、用户信息、用户验证票据信息
-            var oUser = new LogInfo { BRes = true, UserName = strUser, Password = strPwd, Ticket = FormsAuthentication.Encrypt(ticket) };
+            var oUser = new { BRes = true, Ticket = FormsAuthentication.Encrypt(ticket) };
             //将身份信息保存在session中，验证当前请求是否是有效请求
             HttpContext.Current.Session[strUser] = oUser;
             return oUser;
@@ -53,17 +54,6 @@ namespace Glove.IOT.WebAPI.Controllers
             }
 
         }
-
-        public class LogInfo
-        {
-            public bool BRes { get; set; }
-            public string UserName { get; set; }
-            public string Password { get; set; }
-            public string Ticket { get; set; }
-
-
-        }
-
 
     }
 }

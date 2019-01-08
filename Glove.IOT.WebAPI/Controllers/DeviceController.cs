@@ -9,10 +9,13 @@ using System.Web.Http;
 
 namespace Glove.IOT.WebAPI.Controllers
 {
-    public class DeviceController : ApiController
+    [RoutePrefix("api/Device")]
+    public class DeviceController : BaseController
     {
         public IDeviceInfoService DeviceInfoService { get; set; }
         public IDeviceParameterInfoService DeviceParameterInfoService { get; set; }
+
+        [Route("GetAllDeviceInfos")]
         [HttpGet]
         public IHttpActionResult GetAllDeviceInfos()
         {
@@ -26,8 +29,14 @@ namespace Glove.IOT.WebAPI.Controllers
             };
             var pageData = DeviceParameterInfoService.ApiGetDeviceParameter().ToList();
             return Json(pageData);
+        }
 
-
+        [Route("GetEveryDaySumOutput")]
+        [HttpGet]
+        public IHttpActionResult GetEveryDaySumOutput()
+        {
+            var pageData = DeviceInfoService.ApiGetSumOutput().ToList();
+            return Json(pageData);
         }
     }
 }

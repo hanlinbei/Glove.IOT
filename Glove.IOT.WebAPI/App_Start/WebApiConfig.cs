@@ -34,17 +34,17 @@ namespace Glove.IOT.WebAPI
               defaults: new { id = RouteParameter.Optional }
           );
             //自定义路由：匹配到action
-            config.Routes.MapHttpRoute(
-                name: "ActionApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-            //自定义路由二
-            config.Routes.MapHttpRoute(
-             name: "TestApi",
-             routeTemplate: "api/{controller}/{ordertype}/{id}",
-             defaults: new { id = RouteParameter.Optional }
-         );
+         //   config.Routes.MapHttpRoute(
+         //       name: "ActionApi",
+         //       routeTemplate: "api/{controller}/{action}/{id}",
+         //       defaults: new { id = RouteParameter.Optional }
+         //   );
+         //   //自定义路由二
+         //   config.Routes.MapHttpRoute(
+         //    name: "TestApi",
+         //    routeTemplate: "api/{controller}/{ordertype}/{id}",
+         //    defaults: new { id = RouteParameter.Optional }
+         //);
 
             config.Filters.Add(new WebApiExceptionFilterAttribute());
         }

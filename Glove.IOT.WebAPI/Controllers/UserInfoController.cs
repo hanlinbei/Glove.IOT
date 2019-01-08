@@ -13,8 +13,7 @@ namespace Glove.IOT.WebAPI.Controllers
     /// 测试API Test Client
     /// </summary>
     [WebApiExceptionFilter]
-    //[RequestAuthorize]
-    public class UserInfoController : ApiController
+    public class UserInfoController : BaseController
     {
       public IUserInfoService UserInfoService { get; set; }
 

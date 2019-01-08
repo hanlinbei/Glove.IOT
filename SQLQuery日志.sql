@@ -119,6 +119,13 @@ inner join	(select
 
 		select * from DeviceParameterInfo
 		select * from GroupInfo
+		select * from DeviceInfo
+		select* from TeamInfo
+
+		Create Table DeviceInfo
+		where StatusFlag='4'
+		delete  from DeviceInfo 
+		where IsDeleted=1
 
 		select 
 		DeviceInfoId,
@@ -127,3 +134,18 @@ inner join	(select
 		where StatusFlag='ÔËÐÐÖÐ'
 		group by DeviceInfoId
 		
+		select* from DeviceInfo as t1
+		inner join DeviceParameterInfo  as t2 on t1.DeviceId=t2.DeviceId
+
+
+
+		select* 	
+		from DeviceParameterInfo as t1
+		inner join  DeviceInfo as t2 on t1.DeviceId=t2.DeviceId
+	
+	    select  * 
+		from DeviceParameterInfo as t1
+		use Test
+		select * from DeviceParameterInfo as t1
+		where t1.DeviceInfoId=1 and t1.StartTime=t1.SubTime
+	     

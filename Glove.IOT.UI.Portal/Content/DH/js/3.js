@@ -516,17 +516,20 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
                 WarningMessage: $('select[name="WarningMessage"] option:selected').val(),
                 WarningStartTime: $('input[name="WarningStartTime"]').val()
             }
+            break;
         case 'addclass':
             var data = {
                 TName: $('input[name="TName"]').val(),
                 StartTime: $('input[name="StartTime"]').val(),
                 StopTime: $('input[name="StopTime"]').val()
             }
+            break;
         case 'searchclass':
             var data = {
                 schTName: $('input[name="schTName"]').val(),
                 schTime: $('input[name="schTime"]').val(),
             }
+            break;
     }
     return data;
 }
@@ -1534,7 +1537,7 @@ function layerShowEditclass(title, url, w, h, data) {
                 $(body).find('input[name="StopTime"]').addClass("red");
             }
             else {
-                $.post("/TeamInfo/Edit", { TName: res.TName, StartTime: res.StartTime, StopTime: res.StopTime },
+                $.post("/TeamInfo/Edit", { Id:data.Id,TName: res.TName, StartTime: res.StartTime, StopTime: res.StopTime },
                     function (data) {
                         if (data === "Ok") {
                             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值

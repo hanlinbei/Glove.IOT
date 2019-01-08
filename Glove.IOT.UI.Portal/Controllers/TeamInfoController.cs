@@ -99,14 +99,17 @@ namespace Glove.IOT.UI.Portal.Controllers
             TeamInfoService.DeleteListByLogical(idList);
             return Content("del ok");
         }
-
-        /// <returns>ok</returns>
+            
+        /// <summary>
+        /// 编辑班信息
+        /// </summary>
+        /// <param name="teamInfo"></param>
+        /// <returns></returns>
         public ActionResult Edit(TeamInfo teamInfo)
         {
             teamInfo.SubTime = DateTime.Now;
             TeamInfoService.Update(teamInfo);
-            return Content("ok");
+            return Content("Ok");
         }
-
     }
 }

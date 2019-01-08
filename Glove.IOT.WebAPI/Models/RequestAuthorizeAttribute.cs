@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.BLL;
+using Glove.IOT.Common.Extention;
 using Glove.IOT.IBLL;
 using Spring.Context;
 using Spring.Context.Support;
@@ -53,7 +54,7 @@ namespace Glove.IOT.WebAPI.Models
             //从TIcket里面获取用户名和密码
             var index = strTicket.IndexOf("&");
             string strUser = strTicket.Substring(0, index);
-            string strPwd = strTicket.Substring(index + 1);
+            string strPwd = strTicket.Substring(index + 1).ToMD5();
 
             //通过容器创建一个对象
             IApplicationContext ctx = ContextRegistry.GetContext();
