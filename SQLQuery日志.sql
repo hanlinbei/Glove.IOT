@@ -95,3 +95,57 @@ inner join	(select
 		报警开始时间=Min(SubTime)
 		from WarningInfo
 		group by DeviceId)as t2 on t1.DeviceId=t2.DeviceId and t1.SubTime=t2.最新提交时间
+
+		select * from DeviceInfo
+		
+		select 
+		--年=year(SubTime),
+		--月=month(Subtime),
+		--日=day(SubTime),
+		Convert(char(10),SubTime,120),
+		COUNT (*)
+		from DeviceInfo
+		--group by year(SubTime),month(Subtime),day(SubTime)
+		group by Convert(char(10),SubTime,120)
+
+		select * from DeviceParameterInfo
+
+		select 
+		日期=Convert(char(10),SubTime,120),
+		今日车间产量=Sum (NowOutput)
+		from DeviceParameterInfo
+		group by Convert(char(10),SubTime,120)
+		order by Convert(char(10),SubTime,120)
+
+		select * from DeviceParameterInfo
+		select * from GroupInfo
+		select * from DeviceInfo
+		select* from TeamInfo
+
+		Create Table DeviceInfo
+		where StatusFlag='4'
+		delete  from DeviceInfo 
+		where IsDeleted=1
+
+		select 
+		DeviceInfoId,
+		开机时间=min(SubTime)
+		from DeviceParameterInfo 
+		where StatusFlag='运行中'
+		group by DeviceInfoId
+		
+		select* from DeviceInfo as t1
+		inner join DeviceParameterInfo  as t2 on t1.DeviceId=t2.DeviceId
+
+
+
+		select* 	
+		from DeviceParameterInfo as t1
+		inner join  DeviceInfo as t2 on t1.DeviceId=t2.DeviceId
+	
+	    select  * 
+		from DeviceParameterInfo as t1
+		use Test
+		select * from DeviceParameterInfo as t1
+		where t1.DeviceInfoId=1 and t1.StartTime=t1.SubTime
+	     

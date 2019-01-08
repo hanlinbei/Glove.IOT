@@ -37,6 +37,11 @@ namespace Glove.IOT.EFDAL
 
 	}
 	
+	public partial class R_GroupInfo_DeviceInfoDal:BaseDal<R_GroupInfo_DeviceInfo>,IR_GroupInfo_DeviceInfoDal
+    {
+
+	}
+	
 	public partial class R_RoleInfo_ActionInfoDal:BaseDal<R_RoleInfo_ActionInfo>,IR_RoleInfo_ActionInfoDal
     {
 

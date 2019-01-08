@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/06/2019 14:37:22
+-- Date Created: 01/08/2019 19:05:15
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -35,8 +35,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_TeamInfoUserInfo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserInfo] DROP CONSTRAINT [FK_TeamInfoUserInfo];
 GO
-IF OBJECT_ID(N'[dbo].[FK_GroupInfoDeviceInfo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[DeviceInfo] DROP CONSTRAINT [FK_GroupInfoDeviceInfo];
+IF OBJECT_ID(N'[dbo].[FK_GroupInfoUserInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfo] DROP CONSTRAINT [FK_GroupInfoUserInfo];
 GO
 
 -- --------------------------------------------------
@@ -75,6 +75,9 @@ IF OBJECT_ID(N'[dbo].[TeamInfo]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[GroupInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[GroupInfo];
+GO
+IF OBJECT_ID(N'[dbo].[R_GroupInfo_DeviceInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[R_GroupInfo_DeviceInfo];
 GO
 
 -- --------------------------------------------------
@@ -145,8 +148,7 @@ CREATE TABLE [dbo].[DeviceInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DeviceId] nvarchar(256)  NOT NULL,
     [IsDeleted] bit  NOT NULL,
-    [SubTime] datetime  NOT NULL,
-    [GroupInfoId] int  NOT NULL
+    [SubTime] datetime  NOT NULL
 );
 GO
 
@@ -207,6 +209,15 @@ CREATE TABLE [dbo].[GroupInfo] (
     [GName] nvarchar(256)  NULL,
     [IsDeleted] bit  NOT NULL,
     [SubTime] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'R_GroupInfo_DeviceInfo'
+CREATE TABLE [dbo].[R_GroupInfo_DeviceInfo] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [GroupInfoId] int  NOT NULL,
+    [DeviceInfoId] int  NOT NULL,
+    [IsDeleted] bit  NOT NULL
 );
 GO
 
@@ -277,6 +288,12 @@ GO
 -- Creating primary key on [Id] in table 'GroupInfo'
 ALTER TABLE [dbo].[GroupInfo]
 ADD CONSTRAINT [PK_GroupInfo]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'R_GroupInfo_DeviceInfo'
+ALTER TABLE [dbo].[R_GroupInfo_DeviceInfo]
+ADD CONSTRAINT [PK_R_GroupInfo_DeviceInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -374,21 +391,6 @@ ON [dbo].[UserInfo]
     ([TeamInfoId]);
 GO
 
--- Creating foreign key on [GroupInfoId] in table 'DeviceInfo'
-ALTER TABLE [dbo].[DeviceInfo]
-ADD CONSTRAINT [FK_GroupInfoDeviceInfo]
-    FOREIGN KEY ([GroupInfoId])
-    REFERENCES [dbo].[GroupInfo]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_GroupInfoDeviceInfo'
-CREATE INDEX [IX_FK_GroupInfoDeviceInfo]
-ON [dbo].[DeviceInfo]
-    ([GroupInfoId]);
-GO
-
 -- Creating foreign key on [GroupInfoId] in table 'UserInfo'
 ALTER TABLE [dbo].[UserInfo]
 ADD CONSTRAINT [FK_GroupInfoUserInfo]
@@ -402,6 +404,36 @@ GO
 CREATE INDEX [IX_FK_GroupInfoUserInfo]
 ON [dbo].[UserInfo]
     ([GroupInfoId]);
+GO
+
+-- Creating foreign key on [GroupInfoId] in table 'R_GroupInfo_DeviceInfo'
+ALTER TABLE [dbo].[R_GroupInfo_DeviceInfo]
+ADD CONSTRAINT [FK_GroupInfoR_GroupInfo_DeviceInfo]
+    FOREIGN KEY ([GroupInfoId])
+    REFERENCES [dbo].[GroupInfo]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GroupInfoR_GroupInfo_DeviceInfo'
+CREATE INDEX [IX_FK_GroupInfoR_GroupInfo_DeviceInfo]
+ON [dbo].[R_GroupInfo_DeviceInfo]
+    ([GroupInfoId]);
+GO
+
+-- Creating foreign key on [DeviceInfoId] in table 'R_GroupInfo_DeviceInfo'
+ALTER TABLE [dbo].[R_GroupInfo_DeviceInfo]
+ADD CONSTRAINT [FK_R_GroupInfo_DeviceInfoDeviceInfo]
+    FOREIGN KEY ([DeviceInfoId])
+    REFERENCES [dbo].[DeviceInfo]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_R_GroupInfo_DeviceInfoDeviceInfo'
+CREATE INDEX [IX_FK_R_GroupInfo_DeviceInfoDeviceInfo]
+ON [dbo].[R_GroupInfo_DeviceInfo]
+    ([DeviceInfoId]);
 GO
 
 -- --------------------------------------------------

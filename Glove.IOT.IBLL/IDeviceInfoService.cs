@@ -16,5 +16,6 @@ namespace Glove.IOT.IBLL
         /// <param name="deviceQueryParam"></param>
         /// <returns>分页设备数据</returns>
         IQueryable<Device> LoagDevicePageData(Model.Param.DeviceQueryParam deviceQueryParam);
+        IQueryable<dynamic> ApiGetSumOutput();
     }
 }

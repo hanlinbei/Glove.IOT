@@ -61,7 +61,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             //第二：当前用户在角色关联表中的ID
             RoleInfo role = RoleInfoService.GetEntities(r => r.Id == rId).FirstOrDefault();
             var allRoleInfoActionInfoIds = (from r in role.R_RoleInfo_ActionInfo
-                                    where r.RoleInfoId == rId
+                                    where r.RoleInfoId == rId&&r.IsDeleted==false
                                     select r.Id).ToList();
             //全部剁掉
             for (int i = 0; i < allRoleInfoActionInfoIds.Count(); i++)
@@ -77,10 +77,12 @@ namespace Glove.IOT.UI.Portal.Controllers
             for (int i = 1; i < idList.Count; i++)
             {
                 int actionId = Convert.ToInt32(idList[i]);
-                R_RoleInfo_ActionInfo rRoleInfoActionInfo = new R_RoleInfo_ActionInfo();
-                rRoleInfoActionInfo.RoleInfoId = rId;
-                rRoleInfoActionInfo.ActionInfoId = actionId;
-                rRoleInfoActionInfo.IsDeleted = false;
+                R_RoleInfo_ActionInfo rRoleInfoActionInfo = new R_RoleInfo_ActionInfo
+                {
+                    RoleInfoId = rId,
+                    ActionInfoId = actionId,
+                    IsDeleted = false
+                };
                 R_RoleInfo_ActionInfoService.Add(rRoleInfoActionInfo);
 
             }

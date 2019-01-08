@@ -18,8 +18,8 @@ namespace Glove.IOT.Model
         public GroupInfo()
         {
             this.IsDeleted = false;
-            this.DeviceInfo = new HashSet<DeviceInfo>();
             this.UserInfo = new HashSet<UserInfo>();
+            this.R_GroupInfo_DeviceInfo = new HashSet<R_GroupInfo_DeviceInfo>();
         }
     
         public int Id { get; set; }
@@ -27,7 +27,7 @@ namespace Glove.IOT.Model
         public bool IsDeleted { get; set; }
         public System.DateTime SubTime { get; set; }
     
-        public virtual ICollection<DeviceInfo> DeviceInfo { get; set; }
         public virtual ICollection<UserInfo> UserInfo { get; set; }
+        public virtual ICollection<R_GroupInfo_DeviceInfo> R_GroupInfo_DeviceInfo { get; set; }
     }
 }

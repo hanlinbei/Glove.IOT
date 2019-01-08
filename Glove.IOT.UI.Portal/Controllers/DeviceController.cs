@@ -95,7 +95,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 获取所有设备信息
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetAllDeviceInfos(string limit,string page,string schDeviceId, string schStatusFlag)
+        public ActionResult GetAllDeviceInfos(string limit,string page,string deviceId, string statusFlag)
         {
             int pageSize = int.Parse(limit ?? "10");
             int pageIndex = int.Parse(page ?? "1");
@@ -105,17 +105,17 @@ namespace Glove.IOT.UI.Portal.Controllers
             {
                 PageSize = pageSize,
                 PageIndex = pageIndex,
-                SchDeviceId=schDeviceId,
-                SchStatusFlag=schStatusFlag,
+                SchDeviceId=deviceId,
+                SchStatusFlag=statusFlag,
                 Total = 0
             };
             var pageData = DeviceInfoService.LoagDevicePageData(queryParam).ToList();
             var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
 
-            if (!string.IsNullOrEmpty(schDeviceId) || !string.IsNullOrEmpty(schStatusFlag))
+            if (!string.IsNullOrEmpty(deviceId) || !string.IsNullOrEmpty(statusFlag))
             {
                 //写操作日志
-                OperationLogService.Add("查找设备", "设备管理", LoginInfo, schDeviceId, schStatusFlag);
+                OperationLogService.Add("查找设备", "设备管理", LoginInfo, deviceId, statusFlag);
             }
             return Json(data, JsonRequestBehavior.AllowGet);
 

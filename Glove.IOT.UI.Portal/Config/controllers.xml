@@ -42,4 +42,8 @@
   <object type="Glove.IOT.UI.Portal.Controllers.TeamInfoController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="TeamInfoService" ref="TeamInfoService" />
   </object>
+  <object type="Glove.IOT.UI.Portal.Controllers.GroupInfoController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="GroupInfoService" ref="GroupInfoService" />
+  </object>
+
 </objects>

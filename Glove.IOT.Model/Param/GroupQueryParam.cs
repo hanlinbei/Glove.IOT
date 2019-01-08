@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.Model.Param
 {
-    public class UserQueryParam:BaseParam
+    public class GroupQueryParam:BaseParam
     {
-        public string SchCode { get; set; }
-        public string SchRoleName { get; set; }   
+        public string SchGName { get; set; }
     }
 }

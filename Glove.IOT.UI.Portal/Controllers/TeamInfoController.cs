@@ -13,7 +13,22 @@ namespace Glove.IOT.UI.Portal.Controllers
     {
         public ITeamInfoService TeamInfoService { get; set;}
         // GET: TeamInfo
-
+        public ActionResult Classmanage()
+        {
+            return View();
+        }
+        public ActionResult LayerAddclass()
+        {
+            return View();
+        }
+        public ActionResult LayerEditclass()
+        {
+            return View();
+        }
+        public ActionResult LayerSearchclass()
+        {
+            return View();
+        }
         /// <summary>
         /// 获取班信息
         /// </summary>
@@ -80,38 +95,21 @@ namespace Glove.IOT.UI.Portal.Controllers
             foreach (var strId in strIds)
             {
                 idList.Add(int.Parse(strId));
-
             }
             TeamInfoService.DeleteListByLogical(idList);
             return Content("del ok");
         }
-        public ActionResult Classmanage()
+            
+        /// <summary>
+        /// 编辑班信息
+        /// </summary>
+        /// <param name="teamInfo"></param>
+        /// <returns></returns>
+        public ActionResult Edit(TeamInfo teamInfo)
         {
-            return View();
-        }
-        public ActionResult LayerAddclass()
-        {
-            return View();
-        }
-        public ActionResult LayerEditclass()
-        {
-            return View();
-        }
-        public ActionResult LayerSearchclass()
-        {
-            return View();
-        }
-        public ActionResult Groupmanage()
-        {
-            return View();
-        }
-        public ActionResult LayerAddgroup()
-        {
-            return View();
-        }      
-        public ActionResult Groupdetail()
-        {
-            return View();
+            teamInfo.SubTime = DateTime.Now;
+            TeamInfoService.Update(teamInfo);
+            return Content("Ok");
         }
     }
 }
