@@ -1672,7 +1672,7 @@ layui.use('table', function () {//打开网页刷新表格
     var table = layui.table;
     //第一个实例
     table.render({
-        elem: '#table_group'
+        elem: '#table_class'
         //, height: 520
         , url: '/TeamInfo/GetTeamInfo' //数据接口
         , title: "班号管理"
@@ -1683,7 +1683,7 @@ layui.use('table', function () {//打开网页刷新表格
             { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
             , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
-            , { field: 'TName', title: '组号', minWidth: 80, align: 'center' }
+            , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
             //, { field: 'wTime', title: '工作时间', minWidth: 80, sort: true, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]

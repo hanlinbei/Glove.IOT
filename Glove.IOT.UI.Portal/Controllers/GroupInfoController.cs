@@ -36,8 +36,8 @@ namespace Glove.IOT.UI.Portal.Controllers
                 Total = 0,
             };
             var pageData = GroupInfoService.GetGroupInfo(groupQueryParam);
-            var data = new { code = 0, msg = "", count = groupQueryParam.Total, data = pageData.ToList() };
-
+            //var data = new { code = 0, msg = "", count = groupQueryParam.Total, data = pageData.ToList() };
+            var data = new {group = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
@@ -47,9 +47,18 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult GetGroupDevices(int id)
         {
-            var data = GroupInfoService.GetGroupDevices(id);
-            return Json(data.ToList(), JsonRequestBehavior.AllowGet);
+            var query = GroupInfoService.GetGroupDevices(id);
+            var data = new { code = 0, msg = "", count = query.Count(), data = query.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
 
+        }
+        public ActionResult Groupdetail()
+        {
+            return View();
+        }
+        public ActionResult LayerAddgroup()
+        {
+            return View();
         }
     }
 }
