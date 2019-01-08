@@ -29,6 +29,10 @@ namespace Glove.IOT.IBLL
         {
         }
 	
+		public partial interface IR_GroupInfo_DeviceInfoService:IBaseService<R_GroupInfo_DeviceInfo>
+        {
+        }
+	
 		public partial interface IR_RoleInfo_ActionInfoService:IBaseService<R_RoleInfo_ActionInfo>
         {
         }

@@ -15,6 +15,8 @@ namespace Glove.IOT.IDAL
 	 
 		IOperationLogDal OperationLogDal { get; }
 	 
+		IR_GroupInfo_DeviceInfoDal R_GroupInfo_DeviceInfoDal { get; }
+	 
 		IR_RoleInfo_ActionInfoDal R_RoleInfo_ActionInfoDal { get; }
 	 
 		IR_UserInfo_RoleInfoDal R_UserInfo_RoleInfoDal { get; }

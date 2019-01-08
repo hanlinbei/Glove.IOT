@@ -10,6 +10,8 @@
 		   </object>
 		  <object name="OperationLogService" type="Glove.IOT.BLL.OperationLogService, Glove.IOT.BLL" singleton="false" >
 		   </object>
+		  <object name="R_GroupInfo_DeviceInfoService" type="Glove.IOT.BLL.R_GroupInfo_DeviceInfoService, Glove.IOT.BLL" singleton="false" >
+		   </object>
 		  <object name="R_RoleInfo_ActionInfoService" type="Glove.IOT.BLL.R_RoleInfo_ActionInfoService, Glove.IOT.BLL" singleton="false" >
 		   </object>
 		  <object name="R_UserInfo_RoleInfoService" type="Glove.IOT.BLL.R_UserInfo_RoleInfoService, Glove.IOT.BLL" singleton="false" >

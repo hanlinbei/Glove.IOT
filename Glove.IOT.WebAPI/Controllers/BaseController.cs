@@ -10,7 +10,7 @@ using System.Web.Http.Cors;
 
 namespace Glove.IOT.WebAPI.Controllers
 {
-    [RequestAuthorize]
+    //[RequestAuthorize]
     [EnableCors(origins:"*",headers:"*",methods:"*")]
     public class BaseController : ApiController
     {

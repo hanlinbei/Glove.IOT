@@ -46,6 +46,12 @@ namespace Glove.IOT.DALFactory
                  as IOperationLogDal;
         }
 	
+		public static IR_GroupInfo_DeviceInfoDal GetR_GroupInfo_DeviceInfoDal()
+        {                
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".R_GroupInfo_DeviceInfoDal")
+                 as IR_GroupInfo_DeviceInfoDal;
+        }
+	
 		public static IR_RoleInfo_ActionInfoDal GetR_RoleInfo_ActionInfoDal()
         {                
             return Assembly.Load(assemblyName).CreateInstance(assemblyName+".R_RoleInfo_ActionInfoDal")

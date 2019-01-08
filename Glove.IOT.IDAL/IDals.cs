@@ -34,6 +34,11 @@ namespace Glove.IOT.IDAL
        
     }   
 	
+	public partial interface IR_GroupInfo_DeviceInfoDal : IBaseDal<R_GroupInfo_DeviceInfo>
+    {
+       
+    }   
+	
 	public partial interface IR_RoleInfo_ActionInfoDal : IBaseDal<R_RoleInfo_ActionInfo>
     {
        
