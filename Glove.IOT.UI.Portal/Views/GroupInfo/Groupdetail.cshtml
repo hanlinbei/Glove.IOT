@@ -163,9 +163,6 @@
             </button>
         </div>
         <div class="table-left">
-            <div class="table-title">
-                树状结构
-            </div>
             <ul id="group-tree"></ul>
         </div>
         <div class="table-right">
@@ -197,7 +194,7 @@
         $("i.layui-tree-branch").remove();
         $("i.layui-tree-leaf").remove();         
         $("ul#group-tree").append("<li id='group-f'>" +
-            "<a><cite>组号</cite> </a>" +
+            "<a href='javascript:;' onclick='doAction(0)'><cite>组号</cite> </a>" +
             "<i class='layui-icon layui-icon-add-1 hide tree-select'></i>" +
             "<i class='layui-icon layui-icon-delete hide tree-select'></i>" +
             "<i class='layui-icon layui-icon-edit hide tree-select'></i>" +
@@ -207,15 +204,17 @@
                 if ($('#group-f').children("ul").length == 0) {
                     //表示要新增   i 以及 ul 标签
                     $('#group-f').prepend('<i class="layui-icon layui-tree-spread"></i>');
-                    $('#group-f').append("<ul class='layui-show'><li><a href='javascript:;' onclick='doAction(" + data.group[i].Id + ")'><cite>" + data.group[i].GName + "</cite></a><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></ul>");
+                    $('#group-f').append("<ul class='layui-show'><li class=" + data.group[i].Id + "><a href='javascript:;' onclick='doAction(" + data.group[i].Id + ")'><cite>" + data.group[i].GName +
+                        "</cite></a><i class='layui-icon layui-icon-set hide tree-select'></i><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></ul>");
                 } else {
-                    $('#group-f').children("ul").append("<li><a href='javascript:;' onclick='doAction(" + data.group[i].Id + ")'><cite>" + data.group[i].GName + "</cite> </a><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></li>");
+                    $('#group-f').children("ul").append("<li class=" + data.group[i].Id + "><a href='javascript:;' onclick='doAction(" + data.group[i].Id + ")'><cite>" + data.group[i].GName +
+                        "</cite></a><i class='layui-icon layui-icon-set hide tree-select'></i><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></li>");
                 }
             }
         })
-        function doAction(a) {
-            console.log(a);
-            updatatable('table_class', '#table_class', 550, '/GroupInfo/GetGroupDevices?id=' + a, "设备管理",1, 1);
+        function doAction(Id) {
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            updatatable('table_class', '#table_class', 550, '/GroupInfo/GetGroupDevices?id=' + Id, "组号关联设备", 1, globalLimit);
         }
         //显示/隐藏 分类的操作栏
         $("ul#group-tree").on({
@@ -227,22 +226,26 @@
                 event.stopPropagation();
                 $(this).children(".tree-select").addClass("hide");
             },
-        }, "li", "a")
-        ////重命名
-        //$("ul#group-tree").on("click", "li .layui-icon-edit", function () {
-        //    var node = $(this).parent().children("a").children("cite");
-        //    var id = $(this).parent().attr("id")
-        //    var that = $(this).closest("li");
-        //    layer.prompt({ title: '输入新的分类名称，并确认', value: node.text(), formType: 0 }, function (text, index) {
-        //        layer.close(index);
-        //        //TODO 可以ajax到后台操作，这里只做模拟
-        //        layer.load(2);
-        //        setTimeout(function () {
-        //            layer.closeAll("loading");
-        //            node.text(text);
-        //        }, 1000)
-        //    });
-        //})
+        }, "li", "a")//li中都绑定事件 
+        //添加绑定设备
+        $("ul#group-tree").on("click", "li .layui-icon-set", function () {
+            var id = $(this).parent().attr('class');//获取点击组的ID
+            console.log(id);
+            //window.location.href = '../GroupInfo/GroupAdddevice?Id=' + id;
+        })
+        //重命名
+        $("ul#group-tree").on("click", "li .layui-icon-edit", function () {
+            var node = $(this).parent().children("a").children("cite");
+            layer.prompt({ title: '输入新的分类名称，并确认', value: node.text(), formType: 0 }, function (text, index) {
+                layer.close(index);
+                //TODO 可以ajax到后台操作，这里只做模拟
+                layer.load(2);
+                setTimeout(function () {
+                    layer.closeAll("loading");
+                    node.text(text);
+                }, 1000)
+            });
+        })
         //删除分类
         $("ul#group-tree").on("click", "li .layui-icon-delete", function () {
             var that = $(this).closest("li");
@@ -280,9 +283,9 @@
                     if (that.children("ul").length == 0) {
                         //表示要新增   i 以及 ul 标签
                         that.prepend('<i class="layui-icon layui-tree-spread"></i>');
-                        that.append("<ul class='layui-show'><li><a><cite>" + text + "</cite></a><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></ul>");
+                        that.append("<ul class='layui-show'><li><a><cite>" + text + "</cite></a><i class='layui-icon layui-icon-set hide tree-select'></i><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></ul>");
                     } else {
-                        that.children("ul").append("<li><a><cite>" + text + "</cite> </a></i ><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></li>");
+                        that.children("ul").append("<li><a><cite>" + text + "</cite></a></i ><i class='layui-icon layui-icon-set hide tree-select'></i><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></li>");
                     }
                 }, 1000)
             });

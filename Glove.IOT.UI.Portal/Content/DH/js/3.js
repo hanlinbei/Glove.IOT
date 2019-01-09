@@ -1674,8 +1674,8 @@ layui.use('table', function () {//打开网页刷新表格
     table.render({
         elem: '#table_class'
         //, height: 520
-        , url: '/TeamInfo/GetTeamInfo' //数据接口
-        , title: "班号管理"
+        , url: '/GroupInfo/GetGroupDevices?id=0' //数据接口
+        , title: "组号关联设备"
         , page: true //开启分页
         , limit: 10
         , limits: [5, 10, 15, 20]
@@ -1701,78 +1701,49 @@ layui.use('table', function () {//打开网页刷新表格
         //    };
         //}
         , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
-            globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
-            globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
-            CIdtable = [];//清空
-            if (curr === Math.floor(count / globalLimit) + 1) {
-                var length = (count % globalLimit === 0 ? globalLimit : count % globalLimit);
-            }
-            else {
-                var length = globalLimit;
-            }
-            for (var i = 0; i < length; i++) {
-                CIdtable[i] = [res.data[i].Id, 0];
-            }
-            console.log(CIdtable);
+
         }
         , skin: 'line'
 
     });
-    table.on('tool(table_class)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-        var data = obj.data; //获得当前行数据
-        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-        var tr = obj.tr; //获得当前行 tr 的DOM对象
+});
+layui.use('table', function () {//打开网页刷新表格
+    var table = layui.table;
+    //第一个实例
+    table.render({
+        elem: '#table_relationDevice'
+        //, height: 520
+        , url: '/GroupInfo/GetGroupDevices?id=0' //数据接口
+        , title: "组号关联设备"
+        , page: true //开启分页
+        , limit: 10
+        , limits: [5, 10, 15, 20]
+        , cols: [[ //表头
+            { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+            //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
+            , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
+            , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
+            //, { field: 'wTime', title: '工作时间', minWidth: 80, sort: true, align: 'center' }
+            , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+        ]]
+        , toolbar: true
+        //, parseData: function (res) { //修改原始数据
+        //    for (var i = 0; i < res.data.length; i++) {
+        //        res.data[i].wTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
+        //            + ' ~ ' + (eval(res.data[i].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
+        //    }
+        //    return {
+        //        "code": res.code, //解析接口状态
+        //        "msg": res.msg, //解析提示文本
+        //        "count": res.count, //解析数据长度
+        //        "data": res.data //解析数据列表
+        //    };
+        //}
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
 
-        if (layEvent === 'del') { //删除
-            console.log(data);
-            layer.confirm('确定删除？', function (index) {
-                layer.close(index);
-                //向服务端发送删除指令
-                ids = "" + data.Id;
-                $.post("/TeamInfo/Delete", { ids: ids }, function (data) {
-                    globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                    //表格重载
-                    updatatable('table_class', '#table_class', 550, '/TeamInfo/GetTeamInfo', "班号管理", 1, globalLimit);
-                })
-            });
-        } else if (layEvent === 'edit') { //编辑
-            layerShowEditclass('编辑员工', 'LayerEditclass', 500, 350, obj.data);
-        } else if (layEvent === 'binding') { //绑定设备
-            //window.location.href = '../UserInfo/Userdetail';
         }
-    });
-    table.on('checkbox(table_class)', function (obj) {
-        console.log(obj.checked); //当前是否选中状态
-        console.log(obj.data); //选中行的相关数据
-        console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
-        if (obj.type === "all") {
-            if (obj.checked === true) {
-                for (var i = 0; i < CIdtable.length; i++) {
-                    CIdtable[i][1] = 1;
-                }
-            }
-            else {
-                for (var i = 0; i < CIdtable.length; i++) {
-                    CIdtable[i][1] = 0;
-                }
-            }
-        }
-        else if (obj.checked === true) {
-            for (var i = 0; i < CIdtable.length; i++) {
-                if (CIdtable[i][0] === obj.data.Id) {
-                    CIdtable[i][1] = 1;
-                    break;
-                }
-            }
-        }
-        else if (obj.checked === false) {
-            for (var i = 0; i < CIdtable.length; i++) {
-                if (CIdtable[i][0] === obj.data.Id) {
-                    CIdtable[i][1] = 0;
-                    break;
-                }
-            }
-        }
+        , skin: 'line'
+
     });
 });
 layui.tree({
@@ -1796,7 +1767,7 @@ layui.tree({
     //}]
     , click: function (node) {
         console.log(node) //node即为当前点击的节点数据
-    } 
+    }
 });
 //日期表
 layui.use('laydate', function () {

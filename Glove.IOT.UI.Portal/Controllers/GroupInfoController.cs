@@ -56,7 +56,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
-        public ActionResult LayerAddgroup()
+        public ActionResult GroupAdddevice()
         {
             return View();
         }

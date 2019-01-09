@@ -570,6 +570,29 @@ margin-top:70px;  */
     width: 80%;
     padding: 0px 20px 0px 0px;
 }
+#main .table-right .table-title {
+    position: absolute;
+    top: 17px;
+    left: 40px;
+    width: 200px;
+    font-size: 26px;
+    z-index: 3000;
+}
+
+#main .table-left #group-tree {
+    position: absolute;
+    top: 8px;
+}
 .hide {
     display:none;
+}
+/** 树组件（重写中） **/
+.layui-tree li a cite {
+    padding: 0 8px;
+    font-size: 16px;
+    font-style: normal;
+}
+.layui-tree li ul {
+    display: none;
+    margin-left: 30px;
 }
