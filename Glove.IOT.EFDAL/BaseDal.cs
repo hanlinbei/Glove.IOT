@@ -32,6 +32,15 @@ namespace Glove.IOT.EFDAL
 
         }
         /// <summary>
+        /// 不查询得到指定实体
+        /// </summary>
+        /// <returns></returns>
+        public DbSet<T> GetEntities()
+        {
+            return Db.Set<T>();
+        }
+
+        /// <summary>
         /// 不追终查询
         /// </summary>
         /// <param name="whereLambda"></param>
@@ -88,7 +97,7 @@ namespace Glove.IOT.EFDAL
         public T Add(T entity)
         {
             Db.Set<T>().Add(entity);
-            Db.SaveChanges();
+            //Db.SaveChanges();
             return entity;
 
         }
@@ -100,7 +109,7 @@ namespace Glove.IOT.EFDAL
         public bool Update(T entity)
         {
             Db.Entry(entity).State = EntityState.Modified;
-            return Db.SaveChanges() > 0;
+            return true;
         }
   
 
@@ -115,7 +124,7 @@ namespace Glove.IOT.EFDAL
             
             Db.Entry(entity).Property("IsDeleted").CurrentValue = true;
             Db.Entry(entity).Property("IsDeleted").IsModified = true;
-             return Db.SaveChanges() > 0;
+             return true;
         }
         /// <summary>
         /// 根据id单个逻辑删除

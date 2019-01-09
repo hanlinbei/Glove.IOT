@@ -1,5 +1,7 @@
 ﻿using Glove.IOT.IBLL;
 using Glove.IOT.Model;
+using Spring.Context;
+using Spring.Context.Support;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +19,11 @@ namespace Glove.IOT.BLL
         /// <param name="rId"></param>
         public void ProcessSetRole(int uId, int rId)
         {
-                //第一：当前用户的id ----uid
-                //第二：当前用户在角色关联表中的ID
+            IApplicationContext ctx = ContextRegistry.GetContext();
+            IR_UserInfo_RoleInfoService r_UserInfo_RoleInfoService = ctx.GetObject("R_UserInfo_RoleInfoService") as IR_UserInfo_RoleInfoService;
+            //第一：当前用户的id ----uid
+            //第二：当前用户在角色关联表中的ID
+            //R_UserInfo_RoleInfoService r_UserInfo_RoleInfoService = new R_UserInfo_RoleInfoService();
                 UserInfo user = DbSession.UserInfoDal.GetEntities(u => u.Id == uId).FirstOrDefault();
                 var allUserInfoIds = (from r in user.R_UserInfo_RoleInfo
                                       where r.UserInfoId == uId && r.IsDeleted == false
@@ -29,7 +34,7 @@ namespace Glove.IOT.BLL
                     int userInfoId = Convert.ToInt32(allUserInfoIds[i]);
                     var rUserRole = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r =>
                     r.Id == userInfoId).FirstOrDefault();
-                    DbSession.R_UserInfo_RoleInfoDal.Delete(rUserRole);
+                    r_UserInfo_RoleInfoService.Delete(rUserRole);
                 }
                 //第三：所有打上对勾的角色 ----list
                 List<int> setRoleIdList = new List<int>
@@ -46,8 +51,7 @@ namespace Glove.IOT.BLL
                         RoleInfoId = roleId,
                         IsDeleted = false
                     };
-                  DbSession.R_UserInfo_RoleInfoDal.Add(rUserInfoRoleInfo);
-
+                    r_UserInfo_RoleInfoService.Add(rUserInfoRoleInfo);
                 }   
 
         }

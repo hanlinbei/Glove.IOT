@@ -2,6 +2,7 @@
 using Glove.IOT.IDAL;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -42,6 +43,15 @@ namespace Glove.IOT.BLL
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
             return CurrentDal.GetEntities(whereLambda);
+
+        }
+        /// <summary>
+        /// 不查询获取实体
+        /// </summary>
+        /// <returns></returns>
+        public DbSet<T> GetEntities()
+        {
+            return CurrentDal.GetEntities();
 
         }
         /// <summary>
@@ -111,7 +121,8 @@ namespace Glove.IOT.BLL
         /// <returns>true</returns>
         public bool Delete(int id)
         {
-            return CurrentDal.Delete(id);
+            CurrentDal.Delete(id);
+            return DbSession.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -121,7 +132,8 @@ namespace Glove.IOT.BLL
         /// <returns>实体</returns>
         public T Add(T entity)
         {
-             CurrentDal.Add(entity);
+            CurrentDal.Add(entity);
+            DbSession.SaveChanges();
             return entity;
         }
     
@@ -134,7 +146,8 @@ namespace Glove.IOT.BLL
         /// <returns>true</returns>
         public bool Update(T entity)
         {
-            return CurrentDal.Update(entity);  
+            CurrentDal.Update(entity);
+            return DbSession.SaveChanges() > 0;
         }
 
 
@@ -145,7 +158,8 @@ namespace Glove.IOT.BLL
         /// <returns>true</returns>
         public bool Delete(T entity)
         {
-            return CurrentDal.Delete(entity); 
+            CurrentDal.Delete(entity);
+            return DbSession.SaveChanges() > 0;
         }
 
     }

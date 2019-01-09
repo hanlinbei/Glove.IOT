@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Glove.IOT.IBLL
     public interface IBaseService<T> where T :class,new()
     {
         IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda);
+        DbSet<T> GetEntities();
         IQueryable<T> GetEntitiesNoTracking(Expression<Func<T, bool>> whereLambda);
 
         IQueryable<T> GetPageEntities<S>(int pageSize, int pageIndex, out int total,
