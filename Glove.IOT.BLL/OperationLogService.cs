@@ -71,8 +71,7 @@ namespace Glove.IOT.BLL
         /// <returns></returns>
         public OperationLog Add(string actionName, string actionType, OperationLog loginInfo, string schCode, string schRoleName)
         {
-            IApplicationContext ctx = ContextRegistry.GetContext();
-            IOperationLogService operationLogService = ctx.GetObject("OperationLogService") as IOperationLogService;
+           
             //写操作日志
                 OperationLog operationLog = new OperationLog
                 {
@@ -91,7 +90,10 @@ namespace Glove.IOT.BLL
                 {
                     operationLog.OperationObj = schRoleName;
                 }
-                return operationLogService.Add(operationLog);
+                  var data=DbSession.OperationLogDal.Add(operationLog);
+                  DbSession.SaveChanges();
+                  return data;
+                     
             
         }
     }
