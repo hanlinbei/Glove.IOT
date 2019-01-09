@@ -63,14 +63,15 @@ namespace Glove.IOT.UI.Portal.Controllers
             var allRoleInfoActionInfoIds = (from r in role.R_RoleInfo_ActionInfo
                                     where r.RoleInfoId == rId&&r.IsDeleted==false
                                     select r.Id).ToList();
+            R_RoleInfo_ActionInfoService.Delete(r => r.RoleInfoId == rId);
             //全部剁掉
-            for (int i = 0; i < allRoleInfoActionInfoIds.Count(); i++)
-            {
-                int userInfoId = Convert.ToInt32(allRoleInfoActionInfoIds[i]);
-                var rUserRole = R_RoleInfo_ActionInfoService.GetEntities(r =>
-                r.Id == userInfoId).FirstOrDefault();
-                R_RoleInfo_ActionInfoService.Delete(rUserRole);
-            }
+            //for (int i = 0; i < allRoleInfoActionInfoIds.Count(); i++)
+            //{
+            //    int userInfoId = Convert.ToInt32(allRoleInfoActionInfoIds[i]);
+            //    var rUserRole = R_RoleInfo_ActionInfoService.GetEntities(r =>
+            //    r.Id == userInfoId).FirstOrDefault();
+            //    R_RoleInfo_ActionInfoService.Delete(rUserRole);
+            //}
 
 
             //添加勾选的权限

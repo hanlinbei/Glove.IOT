@@ -25,14 +25,20 @@ namespace Glove.IOT.IDAL
 
         //更新用户数据
         bool Update(T entity);
-
+        /// <summary>
+        /// 拓展的更新方法
+        /// </summary>
+        /// <param name="filterExpression">查询的条件</param>
+        /// <param name="updateExpression">要更新的字段数据</param>
+        /// <returns></returns>
+        bool Update(Expression<Func<T, bool>> filterExpression, Expression<Func<T, T>> updateExpression);
         //删除数据
         bool Delete(T entity);
-
+        bool Delete(Expression<Func<T, bool>> filterExpression);
         bool Delete(int id);
 
         int DeleteListByLogical(List<int> ids);
 
-
+       
     }
 }

@@ -154,12 +154,11 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns>ok</returns>
         public ActionResult Edit(UserInfo userInfo)
         {
-            userInfo.SubTime = DateTime.Now;
-            var user = UserInfoService.GetEntities(u => u.Id == userInfo.Id).FirstOrDefault();
-            userInfo.Pwd = user.Pwd;
-            userInfo.TeamInfoId = user.TeamInfoId;
-            userInfo.GroupInfoId = user.GroupInfoId;
-            UserInfoService.Update(userInfo);
+            UserInfoService.Update(t => t.Id == userInfo.Id, t => new UserInfo
+            {
+                UName = userInfo.UName,
+                SubTime=DateTime.Now
+            });
             //写操作日志
             OperationLogService.Add("编辑员工", "系统管理", LoginInfo, userInfo.UName, "");
             return Content("ok");

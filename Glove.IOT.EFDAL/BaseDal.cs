@@ -1,4 +1,5 @@
-﻿using Glove.IOT.Model;
+﻿using EntityFramework.Extensions;
+using Glove.IOT.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,7 +28,6 @@ namespace Glove.IOT.EFDAL
         /// <returns></returns>
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
-            
             return Db.Set<T>().Where(whereLambda).AsQueryable();
 
         }
@@ -111,8 +111,28 @@ namespace Glove.IOT.EFDAL
             Db.Entry(entity).State = EntityState.Modified;
             return true;
         }
-  
+        /// <summary>
+        /// 扩展更新
+        /// </summary>
+        /// <param name="filterExpression">要查询的条件</param>
+        /// <param name="updateExpression">要更新的字段内容</param>
+        /// <returns></returns>
+        public bool Update(Expression<Func<T, bool>> filterExpression, Expression<Func<T, T>> updateExpression)
+        {
+            Db.Set<T>().Update(filterExpression, updateExpression);
+            return true;
+        }
 
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="filterExpression"></param>
+        /// <returns></returns>
+        public bool Delete(Expression<Func<T, bool>> filterExpression)
+        {     
+            Db.Set<T>().Delete(filterExpression);
+            return true;
+        }
         /// <summary>
         /// 逻辑删除一条记录
         /// </summary>

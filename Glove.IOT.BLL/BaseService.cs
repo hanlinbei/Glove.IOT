@@ -113,7 +113,16 @@ namespace Glove.IOT.BLL
 
 
         }
-
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="filterExpression"></param>
+        /// <returns></returns>
+        public bool Delete(Expression<Func<T, bool>> filterExpression)
+        {
+            CurrentDal.Delete(filterExpression);
+            return DbSession.SaveChanges() > 0;
+        }
         /// <summary>
         /// 单个删除
         /// </summary>
@@ -147,6 +156,17 @@ namespace Glove.IOT.BLL
         public bool Update(T entity)
         {
             CurrentDal.Update(entity);
+            return DbSession.SaveChanges() > 0;
+        }
+        /// <summary>
+        /// 拓展的更新方法
+        /// </summary>
+        /// <param name="filterExpression">要查询的条件</param>
+        /// <param name="updateExpression">要更新的字段内容</param>
+        /// <returns></returns>
+        public bool Update(Expression<Func<T, bool>> filterExpression, Expression<Func<T, T>> updateExpression)
+        {
+            CurrentDal.Update(filterExpression, updateExpression);
             return DbSession.SaveChanges() > 0;
         }
 
