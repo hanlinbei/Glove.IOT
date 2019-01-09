@@ -48,12 +48,26 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red">*</span>角色类型：</label>
                     <div class="layui-input-block">
-                        <select name="RoleName" lay-verify="required">
-                            @*<option value="超级管理员">超级管理员</option>
-                                <option value="admin2">admin2</option>
-                                <option value="admin3">admin3</option>
-                                <option value="这是静态的">这是静态的</option>*@
-                        </select>
+                        <select name="RoleName" lay-verify="required"></select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color:red">*</span>班号：</label>
+                    <div class="layui-input-block">
+                        <select name="Class" lay-verify="required"></select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color:red">*</span>组号：</label>
+                    <div class="layui-input-block">
+                        <select name="Group" lay-verify="required"></select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color:red">*</span>角色状态：</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="StatusFlag" value=true title="有效">
+                        <input type="radio" name="StatusFlag" value=false title="无效">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -64,21 +78,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color:red">*</span>角色状态：</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="StatusFlag" value=true title="有效">
-                        <input type="radio" name="StatusFlag" value=false title="无效">
-                    </div>
-                </div>
-                <!--
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    </div>
-                </div>
-                    -->
             </form>
         </div>
     </div>

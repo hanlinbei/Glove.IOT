@@ -52,7 +52,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult Groupdetail()
+        public ActionResult Groupmanage()
         {
             return View();
         }

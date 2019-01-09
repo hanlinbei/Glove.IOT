@@ -148,6 +148,8 @@ layui.use('table', function () {//打开网页刷新表格
             , { field: 'UName', title: '姓名', minWidth: 80, sort: true, align: 'center' }
             , { field: 'RoleName', title: '角色名', minWidth: 150, align: 'center' }
             , { field: 'StatusFlag', title: '角色状态', minWidth: 80, align: 'center' }
+            , { field: 'RoleName', title: '班号', minWidth: 80, align: 'center' }
+            , { field: 'StatusFlag', title: '组号', minWidth: 80, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , parseData: function (res) { //res 即为原始返回的数据
@@ -1672,7 +1674,7 @@ layui.use('table', function () {//打开网页刷新表格
     var table = layui.table;
     //第一个实例
     table.render({
-        elem: '#table_class'
+        elem: '#table_group'
         //, height: 520
         , url: '/GroupInfo/GetGroupDevices?id=0' //数据接口
         , title: "组号关联设备"
@@ -1745,29 +1747,6 @@ layui.use('table', function () {//打开网页刷新表格
         , skin: 'line'
 
     });
-});
-layui.tree({
-    elem: '#group-tree' //传入元素选择器
-    , nodes: []
-    //, nodes: [{ //节点
-    //    name: '父节点1'
-    //    , children: [{
-    //        name: '子节点11'
-    //    }, {
-    //        name: '子节点12'
-    //    }]
-    //}, {
-    //    name: '父节点2（可以点左侧箭头，也可以双击标题）'
-    //    , children: [{
-    //        name: '子节点21'
-    //        , children: [{
-    //            name: '子节点211'
-    //        }]
-    //    }]
-    //}]
-    , click: function (node) {
-        console.log(node) //node即为当前点击的节点数据
-    }
 });
 //日期表
 layui.use('laydate', function () {

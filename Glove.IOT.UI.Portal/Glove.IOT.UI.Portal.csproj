@@ -1811,9 +1811,8 @@
     <Content Include="Views\TeamInfo\LayerAddclass.cshtml" />
     <Content Include="Views\TeamInfo\LayerEditclass.cshtml" />
     <Content Include="Views\TeamInfo\LayerSearchclass.cshtml" />
-    <Content Include="Views\GroupInfo\Groupmanage.cshtml" />
     <Content Include="Views\GroupInfo\GroupAdddevice.cshtml" />
-    <Content Include="Views\GroupInfo\Groupdetail.cshtml" />
+    <Content Include="Views\GroupInfo\Groupmanage.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\LayerSearchuser.cshtml" />
