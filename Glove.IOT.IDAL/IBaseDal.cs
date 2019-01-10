@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Glove.IOT.Model.Param;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -19,7 +20,6 @@ namespace Glove.IOT.IDAL
                                                Expression<Func<T, bool>> whereLambda,
                                                Expression<Func<T, S>> orderByLambda,
                                                bool isAsc);
-
         //添加用户
         T Add(T entity);
 

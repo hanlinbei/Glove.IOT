@@ -44,6 +44,7 @@
   </object>
   <object type="Glove.IOT.UI.Portal.Controllers.GroupInfoController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="GroupInfoService" ref="GroupInfoService" />
+    <property name="R_GroupInfo_DeviceInfoService" ref="R_GroupInfo_DeviceInfoService" />
   </object>
 
 </objects>

@@ -1,5 +1,6 @@
 ﻿using EntityFramework.Extensions;
 using Glove.IOT.Model;
+using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -89,6 +90,7 @@ namespace Glove.IOT.EFDAL
 
 
         }
+        
         /// <summary>
         /// 添加一条记录
         /// </summary>

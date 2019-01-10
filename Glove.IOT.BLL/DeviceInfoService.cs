@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.Common;
+using Glove.IOT.Common.Extention;
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
@@ -50,9 +51,7 @@ namespace Glove.IOT.BLL
 
             deviceQueryParam.Total = query.Count();
 
-            return query.OrderBy(d =>d.DeviceId)
-                  .Skip(deviceQueryParam.PageSize * (deviceQueryParam.PageIndex - 1))
-                  .Take(deviceQueryParam.PageSize).AsQueryable();
+            return query.GetPageEntitiesAsc(deviceQueryParam.PageSize, deviceQueryParam.PageIndex,q=>q.DeviceId,true);
 
         }
 

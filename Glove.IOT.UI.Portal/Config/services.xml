@@ -29,7 +29,7 @@
     <property name="CurrentDal" ref="DeviceParameterInfoDal" />
   </object>
 
-  <object name="r_RoleInfo_ActionInfoService" type="Glove.IOT.BLL.R_RoleInfo_ActionInfoService, Glove.IOT.BLL" singleton="false" >
+  <object name="R_RoleInfo_ActionInfoService" type="Glove.IOT.BLL.R_RoleInfo_ActionInfoService, Glove.IOT.BLL" singleton="false" >
     <property name="DbSession" ref="DbSession" />
     <property name="CurrentDal" ref="R_RoleInfo_ActionInfoDal" />
   </object>
@@ -48,5 +48,9 @@
   <object name="GroupInfoService" type="Glove.IOT.BLL.GroupInfoService, Glove.IOT.BLL" singleton="false" >
     <property name="DbSession" ref="DbSession" />
     <property name="CurrentDal" ref="GroupInfoDal" />
+  </object>
+  <object name="R_GroupInfo_DeviceInfoService" type="Glove.IOT.BLL.R_GroupInfo_DeviceInfoService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="R_GroupInfo_DeviceInfoDal" />
   </object>
 </objects>
