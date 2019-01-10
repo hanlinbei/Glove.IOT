@@ -30,11 +30,11 @@ namespace Glove.IOT.BLL
             var deviceParameterInfo = DbSession.DeviceParameterInfoDal.GetEntities(d => d.DeviceInfoId==deviceInfoId)
                                        .OrderByDescending(d=>d.SubTime).FirstOrDefault();
             //该设备的最近一次的开机时间
-            var latestStartTime = DbSession.DeviceParameterInfoDal.GetEntities(d => (d.DeviceInfoId == deviceInfoId && d.StartTime == d.SubTime))
+            var latestStartTime = DbSession.DeviceParameterInfoDal.GetEntities(d => (d.DeviceInfoId == deviceInfoId && d.StartTime.Value == d.SubTime))
                                   .OrderByDescending(d=>d.StartTime).Select(d=>d.StartTime).FirstOrDefault();
             //获取设备最近一次正常状态运行的提交时间
             var statusFlag = StatusFlagEnum.运行中.ToString();
-            var latestNormalTime= DbSession.DeviceParameterInfoDal.GetEntities(d=>d.DeviceInfoId==deviceInfoId&&d.StatusFlag== statusFlag&&d.SubTime>= latestStartTime)
+            var latestNormalTime= DbSession.DeviceParameterInfoDal.GetEntities(d=>d.DeviceInfoId==deviceInfoId&&d.StatusFlag== statusFlag&&d.SubTime>= latestStartTime.Value)
                                   .OrderByDescending(d => d.SubTime).Select(d => d.SubTime).FirstOrDefault();
             //设备正常运行时长
             var runTime = deviceParameterInfo.SubTime - latestStartTime;

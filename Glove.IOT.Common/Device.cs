@@ -12,6 +12,7 @@ namespace Glove.IOT.Common
         public int Id { get; set; }
         public string DeviceId { get; set; }
         public string StatusFlag { get; set; }
+        public bool LAY_CHECKED { get; set; }
 
     }
 }

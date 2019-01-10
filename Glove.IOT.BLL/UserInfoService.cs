@@ -105,9 +105,7 @@ namespace Glove.IOT.BLL
 
             userQueryParam.Total = query.Count();
 
-            return query.OrderBy(u=>u.UId)
-                  .Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1))
-                  .Take(userQueryParam.PageSize).AsQueryable();
+            return query.GetPageEntitiesAsc(userQueryParam.PageSize, userQueryParam.PageIndex, u => u.UId, true);
 
         }
         /// <summary>

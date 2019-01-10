@@ -1,4 +1,5 @@
-﻿using Glove.IOT.Model;
+﻿using Glove.IOT.Common;
+using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,6 @@ namespace Glove.IOT.IBLL
     {
         IQueryable<dynamic> GetGroupInfo(GroupQueryParam groupQueryParam);
         IQueryable<dynamic> GetGroupDevices(int id, BaseParam baseParam);
+        IQueryable<Device> LoagDevicePageData(DeviceQueryParam deviceQueryParam);
     }
 }
