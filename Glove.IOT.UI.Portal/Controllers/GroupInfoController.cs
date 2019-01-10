@@ -80,7 +80,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Content("OK");
 
         }
-        public ActionResult Groupdetail()
+        public ActionResult Groupmanage()
         {
             return View();
         }
