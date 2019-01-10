@@ -1715,7 +1715,7 @@ layui.use('table', function () {//打开网页刷新表格
     table.render({
         elem: '#table_relationDevice'
         //, height: 500
-        , url: '/Device/GetAllDeviceInfos' //数据接口
+        , url: '/GroupInfo/GetAllDeviceInfos' //数据接口
         , title: "设备管理"
         , page: true //开启分页
         , limit: 10
@@ -1735,9 +1735,18 @@ layui.use('table', function () {//打开网页刷新表格
                 num[i] = res.data[i].Id;
             }
 
-            $.get("GetExitDevices", { gId: getdata(), dId: num }, function (data) {
-                console.log(data);
-            })
+            //$.get("GetExitDevices", { gId: getdata(), dId: num }, function (data) {
+            //    console.log(data);
+            //})
+            $.ajax({
+                traditional: true,
+                type: "post",
+                url: "GetExitDevices",
+                data: { gId: getdata(), dId: num },
+                success: function (data) {
+                    console.log(data);
+                }
+            });
 
         }
         , skin: 'line'

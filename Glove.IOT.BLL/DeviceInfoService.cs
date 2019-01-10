@@ -31,11 +31,11 @@ namespace Glove.IOT.BLL
                             deviceInfoId = p.Key
                         })
                         join t3 in deviceInfo on t1.DeviceInfoId equals t3.Id
-                        where t1.DeviceInfoId==t2.deviceInfoId&&t1.SubTime==t2.newestTime
+                        where t1.DeviceInfoId == t2.deviceInfoId && t1.SubTime == t2.newestTime
                         select new Device
                         {
                             Id = t3.Id,
-                            DeviceId = t3.DeviceId,                     
+                            DeviceId = t3.DeviceId,
                             StatusFlag = t1.StatusFlag,
                         };
             //按设备ID查找

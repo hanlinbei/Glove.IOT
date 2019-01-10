@@ -1,4 +1,5 @@
 ﻿
+using Glove.IOT.Common;
 using Glove.IOT.Common.Extention;
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
@@ -54,18 +55,51 @@ namespace Glove.IOT.BLL
 
             return query.GetPageEntitiesAsc(baseParam.PageSize, baseParam.PageIndex, q => q.Id, true);
         }
-        /// <summary>
-        /// 查询分页已存在的设备Id
-        /// </summary>
-        /// <param name="gId"></param>
-        /// <param name="alldIds"></param>
-        /// <returns></returns>
-        public IQueryable<int> GetExitDevices(int gId, List<int> alldIds)
-        {
 
-            var query = DbSession.R_GroupInfo_DeviceInfoDal.GetEntities(g => g.IsDeleted == false && g.GroupInfoId == gId&&alldIds.Contains(g.DeviceInfoId))
-                        .Select(g=>g.DeviceInfoId);
-            return query;
+        /// <summary>
+        /// 获取所以设备，并勾选已经存在组内的设备
+        /// </summary>
+        /// <param name="deviceQueryParam"></param>
+        /// <returns></returns>
+        public IQueryable<Device> LoagDevicePageData(DeviceQueryParam deviceQueryParam,int gId)
+        {
+            //组内已存在的设备Id
+            var temp = DbSession.R_GroupInfo_DeviceInfoDal.GetEntities(g => g.IsDeleted == false && g.GroupInfoId == gId)
+                        .Select(g => g.DeviceInfoId);
+
+            var deviceParameterInfo = DbSession.DeviceParameterInfoDal.GetEntities(t => true);
+            var deviceInfo = DbSession.DeviceInfoDal.GetEntities(d => d.IsDeleted == false);
+            //查询每台机器的最新一条数据（分组查询）
+            var query = from t1 in deviceParameterInfo
+                        from t2 in deviceParameterInfo.GroupBy(m => m.DeviceInfoId).Select(p => new
+                        {
+                            newestTime = p.Max(q => q.SubTime),
+                            deviceInfoId = p.Key
+                        })
+                        join t3 in deviceInfo on t1.DeviceInfoId equals t3.Id
+                        where t1.DeviceInfoId == t2.deviceInfoId && t1.SubTime == t2.newestTime
+                        select new Device
+                        {
+                            Id = t3.Id,
+                            DeviceId = t3.DeviceId,
+                            StatusFlag = t1.StatusFlag,
+                            LAY_CHECKED=temp.Contains(t3.Id)
+                        };
+            //按设备ID查找
+            if (!string.IsNullOrEmpty(deviceQueryParam.SchDeviceId))
+            {
+                query = query.Where(u => u.DeviceId.Contains(deviceQueryParam.SchDeviceId)).AsQueryable();
+            }
+            //按设备状态筛选
+            if (!string.IsNullOrEmpty(deviceQueryParam.SchStatusFlag))
+            {
+                query = query.Where(u => u.StatusFlag.Contains(deviceQueryParam.SchStatusFlag)).AsQueryable();
+            }
+
+            deviceQueryParam.Total = query.Count();
+
+            return query.GetPageEntitiesAsc(deviceQueryParam.PageSize, deviceQueryParam.PageIndex, q => q.DeviceId, true);
+
         }
     }
 }
