@@ -1725,7 +1725,7 @@ layui.use('table', function () {//打开网页刷新表格
             , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
             , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
             , { field: 'StatusFlag', title: '运行状态', minWidth: 80, align: 'center' }
-            , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+            //, { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , toolbar: true
         , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
@@ -1734,11 +1734,15 @@ layui.use('table', function () {//打开网页刷新表格
                 console.log(res.data[i].Id);
                 num[i] = res.data[i].Id;
             }
-
-            $.get("GetExitDevices", { gId: getdata(), dId: num }, function (data) {
-                console.log(data);
-            })
-
+            $.ajax({
+                traditional: true,
+                type: "post",
+                url: "GetExitDevices",
+                data: { gId: getdata(), dId: num },
+                success:function(data){
+                    console.log(data);
+                } 
+            });
         }
         , skin: 'line'
 
