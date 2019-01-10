@@ -1537,7 +1537,7 @@ function layerShowEditclass(title, url, w, h, data) {
                 $(body).find('input[name="StopTime"]').addClass("red");
             }
             else {
-                $.post("/TeamInfo/Edit", { Id:data.Id,TName: res.TName, StartTime: res.StartTime, StopTime: res.StopTime },
+                $.post("/TeamInfo/Edit", { Id: data.Id, TName: res.TName, StartTime: res.StartTime, StopTime: res.StopTime },
                     function (data) {
                         if (data === "Ok") {
                             globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
@@ -1667,6 +1667,108 @@ function layerShowSearchclass(title, url, w, h, data) {
         }
     });
 }
+////////////////////////////组号设置////////////////////////////////
+layui.use('table', function () {//打开网页刷新表格
+    var table = layui.table;
+    //第一个实例
+    table.render({
+        elem: '#table_class'
+        //, height: 520
+        , url: '/GroupInfo/GetGroupDevices?id=0' //数据接口
+        , title: "组号关联设备"
+        , page: true //开启分页
+        , limit: 10
+        , limits: [5, 10, 15, 20]
+        , cols: [[ //表头
+            { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+            //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
+            , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
+            , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
+            //, { field: 'wTime', title: '工作时间', minWidth: 80, sort: true, align: 'center' }
+            , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+        ]]
+        , toolbar: true
+        //, parseData: function (res) { //修改原始数据
+        //    for (var i = 0; i < res.data.length; i++) {
+        //        res.data[i].wTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
+        //            + ' ~ ' + (eval(res.data[i].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
+        //    }
+        //    return {
+        //        "code": res.code, //解析接口状态
+        //        "msg": res.msg, //解析提示文本
+        //        "count": res.count, //解析数据长度
+        //        "data": res.data //解析数据列表
+        //    };
+        //}
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+
+        }
+        , skin: 'line'
+
+    });
+});
+layui.use('table', function () {//打开网页刷新表格
+    var table = layui.table;
+    //第一个实例
+    table.render({
+        elem: '#table_relationDevice'
+        //, height: 520
+        , url: '/GroupInfo/GetGroupDevices?id=0' //数据接口
+        , title: "组号关联设备"
+        , page: true //开启分页
+        , limit: 10
+        , limits: [5, 10, 15, 20]
+        , cols: [[ //表头
+            { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+            //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
+            , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
+            , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
+            //, { field: 'wTime', title: '工作时间', minWidth: 80, sort: true, align: 'center' }
+            , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+        ]]
+        , toolbar: true
+        //, parseData: function (res) { //修改原始数据
+        //    for (var i = 0; i < res.data.length; i++) {
+        //        res.data[i].wTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
+        //            + ' ~ ' + (eval(res.data[i].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
+        //    }
+        //    return {
+        //        "code": res.code, //解析接口状态
+        //        "msg": res.msg, //解析提示文本
+        //        "count": res.count, //解析数据长度
+        //        "data": res.data //解析数据列表
+        //    };
+        //}
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+
+        }
+        , skin: 'line'
+
+    });
+});
+layui.tree({
+    elem: '#group-tree' //传入元素选择器
+    , nodes: []
+    //, nodes: [{ //节点
+    //    name: '父节点1'
+    //    , children: [{
+    //        name: '子节点11'
+    //    }, {
+    //        name: '子节点12'
+    //    }]
+    //}, {
+    //    name: '父节点2（可以点左侧箭头，也可以双击标题）'
+    //    , children: [{
+    //        name: '子节点21'
+    //        , children: [{
+    //            name: '子节点211'
+    //        }]
+    //    }]
+    //}]
+    , click: function (node) {
+        console.log(node) //node即为当前点击的节点数据
+    }
+});
 //日期表
 layui.use('laydate', function () {
     var laydate = layui.laydate;

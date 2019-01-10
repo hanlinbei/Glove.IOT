@@ -10,10 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>Glove Machine IoT</title>
-
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
     <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
     <!--[if lt IE 9]>
@@ -108,13 +106,18 @@
                 <dl class="layui-nav-child">
                     <dd><a href="#">班组设置</a></dd>
                     <dd><a href="../TeamInfo/Classmanage">班号管理</a></dd>
+                    <dd><a href="../GroupInfo/Groupmanage">组号管理</a></dd>
+                    <dd><a href="../GroupInfo/Groupdetail">组号详情</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <i class="iconfont icon-alarm">&#xe6a8;</i>
-                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警处理</span>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警管理</span>
                 </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../WarningInfo/Warningmanage">当前报警</a></dd>
+                </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -135,40 +138,34 @@
     </section>
     <section id="main">
         <div class="navigation">
+            <!-- 面包屑 -->
             <span class="layui-breadcrumb">
                 <a>班组管理</a>
-                <a href=""><cite>班号管理</cite></a>
+                <a href="../GroupInfo/Groupdetail">组号管理</a>
+                <a href="../GroupInfo/GroupAdddevice"><cite>设备关联</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
-            <button class="layui-btn layui-btn-normal col-xs-1" name="添加班号">
-                <i class="iconfont icon-add">&#xe726;</i>
-                添加班号
+            <button class="layui-btn layui-btn-normal col-xs-1" name="保存设备关联">
+                保存
             </button>
-            <button class="layui-btn layui-btn-danger col-xs-1" name="删除班号">
+            @*<button class="layui-btn layui-btn-danger col-xs-1" name="删除设备">
                 <i class="iconfont icon-delete">&#xe62f;</i>
-                删除班号
-            </button>
-            <!--
-            <button class="layui-btn layui-btn-warm col-xs-1">
-                <i class="iconfont icon-modify">&#xe6b8;</i>
-                修改员工
-            </button>
-                -->
+                删除设备
+            </button>*@
+            <p class="col-xs-1" style="height:38px;vertical-align:middle;line-height:38px;font-size:20px;">1组</p>
             <span class="col-xs-8"></span>
-            <button class="layui-btn col-xs-1" name="查找班号">
-                <i class="iconfont icon-seek">&#xe618;</i>
-                查找班号
+            <button class="layui-btn col-xs-1" name="返回">
+                返回
             </button>
         </div>
         <div class="table">
             <div class="table-title">
-                班号管理
+                设备关联
             </div>
-            <table id="table_class" lay-filter="table_class" lay-data="{id: 'idTest'}"></table>
+            <table id="table_relationDevice" lay-filter="table_relationDevice" lay-data="{id: 'idTest'}"></table>
         </div>
-
     </section>
     <!-- 底部固定区域 -->
     <footer id="footer">
@@ -177,19 +174,35 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-    <script src="~/Scripts/datapattern.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit" name="编辑">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" name="删除">删除</a>
+        <a class="layui-btn layui-btn-xs a_disabled layui-btn-disabled a_disabled layui-btn-disabled" lay-event="detail" name="查看">查看</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs a_disabled layui-btn-disabled" lay-event="del" name="删除">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="group">分组</a>
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
-        //更新左上角用户信息
-        userMessage();
-        //禁用所有按钮
         //$('button').addClass('layui-btn-disabled');
         //$('button').attr('disabled', 'disabled');
+        //更新左上角用户信息
+        userMessage();
+        $('#logout').click(function () {
+            $.post('/UserLogin/Logout', {}, function (data) {
+                if (data === 'ok') {
+                    //清除cookie
+                    var date = new Date();
+                    date.setTime(date.getTime() - 1);
+                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                    if (keys) {
+                        for (var i = keys.length; i--;)
+                            document.cookie = keys[i] + "=; expire=" + date.toGMTString() + "; path=/UserLogin";
+                    }
+                    //document.cookie = 'LoginCode=;';//删除
+                    //document.cookie = 'LoginPwd=;';
+                    window.location.href = '../UserLogin/Index';
+                }
+            })
+        })
     </script>
 
 </body>
