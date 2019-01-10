@@ -20,7 +20,6 @@ namespace Glove.IOT.EFDAL
             {
                 db = new DataModelContainer();
                 CallContext.SetData("DbContext", db);
-
             }
             return db;
         }

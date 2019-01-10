@@ -6,6 +6,8 @@ using Glove.IOT.IBLL;
 using Glove.IOT.IDAL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
+using Spring.Context;
+using Spring.Context.Support;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +73,7 @@ namespace Glove.IOT.BLL
         /// <returns>查询结果</returns>
         public IQueryable<UserInfoRoleInfo> LoagUserPageData(UserQueryParam userQueryParam)
         {
-            var userInfo = DbSession.UserInfoDal.GetEntities(u => u.IsDeleted==false);
+            var userInfo = DbSession.UserInfoDal.GetEntities(u => u.IsDeleted == false);
             var r_UserInfo_RoleInfo = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => r.IsDeleted == false);
             var roleInfo = DbSession.RoleInfoDal.GetEntities(r => r.IsDeleted == false);
 
@@ -131,6 +133,8 @@ namespace Glove.IOT.BLL
         /// <returns></returns>
         public string EditPwd(string oldpwd, string newPwd,int uId)
         {
+            IApplicationContext ctx = ContextRegistry.GetContext();
+            IUserInfoService userInfoService = ctx.GetObject("UserInfoService") as IUserInfoService;
             var user = DbSession.UserInfoDal.GetEntities(u => u.Id == uId).FirstOrDefault();
             if (user.Pwd != oldpwd.ToMD5())
             {
@@ -139,7 +143,7 @@ namespace Glove.IOT.BLL
             else
             {
                 user.Pwd = newPwd.ToMD5();
-                DbSession.UserInfoDal.Update(user);
+                userInfoService.Update(user);
                 return "true";
             }
 
