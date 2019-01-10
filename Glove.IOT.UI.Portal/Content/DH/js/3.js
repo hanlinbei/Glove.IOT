@@ -148,6 +148,8 @@ layui.use('table', function () {//打开网页刷新表格
             , { field: 'UName', title: '姓名', minWidth: 80, sort: true, align: 'center' }
             , { field: 'RoleName', title: '角色名', minWidth: 150, align: 'center' }
             , { field: 'StatusFlag', title: '角色状态', minWidth: 80, align: 'center' }
+            , { field: 'RoleName', title: '班号', minWidth: 80, align: 'center' }
+            , { field: 'StatusFlag', title: '组号', minWidth: 80, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , parseData: function (res) { //res 即为原始返回的数据
@@ -1672,7 +1674,7 @@ layui.use('table', function () {//打开网页刷新表格
     var table = layui.table;
     //第一个实例
     table.render({
-        elem: '#table_class'
+        elem: '#table_group'
         //, height: 520
         , url: '/GroupInfo/GetGroupDevices?id=0' //数据接口
         , title: "组号关联设备"
@@ -1712,62 +1714,101 @@ layui.use('table', function () {//打开网页刷新表格
     //第一个实例
     table.render({
         elem: '#table_relationDevice'
-        //, height: 520
-        , url: '/GroupInfo/GetGroupDevices?id=0' //数据接口
-        , title: "组号关联设备"
+        //, height: 500
+        , url: '/Device/GetAllDeviceInfos' //数据接口
+        , title: "设备管理"
         , page: true //开启分页
         , limit: 10
         , limits: [5, 10, 15, 20]
         , cols: [[ //表头
             { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
-            //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
             , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
             , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
-            //, { field: 'wTime', title: '工作时间', minWidth: 80, sort: true, align: 'center' }
+            , { field: 'StatusFlag', title: '运行状态', minWidth: 80, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , toolbar: true
-        //, parseData: function (res) { //修改原始数据
-        //    for (var i = 0; i < res.data.length; i++) {
-        //        res.data[i].wTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
-        //            + ' ~ ' + (eval(res.data[i].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
-        //    }
-        //    return {
-        //        "code": res.code, //解析接口状态
-        //        "msg": res.msg, //解析提示文本
-        //        "count": res.count, //解析数据长度
-        //        "data": res.data //解析数据列表
-        //    };
-        //}
         , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+            var num = Array(res.data.length);
+            for (var i = 0; i < res.data.length; i++) {
+                console.log(res.data[i].Id);
+                num[i] = res.data[i].Id;
+            }
+
+            $.get("GetExitDevices", { gId: getdata(), dId: num }, function (data) {
+                console.log(data);
+            })
 
         }
         , skin: 'line'
 
     });
-});
-layui.tree({
-    elem: '#group-tree' //传入元素选择器
-    , nodes: []
-    //, nodes: [{ //节点
-    //    name: '父节点1'
-    //    , children: [{
-    //        name: '子节点11'
-    //    }, {
-    //        name: '子节点12'
-    //    }]
-    //}, {
-    //    name: '父节点2（可以点左侧箭头，也可以双击标题）'
-    //    , children: [{
-    //        name: '子节点21'
-    //        , children: [{
-    //            name: '子节点211'
-    //        }]
-    //    }]
-    //}]
-    , click: function (node) {
-        console.log(node) //node即为当前点击的节点数据
-    }
+    table.on('tool(table_device)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var data = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+        if (layEvent === 'detail') { //查看
+            console.log("点击了查看");
+            window.location.href = 'Devicedetail?DeviceId=' + data.DeviceId;
+        } else if (layEvent === 'del') { //删除
+            console.log(data);
+            layer.confirm('确定删除？', function (index) {
+                layer.close(index);
+                //向服务端发送删除指令
+                ids = "" + data.Id;
+                $.post("/Device/Delete", { ids: ids }, function (data) {
+                    if (data === 'ok') {
+                        num_d = num_d - 1;
+                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                        globalPage = Math.ceil(num_d / globalLimit);//获取页码值
+                        if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
+                        //表格重载
+                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", globalPage, globalLimit);
+                    }
+                    else {
+                        alert("你没有权限删除");
+                    }
+                });
+            });
+        } else if (layEvent === 'group') { //分组
+            layerShowAddgroup('设备分组', 'LayerAddgroup', 500, 250, obj.data);
+        }
+    });
+    table.on('checkbox(table_device)', function (obj) {
+        console.log(obj.checked); //当前是否选中状态
+        console.log(obj.data); //选中行的相关数据
+        console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+        if (obj.type === "all") {
+            if (obj.checked === true) {
+                for (var i = 0; i < DIdtable.length; i++) {
+                    DIdtable[i][1] = 1;
+                }
+            }
+            else {
+                for (var i = 0; i < DIdtable.length; i++) {
+                    DIdtable[i][1] = 0;
+                }
+            }
+        }
+        else if (obj.checked === true) {
+            for (var i = 0; i < DIdtable.length; i++) {
+                if (DIdtable[i][0] === obj.data.Id) {
+                    DIdtable[i][1] = 1;
+                    console.log(DIdtable[i][0]);
+                    break;
+                }
+            }
+        }
+        else if (obj.checked === false) {
+            for (var i = 0; i < DIdtable.length; i++) {
+                if (DIdtable[i][0] === obj.data.Id) {
+                    DIdtable[i][1] = 0;
+                    break;
+                }
+            }
+        }
+
+    });
 });
 //日期表
 layui.use('laydate', function () {
@@ -1794,7 +1835,6 @@ layui.use('laydate', function () {
         , type: 'datetime'//日期时间选择器
     });
 });
-
 //全局加载进度条
 $(document)
     .ajaxStart(function () {
@@ -1861,7 +1901,6 @@ $(document).ready(function () {
         }
     });
     $("button[name='查找报警']").click(function () {
-        console.log(111);
         layerShowSearchwarning('查找报警', 'LayerSearchwarning', 550, 450, "null");
     });
     $("button[name='添加班号']").click(function () {

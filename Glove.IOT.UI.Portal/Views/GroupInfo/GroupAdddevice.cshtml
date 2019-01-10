@@ -150,10 +150,6 @@
             <button class="layui-btn layui-btn-normal col-xs-1" name="保存设备关联">
                 保存
             </button>
-            @*<button class="layui-btn layui-btn-danger col-xs-1" name="删除设备">
-                <i class="iconfont icon-delete">&#xe62f;</i>
-                删除设备
-            </button>*@
             <p class="col-xs-1" style="height:38px;vertical-align:middle;line-height:38px;font-size:20px;">1组</p>
             <span class="col-xs-8"></span>
             <button class="layui-btn col-xs-1" name="返回">
@@ -186,23 +182,12 @@
         //$('button').attr('disabled', 'disabled');
         //更新左上角用户信息
         userMessage();
-        $('#logout').click(function () {
-            $.post('/UserLogin/Logout', {}, function (data) {
-                if (data === 'ok') {
-                    //清除cookie
-                    var date = new Date();
-                    date.setTime(date.getTime() - 1);
-                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
-                    if (keys) {
-                        for (var i = keys.length; i--;)
-                            document.cookie = keys[i] + "=; expire=" + date.toGMTString() + "; path=/UserLogin";
-                    }
-                    //document.cookie = 'LoginCode=;';//删除
-                    //document.cookie = 'LoginPwd=;';
-                    window.location.href = '../UserLogin/Index';
-                }
-            })
-        })
+        function getdata() {
+            var href = window.location.href;
+            var Id = href.split("?Id=");
+            return Id[1];
+        }
+        getdata();
     </script>
 
 </body>

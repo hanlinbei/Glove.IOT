@@ -157,7 +157,7 @@ color: #ccc;
 body {
     font-family: Microsoft Yahei; /*此处应该有很多备用字体以防万一*/
     background-color: #eaeaea;
-    min-width: 1200px;
+    min-width: 1400px;
 }
 
 /*字体图标设置 字体图标就是制作一种字体但都是图标 优点：容量小 矢量 可以改变颜色大小*/
@@ -587,12 +587,28 @@ margin-top:70px;  */
     display:none;
 }
 /** 树组件（重写中） **/
-.layui-tree li a cite {
+.layui-tree1 li a cite {
     padding: 0 8px;
     font-size: 16px;
     font-style: normal;
 }
-.layui-tree li ul {
+.layui-tree1 li ul {
     display: none;
     margin-left: 30px;
+}
+
+@media screen and (max-width: 768px) {
+    .layui-nav-side {
+        top: 80px;
+        border-top: #fff 1px solid;
+    }
+
+    .layui-nav-tree {
+        width: 120px;
+    }
+
+    #main {
+        left: 120px;
+        width: calc(100% - 120px); /*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
+    }
 }

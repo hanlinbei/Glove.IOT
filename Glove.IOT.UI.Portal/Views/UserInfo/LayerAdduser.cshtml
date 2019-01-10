@@ -65,19 +65,19 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red">*</span>角色类型：</label>
                     <div class="layui-input-block">
-                        <select  name="RoleName" lay-verify="required">
-                            <!--<option value="操作工">操作工</option>
-                            <option value="组长">组长</option>
-                            <option value="超级管理员">超级管理员</option>-->
-                        </select>
+                        <select name="RoleName" lay-verify="required"></select>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">备注：</label>
-                        <div class="layui-input-block">
-                            <textarea name="Remark" placeholder="请输入内容" class="layui-textarea"></textarea>
-                        </div>
+                    <label class="layui-form-label"><span style="color:red">*</span>班号：</label>
+                    <div class="layui-input-block">
+                        <select name="Class" lay-verify="required"></select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color:red">*</span>组号：</label>
+                    <div class="layui-input-block">
+                        <select name="Group" lay-verify="required"></select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -86,6 +86,14 @@
                         <input type="radio" name="StatusFlag" value=true title="有效" lay-filter="StatusFlag">
                         <input type="radio" name="StatusFlag" value=false title="无效" lay-filter="StatusFlag">
                         <div class="StatusFlagerror">请选择角色状态</div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">备注：</label>
+                        <div class="layui-input-block">
+                            <textarea name="Remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
