@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.IBLL;
+using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
@@ -61,13 +62,61 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
 
+        /// <summary>
+        /// 获取所以设备，并勾选已经存在组内的设备
+        /// </summary>
+        /// <param name="deviceQueryParam"></param>
+        /// <returns></returns>
+        public ActionResult GetAllDeviceInfos(string limit, string page, string deviceId, string statusFlag,int gId)
+        {
+            int pageSize = int.Parse(limit ?? "10");
+            int pageIndex = int.Parse(page ?? "1");
+
+            //过滤的设备名 过滤备注schDeviceId schStatusFlag
+            var queryParam = new DeviceQueryParam()
+            {
+                PageSize = pageSize,
+                PageIndex = pageIndex,
+                SchDeviceId = deviceId,
+                SchStatusFlag = statusFlag,
+                Total = 0
+            };
+            var pageData = GroupInfoService.LoagDevicePageData(queryParam,gId).ToList();
+            var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
 
         /// <summary>
-        /// 为组添加选定的设备
+        /// 添加组
         /// </summary>
-        /// <param name="gId"></param>
-        /// <param name="dIds"></param>
+        /// <param name="groupInfo"></param>
         /// <returns></returns>
+        public ActionResult Add(GroupInfo groupInfo)
+        {
+            groupInfo.SubTime = DateTime.Now;
+            GroupInfoService.Add(groupInfo);
+            return Content("OK");
+        }
+        /// <summary>
+        /// 编辑组信息
+        /// </summary>
+        /// <param name="groupInfo"></param>
+        /// <returns></returns>
+        public ActionResult Edit(GroupInfo groupInfo)
+        {
+            groupInfo.SubTime = DateTime.Now;
+            GroupInfoService.Update(groupInfo);
+            return Content("OK");
+        }
+
+     /// <summary>
+     /// 为组添加设备
+     /// </summary>
+     /// <param name="gId"></param>
+     /// <param name="alldIds"></param>
+     /// <param name="dIds"></param>
+     /// <returns></returns>
         public ActionResult SetDevices(int gId, int[] alldIds, int[] dIds)
         {
             List<int> dIdsList = dIds.ToList();
