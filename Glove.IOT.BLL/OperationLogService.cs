@@ -1,4 +1,5 @@
-﻿using Glove.IOT.IBLL;
+﻿using Glove.IOT.Common.Extention;
+using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
 using Spring.Context;
@@ -23,9 +24,7 @@ namespace Glove.IOT.BLL
             var temp = DbSession.OperationLogDal.GetEntities(u => u.IsDeleted == false);
             operationLogQueryParam.Total = temp.Count();
             //分页
-            return temp.OrderByDescending(u => u.SubTime)
-                .Skip(operationLogQueryParam.PageSize * (operationLogQueryParam.PageIndex - 1))
-                .Take(operationLogQueryParam.PageSize).AsQueryable();
+            return temp.GetPageEntitiesAsc(operationLogQueryParam.PageSize, operationLogQueryParam.PageIndex, u => u.SubTime, false);
         }
         /// <summary>
         /// 查找指定时段的日志信息
@@ -55,9 +54,7 @@ namespace Glove.IOT.BLL
 
             operationLogQueryParam.Total = temp.Count();
             //分页
-            return temp.OrderByDescending(u => u.SubTime)
-                .Skip(operationLogQueryParam.PageSize * (operationLogQueryParam.PageIndex - 1))
-                .Take(operationLogQueryParam.PageSize).AsQueryable();
+            return temp.GetPageEntitiesAsc(operationLogQueryParam.PageSize, operationLogQueryParam.PageIndex, u => u.SubTime, false);
         }
 
         /// <summary>

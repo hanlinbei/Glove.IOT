@@ -1,4 +1,5 @@
 ﻿
+using Glove.IOT.Common.Extention;
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
@@ -51,9 +52,20 @@ namespace Glove.IOT.BLL
                         });
             baseParam.Total = query.Count();
 
-            return query.OrderBy(q=>q.Id)
-                   .Skip(baseParam.PageSize * (baseParam.PageIndex - 1))
-                   .Take(baseParam.PageSize).AsQueryable();
+            return query.GetPageEntitiesAsc(baseParam.PageSize, baseParam.PageIndex, q => q.Id, true);
+        }
+        /// <summary>
+        /// 查询分页已存在的设备Id
+        /// </summary>
+        /// <param name="gId"></param>
+        /// <param name="alldIds"></param>
+        /// <returns></returns>
+        public IQueryable<int> GetExitDevices(int gId, List<int> alldIds)
+        {
+
+            var query = DbSession.R_GroupInfo_DeviceInfoDal.GetEntities(g => g.IsDeleted == false && g.GroupInfoId == gId&&alldIds.Contains(g.DeviceInfoId))
+                        .Select(g=>g.DeviceInfoId);
+            return query;
         }
     }
 }

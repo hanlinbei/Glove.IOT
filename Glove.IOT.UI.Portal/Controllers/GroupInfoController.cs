@@ -1,4 +1,5 @@
 ﻿using Glove.IOT.IBLL;
+using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
@@ -60,14 +61,51 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
-
-
         /// <summary>
-        /// 为组添加选定的设备
+        /// 获取分页以存在的设备
         /// </summary>
         /// <param name="gId"></param>
-        /// <param name="dIds"></param>
+        /// <param name="alldIds"></param>
         /// <returns></returns>
+        public ActionResult GetExitDevices(int gId, int[] alldIds)
+        {
+            List<int> alldIdsList = alldIds.ToList();
+            var query = GroupInfoService.GetExitDevices(gId,alldIdsList);
+            var data = query.ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
+
+        /// <summary>
+        /// 添加组
+        /// </summary>
+        /// <param name="groupInfo"></param>
+        /// <returns></returns>
+        public ActionResult Add(GroupInfo groupInfo)
+        {
+            groupInfo.SubTime = DateTime.Now;
+            GroupInfoService.Add(groupInfo);
+            return Content("OK");
+        }
+        /// <summary>
+        /// 编辑组信息
+        /// </summary>
+        /// <param name="groupInfo"></param>
+        /// <returns></returns>
+        public ActionResult Edit(GroupInfo groupInfo)
+        {
+            groupInfo.SubTime = DateTime.Now;
+            GroupInfoService.Update(groupInfo);
+            return Content("OK");
+        }
+
+     /// <summary>
+     /// 为组添加设备
+     /// </summary>
+     /// <param name="gId"></param>
+     /// <param name="alldIds"></param>
+     /// <param name="dIds"></param>
+     /// <returns></returns>
         public ActionResult SetDevices(int gId, int[] alldIds, int[] dIds)
         {
             List<int> dIdsList = dIds.ToList();

@@ -1,4 +1,5 @@
-﻿using Glove.IOT.IBLL;
+﻿using Glove.IOT.Common.Extention;
+using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
 using System;
@@ -54,7 +55,7 @@ namespace Glove.IOT.BLL
             }
             //总条数
             warningQueryParam.Total = query.Count();
-            return query;
+            return query.GetPageEntitiesAsc(warningQueryParam.PageSize, warningQueryParam.PageIndex, q => q.WarningStartTime, false);
 
         }
     }
