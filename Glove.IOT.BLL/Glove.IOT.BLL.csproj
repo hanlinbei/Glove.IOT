@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="BaseService.cs" />
     <Compile Include="GroupInfoService.cs" />
+    <Compile Include="R_GroupInfo_DeviceInfoService.cs" />
     <Compile Include="R_RoleInfo_ActionInfoService.cs" />
     <Compile Include="R_UserInfo_RoleInfoService.cs" />
     <Compile Include="DeviceParameterInfoService.cs" />

@@ -34,4 +34,6 @@
   </object>
   <object name="GroupInfoDal" type="Glove.IOT.EFDAL.GroupInfoDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
+  <object name="R_GroupInfo_DeviceInfoDal" type="Glove.IOT.EFDAL.R_GroupInfo_DeviceInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
 </objects>
