@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.IBLL
 {
-    public partial interface IR_UserInfo_RoleInfoService : IBaseService<R_UserInfo_RoleInfo>
+    public partial interface IR_GroupInfo_DeviceInfoService : IBaseService<R_GroupInfo_DeviceInfo>
     {
+        void AddSelectDevices(int gId, List<int> idList);
     }
 }

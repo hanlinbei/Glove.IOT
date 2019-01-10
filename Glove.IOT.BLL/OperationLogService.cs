@@ -1,6 +1,8 @@
 ﻿using Glove.IOT.IBLL;
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
+using Spring.Context;
+using Spring.Context.Support;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,6 @@ namespace Glove.IOT.BLL
 {
     public partial class OperationLogService : BaseService<OperationLog>, IOperationLogService
     {
-
         /// <summary>
         /// 多条件查询
         /// </summary>
@@ -69,8 +70,9 @@ namespace Glove.IOT.BLL
         /// <param name="schRoleName"></param>
         /// <returns></returns>
         public OperationLog Add(string actionName, string actionType, OperationLog loginInfo, string schCode, string schRoleName)
-        {   
-                //写操作日志
+        {
+           
+            //写操作日志
                 OperationLog operationLog = new OperationLog
                 {
                     ActionName = actionName,
@@ -88,7 +90,11 @@ namespace Glove.IOT.BLL
                 {
                     operationLog.OperationObj = schRoleName;
                 }
-                return DbSession.OperationLogDal.Add(operationLog); 
+                  var data=DbSession.OperationLogDal.Add(operationLog);
+                  DbSession.SaveChanges();
+                  return data;
+                     
+            
         }
     }
 }

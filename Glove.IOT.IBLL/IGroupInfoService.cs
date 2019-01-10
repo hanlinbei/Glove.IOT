@@ -11,6 +11,6 @@ namespace Glove.IOT.IBLL
     public partial interface IGroupInfoService : IBaseService<GroupInfo>
     {
         IQueryable<dynamic> GetGroupInfo(GroupQueryParam groupQueryParam);
-        IQueryable<dynamic> GetGroupDevices(int id);
+        IQueryable<dynamic> GetGroupDevices(int id, BaseParam baseParam);
     }
 }

@@ -288,7 +288,7 @@ function layerShowEdituser(title, url, w, h, data) {
                     }
                 }
                 $.post("/UserInfo/Edit", {
-                    UName: res.UName, UCode: res.UCode, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, Id: data.UId
+                    UName: res.UName, UCode: res.UCode, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, UId: data.UId
                 });
                 globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
                 globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目

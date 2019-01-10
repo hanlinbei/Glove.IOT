@@ -65,6 +65,7 @@
     <Compile Include="Cache\MemcacheWriter.cs" />
     <Compile Include="DeviceParameter.cs" />
     <Compile Include="Device.cs" />
+    <Compile Include="Extention\QueryableExtention.cs" />
     <Compile Include="Extention\StringExtention.cs" />
     <Compile Include="ILogWriter.cs" />
     <Compile Include="Log4NetWriter.cs" />

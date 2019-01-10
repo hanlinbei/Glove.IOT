@@ -8,6 +8,6 @@ namespace Glove.IOT.Model.Param
 {
     public class GroupQueryParam:BaseParam
     {
-        public string SchGName { get; set; }
+        
     }
 }

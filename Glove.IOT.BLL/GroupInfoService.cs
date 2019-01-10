@@ -27,11 +27,6 @@ namespace Glove.IOT.BLL
                     g.GName,
                     g.Id
                 });
-            //按班名编号筛选
-            if (!string.IsNullOrEmpty(groupQueryParam.SchGName))
-            {
-                query = query.Where(g =>g.GName.Contains(groupQueryParam.SchGName)).AsQueryable();
-            }
 
             //总条数
             groupQueryParam.Total = query.Count();
@@ -43,7 +38,7 @@ namespace Glove.IOT.BLL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IQueryable<dynamic> GetGroupDevices(int id)
+        public IQueryable<dynamic> GetGroupDevices(int id,BaseParam baseParam)
         {
             var r_GroupInfo_DeviceInfoDal = DbSession.R_GroupInfo_DeviceInfoDal.GetEntities(g => g.IsDeleted == false && g.GroupInfoId == id);
             var deviceInfo = DbSession.DeviceInfoDal.GetEntities(d => d.IsDeleted == false);
@@ -54,7 +49,11 @@ namespace Glove.IOT.BLL
                             t2.Id,
                             t2.DeviceId
                         });
-            return query;
+            baseParam.Total = query.Count();
+
+            return query.OrderBy(q=>q.Id)
+                   .Skip(baseParam.PageSize * (baseParam.PageIndex - 1))
+                   .Take(baseParam.PageSize).AsQueryable();
         }
     }
 }

@@ -132,8 +132,15 @@ namespace Glove.IOT.UI.Portal.Controllers
                 
                 int insertedUserId = UserInfoService.Add(userInfo).Id;
                 int roleId = userInfoRoleInfo.RId;
+
+                R_UserInfo_RoleInfo rUserInfoRoleInfo = new R_UserInfo_RoleInfo
+                {
+                    UserInfoId = insertedUserId,
+                    RoleInfoId = roleId,
+                    IsDeleted = false
+                };
                 //设置用户角色
-                R_UserInfo_RoleInfoService.ProcessSetRole(insertedUserId, roleId);
+                R_UserInfo_RoleInfoService.Add(rUserInfoRoleInfo);
                 //写操作日志
                 OperationLogService.Add("添加员工", "系统管理", LoginInfo, userInfoRoleInfo.UName,"");
                 return Content("Ok");
@@ -152,14 +159,21 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="userInfo"></param>
         /// <returns>ok</returns>
-        public ActionResult Edit(UserInfo userInfo)
+        public ActionResult Edit(UserInfoRoleInfo userInfo)
         {
-            userInfo.SubTime = DateTime.Now;
-            var user = UserInfoService.GetEntities(u => u.Id == userInfo.Id).FirstOrDefault();
-            userInfo.Pwd = user.Pwd;
-            userInfo.TeamInfoId = user.TeamInfoId;
-            userInfo.GroupInfoId = user.GroupInfoId;
-            UserInfoService.Update(userInfo);
+            UserInfoService.Update(t => t.Id == userInfo.UId, t => new UserInfo
+            {
+                UName = userInfo.UName,
+                UCode=userInfo.UCode,
+                Remark=userInfo.Remark,
+                StatusFlag=userInfo.StatusFlag,
+                SubTime=DateTime.Now
+            });
+            //设置更新用户角色
+            R_UserInfo_RoleInfoService.Update(r=>r.UserInfoId==userInfo.UId, r=>new R_UserInfo_RoleInfo
+            {
+                RoleInfoId=userInfo.RId
+            });
             //写操作日志
             OperationLogService.Add("编辑员工", "系统管理", LoginInfo, userInfo.UName, "");
             return Content("ok");
