@@ -1814,6 +1814,7 @@
     <Content Include="Views\GroupInfo\GroupAdddevice.cshtml" />
     <Content Include="Views\GroupInfo\Groupmanage.cshtml" />
     <Content Include="Views\Device\test.cshtml" />
+    <Content Include="Views\GroupInfo\LayerSearchdevice.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\LayerSearchuser.cshtml" />

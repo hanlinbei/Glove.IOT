@@ -147,12 +147,15 @@
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
-            <button class="layui-btn layui-btn-normal col-xs-1" name="保存设备关联">
+            <button class="layui-btn layui-btn-normal col-xs-1" name="保存">
                 保存
             </button>
             <p class="col-xs-1" style="height:38px;vertical-align:middle;line-height:38px;font-size:20px;">1组</p>
-            <span class="col-xs-8"></span>
-            <button class="layui-btn col-xs-1" name="返回">
+            <span class="col-xs-7"></span>
+            <button class="layui-btn col-xs-1" name="查找">
+                查找
+            </button>
+            <button class="layui-btn layui-btn-warm col-xs-1" name="返回">
                 返回
             </button>
         </div>
@@ -191,10 +194,31 @@
         $('button[name="返回"]').click(function () {
             window.location.href = '../GroupInfo/Groupmanage';
         })
-        $('button[name="保存设备关联"]').click(function () {
-
-            $.post("", {}, function (data) {
-                console.log(data);
+        $('button[name="查找"]').click(function () {
+            layerShowSearchdevice_g('查找设备', 'LayerSearchdevice', 550, 350, "null");
+        })
+        $('button[name="保存"]').click(function () {
+            var table = layui.table;
+            var table_relationDevice = table.cache.table_relationDevice;
+            var alldIds = new Array();
+            var dIds = new Array();
+            for (var i = 0; i < table_relationDevice.length; i++) {
+                alldIds[i] = table_relationDevice[i].Id;
+                if (table_relationDevice[i].LAY_CHECKED === true) {
+                    dIds[dIds.length] = table_relationDevice[i].Id;
+                }
+            }
+            if (dIds.length === 0) {
+                dIds[0] = 0;  
+            }
+            $.ajax({
+                type: 'POST',
+                url: "/GroupInfo/SetDevices", 
+                data: { gId: getdata(), alldIds: alldIds, dIds: dIds },
+                traditional: true,
+                success: function (data) {
+                    console.log(data);
+                }
             })
         })
     </script>

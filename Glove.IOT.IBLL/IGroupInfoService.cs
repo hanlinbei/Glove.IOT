@@ -13,6 +13,6 @@ namespace Glove.IOT.IBLL
     {
         IQueryable<dynamic> GetGroupInfo(GroupQueryParam groupQueryParam);
         IQueryable<dynamic> GetGroupDevices(int id, BaseParam baseParam);
-        IQueryable<Device> LoagDevicePageData(DeviceQueryParam deviceQueryParam);
+        IQueryable<Device> LoagDevicePageData(DeviceQueryParam deviceQueryParam, int gId);
     }
 }

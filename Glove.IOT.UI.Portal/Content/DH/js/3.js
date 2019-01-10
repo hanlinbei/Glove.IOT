@@ -699,6 +699,22 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
             }
         });
     }
+    else if (id === 'table_relationDevice') {
+        table.reload(id, {
+            elem: elem
+            //, height: height
+            , url: url//数据接口
+            , title: title
+            , page: {
+                curr: page
+            }//重新制定page和limit
+            , limit: limit
+            , where: { deviceId: res.DeviceId, statusFlag: res.StatusFlag, gId: getdata() }
+            , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+                console.log("表格重载完成");
+            }
+        });
+    }
 }
 function updatatable(id, elem, height, url, title, page, limit) {//表格重载 跳转到操作页面
     var table = layui.table;
@@ -1710,12 +1726,15 @@ layui.use('table', function () {//打开网页刷新表格
     });
 });
 layui.use('table', function () {//打开网页刷新表格
+    var href = window.location.href;
+    var Id = href.split("?Id=");
+    data = Id[1];
     var table = layui.table;
     //第一个实例
     table.render({
         elem: '#table_relationDevice'
         //, height: 500
-        , url: '/Device/GetAllDeviceInfos' //数据接口
+        , url: '/GroupInfo/GetAllDeviceInfos?gId=' + data //数据接口
         , title: "设备管理"
         , page: true //开启分页
         , limit: 10
@@ -1729,91 +1748,35 @@ layui.use('table', function () {//打开网页刷新表格
         ]]
         , toolbar: true
         , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
-            var num = Array(res.data.length);
-            for (var i = 0; i < res.data.length; i++) {
-                console.log(res.data[i].Id);
-                num[i] = res.data[i].Id;
-            }
-            $.ajax({
-                traditional: true,
-                type: "post",
-                url: "GetExitDevices",
-                data: { gId: getdata(), dId: num },
-                success:function(data){
-                    console.log(data);
-                } 
-            });
+            //var num = Array(res.data.length);
         }
         , skin: 'line'
 
     });
-    table.on('tool(table_device)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-        var data = obj.data; //获得当前行数据
-        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-        var tr = obj.tr; //获得当前行 tr 的DOM对象
-        if (layEvent === 'detail') { //查看
-            console.log("点击了查看");
-            window.location.href = 'Devicedetail?DeviceId=' + data.DeviceId;
-        } else if (layEvent === 'del') { //删除
-            console.log(data);
-            layer.confirm('确定删除？', function (index) {
-                layer.close(index);
-                //向服务端发送删除指令
-                ids = "" + data.Id;
-                $.post("/Device/Delete", { ids: ids }, function (data) {
-                    if (data === 'ok') {
-                        num_d = num_d - 1;
-                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                        globalPage = Math.ceil(num_d / globalLimit);//获取页码值
-                        if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
-                        //表格重载
-                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", globalPage, globalLimit);
-                    }
-                    else {
-                        alert("你没有权限删除");
-                    }
-                });
-            });
-        } else if (layEvent === 'group') { //分组
-            layerShowAddgroup('设备分组', 'LayerAddgroup', 500, 250, obj.data);
-        }
-    });
-    table.on('checkbox(table_device)', function (obj) {
-        console.log(obj.checked); //当前是否选中状态
-        console.log(obj.data); //选中行的相关数据
-        console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
-        if (obj.type === "all") {
-            if (obj.checked === true) {
-                for (var i = 0; i < DIdtable.length; i++) {
-                    DIdtable[i][1] = 1;
-                }
-            }
-            else {
-                for (var i = 0; i < DIdtable.length; i++) {
-                    DIdtable[i][1] = 0;
-                }
-            }
-        }
-        else if (obj.checked === true) {
-            for (var i = 0; i < DIdtable.length; i++) {
-                if (DIdtable[i][0] === obj.data.Id) {
-                    DIdtable[i][1] = 1;
-                    console.log(DIdtable[i][0]);
-                    break;
-                }
-            }
-        }
-        else if (obj.checked === false) {
-            for (var i = 0; i < DIdtable.length; i++) {
-                if (DIdtable[i][0] === obj.data.Id) {
-                    DIdtable[i][1] = 0;
-                    break;
-                }
-            }
-        }
-
-    });
 });
+function layerShowSearchdevice_g(title, url, w, h, data) {
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade: 0.4,
+        title: title,
+        content: url,
+        btn: ['查找'],
+        yes: function (index) {
+            //当点击‘确定’按钮的时候，获取弹出层返回的值
+            var res = window["layui-layer-iframe" + index].callbackdata(index, "searchdevice");
+            //表格重载 跳转到操作页面
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            updatatable_search('table_relationDevice', '#table_relationDevice', 550, '/GroupInfo/GetAllDeviceInfos', "关联设备", 1, globalLimit, res);
+            //最后关闭弹出层
+            layer.close(index);
+        },
+        skin: 'demo-class'
+    });
+}
 //日期表
 layui.use('laydate', function () {
     var laydate = layui.laydate;
