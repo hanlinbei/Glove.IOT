@@ -1811,6 +1811,9 @@
     <Content Include="Views\TeamInfo\LayerAddclass.cshtml" />
     <Content Include="Views\TeamInfo\LayerEditclass.cshtml" />
     <Content Include="Views\TeamInfo\LayerSearchclass.cshtml" />
+    <Content Include="Views\GroupInfo\Groupmanage.cshtml" />
+    <Content Include="Views\GroupInfo\GroupAdddevice.cshtml" />
+    <Content Include="Views\GroupInfo\Groupdetail.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\LayerSearchuser.cshtml" />
@@ -1847,7 +1850,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="UploadFiles\UploadImgs\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\GroupInfo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

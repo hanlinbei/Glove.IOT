@@ -83,10 +83,17 @@
                             </span>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right topbar-right">
-                        <li><i class="iconfont icon-bell">&#xe6f1;</i></li>
-                        <li><i class="iconfont icon-vline">&#xe63a;</i></li>
-                        <li><i class="iconfont icon-user">&#xe638;</i></li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" class="iconfont icon-vline">&#xe6f1;</a></li>
+                        <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle iconfont icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&#xe638;<span class="caret"></span></a>
+                            <ul class="dropdown-menu" style="min-width: 50px; text-align:center;">
+                                <li><a href="../UserInfo/Userdetail">基本资料</a></li>
+                                <li><a href="../UserInfo/Userpassword">修改密码</a></li>
+                                <li><a id="logout">注销</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <!-- 最小宽度时出现汉堡菜单-->
