@@ -1806,13 +1806,14 @@
     <Content Include="Views\Device\LayerSearchdevice.cshtml" />
     <Content Include="Views\OperationLog\Operationlog.cshtml" />
     <Content Include="Views\OperationLog\LayerSearcholog.cshtml" />
-    <Content Include="Views\Device\test.cshtml" />
+    <Content Include="Views\Device\treetest.cshtml" />
     <Content Include="Views\TeamInfo\Classmanage.cshtml" />
     <Content Include="Views\TeamInfo\LayerAddclass.cshtml" />
     <Content Include="Views\TeamInfo\LayerEditclass.cshtml" />
     <Content Include="Views\TeamInfo\LayerSearchclass.cshtml" />
     <Content Include="Views\GroupInfo\GroupAdddevice.cshtml" />
     <Content Include="Views\GroupInfo\Groupmanage.cshtml" />
+    <Content Include="Views\Device\test.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\LayerSearchuser.cshtml" />
