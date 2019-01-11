@@ -1,4 +1,5 @@
-﻿using Glove.IOT.Common;
+﻿using EntityFramework.Extensions;
+using Glove.IOT.Common;
 using Glove.IOT.Common.Extention;
 using Glove.IOT.DALFactory;
 using Glove.IOT.EFDAL;
@@ -71,25 +72,32 @@ namespace Glove.IOT.BLL
         /// </summary>
         /// <param name="userQueryParam">查询条件</param>
         /// <returns>查询结果</returns>
-        public IQueryable<UserInfoRoleInfo> LoagUserPageData(UserQueryParam userQueryParam)
+        public IQueryable<dynamic> LoagUserPageData(UserQueryParam userQueryParam)
         {
             var userInfo = DbSession.UserInfoDal.GetEntities(u => u.IsDeleted == false);
             var r_UserInfo_RoleInfo = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => r.IsDeleted == false);
             var roleInfo = DbSession.RoleInfoDal.GetEntities(r => r.IsDeleted == false);
-
+            var teamInfo = DbSession.TeamInfoDal.GetEntities(t => t.IsDeleted == false);
+            var groupInfo = DbSession.GroupInfoDal.GetEntities(g => g.IsDeleted == false);
             //内连接查询 查询人员信息
             var query = from t1 in userInfo
                         join t2 in r_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
                         join t3 in roleInfo on t2.RoleInfoId equals t3.Id
-                        select new UserInfoRoleInfo
+                        join t4 in teamInfo on t1.TeamInfoId equals t4.Id
+                        join t5 in groupInfo on t1.GroupInfoId equals t5.Id
+                        select new
                         {
                             UId = t1.Id,
                             RId = t3.Id,
-                            UCode = t1.UCode,
-                            UName = t1.UName,
-                            RoleName = t3.RoleName,
-                            Remark=t1.Remark,
-                            StatusFlag = t1.StatusFlag,
+                            t1.UCode,
+                            t1.UName,
+                            t3.RoleName,
+                            t1.Remark,
+                            t1.StatusFlag,
+                            TId = t4.Id,
+                            GId = t5.Id,
+                            t4.TName,
+                            t5.GName
                         };
 
            //按员工编号筛选
