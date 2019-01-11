@@ -9,6 +9,7 @@ select * from DeviceParameterInfo
 select * from OperationLog
 select * from WarningInfo
 select * from GroupInfo
+select * from TeamInfo
 
 Use Test
 
@@ -113,10 +114,18 @@ inner join	(select
 		select * from DeviceParameterInfo
 
 		select 
+		t3.DeviceId,
+		t2.日期,
+		t2.今日车间产量
+		 from DeviceInfo as t3
+		inner join
+		(select 
 		日期=Convert(char(10),SubTime,120),
-		今日车间产量=Sum (NowOutput)
-		from DeviceParameterInfo
-		group by Convert(char(10),SubTime,120)
+		今日车间产量=Sum (NowOutput),
+		设备ID=t1.DeviceInfoId
+		from DeviceParameterInfo as t1
+		group by Convert(char(10),SubTime,120) ,t1.DeviceInfoId) as t2
+		on t3.Id=t2.设备ID and t3.IsDeleted=0
 		order by Convert(char(10),SubTime,120)
 
 		select * from DeviceParameterInfo

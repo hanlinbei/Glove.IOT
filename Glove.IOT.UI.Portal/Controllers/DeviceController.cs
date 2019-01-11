@@ -65,20 +65,14 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Delete(string ids)
+        public ActionResult Delete(int[] ids)
         {
-            if (string.IsNullOrEmpty(ids))
+            List<int> idList = ids.ToList();
+            if (idList==null)
             {
                 return Content("请选中要删除的数据！");
-            }
-            //正常处理
-            string[] strIds = ids.Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
+            }   
 
-            }
             DeviceInfoService.DeleteListByLogical(idList);
 
             foreach (var id in idList)
