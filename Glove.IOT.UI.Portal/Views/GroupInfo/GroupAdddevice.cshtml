@@ -147,12 +147,15 @@
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
-            <button class="layui-btn layui-btn-normal col-xs-1" name="保存设备关联">
+            <button class="layui-btn layui-btn-normal col-xs-1" name="保存">
                 保存
             </button>
             <p class="col-xs-1" style="height:38px;vertical-align:middle;line-height:38px;font-size:20px;">1组</p>
-            <span class="col-xs-8"></span>
-            <button class="layui-btn col-xs-1" name="返回">
+            <span class="col-xs-7"></span>
+            <button class="layui-btn col-xs-1" name="查找">
+                查找
+            </button>
+            <button class="layui-btn layui-btn-warm col-xs-1" name="返回">
                 返回
             </button>
         </div>
@@ -171,11 +174,11 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
-    <script type="text/html" id="barDemo">
+    @*<script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs a_disabled layui-btn-disabled a_disabled layui-btn-disabled" lay-event="detail" name="查看">查看</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs a_disabled layui-btn-disabled" lay-event="del" name="删除">删除</a>
         <a class="layui-btn layui-btn-xs" lay-event="group">分组</a>
-    </script>
+    </script>*@
     <script src="~/Content/DH/js/3.js"></script>
     <script>
         //$('button').addClass('layui-btn-disabled');
@@ -188,6 +191,33 @@
             return Id[1];
         }
         getdata();
+        $('button[name="返回"]').click(function () {
+            window.location.href = '../GroupInfo/Groupmanage';
+        })
+        $('button[name="查找"]').click(function () {
+            layerShowSearchdevice_g('查找设备', 'LayerSearchdevice', 550, 350, "null");
+        })
+        $('button[name="保存"]').click(function () {
+            var table = layui.table;
+            var table_relationDevice = table.cache.table_relationDevice;
+            var alldIds = new Array();
+            var dIds = new Array();
+            for (var i = 0; i < table_relationDevice.length; i++) {
+                alldIds[i] = table_relationDevice[i].Id;
+                if (table_relationDevice[i].LAY_CHECKED === true) {
+                    dIds[dIds.length] = table_relationDevice[i].Id;
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: "/GroupInfo/SetDevices", 
+                data: { gId: getdata(), alldIds: alldIds, dIds: dIds },
+                traditional: true,
+                success: function (data) {
+                    console.log(data);
+                }
+            })
+        })
     </script>
 
 </body>

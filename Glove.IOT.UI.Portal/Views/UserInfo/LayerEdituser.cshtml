@@ -54,13 +54,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red">*</span>班号：</label>
                     <div class="layui-input-block">
-                        <select name="Class" lay-verify="required"></select>
+                        <select name="TName" lay-verify="required"></select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red">*</span>组号：</label>
                     <div class="layui-input-block">
-                        <select name="Group" lay-verify="required"></select>
+                        <select name="GName" lay-verify="required"></select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -91,7 +91,7 @@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
-        getRolename();
+        //getRolename();
         $('input[name="UName"]').focus(function () {
             $('input[name="UName"]').removeClass("red");
             $('input[name="UName"]').attr('placeholder', '请输入员工名字');

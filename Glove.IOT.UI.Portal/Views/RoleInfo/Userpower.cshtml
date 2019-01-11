@@ -244,7 +244,7 @@
         userMessage();
         //保存按钮
         $("button[name='保存权限']").click(function () {
-            $.get("/UserInfo/GetAllRoles", function (data) { 
+            $.get("/UserInfo/GetAllRoles", {}, function (data) { 
                 var Role = $("select[name='RoleName']").find('option');
                 var Role_selected;
                 if (Role[0].selected === true) {
@@ -267,61 +267,68 @@
                     }
                 }
                 var checkbox = $("input[type='checkbox']");
-                var checkboxed = '';
+                var checkboxed = new Array();
                 for (var i = 0; i < checkbox.length; i++) {
                     if (checkbox[i].checked === true) {
                         switch (checkbox[i].title) {
                             case '查看设备':
-                                checkboxed += '查看设备,';
+                                checkboxed[checkboxed.length] = '查看设备';
                                 break;
                             case '删除设备':
-                                checkboxed += '删除设备,';
+                                checkboxed[checkboxed.length] = '删除设备';
                                 break;
                             case '添加设备':
-                                checkboxed += '添加设备,';
+                                checkboxed[checkboxed.length] = '添加设备';
                                 break;
                             case '查找设备':
-                                checkboxed += '查找设备,';
+                                checkboxed[checkboxed.length] = '查找设备';
                                 break;
                             case '人员查看':
-                                checkboxed += '人员查看,';
+                                checkboxed[checkboxed.length] = '人员查看';
                                 break;
                             case '人员删除':
-                                checkboxed += '人员删除,';
+                                checkboxed[checkboxed.length] = '人员删除';
                                 break;
                             case '报警查看':
-                                checkboxed += '报警查看,';
+                                checkboxed[checkboxed.length] = '报警查看';
                                 break;
                             case '报警删除':
-                                checkboxed += '报警删除,';
+                                checkboxed[checkboxed.length] = '报警删除';
                                 break;
                             case '编辑员工':
-                                checkboxed += '编辑员工,';
+                                checkboxed[checkboxed.length] = '编辑员工';
                                 break;
                             case '删除员工':
-                                checkboxed += '删除员工,';
+                                checkboxed[checkboxed.length] = '删除员工';
                                 break;
                             case '添加员工':
-                                checkboxed += '添加员工,';
+                                checkboxed[checkboxed.length] = '添加员工';
                                 break;
                             case '查找员工':
-                                checkboxed += '查找员工,';
+                                checkboxed[checkboxed.length] = '查找员工';
                                 break;
                         }
                     }
                 }
-                checkboxed = checkboxed.slice(0, delId.length - 1);//去除最后的逗号
-                data_send = Role_selected + ',' + checkboxed;
-                console.log('data_send:' + data_send);
-                $.get("/RoleInfo/SetActions?Data=" + data_send, function () {
-                    layui.use('layer', function () {//保存成功 弹出框提示
-                        var layer = layui.layer;
-                        layer.msg('<span style = "font-size: 20px; line-height:90px; vertical-align:middle;">保存成功</span>', {
-                            time: 1500,
-                            area: ['200px', '120px']
-                        });
-                    });
-                });//将保存信息发送给后台
+                //将保存信息发送给后台
+                $.ajax({
+                    type: 'POST',
+                    url: "/RoleInfo/SetActions",
+                    data: { rId: Role_selected, Data: checkboxed },
+                    traditional: true,
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
+                //$.get("/RoleInfo/SetActions?Data=" + data_send, function () {
+                //    layui.use('layer', function () {//保存成功 弹出框提示
+                //        var layer = layui.layer;
+                //        layer.msg('<span style = "font-size: 20px; line-height:90px; vertical-align:middle;">保存成功</span>', {
+                //            time: 1500,
+                //            area: ['200px', '120px']
+                //        });
+                //    });
+                //});
                 
             });   
         });

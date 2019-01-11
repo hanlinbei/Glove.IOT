@@ -602,13 +602,22 @@ margin-top:70px;  */
         top: 80px;
         border-top: #fff 1px solid;
     }
-
     .layui-nav-tree {
-        width: 120px;
+        width: 100px;
     }
-
     #main {
         left: 120px;
         width: calc(100% - 120px); /*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
+    }
+    .layui-nav .layui-nav-item dl dd a{
+        font-size: 12px;
+    }
+    .layui-nav-tree .layui-nav-child a {
+        height: 30px;
+        line-height: 30px;
+    }
+    .layui-nav .layui-nav-item dl dd a{
+
+    
     }
 }
