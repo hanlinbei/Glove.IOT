@@ -12,7 +12,8 @@ namespace Glove.IOT.UI.Portal.Controllers
     public class TeamInfoController : BaseController
     {
         public ITeamInfoService TeamInfoService { get; set;}
-        // GET: TeamInfo
+        public IUserInfoService UserInfoService { get; set; }
+         // GET: TeamInfo
         public ActionResult Classmanage()
         {
             return View();
@@ -97,6 +98,11 @@ namespace Glove.IOT.UI.Portal.Controllers
                 idList.Add(int.Parse(strId));
             }
             TeamInfoService.DeleteListByLogical(idList);
+            //原有班删除后 人员表重置为默认班
+            UserInfoService.Update(r => idList.Contains(r.TeamInfoId), r => new UserInfo
+            {
+                TeamInfoId = 1
+            });
             return Content("del ok");
         }
             
