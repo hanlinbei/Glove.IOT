@@ -22,6 +22,8 @@ namespace Glove.IOT.Common
         public string Email { get; set; }
         public bool  StatusFlag { get; set; }
         public string Remark { get; set; }
+        public int TId { get; set; }
+        public int GId { get; set; }
         public System.DateTime SubTime { get; set; }
     }
 }
