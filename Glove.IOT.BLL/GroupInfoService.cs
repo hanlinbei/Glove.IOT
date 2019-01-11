@@ -23,7 +23,7 @@ namespace Glove.IOT.BLL
         public IQueryable<dynamic> GetGroupInfo()
         {     
             //获取班信息表实体
-            var query = DbSession.GroupInfoDal.GetEntities(g => g.IsDeleted == false)
+            var query = DbSession.GroupInfoDal.GetEntities(g => g.IsDeleted == false&&g.Id>1)
                 .Select(g=>new
                 {
                     g.GName,

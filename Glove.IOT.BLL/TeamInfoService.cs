@@ -19,7 +19,7 @@ namespace Glove.IOT.BLL
         public IQueryable<dynamic> GetTeamInfo(TeamQueryParam teamQueryParam)
         {
             //获取班信息表实体
-            var teamInfo = DbSession.TeamInfoDal.GetEntities(t => t.IsDeleted == false);
+            var teamInfo = DbSession.TeamInfoDal.GetEntities(t => t.IsDeleted == false&&t.Id>1);
 
             var query = from t1 in teamInfo
                         select new
