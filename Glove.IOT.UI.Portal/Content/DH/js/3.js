@@ -148,8 +148,8 @@ layui.use('table', function () {//打开网页刷新表格
             , { field: 'UName', title: '姓名', minWidth: 80, sort: true, align: 'center' }
             , { field: 'RoleName', title: '角色名', minWidth: 150, align: 'center' }
             , { field: 'StatusFlag', title: '角色状态', minWidth: 80, align: 'center' }
-            , { field: 'RoleName', title: '班号', minWidth: 80, align: 'center' }
-            , { field: 'StatusFlag', title: '组号', minWidth: 80, align: 'center' }
+            , { field: 'GName', title: '班号', minWidth: 80, align: 'center' }
+            , { field: 'TName', title: '组号', minWidth: 80, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , parseData: function (res) { //res 即为原始返回的数据
@@ -762,24 +762,28 @@ function getRolename() {
             form.render('select');
         });
     })
-    //var xhr = new XMLHttpRequest();
-    //xhr.open('GET', "/UserInfo/GetAllRoles");
-    //xhr.send();
-    ////xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
-    //xhr.onreadystatechange = function () {
-    //    if (this.readyState !== 4) return;
-    //    var obj = eval("(" + this.responseText + ")");//JSON.parse安全
-    //    //var body = layer.getChildFrame('body', index);
-    //    for (var i = 0; i < obj.length; i++) {
-    //        var e = $('<option value="' + obj[i].RoleName + '">' + obj[i].RoleName + '</option>');
-    //        //$(body).find('select[name="RoleName"]').append(e);
-    //        $('select[name="RoleName"]').append(e);
-    //    }
-    //    layui.use('form', function () {
-    //        var form = layui.form;
-    //        form.render('select');
-    //    });
-    //}
+    $.get("/UserInfo/GetAllTeams", {}, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            var e = $('<option value="' + data[i].TName + '">' + data[i].TName + '</option>');
+            //$(body).find('select[name="RoleName"]').append(e);
+            $('select[name="TName"]').append(e);
+        }
+        layui.use('form', function () {
+            var form = layui.form;
+            form.render('select');
+        });
+    })
+    $.get("/UserInfo/GetAllGroups", {}, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            var e = $('<option value="' + data[i].GName + '">' + data[i].GName + '</option>');
+            //$(body).find('select[name="RoleName"]').append(e);
+            $('select[name="GName"]').append(e);
+        }
+        layui.use('form', function () {
+            var form = layui.form;
+            form.render('select');
+        });
+    })
 }
 
 
