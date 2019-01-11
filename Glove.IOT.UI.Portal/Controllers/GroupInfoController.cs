@@ -13,6 +13,7 @@ namespace Glove.IOT.UI.Portal.Controllers
     {
         public IGroupInfoService GroupInfoService { get; set; }
         public IR_GroupInfo_DeviceInfoService R_GroupInfo_DeviceInfoService { get; set; }
+        public IUserInfoService UserInfoService { get; set; }
         // GET: GroupInfo
         public ActionResult Index()
         {
@@ -100,14 +101,36 @@ namespace Glove.IOT.UI.Portal.Controllers
             GroupInfoService.Update(groupInfo);
             return Content("OK");
         }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="ids">用户id</param>
+        /// <returns>del ok</returns>
+        public ActionResult Delete(int[] gIds)
+        {
+            if (gIds==null)
+            {
+                return Content("请选中要删除的数据！");
+            }
+            //正常处理
+            List<int> idList = gIds.ToList();
 
-     /// <summary>
-     /// 为组添加设备
-     /// </summary>
-     /// <param name="gId"></param>
-     /// <param name="alldIds"></param>
-     /// <param name="dIds"></param>
-     /// <returns></returns>
+            GroupInfoService.DeleteListByLogical(idList);
+            //原有组删除后 人员表重置为默认组
+            UserInfoService.Update(r => idList.Contains(r.GroupInfoId), r => new UserInfo
+            {
+                GroupInfoId = 1
+            });
+            return Content("del ok");
+        }
+
+        /// <summary>
+        /// 为组添加设备
+        /// </summary>
+        /// <param name="gId"></param>
+        /// <param name="alldIds"></param>
+        /// <param name="dIds"></param>
+        /// <returns></returns>
         public ActionResult SetDevices(int gId, int[] alldIds, int[] dIds)
         {
             List<int> dIdsList = dIds.ToList();
@@ -122,8 +145,23 @@ namespace Glove.IOT.UI.Portal.Controllers
             R_GroupInfo_DeviceInfoService.AddSelectDevices(gId, dIdsList);
 
             return Content("OK");
-
         }
+
+        /// <summary>
+        /// 为组添加设备重载
+        /// </summary>
+        /// <param name="gId"></param>
+        /// <param name="alldIds"></param>
+        /// <returns></returns>
+         public ActionResult SetDevices(int gId, int[] alldIds)
+         {
+            List<int> alldIdsList = alldIds.ToList();
+            //剁掉组里已存在的设备
+            R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId==gId&& alldIdsList.Contains(r.DeviceInfoId)));
+            return Content("OK");
+         }
+
+
         public ActionResult Groupmanage()
         {
             return View();
