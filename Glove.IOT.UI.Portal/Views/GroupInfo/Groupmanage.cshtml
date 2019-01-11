@@ -257,45 +257,72 @@
         //添加绑定设备
         $("ul#group-tree").on("click", "li .layui-icon-set", function () {
             var id = $(this).parent().attr('class');//获取点击组的ID
-            console.log(id);
             window.location.href = '../GroupInfo/GroupAdddevice?Id=' + id;
         })
-        //重命名
+        //重命名 编辑
         $("ul#group-tree").on("click", "li .layui-icon-edit", function () {
             var node = $(this).parent().children("a").children("cite");
+            var id = $(this).parent().attr('class');//获取点击组的ID
             layer.prompt({ title: '重命名', value: node.text(), formType: 0 }, function (text, index) {
                 layer.close(index);
-                //TODO 可以ajax到后台操作，这里只做模拟
                 layer.load(2);
-                setTimeout(function () {
-                    layer.closeAll("loading");
-                    node.text(text);
-                }, 1000)
+                $.post("/GroupInfo/Edit", { Id: id, GName: text }, function (data) {
+                    if (data === "OK") {
+                        layer.closeAll("loading");
+                        node.text(text);
+                    }
+                    else {
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            layer.msg('<span style="font-size:18px;vertical-align:middle;line-height:76px;">组号已存在</span>', {
+                                time: 2000,
+                                area: ['200px', '100px'],
+                                shade: 0.4,
+                                shadeClose: true
+                            });
+                        }); 
+                    }
+                })
             });
             //$(".layui-layer-content").append("<input type='text' class='layui-layer-input'/>");//给弹窗添加行
         })
         //删除分类
         $("ul#group-tree").on("click", "li .layui-icon-delete", function () {
             var that = $(this).closest("li");
+            var id = $(this).parent().attr('class');//获取点击组的ID
             if (that.children("ul").length > 0) {
                 layer.msg("该分类下含有子分类不能删除")
                 return;
             }
-            var id = $(this).parent().attr("id")
             layer.confirm('关联设备也会清空，确定删除？', {
                 btn: ['删除', '取消']
             }, function (index) {
                 //TODO 可以ajax到后台操作，这里只做模拟
                 layer.load(2);
-                setTimeout(function () {
-                    layer.closeAll("loading");
-                    if ((that.parent("ul").children("li").length == 1) && (that.parent("ul").parent("li").children("i.layui-tree-spread").length = 1)) {
-                        //要把分类名前的三角符号和ul标签删除
-                        that.parent("ul").parent("li").children("i.layui-tree-spread").remove();
+                $.post("/GroupInfo/Delete", { gIds: id }, function (data) {
+                    if (data === "del ok") {
+                        layer.closeAll("loading"); 
+                        if ((that.parent("ul").children("li").length == 1) && (that.parent("ul").parent("li").children("i.layui-tree-spread").length = 1)) {
+                            //要把分类名前的三角符号和ul标签删除
+                            that.parent("ul").parent("li").children("i.layui-tree-spread").remove();
+                        }
+                        that.remove();
+                        layer.close(index);
+                    } else {
+                        layui.use('layer', function () {
+                            layer.closeAll("loading");
+                            that.remove();
+                            layer.close(index);
+                            var layer = layui.layer;
+                            layer.msg('<span style="font-size:18px;vertical-align:middle;line-height:76px;">删除失败</span>', {
+                                time: 2000,
+                                area: ['200px', '100px'],
+                                shade: 0.4,
+                                shadeClose: true
+                            });
+                        }); 
                     }
-                    that.remove();
-                    layer.close(index);
-                }, 1000)
+                })
             });
         })
         //添加子分类
@@ -304,18 +331,34 @@
             var that = $(this).closest("li");
             layer.prompt({ title: '输入子分类名称', formType: 0 }, function (text, index) {
                 layer.close(index);
-                //TODO 可以ajax到后台操作，这里只做模拟
-                layer.load(2);
-                setTimeout(function () {
-                    layer.closeAll("loading");
-                    if (that.children("ul").length == 0) {
-                        //表示要新增   i 以及 ul 标签
-                        that.prepend('<i class="layui-icon layui-tree-spread"></i>');
-                        that.append("<ul class='layui-show'><li><a><cite>" + text + "</cite></a><i class='layui-icon layui-icon-set hide tree-select'></i><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></ul>");
-                    } else {
-                        that.children("ul").append("<li><a><cite>" + text + "</cite></a></i ><i class='layui-icon layui-icon-set hide tree-select'></i><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></li>");
+                layer.load(2);//加载进度条
+                $.post("/GroupInfo/Add", {GName: text}, function (data) {
+                    if (data === 'OK') {
+                        layer.closeAll("loading");
+                        if (that.children("ul").length == 0) {
+                            //表示要新增   i 以及 ul 标签
+                            that.prepend('<i class="layui-icon layui-tree-spread"></i>');
+                            that.append("<ul class='layui-show'><li><a><cite>" + text + "</cite></a><i class='layui-icon layui-icon-set hide tree-select'></i><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></ul>");
+                        } else {
+                            that.children("ul").append("<li><a><cite>" + text + "</cite></a></i ><i class='layui-icon layui-icon-set hide tree-select'></i><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></li>");
+                        }
                     }
-                }, 1000)
+                    else {
+                        layer.closeAll("loading");
+                        layui.use('layer', function () {
+                            layer.closeAll("loading");
+                            that.remove();
+                            layer.close(index);
+                            var layer = layui.layer;
+                            layer.msg('<span style="font-size:18px;vertical-align:middle;line-height:76px;">添加失败</span>', {
+                                time: 2000,
+                                area: ['200px', '100px'],
+                                shade: 0.4,
+                                shadeClose: true
+                            });
+                        }); 
+                    }
+                })
             });
         })
         //添加顶级分类

@@ -208,9 +208,6 @@
                     dIds[dIds.length] = table_relationDevice[i].Id;
                 }
             }
-            if (dIds.length === 0) {
-                dIds[0] = 0;  
-            }
             $.ajax({
                 type: 'POST',
                 url: "/GroupInfo/SetDevices", 
