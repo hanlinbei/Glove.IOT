@@ -137,10 +137,10 @@ namespace Glove.IOT.UI.Portal.Controllers
             List<int> alldIdsList = alldIds.ToList();
             //剁掉组里已存在的设备
             R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId==gId&& alldIdsList.Contains(r.DeviceInfoId)));
-            if (dIds[0] == 0)
-            {
-                return Content("OK");
-            }
+            //if (dIds[0] == 0)
+            //{
+            //    return Content("OK");
+            //}
             //添加勾选的设备
             R_GroupInfo_DeviceInfoService.AddSelectDevices(gId, dIdsList);
 
