@@ -132,7 +132,7 @@ inner join	(select
 		select * from GroupInfo
 		select * from DeviceInfo
 		select* from TeamInfo
-
+		
 		Create Table DeviceInfo
 		where StatusFlag='4'
 		delete  from DeviceInfo 
