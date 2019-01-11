@@ -133,6 +133,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult SetDevices(int gId, int[] alldIds, int[] dIds)
         {
+            
             List<int> dIdsList = dIds.ToList();
             List<int> alldIdsList = alldIds.ToList();
             //剁掉组里已存在的设备
@@ -142,6 +143,9 @@ namespace Glove.IOT.UI.Portal.Controllers
             //    return Content("OK");
             //}
             //添加勾选的设备
+            if (dIds[0] == 0){
+                return Content("OK");
+            }
             R_GroupInfo_DeviceInfoService.AddSelectDevices(gId, dIdsList);
 
             return Content("OK");
@@ -167,6 +171,10 @@ namespace Glove.IOT.UI.Portal.Controllers
             return View();
         }
         public ActionResult GroupAdddevice()
+        {
+            return View();
+        }
+        public ActionResult LayerSearchdevice()
         {
             return View();
         }

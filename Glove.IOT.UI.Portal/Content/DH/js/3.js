@@ -2,12 +2,15 @@ var num_p;
 var num_d;
 var globalPage;
 var globalLimit;
-var delId = "";//批量删除时给后台发的字符串存储变量
 var UIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
 var DIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
 var CIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
 var Rid_Rolename = new Array();//保存UId 编辑的时候用
+var tId_Teamname = new Array();
+var gId_Groupname = new Array();
 var RId = 0;
+var tId = 0;
+var gId = 0;
 var userDetail = new FormData();
 //var userDetail;
 layui.config({
@@ -148,8 +151,8 @@ layui.use('table', function () {//打开网页刷新表格
             , { field: 'UName', title: '姓名', minWidth: 80, sort: true, align: 'center' }
             , { field: 'RoleName', title: '角色名', minWidth: 150, align: 'center' }
             , { field: 'StatusFlag', title: '角色状态', minWidth: 80, align: 'center' }
-            , { field: 'RoleName', title: '班号', minWidth: 80, align: 'center' }
-            , { field: 'StatusFlag', title: '组号', minWidth: 80, align: 'center' }
+            , { field: 'TName', title: '班号', minWidth: 80, align: 'center' }
+            , { field: 'GName', title: '组号', minWidth: 80, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , parseData: function (res) { //res 即为原始返回的数据
@@ -287,8 +290,20 @@ function layerShowEdituser(title, url, w, h, data) {
                         break;
                     }
                 }
+                for (var i = 0; i < tId_Teamname.length; i++) {
+                    if (tId_Teamname[i][1] === res.TName) {
+                        tId = tId_Teamname[i][0];
+                        break;
+                    }
+                }
+                for (var i = 0; i < gId_Groupname.length; i++) {
+                    if (gId_Groupname[i][1] === res.GName) {
+                        gId = gId_Groupname[i][0];
+                        break;
+                    }
+                }
                 $.post("/UserInfo/Edit", {
-                    UName: res.UName, UCode: res.UCode, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, UId: data.UId
+                    UName: res.UName, UCode: res.UCode, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, UId: data.UId, tId: tId, gId: gId
                 });
                 globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
                 globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
@@ -330,14 +345,18 @@ function layerShowEdituser(title, url, w, h, data) {
                 $(body).find('input[title="有效"]').attr('checked', true);
                 $(body).find('input[title="无效"]').attr('checked', false);
             }
-            $.get("/UserInfo/GetAllRoles", {}, function (data_return) {
-                var obj = data_return;
-                for (var i = 0; i < obj.length; i++) {
-                    if (obj[i].RoleName === data.RoleName)
-                        $(body).find('select[name="RoleName"]').val(data.RoleName);
+            $.get("/UserInfo/GetAllRoles", {}, function (d) {
+                for (var i = 0; i < d.length; i++) {
+                    if (d[i].RoleName === data.RoleName) {
+                        var e = $('<option value="' + d[i].RoleName + '" selected>' + d[i].RoleName + '</option>');
+                    }
+                    else {
+                        var e = $('<option value="' + d[i].RoleName + '">' + d[i].RoleName + '</option>');  
+                    }
+                    $(body).find('select[name="RoleName"]').append(e);
                 }
-                for (var i = 0; i < obj.length; i++) {//保存查询用
-                    Rid_Rolename[i] = [obj[i].Id, obj[i].RoleName];
+                for (var i = 0; i < d.length; i++) {//保存查询用
+                    Rid_Rolename[i] = [d[i].Id, d[i].RoleName];
                 }
                 layui.use('form', function () {
                     var form = layui.form;
@@ -348,6 +367,101 @@ function layerShowEdituser(title, url, w, h, data) {
                 //重新渲染
                 iframeWindow.layui.form.render();
             })
+            $.get("/UserInfo/GetAllTeams", {}, function (d) {
+                for (var i = 0; i < d.length; i++) {
+                    if (d[i].TName === data.TName) {
+                        var e = $('<option value="' + d[i].TName + '" selected>' + d[i].TName + '</option>');
+                    }
+                    else {                        
+                        var e = $('<option value="' + d[i].TName + '">' + d[i].TName + '</option>');
+                    }
+                    $(body).find('select[name="TName"]').append(e);
+                }
+                for (var i = 0; i < d.length; i++) {//保存查询用
+                    tId_Teamname[i] = [d[i].Id, d[i].TName];
+                }
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render('select');
+                });
+                //获取新窗口对象
+                var iframeWindow = layero.find('iframe')[0].contentWindow;
+                //重新渲染
+                iframeWindow.layui.form.render();
+            })
+            $.get("/UserInfo/GetAllGroups", {}, function (d) {
+                for (var i = 0; i < d.length; i++) {
+                    if (d[i].GName === data.GName) {
+                        var e = $('<option value="' + d[i].GName + '" selected>' + d[i].GName + '</option>');
+                    }
+                    else {
+                        var e = $('<option value="' + d[i].GName + '">' + d[i].GName + '</option>');
+                    }
+                    $(body).find('select[name="GName"]').append(e);
+                }
+                for (var i = 0; i < d.length; i++) {//保存查询用
+                    gId_Groupname[i] = [d[i].Id, d[i].GName];
+                }
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render('select');
+                });
+                //获取新窗口对象
+                var iframeWindow = layero.find('iframe')[0].contentWindow;
+                //重新渲染
+                iframeWindow.layui.form.render(); 
+            })
+            //$.get("/UserInfo/GetAllRoles", {}, function (data_return) {
+            //    var obj = data_return;
+            //    for (var i = 0; i < obj.length; i++) {
+            //        if (obj[i].RoleName === data.RoleName)
+            //            $(body).find('select[name="RoleName"]').val(data.RoleName);
+            //    }
+            //    for (var i = 0; i < obj.length; i++) {//保存查询用
+            //        Rid_Rolename[i] = [obj[i].Id, obj[i].RoleName];
+            //    }
+            //    layui.use('form', function () {
+            //        var form = layui.form;
+            //        form.render('select', 'RoleName');
+            //    });
+            //    $.get("/UserInfo/GetAllTeams", {}, function (data_return1) {
+            //        var obj = data_return1;
+            //        for (var i = 0; i < obj.length; i++) {
+            //            if (obj[i].TName === data.TName) {
+            //                $(body).find('select[name="TName"]').val(data.TName);
+            //            }
+            //        }
+            //        tId_Teamname = new Array();
+            //        for (var i = 0; i < obj.length; i++) {//保存查询用
+            //            tId_Teamname[i] = [obj[i].Id, obj[i].TName];
+            //        }
+            //        layui.use('form', function () {
+            //            var form = layui.form;
+            //            form.render('select', 'TName');
+            //        });
+            //        $.get("/UserInfo/GetAllGroups", {}, function (data_return2) {
+            //            var obj = data_return2;
+            //            for (var i = 0; i < obj.length; i++) {
+            //                if (obj[i].GName === data.GName) {
+            //                    //$(body).find('select[name="GName"]').val(data.GName);
+            //                    $(body).find('select[name="GName"]').attr("value", data.GName);
+            //                }
+            //            }
+            //            gId_Groupname = new Array();
+            //            for (var i = 0; i < obj.length; i++) {//保存查询用
+            //                gId_Groupname[i] = [obj[i].Id, obj[i].GName];
+            //            }
+            //            layui.use('form', function () {
+            //                var form = layui.form;
+            //                form.render('select', 'GName');
+            //            });
+            //            //获取新窗口对象
+            //            var iframeWindow = layero.find('iframe')[0].contentWindow;
+            //            //重新渲染
+            //            iframeWindow.layui.form.render();
+            //        })
+            //    })     
+            //})
         }
     });
 }
@@ -391,15 +505,27 @@ function layerShowAdduser(title, url, w, h, data) {
                 $(body).find(".StatusFlagerror").show();
                 $(window.frames[0].document).scrollTop("70");//垂直滚动条移动
             }
-            else {
-                //ajax发送post请求 给后端发送数据
+            else { 
                 for (var i = 0; i < Rid_Rolename.length; i++) {
                     if (Rid_Rolename[i][1] === res.RoleName) {
                         RId = Rid_Rolename[i][0];
                         break;
                     }
                 }
-                $.post("/UserInfo/Add", {UName: res.UName, UCode: res.UCode, Pwd: res.Pwd, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag},
+                for (var i = 0; i < tId_Teamname.length; i++) {
+                    if (tId_Teamname[i][1] === res.TName) {
+                        tId = tId_Teamname[i][0];
+                        break;
+                    }
+                }
+                for (var i = 0; i < gId_Groupname.length; i++) {
+                    if (gId_Groupname[i][1] === res.GName) {
+                        gId = gId_Groupname[i][0];
+                        break;
+                    }
+                }
+                //ajax发送post请求 给后端发送数据
+                $.post("/UserInfo/Add", {UName: res.UName, UCode: res.UCode, Pwd: res.Pwd, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, tId: tId, gId: gId},
                    function (data) {
                    if (data !== 'fail') {
                         //表格重载 跳转到操作页面
@@ -426,6 +552,16 @@ function layerShowAdduser(title, url, w, h, data) {
             $.get("/UserInfo/GetAllRoles", {}, function (data) {
                 for (var i = 0; i < data.length; i++) {//保存查询用
                     Rid_Rolename[i] = [data[i].Id, data[i].RoleName];
+                }
+            })
+            $.get("/UserInfo/GetAllTeams", {}, function (data) {
+                for (var i = 0; i < data.length; i++) {//保存查询用
+                    tId_Teamname[i] = [data[i].Id, data[i].TName];
+                }
+            })
+            $.get("/UserInfo/GetAllGroups", {}, function (data) {
+                for (var i = 0; i < data.length; i++) {//保存查询用
+                    gId_Groupname[i] = [data[i].Id, data[i].GName];
                 }
             })
             //var xhr = new XMLHttpRequest();
@@ -481,7 +617,9 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
                 Pwd: $('input[name="Pwd"]').val(),
                 RoleName: $('select[name="RoleName"] option:selected').val(),
                 Remark: $('textarea[name="Remark"]').val(),
-                StatusFlag: $('input[name^="StatusFlag"]:checked').val()//前缀为StatusFlag
+                StatusFlag: $('input[name^="StatusFlag"]:checked').val(),//前缀为StatusFlag
+                TName: $('select[name="TName"] option:selected').val(),
+                GName: $('select[name="GName"] option:selected').val(),
             }
             break;
         case 'adddevice':
@@ -493,6 +631,8 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
             var data = {
                 UCode: $('input[name="UCode"]').val(),
                 RoleName: $('select[name="RoleName"] option:selected').val(),
+                TName: $('select[name="TName"] option:selected').val(),
+                GName: $('select[name="GName"] option:selected').val(),
             }
             break;
         case 'searchdevice':
@@ -537,19 +677,26 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
 }
 
 function someDel(assort) {
-    delId = "";//清空
+    var delId = new Array();//批量删除时给后台发的字符串存储变量
     if (assort === 'user') {
         for (var i = 0; i < UIdtable.length; i++) {
             if (UIdtable[i][1] === 1) {
-                delId += UIdtable[i][0];
-                delId += ",";
+                delId[delId.length] = UIdtable[i][0];
             }
         }
-        delId = delId.slice(0, delId.length - 1);
-        console.log(delId);
+        //delId = delId.slice(0, delId.length - 1);
         layer.confirm('确定删除？', function (index) {
             layer.close(index);
-            $.post("/UserInfo/Delete", { ids: delId });//发送字符串
+            $.ajax({
+                type: 'POST',
+                url: "/UserInfo/Delete",
+                data: { ids: delId },
+                traditional: true,
+                success: function (data) {
+                    console.log(data);
+                }
+            })
+            //$.post("/UserInfo/Delete", { ids: delId });//发送字符串
             //表格重载
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
             updatatable('table_ry', '#table_ry', 550, '/UserInfo/GetAllUserInfos', "员工管理", 1, globalLimit);
@@ -558,15 +705,23 @@ function someDel(assort) {
     else if (assort === 'device') {
         for (var i = 0; i < DIdtable.length; i++) {
             if (DIdtable[i][1] === 1) {
-                delId += DIdtable[i][0];
-                delId += ",";
+                delId[delId.length] = DIdtable[i][0];
             }
         }
-        delId = delId.slice(0, delId.length - 1);
+        //delId = delId.slice(0, delId.length - 1);
         console.log(delId);
         layer.confirm('确定删除？', function (index) {
             layer.close(index);
-            $.post("/Device/Delete", { ids: delId });//发送字符串
+            $.ajax({
+                type: 'POST',
+                url: "/Device/Delete",
+                data: { ids: delId },
+                traditional: true,
+                success: function (data) {
+                    console.log(data);
+                }
+            })
+            //$.post("/Device/Delete", { ids: delId });//发送字符串
             //表格重载
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
             updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "员工管理", 1, globalLimit);
@@ -575,15 +730,22 @@ function someDel(assort) {
     else if (assort === 'class') {
         for (var i = 0; i < CIdtable.length; i++) {
             if (CIdtable[i][1] === 1) {
-                delId += CIdtable[i][0];
-                delId += ",";
+                delId[delId.length] = CIdtable[i][0];
             }
         }
-        delId = delId.slice(0, delId.length - 1);
-        console.log(delId);
+        //delId = delId.slice(0, delId.length - 1);
         layer.confirm('确定删除？', function (index) {
             layer.close(index);
-            $.post("/TeamInfo/Delete", { ids: delId });//发送字符串
+            $.ajax({
+                type: 'POST',
+                url: "/TeamInfo/Delete",
+                data: { ids: delId },
+                traditional: true,
+                success: function (data) {
+                    console.log(data);
+                }
+            })
+            //$.post("/TeamInfo/Delete", { ids: delId });//发送字符串
             //表格重载
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
             updatatable('table_class', '#table_class', 550, '/TeamInfo/GetTeamInfo', "班号管理", 1, globalLimit);
@@ -607,22 +769,12 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
                 console.log("表格重载完成");
                 globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
                 globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
-                if (id === 'table_ry') {
-                    Power('user');
-                    UIdtable = [];//清空数组
-                    for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
-                        UIdtable[i] = [res.data[i].UId, 0];
-                    }
-                    num_p = count;
+                Power('user');
+                UIdtable = [];//清空数组
+                for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
+                    UIdtable[i] = [res.data[i].UId, 0];
                 }
-                else if (id === 'table_device') {
-                    Power('device');
-                    DIdtable = [];//清空数组
-                    for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
-                        DIdtable[i] = [res.data[i].Id, 0];
-                    }
-                    num_d = count;
-                }
+                num_p = count;
             }
         });
     }
@@ -699,6 +851,22 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
             }
         });
     }
+    else if (id === 'table_relationDevice') {
+        table.reload(id, {
+            elem: elem
+            //, height: height
+            , url: url//数据接口
+            , title: title
+            , page: {
+                curr: page
+            }//重新制定page和limit
+            , limit: limit
+            , where: { deviceId: res.DeviceId, statusFlag: res.StatusFlag, gId: getdata() }
+            , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+                console.log("表格重载完成");
+            }
+        });
+    }
 }
 function updatatable(id, elem, height, url, title, page, limit) {//表格重载 跳转到操作页面
     var table = layui.table;
@@ -746,24 +914,28 @@ function getRolename() {
             form.render('select');
         });
     })
-    //var xhr = new XMLHttpRequest();
-    //xhr.open('GET', "/UserInfo/GetAllRoles");
-    //xhr.send();
-    ////xhr.send(`UName=${res.UName}&UCode=${res.UName}&Remark=${res.Remark}&Pwd=${res.Pwd}&StatusFlag=${res.StatusFlag}`)//反单引号 模板字符串
-    //xhr.onreadystatechange = function () {
-    //    if (this.readyState !== 4) return;
-    //    var obj = eval("(" + this.responseText + ")");//JSON.parse安全
-    //    //var body = layer.getChildFrame('body', index);
-    //    for (var i = 0; i < obj.length; i++) {
-    //        var e = $('<option value="' + obj[i].RoleName + '">' + obj[i].RoleName + '</option>');
-    //        //$(body).find('select[name="RoleName"]').append(e);
-    //        $('select[name="RoleName"]').append(e);
-    //    }
-    //    layui.use('form', function () {
-    //        var form = layui.form;
-    //        form.render('select');
-    //    });
-    //}
+    $.get("/UserInfo/GetAllTeams", {}, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            var e = $('<option value="' + data[i].TName + '">' + data[i].TName + '</option>');
+            //$(body).find('select[name="RoleName"]').append(e);
+            $('select[name="TName"]').append(e);
+        }
+        layui.use('form', function () {
+            var form = layui.form;
+            form.render('select');
+        });
+    })
+    $.get("/UserInfo/GetAllGroups", {}, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            var e = $('<option value="' + data[i].GName + '">' + data[i].GName + '</option>');
+            //$(body).find('select[name="RoleName"]').append(e);
+            $('select[name="GName"]').append(e);
+        }
+        layui.use('form', function () {
+            var form = layui.form;
+            form.render('select');
+        });
+    })
 }
 
 
@@ -1710,12 +1882,15 @@ layui.use('table', function () {//打开网页刷新表格
     });
 });
 layui.use('table', function () {//打开网页刷新表格
+    var href = window.location.href;
+    var Id = href.split("?Id=");
+    data = Id[1];
     var table = layui.table;
     //第一个实例
     table.render({
         elem: '#table_relationDevice'
         //, height: 500
-        , url: '/GroupInfo/GetAllDeviceInfos' //数据接口
+        , url: '/GroupInfo/GetAllDeviceInfos?gId=' + data //数据接口
         , title: "设备管理"
         , page: true //开启分页
         , limit: 10
@@ -1725,100 +1900,39 @@ layui.use('table', function () {//打开网页刷新表格
             , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
             , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
             , { field: 'StatusFlag', title: '运行状态', minWidth: 80, align: 'center' }
-            , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+            //, { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , toolbar: true
         , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
-            var num = Array(res.data.length);
-            for (var i = 0; i < res.data.length; i++) {
-                console.log(res.data[i].Id);
-                num[i] = res.data[i].Id;
-            }
-
-            //$.get("GetExitDevices", { gId: getdata(), dId: num }, function (data) {
-            //    console.log(data);
-            //})
-            $.ajax({
-                traditional: true,
-                type: "post",
-                url: "GetExitDevices",
-                data: { gId: getdata(), dId: num },
-                success: function (data) {
-                    console.log(data);
-                }
-            });
-
+            //var num = Array(res.data.length);
         }
         , skin: 'line'
 
     });
-    table.on('tool(table_device)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-        var data = obj.data; //获得当前行数据
-        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-        var tr = obj.tr; //获得当前行 tr 的DOM对象
-        if (layEvent === 'detail') { //查看
-            console.log("点击了查看");
-            window.location.href = 'Devicedetail?DeviceId=' + data.DeviceId;
-        } else if (layEvent === 'del') { //删除
-            console.log(data);
-            layer.confirm('确定删除？', function (index) {
-                layer.close(index);
-                //向服务端发送删除指令
-                ids = "" + data.Id;
-                $.post("/Device/Delete", { ids: ids }, function (data) {
-                    if (data === 'ok') {
-                        num_d = num_d - 1;
-                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                        globalPage = Math.ceil(num_d / globalLimit);//获取页码值
-                        if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
-                        //表格重载
-                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", globalPage, globalLimit);
-                    }
-                    else {
-                        alert("你没有权限删除");
-                    }
-                });
-            });
-        } else if (layEvent === 'group') { //分组
-            layerShowAddgroup('设备分组', 'LayerAddgroup', 500, 250, obj.data);
-        }
-    });
-    table.on('checkbox(table_device)', function (obj) {
-        console.log(obj.checked); //当前是否选中状态
-        console.log(obj.data); //选中行的相关数据
-        console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
-        if (obj.type === "all") {
-            if (obj.checked === true) {
-                for (var i = 0; i < DIdtable.length; i++) {
-                    DIdtable[i][1] = 1;
-                }
-            }
-            else {
-                for (var i = 0; i < DIdtable.length; i++) {
-                    DIdtable[i][1] = 0;
-                }
-            }
-        }
-        else if (obj.checked === true) {
-            for (var i = 0; i < DIdtable.length; i++) {
-                if (DIdtable[i][0] === obj.data.Id) {
-                    DIdtable[i][1] = 1;
-                    console.log(DIdtable[i][0]);
-                    break;
-                }
-            }
-        }
-        else if (obj.checked === false) {
-            for (var i = 0; i < DIdtable.length; i++) {
-                if (DIdtable[i][0] === obj.data.Id) {
-                    DIdtable[i][1] = 0;
-                    break;
-                }
-            }
-        }
-
-    });
 });
+function layerShowSearchdevice_g(title, url, w, h, data) {
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade: 0.4,
+        title: title,
+        content: url,
+        btn: ['查找'],
+        yes: function (index) {
+            //当点击‘确定’按钮的时候，获取弹出层返回的值
+            var res = window["layui-layer-iframe" + index].callbackdata(index, "searchdevice");
+            //表格重载 跳转到操作页面
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            updatatable_search('table_relationDevice', '#table_relationDevice', 550, '/GroupInfo/GetAllDeviceInfos', "关联设备", 1, globalLimit, res);
+            //最后关闭弹出层
+            layer.close(index);
+        },
+        skin: 'demo-class'
+    });
+}
 //日期表
 layui.use('laydate', function () {
     var laydate = layui.laydate;
