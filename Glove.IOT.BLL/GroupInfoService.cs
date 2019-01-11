@@ -20,7 +20,7 @@ namespace Glove.IOT.BLL
         /// </summary>
         /// <param name="groupQueryParam"></param>
         /// <returns></returns>
-        public IQueryable<dynamic> GetGroupInfo(GroupQueryParam groupQueryParam)
+        public IQueryable<dynamic> GetGroupInfo()
         {     
             //获取班信息表实体
             var query = DbSession.GroupInfoDal.GetEntities(g => g.IsDeleted == false)
@@ -29,9 +29,6 @@ namespace Glove.IOT.BLL
                     g.GName,
                     g.Id
                 });
-
-            //总条数
-            groupQueryParam.Total = query.Count();
             return query;
 
         }

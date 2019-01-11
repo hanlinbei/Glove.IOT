@@ -25,18 +25,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="page"></param>
         /// <param name="schGName"></param>
         /// <returns></returns>
-        public ActionResult GetAllGroupInfos(string limit, string page)
+        public ActionResult GetAllGroupInfos()
         {
-            int pageSize = int.Parse(limit ?? "10");
-            int pageIndex = int.Parse(page ?? "1");
-            //过滤条件
-            var groupQueryParam = new GroupQueryParam()
-            {
-                PageSize = pageSize,
-                PageIndex = pageIndex,
-                Total = 0,
-            };
-            var pageData = GroupInfoService.GetGroupInfo(groupQueryParam);
+            var pageData = GroupInfoService.GetGroupInfo();
             var data = new {group = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -124,6 +115,10 @@ namespace Glove.IOT.UI.Portal.Controllers
             List<int> alldIdsList = alldIds.ToList();
             //剁掉组里已存在的设备
             R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId==gId&& alldIdsList.Contains(r.DeviceInfoId)));
+            if (dIds[0] == 0)
+            {
+                return Content("OK");
+            }
             //添加勾选的设备
             if (dIds[0] == 0){
                 return Content("OK");

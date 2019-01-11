@@ -21,7 +21,7 @@ namespace Glove.IOT.IBLL
         /// </summary>
         /// <param name="userQueryParam">查询条件</param>
         /// <returns>查询结果</returns>
-        IQueryable<UserInfoRoleInfo> LoagUserPageData(Model.Param.UserQueryParam userQueryParam);
+        IQueryable<dynamic> LoagUserPageData(Model.Param.UserQueryParam userQueryParam);
         /// <summary>
         /// 内连接查询
         /// </summary>

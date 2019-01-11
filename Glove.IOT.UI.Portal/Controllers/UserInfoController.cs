@@ -22,6 +22,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IActionInfoService ActionInfoService { get; set; }
         public IR_UserInfo_RoleInfoService R_UserInfo_RoleInfoService { get; set; }
         public IOperationLogService OperationLogService { get; set; }
+        public ITeamInfoService TeamInfoService { get; set; }
+        public IGroupInfoService GroupInfoService { get; set; }
         /// <summary>
         /// 用户起始视图
         /// </summary>
@@ -127,6 +129,8 @@ namespace Glove.IOT.UI.Portal.Controllers
                     Pwd = userInfoRoleInfo.Pwd.ToMD5(), //MD5加密
                     StatusFlag = userInfoRoleInfo.StatusFlag,
                     Remark = userInfoRoleInfo.Remark,
+                    TeamInfoId=userInfoRoleInfo.TId,
+                    GroupInfoId=userInfoRoleInfo.GId,
                     SubTime = DateTime.Now
                 };
                 
@@ -167,6 +171,8 @@ namespace Glove.IOT.UI.Portal.Controllers
                 UCode=userInfo.UCode,
                 Remark=userInfo.Remark,
                 StatusFlag=userInfo.StatusFlag,
+                TeamInfoId=userInfo.TId,
+                GroupInfoId=userInfo.GId,
                 SubTime=DateTime.Now
             });
             //设置更新用户角色
@@ -209,7 +215,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
 
         /// <summary>
-        /// 设置角色
+        /// 获取所有角色
         /// </summary>
         /// <param name="id">用户id</param>
         /// <returns>当前已存在的角色</returns>
@@ -223,6 +229,37 @@ namespace Glove.IOT.UI.Portal.Controllers
             });
             var data = temp.ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 获取所有班
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetAllTeams()
+        {
+            //把所有的组发送到前台
+            var AllTeams = TeamInfoService.GetEntities(t => t.IsDeleted == false).OrderBy(t => t.Id);
+            var temp = AllTeams.Select(t => new
+            {
+                t.Id,
+                t.TName
+            });
+            return Json(temp.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 获取所有组
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetAllGroups()
+        {
+            //把所有的班发送到前台
+            var AllGroups = GroupInfoService.GetEntities(g => g.IsDeleted == false).OrderBy(g => g.Id);
+            var temp = AllGroups.Select(g => new
+            {
+                g.Id,
+                g.GName
+            });
+            return Json(temp.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
