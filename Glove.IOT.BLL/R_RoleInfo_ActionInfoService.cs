@@ -17,7 +17,7 @@ namespace Glove.IOT.BLL
         /// <param name="idList"></param>
         public void AddSelectActions(int rId, List<int> idList)
         {
-            for (int i = 1; i < idList.Count; i++)
+            for (int i = 0; i < idList.Count; i++)
             {
                 int actionId = Convert.ToInt32(idList[i]);
                 R_RoleInfo_ActionInfo rRoleInfoActionInfo = new R_RoleInfo_ActionInfo
