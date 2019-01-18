@@ -84,19 +84,14 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="ids">用户id</param>
         /// <returns>del ok</returns>
-        public ActionResult Delete(string ids)
+        public ActionResult Delete(int[] ids)
         {
-            if (string.IsNullOrEmpty(ids))
+            List<int> idList = ids.ToList();
+            if (idList == null)
             {
                 return Content("请选中要删除的数据！");
             }
-            //正常处理
-            string[] strIds = ids.Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
+
             TeamInfoService.DeleteListByLogical(idList);
             //原有班删除后 人员表重置为默认班
             UserInfoService.Update(r => idList.Contains(r.TeamInfoId), r => new UserInfo
