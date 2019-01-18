@@ -42,28 +42,17 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="UId">用户Id</param>
         /// <returns>OK</returns>
-        public ActionResult SetActions()
+        public ActionResult SetActions(int rId,string[] Data)
         {
-            string ids = Request.QueryString["Data"];
-            //正常处理
-            string[] strIds = ids.Split(',');
+
             List<int> idList = new List<int>();
-            idList.Add(int.Parse(strIds[0]));
-            for (var i = 1; i < strIds.Count(); i++)
+            for (var i = 0; i < Data.Count(); i++)
             {
-                var actionName = strIds[i];
+                var actionName = Data[i];
                 var actionId = ActionInfoService.GetEntities(a => a.ActionName == actionName).Select(a => a.Id).ToList().FirstOrDefault();
                 idList.Add(actionId);
             }
-
-            //第一：当前角色的id ----rid
-            int rId = idList[0];
-            //第二：当前用户在角色关联表中的ID
-            RoleInfo role = RoleInfoService.GetEntities(r => r.Id == rId).FirstOrDefault();
-            var allRoleInfoActionInfoIds = (from r in role.R_RoleInfo_ActionInfo
-                                    where r.RoleInfoId == rId&&r.IsDeleted==false
-                                    select r.Id).ToList();
-
+            //删除之前存在的关联信息
             R_RoleInfo_ActionInfoService.Delete(r => r.RoleInfoId == rId);
             //添加勾选的权限
             R_RoleInfo_ActionInfoService.AddSelectActions(rId, idList);

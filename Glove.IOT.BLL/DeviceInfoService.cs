@@ -79,6 +79,17 @@ namespace Glove.IOT.BLL
             return query; 
         }
 
+        //public IQueryable<dynamic> GetEvdEvdSumOutput()
+        //{
+        //    var deviceInfo = DbSession.DeviceInfoDal.GetEntities(d => d.IsDeleted == false);
+        //    var deviceParameterInfo = DbSession.DeviceInfoDal.GetEntities(d => true);
+        //    //按天按设备分组查询
+        //    var query=from t1 in deviceInfo
+        //              from t2 in deviceParameterInfo.GroupBy
+
+
+        //}
+
 
 
     }
