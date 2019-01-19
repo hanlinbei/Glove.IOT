@@ -131,19 +131,15 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="alldIds"></param>
         /// <param name="dIds"></param>
         /// <returns></returns>
-        public ActionResult SetDevices(int gId, int[] alldIds, int[] dIds)
+        public ActionResult SetDevices( int gId,int[]alldIds, int[] dIds)
         {
-            
             List<int> dIdsList = dIds.ToList();
             List<int> alldIdsList = alldIds.ToList();
             //剁掉组里已存在的设备
-            R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId==gId&& alldIdsList.Contains(r.DeviceInfoId)));
-            //if (dIds[0] == 0)
-            //{
-            //    return Content("OK");
-            //}
+            R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId == gId && alldIdsList.Contains(r.DeviceInfoId)));
             //添加勾选的设备
-            if (dIds[0] == 0){
+            if (dIds[0] == 0)
+            {
                 return Content("OK");
             }
             R_GroupInfo_DeviceInfoService.AddSelectDevices(gId, dIdsList);
@@ -157,13 +153,13 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="gId"></param>
         /// <param name="alldIds"></param>
         /// <returns></returns>
-         public ActionResult SetDevices(int gId, int[] alldIds)
-         {
-            List<int> alldIdsList = alldIds.ToList();
-            //剁掉组里已存在的设备
-            R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId==gId&& alldIdsList.Contains(r.DeviceInfoId)));
-            return Content("OK");
-         }
+        //public ActionResult SetDevices(int gId)
+        //{
+        //    //List<int> alldIdsList = alldIds.ToList();
+        //    ////剁掉组里已存在的设备
+        //    //R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId == gId && alldIdsList.Contains(r.DeviceInfoId)));
+        //    return Content("OK");
+        //}
 
 
         public ActionResult Groupmanage()
