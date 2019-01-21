@@ -208,5 +208,27 @@ namespace Glove.IOT.BLL
 
 
         }
+        /// <summary>
+        /// 获取现在上班的员工数
+        /// </summary>
+        /// <returns></returns>
+        public int GetNowOnWorkUserCount()
+        {
+            var nowTime = DateTime.Now.Hour;
+            //在当前时间点内的班的ID
+            List<int> teamInfoIds = new List<int>();
+            var teamInfoId1 = DbSession.TeamInfoDal.GetEntities(t => (t.StartTime.Value.Hours <= nowTime 
+                                && t.StopTime.Value.Hours > nowTime
+                                &&t.StopTime.Value.Hours>=t.StartTime.Value.Hours&&t.IsDeleted==false))
+                                .Select(t=>t.Id).ToList();
+            var teamInfoId2 = DbSession.TeamInfoDal.GetEntities(t => t.StopTime.Value.Hours <= t.StartTime.Value.Hours 
+                                && (nowTime >= t.StartTime.Value.Hours || nowTime < t.StopTime.Value.Hours)&&t.IsDeleted==false)
+                                .Select(t => t.Id).ToList();
+            teamInfoIds.AddRange(teamInfoId1);
+            teamInfoIds.AddRange(teamInfoId2);
+
+            var query = DbSession.UserInfoDal.GetEntities(u => u.IsDeleted == false && u.StatusFlag == true && teamInfoIds.Contains(u.TeamInfoId));
+            return query.Count();
+        }
     }
 }

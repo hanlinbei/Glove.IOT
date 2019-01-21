@@ -10,6 +10,11 @@ namespace Glove.IOT.IBLL
 {
     public partial interface ITeamInfoService : IBaseService<TeamInfo>
     {
+        /// <summary>
+        /// 获取班信息
+        /// </summary>
+        /// <param name="teamQueryParam"></param>
+        /// <returns></returns>
         IQueryable<dynamic> GetTeamInfo(TeamQueryParam teamQueryParam);
     }
 }

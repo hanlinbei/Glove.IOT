@@ -37,7 +37,7 @@ where DeviceInfoId=1
 order by SubTime Desc
 
 select DeviceInfoId,
-最新开机时间=MAX(SubTime)
+最新提交时间=MAX(SubTime)
 from DeviceParameterInfo
 where StartTime=SubTime 
 group by DeviceInfoId
@@ -112,7 +112,7 @@ inner join	(select
 		group by Convert(char(10),SubTime,120)
 
 		select * from DeviceParameterInfo
-
+		--//今日每个设备产量
 		select 
 		t3.DeviceId,
 		t2.日期,
@@ -159,4 +159,28 @@ inner join	(select
 		use Test
 		select * from DeviceParameterInfo as t1
 		where t1.DeviceInfoId=1 and t1.StartTime=t1.SubTime
-	     
+
+select 
+count(*)
+from DeviceParameterInfo as t1,    
+(select DeviceInfoId,
+最新提交时间=MAX(SubTime)
+from DeviceParameterInfo
+group by DeviceInfoId ) as t2
+where t1.SubTime=t2.最新提交时间 and StatusFlag='运行中'
+
+select * from UserInfo
+
+select 
+TeamInfoId,
+count(TeamInfoId)
+from UserInfo
+where IsDeleted=0 and StatusFlag=1
+group by TeamInfoId
+
+
+
+select * from TeamInfo
+
+select * from TeamInfo
+where StartTime<8 and StopTime>8

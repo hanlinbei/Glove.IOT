@@ -15,5 +15,10 @@ namespace Glove.IOT.IBLL
         /// </summary>
         /// <returns></returns>
         IQueryable<dynamic> GetWarningInfo(WarningQueryParam warningqueryParam);
+       /// <summary>
+       /// 获取报警总数
+       /// </summary>
+       /// <returns></returns>
+        int GetWarningNum();
     }
 }
