@@ -1617,8 +1617,11 @@ layui.use('table', function () {//打开网页刷新表格
         , toolbar: true
         , parseData: function (res) { //修改原始数据
             for (var i = 0; i < res.data.length; i++) {      
-                res.data[i].wTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
-                    + ' ~ ' + (eval(res.data[i].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
+                //res.data[i].wTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
+                //    + ' ~ ' + (eval(res.data[i].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
+                res.data[i].wTime = (res.data[i].StartTime.Hours + ':' + res.data[i].StartTime.Minutes + ':' + res.data[i].StartTime.Seconds
+                    + ' ~ ' + res.data[i].StopTime.Hours + ':' + res.data[i].StopTime.Minutes + ':' + res.data[i].StopTime.Seconds);
+               
             }
             return {
                 "code": res.code, //解析接口状态
