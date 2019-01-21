@@ -67,7 +67,7 @@ function send() {
                     date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
                     document.cookie = 'LoginCode=' + $("input[name='LoginCode']").val() + ';' + "expires=" + date.toGMTString();
                 }
-                window.location.href = '../Device/Devicemanage';
+                window.location.href = '../Home/Home';
             }
             else if (data === '验证码错误!') {
                 //提示错误
@@ -106,6 +106,24 @@ function send() {
     //        changeCheckCode();
     //    }
     //}
+}
+//注销
+function logout() {
+    $.post('/UserLogin/Logout', {}, function (data) {
+        if (data === 'ok') {
+            //清除cookie
+            var date = new Date();
+            date.setTime(date.getTime() - 1);
+            var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+            if (keys) {
+                for (var i = keys.length; i--;)
+                    document.cookie = keys[i] + "=; expire=" + date.toGMTString() + "; path=/UserLogin";
+            }
+            //document.cookie = 'LoginCode=;';//删除
+            //document.cookie = 'LoginPwd=;';
+            window.location.href = '../UserLogin/Index';
+        }
+    })
 }
 //显示左上角的用户信息
 function userMessage() {
@@ -2035,4 +2053,8 @@ $(document).ready(function () {
     $("button[name='删除班号']").click(function () {
         someDel('class');
     });
+    //用户注销
+    $('#logout').click(function () {
+        logout();
+    })
 });

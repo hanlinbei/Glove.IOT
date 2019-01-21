@@ -30,12 +30,12 @@
         <nav class="navbar navbar-glove navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header text-left">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_list" aria-expanded="false">
-                        <span class="sr-only">切换菜单</span>
-                        <span class="icon-bar"></span><!--汉堡菜单方框里的横线-->
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                    @*<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_list" aria-expanded="false">
+                            <span class="sr-only">切换菜单</span>
+                            <span class="icon-bar"></span><!--汉堡菜单方框里的横线-->
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>*@
                     <a class="navbar-brand topbar-left" href="#">
                         <span class="topbar-left__alignmen">
                             <img src="~/Content/DH/img/LOGO.png" height="60" width="60" alt="品牌LOGO">
@@ -46,7 +46,7 @@
                 <div class="collapse navbar-collapse topbar-middle">
                     <ul class="nav navbar-nav topbar-middle text-left">
                         <li><i class="iconfont icon-telephone">&#xe62a;</i></li>
-                        <li class="hidden-sm"><span class="topbar-middle__alignment">客服电话：400-12345678(9:00~21:00)</span></li>
+                        <li class="hidden-sm hidden-xs"><span class="topbar-middle__alignment">客服电话：400-12345678(9:00~21:00)</span></li>
                         <li><i class="iconfont icon-vline">&#xe63a;</i></li>
                         <li>
                             <span class="topbar-middle__link">
@@ -56,11 +56,13 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" class="iconfont icon-vline">&#xe6f1;</a></li>
+                        <li><a href="../Home/Home" class="layui-icon layui-icon-home"></a></li>
+                        <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li><a href="../WarningInfo/Warningmanage" class="iconfont icon-vline">&#xe6f1;</a></li>
                         <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle iconfont icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&#xe638;<span class="caret"></span></a>
-                            <ul class="dropdown-menu" style="min-width: 50px; text-align:center;">
+                            <ul class="dropdown-menu" style="min-width: 80px; text-align:center;">
                                 <li><a href="../UserInfo/Userdetail">基本资料</a></li>
                                 <li><a href="../UserInfo/Userpassword">修改密码</a></li>
                                 <li><a id="logout">注销</a></li>
@@ -69,14 +71,14 @@
                     </ul>
                 </div>
                 <!-- 最小宽度时出现汉堡菜单-->
-                <div class="collapse navbar-collapse" id="nav_list">
-                    <ul class="nav navbar-nav">
-                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">设备管理</a></li>
-                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">班组管理</a></li>
-                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">报警处理</a></li>
-                        <li class="hidden-lg hidden-md hidden-sm"><a href="#">系统管理</a></li>
-                    </ul>
-                </div>
+                @*<div class="collapse navbar-collapse" id="nav_list">
+                        <ul class="nav navbar-nav">
+                            <li class="hidden-lg hidden-md hidden-sm"><a href="#">设备管理</a></li>
+                            <li class="hidden-lg hidden-md hidden-sm"><a href="#">班组管理</a></li>
+                            <li class="hidden-lg hidden-md hidden-sm"><a href="#">报警处理</a></li>
+                            <li class="hidden-lg hidden-md hidden-sm"><a href="#">系统管理</a></li>
+                        </ul>
+                    </div>*@
             </div>
         </nav>
     </header>
@@ -104,10 +106,9 @@
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="#">班组设置</a></dd>
+                    @*<dd><a href="#">班组设置</a></dd>*@
                     <dd><a href="../TeamInfo/Classmanage">班号管理</a></dd>
                     <dd><a href="../GroupInfo/Groupmanage">组号管理</a></dd>
-                    <dd><a href="../GroupInfo/Groupdetail">组号详情</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -130,8 +131,52 @@
                     <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
                     <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
                     <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
-                    <dd><a href="#">数据字典</a></dd>
-                    <dd><a href="#">用户管理</a></dd>
+                    @*<dd><a href="#">数据字典</a></dd>
+                        <dd><a href="#">用户管理</a></dd>*@
+                </dl>
+            </li>
+        </ul>
+    </section>
+    <section id="aside" class="visible-xs-block">
+        <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
+            <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-machine">&#xe6a3;</i>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-class">&#xe64a;</i>
+                </a>
+                <dl class="layui-nav-child">
+                    @*<dd><a href="#">班组设置</a></dd>*@
+                    <dd><a href="../TeamInfo/Classmanage">班号管理</a></dd>
+                    <dd><a href="../GroupInfo/Groupmanage">组号管理</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-alarm">&#xe6a8;</i>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../WarningInfo/Warningmanage">当前报警</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-gear">&#xe65b;</i>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
+                    <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
+                    <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
+                    <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
+                    @*<dd><a href="#">数据字典</a></dd>
+                        <dd><a href="#">用户管理</a></dd>*@
                 </dl>
             </li>
         </ul>
@@ -175,10 +220,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
     @*<script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs a_disabled layui-btn-disabled a_disabled layui-btn-disabled" lay-event="detail" name="查看">查看</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs a_disabled layui-btn-disabled" lay-event="del" name="删除">删除</a>
-        <a class="layui-btn layui-btn-xs" lay-event="group">分组</a>
-    </script>*@
+            <a class="layui-btn layui-btn-xs a_disabled layui-btn-disabled a_disabled layui-btn-disabled" lay-event="detail" name="查看">查看</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs a_disabled layui-btn-disabled" lay-event="del" name="删除">删除</a>
+            <a class="layui-btn layui-btn-xs" lay-event="group">分组</a>
+        </script>*@
     <script src="~/Content/DH/js/3.js"></script>
     <script>
         //$('button').addClass('layui-btn-disabled');
@@ -210,7 +255,7 @@
             }
             $.ajax({
                 type: 'POST',
-                url: "/GroupInfo/SetDevices", 
+                url: "/GroupInfo/SetDevices",
                 data: { gId: getdata(), alldIds: alldIds, dIds: dIds },
                 traditional: true,
                 success: function (data) {
