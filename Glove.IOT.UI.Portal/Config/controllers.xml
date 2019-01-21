@@ -40,6 +40,7 @@
   </object>
    <object type="Glove.IOT.UI.Portal.Controllers.WarningInfoController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="WarningInfoService" ref="WarningInfoService" />
+     <property name="OperationLogService" ref="OperationLogService" />
   </object>
   <object type="Glove.IOT.UI.Portal.Controllers.TeamInfoController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="TeamInfoService" ref="TeamInfoService" />
@@ -50,5 +51,11 @@
     <property name="UserInfoService" ref="UserInfoService" />
     <property name="R_GroupInfo_DeviceInfoService" ref="R_GroupInfo_DeviceInfoService" />
   </object>
-
+  
+  <object type="Glove.IOT.UI.Portal.Controllers.HomeController, Glove.IOT.UI.Portal" singleton="false" >
+    <property name="DeviceInfoService" ref="DeviceInfoService" />
+    <property name="UserInfoService" ref="UserInfoService" />
+  <property name="WarningInfoService" ref="WarningInfoService" />
+  </object>
+  
 </objects>

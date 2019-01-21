@@ -35,7 +35,7 @@ namespace Glove.IOT.WebAPI.Controllers
         [HttpGet]
         public IHttpActionResult GetEveryDaySumOutput()
         {
-            var pageData = DeviceInfoService.ApiGetSumOutput().ToList();
+            var pageData = DeviceInfoService.GetSumOutput().Select(d=>new { d.Date,d.SumOutput}).ToList();
             return Json(pageData);
         }
     }

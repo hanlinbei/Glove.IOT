@@ -169,8 +169,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TName" Type="nvarchar" Nullable="true" MaxLength="256" />
-    <Property Name="StartTime" Type="datetime" Nullable="true" />
-    <Property Name="StopTime" Type="datetime" Nullable="true" />
+    <Property Name="StartTime" Type="time" Nullable="true" />
+    <Property Name="StopTime" Type="time" Nullable="true" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
@@ -541,8 +541,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TName" Type="String" Nullable="true" MaxLength="256" />
-          <Property Name="StartTime" Type="DateTime" Nullable="true" />
-          <Property Name="StopTime" Type="DateTime" Nullable="true" />
+          <Property Name="StartTime" Type="Time" Nullable="true" />
+          <Property Name="StopTime" Type="Time" Nullable="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" DefaultValue="False" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="UserInfo" Relationship="DataModel.TeamInfoUserInfo" FromRole="TeamInfo" ToRole="UserInfo" />

@@ -58,5 +58,18 @@ namespace Glove.IOT.BLL
             return query.GetPageEntitiesAsc(warningQueryParam.PageSize, warningQueryParam.PageIndex, q => q.WarningStartTime, false);
 
         }
+
+        /// <summary>
+        /// 获取当前报警总数
+        /// </summary>
+        /// <returns></returns>
+        public int GetWarningNum()
+        {
+            var warningInfo = DbSession.WarningInfoDal.GetEntities(w => w.IsDeleted == false);
+            var query = from t1 in warningInfo.GroupBy(w => w.DeviceId).Select(s => new { s.Key })
+                        select t1.Key;
+            return query.Count();           
+        }
+
     }
 }

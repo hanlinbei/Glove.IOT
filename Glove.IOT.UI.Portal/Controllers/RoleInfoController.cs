@@ -19,7 +19,6 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IActionInfoService ActionInfoService { get; set; }
 
 
-
         /// <summary>
         /// 所有已选的权限发送给前台
         /// </summary>
