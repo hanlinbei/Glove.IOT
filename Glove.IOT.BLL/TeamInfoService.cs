@@ -16,7 +16,7 @@ namespace Glove.IOT.BLL
         /// </summary>
         /// <param name="teamQueryParam"></param>
         /// <returns></returns>
-        public IQueryable<dynamic> GetTeamInfo(TeamQueryParam teamQueryParam)
+        public IEnumerable<dynamic> GetTeamInfo(TeamQueryParam teamQueryParam)
         {
             //获取班信息表实体
             var teamInfo = DbSession.TeamInfoDal.GetEntities(t => t.IsDeleted == false&&t.Id>1);
@@ -42,8 +42,14 @@ namespace Glove.IOT.BLL
             }
             //总条数
             teamQueryParam.Total = query.Count();
-            return query;
 
+            return query.AsEnumerable().Select(q=>new {
+                q.Id,
+                q.TName,
+                StartTime=q.StopTime.ToString(),
+                StopTime=q.StopTime.ToString()
+            });
+             
         }
     }
 }

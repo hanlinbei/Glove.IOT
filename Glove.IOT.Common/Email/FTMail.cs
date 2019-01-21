@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Mail;
+
+namespace Glove.IOT.Common.Email
+{
+    ///// <summary>
+    ///// 所有邮件Sender的基类
+    ///// </summary>
+    //public abstract class FTMailBase
+    //{
+    //    /// <summary>
+    //    /// 发件人
+    //    /// </summary>
+    //    public string From { get; set; }
+    //    /// <summary>
+    //    /// 收件人列表
+    //    /// </summary>
+    //    public List<string> To { get; set; }
+    //    /// <summary>
+    //    /// 主题
+    //    /// </summary>
+    //    public string Subject { get; set; }
+    //    /// <summary>
+    //    /// 正文
+    //    /// </summary>
+    //    public string Body { get; set; }
+    //    /// <summary>
+    //    /// 抄送人列表
+    //    /// </summary>
+    //    public List<string> CC { get; set; }
+    //    /// <summary>
+    //    /// 显示名称
+    //    /// </summary>
+    //    public string DisplayName { get; set; }
+    //    /// <summary>
+    //    /// 发送邮件
+    //    /// </summary>
+    //    /// <param name="smtpServer">邮件服务器地址</param>
+    //    /// <param name="port">端口</param>
+    //    /// <param name="userName">帐号</param>
+    //    /// <param name="password">密码</param>
+    //    /// <param name="enableSSL">是否启用SSL</param>
+    //    /// <returns></returns>
+    //    public abstract bool Send(string smtpServer, int port, string userName, string password, bool enableSSL);
+
+    //    public static FTMailBase Instance
+    //    {
+    //        get { return new SMTPMailer(); }
+
+    //    }
+
+    //}
+}

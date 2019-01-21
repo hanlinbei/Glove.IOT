@@ -65,6 +65,8 @@
     <Compile Include="Cache\MemcacheWriter.cs" />
     <Compile Include="DeviceParameter.cs" />
     <Compile Include="Device.cs" />
+    <Compile Include="Email\FTMail.cs" />
+    <Compile Include="Email\SMTPMailer.cs" />
     <Compile Include="Extention\QueryableExtention.cs" />
     <Compile Include="Extention\StringExtention.cs" />
     <Compile Include="ILogWriter.cs" />
