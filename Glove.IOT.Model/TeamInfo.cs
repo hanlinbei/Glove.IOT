@@ -23,8 +23,8 @@ namespace Glove.IOT.Model
     
         public int Id { get; set; }
         public string TName { get; set; }
-        public Nullable<System.DateTime> StartTime { get; set; }
-        public Nullable<System.DateTime> StopTime { get; set; }
+        public Nullable<System.TimeSpan> StartTime { get; set; }
+        public Nullable<System.TimeSpan> StopTime { get; set; }
         public bool IsDeleted { get; set; }
         public System.DateTime SubTime { get; set; }
     

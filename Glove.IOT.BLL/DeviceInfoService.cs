@@ -2,6 +2,7 @@
 using Glove.IOT.Common.Extention;
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
+using Glove.IOT.Model.Enum;
 using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace Glove.IOT.BLL
         /// 汇总每天的车间总产量
         /// </summary>
         /// <returns></returns>
-        public IQueryable<dynamic> ApiGetSumOutput()
+        public IQueryable<Device> GetSumOutput()
         {
             var deviceParameterInfo = DbSession.DeviceParameterInfoDal.GetEntities(t => true);
             //按天分组查询
@@ -70,27 +71,64 @@ namespace Glove.IOT.BLL
                             s.Key,
                             sumOutput = s.Sum(p => p.NowOutput)
                         })
-                        select new
+                        select new  Device
                         {
-                            Day=t1.Key,
-                            SumOutput=t1.sumOutput
+                            Date=t1.Key.Value,
+                            SumOutput=t1.sumOutput.Value
                         };
 
             return query; 
         }
 
-        //public IQueryable<dynamic> GetEvdEvdSumOutput()
-        //{
-        //    var deviceInfo = DbSession.DeviceInfoDal.GetEntities(d => d.IsDeleted == false);
-        //    var deviceParameterInfo = DbSession.DeviceInfoDal.GetEntities(d => true);
-        //    //按天按设备分组查询
-        //    var query=from t1 in deviceInfo
-        //              from t2 in deviceParameterInfo.GroupBy
+ 
+        /// <summary>
+        /// 查询每台设备每天的产量
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<dynamic> GetEvdEvdSumOutput()
+        {
+            var deviceInfo = DbSession.DeviceInfoDal.GetEntities(d => d.IsDeleted == false);
+            var deviceParameterInfo = DbSession.DeviceParameterInfoDal.GetEntities(d => true);
+            //按天按设备分组查询
+            var query = from t1 in deviceParameterInfo.GroupBy(q => new { Date=EntityFunctions.TruncateTime(q.SubTime), q.DeviceInfoId })
+                        .Select(s => new
+                        {
+                            Day = s.Key.Date,
+                            EvdEvdSumOutput = s.Sum(p => p.NowOutput),
+                            DeviceId = s.Key.DeviceInfoId
+                        })
+                        join t2 in deviceInfo on t1.DeviceId equals t2.Id
+                        select new
+                        {
+                            t2.DeviceId,
+                            t1.Day,
+                            t1.EvdEvdSumOutput
+                        };
+            return query;
+        }
 
 
-        //}
+        /// <summary>
+        /// 统计当前正在运行的设备总数
+        /// </summary>
+        /// <returns></returns>
+        public int GetRunningDeviceCount()
+        {
+            var statusFlag = StatusFlagEnum.运行中.ToString();
+            var deviceParameterInfo = DbSession.DeviceParameterInfoDal.GetEntities(d=>true);
+            var query = from t1 in deviceParameterInfo
+                        from t2 in deviceParameterInfo.GroupBy(d => d.DeviceInfoId)
+                        .Select(s => new
+                        {
+                            s.Key,
+                            newestTime = s.Max(p => p.SubTime)
+                        })
+                        where t1.SubTime == t2.newestTime && t1.StatusFlag == statusFlag
+                        select t1.DeviceInfoId;
 
-
+            return query.Count();
+                        
+        }
 
     }
 }

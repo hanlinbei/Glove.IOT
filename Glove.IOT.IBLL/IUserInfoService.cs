@@ -47,6 +47,11 @@ namespace Glove.IOT.IBLL
         /// <param name="user">登录用户信息</param>
         /// <returns></returns>
         string EditUserDetail(UserInfo userInfo, UserInfo user);
+        /// <summary>
+        /// 获取现在上班的员工数
+        /// </summary>
+        /// <returns></returns>
+        int GetNowOnWorkUserCount();
 
     }
 }

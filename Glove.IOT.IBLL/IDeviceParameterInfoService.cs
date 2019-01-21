@@ -22,6 +22,11 @@ namespace Glove.IOT.IBLL
         /// <param name="deviceId">设备Id</param>
         /// <returns>5条设备历史数据</returns>
         IQueryable<DeviceParameter> GetHistoryParameter(string deviceId);
+        /// <summary>
+        /// 获取设备的实时数据
+        /// </summary>
+        /// <param name="deviceId">设备ID</param>
+        /// <returns>设备的具体参数</returns>
         IQueryable<dynamic> ApiGetDeviceParameter();
     }
 }

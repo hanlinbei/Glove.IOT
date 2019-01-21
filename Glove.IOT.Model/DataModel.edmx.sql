@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/08/2019 19:05:15
+-- Date Created: 01/21/2019 12:43:06
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -37,6 +37,12 @@ IF OBJECT_ID(N'[dbo].[FK_TeamInfoUserInfo]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_GroupInfoUserInfo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserInfo] DROP CONSTRAINT [FK_GroupInfoUserInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GroupInfoR_GroupInfo_DeviceInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[R_GroupInfo_DeviceInfo] DROP CONSTRAINT [FK_GroupInfoR_GroupInfo_DeviceInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_R_GroupInfo_DeviceInfoDeviceInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[R_GroupInfo_DeviceInfo] DROP CONSTRAINT [FK_R_GroupInfo_DeviceInfoDeviceInfo];
 GO
 
 -- --------------------------------------------------
@@ -196,8 +202,8 @@ GO
 CREATE TABLE [dbo].[TeamInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [TName] nvarchar(256)  NULL,
-    [StartTime] datetime  NULL,
-    [StopTime] datetime  NULL,
+    [StartTime] time  NULL,
+    [StopTime] time  NULL,
     [IsDeleted] bit  NOT NULL,
     [SubTime] datetime  NOT NULL
 );

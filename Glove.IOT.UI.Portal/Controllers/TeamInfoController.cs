@@ -70,10 +70,10 @@ namespace Glove.IOT.UI.Portal.Controllers
             TeamInfo teamInfo = new TeamInfo
             {
                 TName = tName,
-                StartTime = Convert.ToDateTime(startTime),
-                StopTime = Convert.ToDateTime(stopTime),
+                StartTime = Convert.ToDateTime(startTime).TimeOfDay,
+                StopTime = Convert.ToDateTime(stopTime).TimeOfDay,
                 SubTime=DateTime.Now
-            };
+            };       
             TeamInfoService.Add(teamInfo);
             return Content("Ok");
         }

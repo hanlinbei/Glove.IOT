@@ -37,8 +37,8 @@ namespace Glove.IOT.BLL
             //按班工作时间筛选
             if (!string.IsNullOrEmpty(teamQueryParam.SchTime))
             {
-                var schTime = Convert.ToDateTime(teamQueryParam.SchTime);
-                query = query.Where(t=>t.StartTime<=schTime&&t.StopTime>=schTime).AsQueryable();
+                var schTime = Convert.ToDateTime(teamQueryParam.SchTime).TimeOfDay;
+                query = query.Where(t=>t.StartTime.Value<=schTime&&t.StopTime.Value>=schTime).AsQueryable();
             }
             //总条数
             teamQueryParam.Total = query.Count();
