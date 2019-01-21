@@ -336,11 +336,6 @@
     <Content Include="Content\theme\bootstrap.css" />
     <Content Include="Content\theme\bootstrap.min.css" />
     <Content Include="Content\GoodTbStyle.css" />
-    <Content Include="Content\Images\10.jpg" />
-    <Content Include="Content\Images\7_7.jpg" />
-    <Content Include="Content\Images\AVATAR.jpg" />
-    <Content Include="Content\Images\bg3.png" />
-    <Content Include="Content\Images\big.png" />
     <Content Include="Content\Images\Home\3DSMAX.png" />
     <Content Include="Content\Images\Home\Alien Folder.png" />
     <Content Include="Content\Images\Home\applebg.jpg" />
@@ -351,7 +346,6 @@
     <Content Include="Content\Images\login\panel-c.gif" />
     <Content Include="Content\Images\login\panel-f.gif" />
     <Content Include="Content\Images\login\panel-h.gif" />
-    <Content Include="Content\Images\logo.gif" />
     <Content Include="Content\JQuery zTree v3.5.12\api\apiCss\api.js" />
     <Content Include="Content\JQuery zTree v3.5.12\api\apiCss\common.css" />
     <Content Include="Content\JQuery zTree v3.5.12\api\apiCss\common_ie6.css" />
