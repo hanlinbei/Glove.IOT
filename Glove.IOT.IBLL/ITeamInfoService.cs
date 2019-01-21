@@ -15,6 +15,6 @@ namespace Glove.IOT.IBLL
         /// </summary>
         /// <param name="teamQueryParam"></param>
         /// <returns></returns>
-        IQueryable<dynamic> GetTeamInfo(TeamQueryParam teamQueryParam);
+        IEnumerable<dynamic> GetTeamInfo(TeamQueryParam teamQueryParam);
     }
 }

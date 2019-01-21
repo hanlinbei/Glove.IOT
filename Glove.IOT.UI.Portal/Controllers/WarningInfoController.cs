@@ -54,7 +54,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             var pageData = WarningInfoService.GetWarningInfo(warningQueryParam);
             var data = new { code = 0, msg = "", count = warningQueryParam.Total, data = pageData.ToList() };
             //写操作日志
-            OperationLogService.Add("报警查看", "报警管理", LoginInfo, "", "");
+            OperationLogService.Add("报警查看", "报警管理", LoginInfo, "报警", "");
             return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
