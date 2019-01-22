@@ -1619,8 +1619,7 @@ layui.use('table', function () {//打开网页刷新表格
             for (var i = 0; i < res.data.length; i++) {      
                 //res.data[i].wTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
                 //    + ' ~ ' + (eval(res.data[i].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
-                res.data[i].wTime = (res.data[i].StartTime.Hours + ':' + res.data[i].StartTime.Minutes + ':' + res.data[i].StartTime.Seconds
-                    + ' ~ ' + res.data[i].StopTime.Hours + ':' + res.data[i].StopTime.Minutes + ':' + res.data[i].StopTime.Seconds);
+                res.data[i].wTime = (res.data[i].StartTime + ' ~ ' + res.data[i].StopTime);
                
             }
             return {
@@ -1761,10 +1760,8 @@ function layerShowEditclass(title, url, w, h, data) {
             var body = layer.getChildFrame('body', index);
             console.log(data);
             $(body).find('input[name="TName"]').attr("value", data.TName);//自动添加班号
-            $(body).find('input[name="StartTime"]').attr("value",
-                (eval(data.StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss"));//自动添加时间
-            $(body).find('input[name="StopTime"]').attr("value",
-                (eval(data.StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss"));//自动添加时间
+            $(body).find('input[name="StartTime"]').attr("value",data.StartTime);//自动添加时间
+            $(body).find('input[name="StopTime"]').attr("value",data.StopTime);//自动添加时间
             
             layui.use('form', function () {
                 var form = layui.form;

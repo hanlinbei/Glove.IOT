@@ -192,25 +192,25 @@
             <div class="left-top">
                 <div class="content">
                     <p>运行设备</p>
-                    <p style="color:#009688;">111</p>
+                    <p class="Device" style="color:#009688;"></p>
                 </div>
             </div>
             <div class="right-top">
                 <div class="content">
                     <p>生产总数</p>
-                    <p style="color:#009688;">22</p>
+                    <p class="TodayOutput" style="color:#009688;"></p>
                 </div>
             </div>
             <div class="left-buttom">
                 <div class="content">
                     <p>员工数目</p>
-                    <p style="color:#009688;">333</p>
+                    <p class="User" style="color:#009688;"></p>
                 </div>
             </div>
             <div class="right-buttom">
                 <div class="content">
                     <p>报警数目</p>
-                    <p style="color:#FF5722;">4</p>
+                    <p class="WarningNum" style="color:#FF5722;"></p>
                 </div>
             </div>
             <div class="middle">
@@ -240,12 +240,18 @@
         $(window).resize(function () { resizeEle(); });//换屏自适应
         //内容自适应窗口大小
         function resizeEle() {
-            var windowWidth = window.screen.width - 200;
+            //var windowWidth = window.screen.width - 200;
             var windowHeight = window.screen.height - 260;
-            $('.home').css("width", (windowWidth + "px"));
+            //$('.home').css("width", (windowWidth + "px"));
             $('.home').css("height", (windowHeight + "px"));
         }
-
+        $.get('/Home/GetSummation', {}, function (data) {
+            console.log(data);
+            $('.Device').html(data.Device);
+            $('.TodayOutput').html(data.TodayOutput);
+            $('.User').html(data.User);
+            $('.WarningNum').html(data.WarningNum);
+        } )
 
     </script>
 

@@ -100,15 +100,15 @@
     </style>
     <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
-<body>
+<body style="min-width: 768px;">
     <div class="layui-container">
         <div class="layui-row">
-            <div class="layui-col-md4 layui-col-md-offset2" id="left">
+            <div class="layui-col-lg4 layui-col-lg-offset2 layui-col-md5 layui-col-sm6 layui-col-md-offset1 layui-hide-xs" id="left">
                 <p style="color:#000; font-size:34px; font-weight:bold; text-align:center;">金隆物联网控制平台</p>
                 <p style="color:#666; font-size:18px; text-align:center;">Jinglong Cloud IOT Platform(JCIP V1.0)</p>
                 <div style="text-align:center;"><img src="~/Content/DH/img/手套机2.jpg" width="350" height="400" /></div>
             </div>
-            <div class="layui-col-md4" id="right">
+            <div class="layui-col-lg4 layui-col-sm5 layui-col-xs6 layui-col-xs-offset3 layui-col-sm-offset0" id="right">
                 <div class="content-right">
                     <div class="content-right-top">
                         <p>欢迎登录</p>
@@ -193,23 +193,28 @@
                 send();
             }
         });
-        //上下居中  适配页面
-        if ($(window).height() >= 800) {
-            $("#left").css({
-                top: ($(window).height() - $("#left").outerHeight()) / 2
-            });
-            $("#right").css({
-                top: ($(window).height() - $("#right").outerHeight()) / 2
-            });
+        adapterPage()
+        $(window).resize(function () { adapterPage(); });//换屏自适应
+        function adapterPage() {
+            //上下居中  适配页面
+            if ($(window).height() >= 800) {
+                $("#left").css({
+                    top: ($(window).height() - $("#left").outerHeight()) / 2
+                });
+                $("#right").css({
+                    top: ($(window).height() - $("#right").outerHeight()) / 2
+                });
+            }
+            else {
+                $("#left").css({
+                    top: (800 - $("#left").outerHeight()) / 2
+                });
+                $("#right").css({
+                    top: (800 - $("#right").outerHeight()) / 2
+                });
+            }
         }
-        else {
-            $("#left").css({
-                top: (800 - $("#left").outerHeight()) / 2
-            });
-            $("#right").css({
-                top: (800 - $("#right").outerHeight()) / 2
-            });
-        }
+       
 
     </script>
 </body>
