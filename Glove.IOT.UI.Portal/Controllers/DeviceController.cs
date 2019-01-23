@@ -29,7 +29,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             var deviceId = DeviceInfoService.GetEntities(u => (u.DeviceId == deviceInfo.DeviceId&&u.IsDeleted==false)).FirstOrDefault();
             if (deviceId == null)
             {
-                deviceInfo.SubTime = DateTime.Now;
+                deviceInfo.SubTime = DateTime.Now; 
                 int id = DeviceInfoService.Add(deviceInfo).Id;
                 DeviceParameterInfo deviceParameterInfo = new DeviceParameterInfo
                 {
