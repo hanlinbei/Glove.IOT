@@ -53,6 +53,10 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
-     
+        public ActionResult Home()
+        {
+            return View();
+        }
+
     }
 }

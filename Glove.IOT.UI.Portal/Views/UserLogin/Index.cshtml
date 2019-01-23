@@ -1,7 +1,6 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -29,6 +28,7 @@
             border: #ccc solid 1px;
             background-color: #fff;
         }
+
         .content-right-top {
             height: 150px;
             vertical-align: middle;
@@ -58,6 +58,7 @@
         body {
             min-height: 800px;
         }
+
         .nameerror {
             position: absolute;
             top: 150px;
@@ -70,6 +71,7 @@
             color: #f00;
             display: none;
         }
+
         .pwderror {
             position: absolute;
             top: 215px;
@@ -77,11 +79,12 @@
             height: 38px;
             width: 120px;
             line-height: 38px;
-            text-align:center;
+            text-align: center;
             vertical-align: middle;
             color: #f00;
-            display:none;
+            display: none;
         }
+
         .vcodeerror {
             position: absolute;
             top: 278px;
@@ -97,15 +100,15 @@
     </style>
     <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
-<body>
+<body style="min-width: 768px;">
     <div class="layui-container">
         <div class="layui-row">
-            <div class="layui-col-md4 layui-col-md-offset2" id="left">
+            <div class="layui-col-lg4 layui-col-lg-offset2 layui-col-md5 layui-col-sm6 layui-col-md-offset1 layui-hide-xs" id="left">
                 <p style="color:#000; font-size:34px; font-weight:bold; text-align:center;">金隆物联网控制平台</p>
                 <p style="color:#666; font-size:18px; text-align:center;">Jinglong Cloud IOT Platform(JCIP V1.0)</p>
                 <div style="text-align:center;"><img src="~/Content/DH/img/手套机2.jpg" width="350" height="400" /></div>
             </div>
-            <div class="layui-col-md4" id="right">
+            <div class="layui-col-lg4 layui-col-sm5 layui-col-xs6 layui-col-xs-offset3 layui-col-sm-offset0" id="right">
                 <div class="content-right">
                     <div class="content-right-top">
                         <p>欢迎登录</p>
@@ -126,7 +129,7 @@
                         </div>
                         <div class="layui-form-item" style="margin-bottom: 5px;">
                             <label class="layui-form-label"></label>
-                            <input id ="rePwd" type="checkbox" name="rePwd" title="记住密码" lay-skin="primary">
+                            <input id="rePwd" type="checkbox" name="rePwd" title="记住密码" lay-skin="primary">
                         </div>
                         <div style="text-align:center; padding:0px 60px;">
                             <button name="登录" class="layui-btn layui-btn-normal layui-btn-fluid" style="font-size:20px;">登录</button>
@@ -190,23 +193,28 @@
                 send();
             }
         });
-        //上下居中  适配页面
-        if ($(window).height() >= 800) {
-            $("#left").css({
-                top: ($(window).height() - $("#left").outerHeight()) / 2
-            });
-            $("#right").css({
-                top: ($(window).height() - $("#right").outerHeight()) / 2
-            });
+        adapterPage()
+        $(window).resize(function () { adapterPage(); });//换屏自适应
+        function adapterPage() {
+            //上下居中  适配页面
+            if ($(window).height() >= 800) {
+                $("#left").css({
+                    top: ($(window).height() - $("#left").outerHeight()) / 2
+                });
+                $("#right").css({
+                    top: ($(window).height() - $("#right").outerHeight()) / 2
+                });
+            }
+            else {
+                $("#left").css({
+                    top: (800 - $("#left").outerHeight()) / 2
+                });
+                $("#right").css({
+                    top: (800 - $("#right").outerHeight()) / 2
+                });
+            }
         }
-        else {
-            $("#left").css({
-                top: (800 - $("#left").outerHeight()) / 2
-            });
-            $("#right").css({
-                top: (800 - $("#right").outerHeight()) / 2
-            });
-        }
+       
 
     </script>
 </body>

@@ -1775,6 +1775,7 @@
     <Content Include="Content\DH\font\iconfont\iconfont.ttf" />
     <Content Include="Content\DH\font\iconfont\iconfont.woff" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\datapattern.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -1809,6 +1810,8 @@
     <Content Include="Views\GroupInfo\Groupmanage.cshtml" />
     <Content Include="Views\Device\test.cshtml" />
     <Content Include="Views\GroupInfo\LayerSearchdevice.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Device\eChartsTest.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\LayerSearchuser.cshtml" />
