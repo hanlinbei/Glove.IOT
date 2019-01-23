@@ -10,7 +10,7 @@
                 $.ajax({
                    type: "get",
                    url: "http://localhost:63305/api/UserLogin/Login",
-                   data: { strUser: $("#txt_username").val(), strPwd: $("#txt_password").val() },
+                   data: { strUserName: $("#txt_username").val(), strPwd: $("#txt_password").val() },
                    success: function (data, status) {
                    if (status == "success") {
                        if (!data.BRes) {

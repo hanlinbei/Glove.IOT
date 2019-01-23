@@ -12,6 +12,7 @@ using System.Web.Security;
 
 namespace Glove.IOT.WebAPI.Controllers
 {
+    [RoutePrefix("api/UserLogin")]
     public class UserLoginController : ApiController
     {
         public IUserInfoService UserInfoService { get; set; }
@@ -20,22 +21,21 @@ namespace Glove.IOT.WebAPI.Controllers
         /// 处理验证表单
         /// </summary>
         /// <returns>OK</returns>
+        [Route("Login")]
         [HttpGet]
-        public object Login(string strUser,string strPwd)
+        public object Login(string strUserName,string strPwd)
         {
-            if (!ValidateUser(strUser, strPwd.ToMD5()))
+            if (!ValidateUser(strUserName, strPwd.ToMD5()))
             {
                 return new { BRes = false };
             }
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(0, strUser, DateTime.Now,
-                DateTime.Now.AddHours(1), true, string.Format("{0}&{1}", strUser, strPwd), FormsAuthentication.FormsCookiePath);
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(0, strUserName, DateTime.Now,
+                DateTime.Now.AddHours(1), true, string.Format("{0}&{1}", strUserName, strPwd), FormsAuthentication.FormsCookiePath);
             //返回登录结果、用户信息、用户验证票据信息
             var oUser = new { BRes = true, Ticket = FormsAuthentication.Encrypt(ticket) };
             //将身份信息保存在session中，验证当前请求是否是有效请求
-            HttpContext.Current.Session[strUser] = oUser;
+            HttpContext.Current.Session["User"] = oUser;
             return oUser;
-        
-
         }
 
         private bool ValidateUser(string strName, string strPwd)

@@ -13,7 +13,7 @@
                 data: {},
                 beforeSend: function (XHR) {
                     //发送ajax请求之前向http的head里面加入验证信息
-                    XHR.setRequestHeader('Authorization', 'BasicAuth ' + Ticket);
+                    XHR.setRequestHeader('Authorization',  Ticket);
                 },
                 success: function (data, status) {
                     if (status == "success") {

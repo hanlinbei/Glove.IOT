@@ -184,3 +184,11 @@ select * from TeamInfo
 
 select * from TeamInfo
 where StartTime<8 and StopTime>8
+
+select *  from warningInfo
+
+select 
+DeviceId
+from WarningInfo 
+where IsDeleted=0
+group by DeviceId

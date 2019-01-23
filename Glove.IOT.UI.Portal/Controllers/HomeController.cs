@@ -20,18 +20,18 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 主页起始视图
         /// </summary>
         /// <returns>主页视图</returns>
-        //public ActionResult Index(string UserName,string Ticket)
-        //{
-        //    ViewBag.UserName = UserName;
-        //    ViewBag.Ticket = Ticket;
-        //    return View();
+        public ActionResult Index(string UserName, string Ticket)
+        {
+            ViewBag.UserName = UserName;
+            ViewBag.Ticket = Ticket;
+            return View();
 
-        //}
+        }
 
-        //public ActionResult TreeIndex()
-        //{
-        //    return View();
-        //}
+        public ActionResult TreeIndex()
+        {
+            return View();
+        }
 
         /// <summary>
         /// 获取设备运行数，上班人数，今日产量，报警数
