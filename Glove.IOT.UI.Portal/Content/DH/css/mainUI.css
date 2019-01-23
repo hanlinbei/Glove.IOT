@@ -157,7 +157,7 @@ color: #ccc;
 body {
     font-family: Microsoft Yahei; /*此处应该有很多备用字体以防万一*/
     background-color: #eaeaea;
-    min-width: 1400px;
+    min-width: 1200px;
 }
 
 /*字体图标设置 字体图标就是制作一种字体但都是图标 优点：容量小 矢量 可以改变颜色大小*/
@@ -335,6 +335,7 @@ body {
     position: relative;
     top: 70px;
     left:200px;
+    height:100%;
     width: calc(100% - 200px); /*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
 }
 #main .navigation {
@@ -503,7 +504,7 @@ margin-top:70px;  */
     width: inherit;
     padding: 10px 20px;
 }*/
-        #footer{
+#footer{
     position: fixed; 
     left: 200px; 
     right: 0; 
@@ -597,27 +598,110 @@ margin-top:70px;  */
     margin-left: 30px;
 }
 
+
+/*首页*/
+#main .home {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    bottom: 0px; /*强行占满高度*/
+    width: 100%;
+    height: 100%;
+}
+#main .home .left-top {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+}
+#main .home .right-top {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+}
+#main .home .left-buttom {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+}
+#main .home .right-buttom {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+}
+#main .home .content {
+    position: absolute;
+    top: 33%;
+    left: 0;
+    width: 100%;
+    height: 33%;
+    font-size: 36px;
+    text-align: center;
+}
+#main .home .middle {
+    position: absolute;
+    top: 35%;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    font-size: 60px;
+    text-align: center;
+}
+/*导航栏-右边*/
+.nav li a{
+    padding: 15px 0;
+}
+/*汉堡菜单*/
+.navbar-glove .navbar-toggle{
+    margin-top:15px;
+    margin-bottom:15px;
+}
 @media screen and (max-width: 768px) {
     .layui-nav-side {
-        top: 80px;
+        top: 70px;
         border-top: #fff 1px solid;
     }
     .layui-nav-tree {
-        width: 100px;
+        width: 120px;
     }
     #main {
         left: 120px;
         width: calc(100% - 120px); /*使用calc计算属性的时候 运算符(- +等等)两边必须有空格 */
     }
-    .layui-nav .layui-nav-item dl dd a{
+    .layui-nav .layui-nav-item dl dd a {
         font-size: 12px;
     }
     .layui-nav-tree .layui-nav-child a {
         height: 30px;
         line-height: 30px;
     }
-    .layui-nav .layui-nav-item dl dd a{
-
-    
+    .layui-nav .layui-nav-item dl dd a {
+    }
+    #footer {
+        left: 120px;
     }
 }
+@media screen and (min-width: 768px) {
+    .layui-col-sm-offset0 {
+        margin-left: 0;
+    }
+}
+/*#table-line {
+position: absolute;
+top: 350px;
+left: 200px;
+width: 100%;
+font-size: 36px;
+text-align: center;
+}*/

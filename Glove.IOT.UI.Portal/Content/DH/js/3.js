@@ -67,7 +67,7 @@ function send() {
                     date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
                     document.cookie = 'LoginCode=' + $("input[name='LoginCode']").val() + ';' + "expires=" + date.toGMTString();
                 }
-                window.location.href = '../Device/Devicemanage';
+                window.location.href = '../Home/Home';
             }
             else if (data === '验证码错误!') {
                 //提示错误
@@ -106,6 +106,24 @@ function send() {
     //        changeCheckCode();
     //    }
     //}
+}
+//注销
+function logout() {
+    $.post('/UserLogin/Logout', {}, function (data) {
+        if (data === 'ok') {
+            //清除cookie
+            var date = new Date();
+            date.setTime(date.getTime() - 1);
+            var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+            if (keys) {
+                for (var i = keys.length; i--;)
+                    document.cookie = keys[i] + "=; expire=" + date.toGMTString() + "; path=/UserLogin";
+            }
+            //document.cookie = 'LoginCode=;';//删除
+            //document.cookie = 'LoginPwd=;';
+            window.location.href = '../UserLogin/Index';
+        }
+    })
 }
 //显示左上角的用户信息
 function userMessage() {
@@ -1599,8 +1617,10 @@ layui.use('table', function () {//打开网页刷新表格
         , toolbar: true
         , parseData: function (res) { //修改原始数据
             for (var i = 0; i < res.data.length; i++) {      
-                res.data[i].wTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
-                    + ' ~ ' + (eval(res.data[i].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
+                //res.data[i].wTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
+                //    + ' ~ ' + (eval(res.data[i].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
+                res.data[i].wTime = (res.data[i].StartTime + ' ~ ' + res.data[i].StopTime);
+               
             }
             return {
                 "code": res.code, //解析接口状态
@@ -1740,10 +1760,8 @@ function layerShowEditclass(title, url, w, h, data) {
             var body = layer.getChildFrame('body', index);
             console.log(data);
             $(body).find('input[name="TName"]').attr("value", data.TName);//自动添加班号
-            $(body).find('input[name="StartTime"]').attr("value",
-                (eval(data.StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss"));//自动添加时间
-            $(body).find('input[name="StopTime"]').attr("value",
-                (eval(data.StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss"));//自动添加时间
+            $(body).find('input[name="StartTime"]').attr("value",data.StartTime);//自动添加时间
+            $(body).find('input[name="StopTime"]').attr("value",data.StopTime);//自动添加时间
             
             layui.use('form', function () {
                 var form = layui.form;
@@ -2035,4 +2053,8 @@ $(document).ready(function () {
     $("button[name='删除班号']").click(function () {
         someDel('class');
     });
+    //用户注销
+    $('#logout').click(function () {
+        logout();
+    })
 });

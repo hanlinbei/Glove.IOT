@@ -166,5 +166,9 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult eChartsTest()
+        {
+            return View();
+        }
     }
 }
