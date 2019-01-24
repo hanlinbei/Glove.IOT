@@ -166,6 +166,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult BG()
+        {
+            return View();
+        }
         public ActionResult eChartsTest()
         {
             return View();
