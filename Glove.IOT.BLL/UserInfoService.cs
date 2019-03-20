@@ -182,6 +182,7 @@ namespace Glove.IOT.BLL
                             userInfo.UName = user.UName;                
                             userInfo.Id = user.Id;
                             DbSession.UserInfoDal.Update(userInfo);
+                            DbSession.SaveChanges();
                             return "ok";
                         }
                         else

@@ -46,7 +46,7 @@ namespace Glove.IOT.BLL
             return query.AsEnumerable().Select(q=>new {
                 q.Id,
                 q.TName,
-                StartTime=q.StopTime.ToString(),
+                StartTime=q.StartTime.ToString(),
                 StopTime=q.StopTime.ToString()
             });
              

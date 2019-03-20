@@ -276,6 +276,19 @@ namespace Glove.IOT.UI.Portal.Controllers
             var msg=UserInfoService.EditPwd(oldPwd, newPwd, LoginInfo.Id);
             return Content(msg);
         }
+        /// <summary>
+        /// 网络测试
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Test()
+        {
+            var enterTime = DateTime.Now.ToString();
+            var user = UserInfoService.GetEntities(u => u.Id == LoginInfo.Id).FirstOrDefault();
+            var outTime = DateTime.Now.ToString();
+            var data = new { enterTime, user.UName,outTime };
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
 
         public ActionResult t()
         {
