@@ -74,7 +74,7 @@ namespace Glove.IOT.BLL
         /// <returns>查询结果</returns>
         public IQueryable<dynamic> LoagUserPageData(UserQueryParam userQueryParam)
         {
-            var userInfo = DbSession.UserInfoDal.GetEntities(u => u.IsDeleted == false);
+            var userInfo = DbSession.UserInfoDal.GetEntities(u => u.IsDeleted == false && u.Id > 1);
             var r_UserInfo_RoleInfo = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => r.IsDeleted == false);
             var roleInfo = DbSession.RoleInfoDal.GetEntities(r => r.IsDeleted == false);
             var teamInfo = DbSession.TeamInfoDal.GetEntities(t => t.IsDeleted == false);
@@ -166,14 +166,33 @@ namespace Glove.IOT.BLL
             //校验邮箱格式与可为空
             if (userInfo.Email.IsValidEmail() || userInfo.Email.IsBlank())
             {
-                var email = DbSession.UserInfoDal.GetEntities(u => u.Email == userInfo.Email && u.IsDeleted == false && u.Id != user.Id).FirstOrDefault();
+                 string email = string.Empty;
+                //如果输入的邮箱为空则不用查重，否则要查询是否已存在
+                if (userInfo.Email.IsBlank())
+                {
+                    email = null;
+                }
+                else
+                {
+                    email = DbSession.UserInfoDal.GetEntities(u => u.Email == userInfo.Email && u.IsDeleted == false && u.Id != user.Id).Select(u => u.Email).FirstOrDefault();
+                    
+                }
                 //之前不存在该邮箱则允许更改
                 if (email == null)
                 {
                     //校验手机号码与可为空
                     if (userInfo.Phone.IsValidMobile() || userInfo.Phone.IsBlank())
                     {
-                        var phone = DbSession.UserInfoDal.GetEntities(u => u.Phone == userInfo.Phone && u.IsDeleted == false && u.Id != user.Id).FirstOrDefault();
+                        string phone=string.Empty;
+                        if (userInfo.Phone.IsBlank())
+                        {
+                            phone = null;
+                        }
+                        else
+                        {
+                            phone = DbSession.UserInfoDal.GetEntities(u => u.Phone == userInfo.Phone && u.IsDeleted == false && u.Id != user.Id).Select(u=>u.Phone).FirstOrDefault();
+                          
+                        }
                         //之前不存在该手机号 则允许添加
                         if (phone == null)
                         {
