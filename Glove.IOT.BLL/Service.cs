@@ -19,6 +19,12 @@ namespace Glove.IOT.BLL
 	    
 		}
 	
+	    public partial class CmdInfoService : BaseService<CmdInfo>, ICmdInfoService
+        {
+	
+	    
+		}
+	
 	    public partial class DeviceInfoService : BaseService<DeviceInfo>, IDeviceInfoService
         {
 	

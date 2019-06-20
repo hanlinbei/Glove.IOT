@@ -18,6 +18,7 @@
     <EntitySet Name="TeamInfo" EntityType="DataModel.Store.TeamInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="GroupInfo" EntityType="DataModel.Store.GroupInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="R_GroupInfo_DeviceInfo" EntityType="DataModel.Store.R_GroupInfo_DeviceInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CmdInfo" EntityType="DataModel.Store.CmdInfo" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserInfoR_UserInfo_RoleInfo" Association="DataModel.Store.UserInfoR_UserInfo_RoleInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="R_UserInfo_RoleInfo" EntitySet="R_UserInfo_RoleInfo" />
@@ -120,6 +121,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DeviceId" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="DeviceRealId" Type="nvarchar" Nullable="false" MaxLength="128" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
@@ -191,6 +193,17 @@
     <Property Name="GroupInfoId" Type="int" Nullable="false" />
     <Property Name="DeviceInfoId" Type="int" Nullable="false" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CmdInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeviceRealId" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="CmdCode" Type="tinyint" Nullable="false" />
+    <Property Name="CmdData" Type="bigint" Nullable="true" />
+    <Property Name="CmdState" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="UserInfoR_UserInfo_RoleInfo">
     <End Role="UserInfo" Type="DataModel.Store.UserInfo" Multiplicity="1" />
@@ -353,6 +366,7 @@
             <End Role="R_GroupInfo_DeviceInfo" EntitySet="R_GroupInfo_DeviceInfo" />
             <End Role="DeviceInfo" EntitySet="DeviceInfo" />
           </AssociationSet>
+          <EntitySet Name="CmdInfo" EntityType="DataModel.CmdInfo" />
         </EntityContainer>
         <EntityType Name="UserInfo">
           <Key>
@@ -477,6 +491,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DeviceId" Type="String" Nullable="false" MaxLength="256" />
+          <Property Name="DeviceRealId" Type="String" Nullable="false" MaxLength="128" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" DefaultValue="False" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DeviceParameterInfo" Relationship="DataModel.DeviceInfoDeviceParameterInfo" FromRole="DeviceInfo" ToRole="DeviceParameterInfo" />
@@ -617,6 +632,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CmdInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceRealId" Type="String" Nullable="false" MaxLength="256" />
+          <Property Name="CmdCode" Type="Byte" Nullable="false" />
+          <Property Name="CmdData" Type="Int64" Nullable="true" />
+          <Property Name="CmdState" Type="String" Nullable="false" MaxLength="128" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -692,6 +718,7 @@
         <MappingFragment StoreEntitySet="DeviceInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+          <ScalarProperty Name="DeviceRealId" ColumnName="DeviceRealId" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
@@ -769,6 +796,18 @@
           <ScalarProperty Name="GroupInfoId" ColumnName="GroupInfoId" />
           <ScalarProperty Name="DeviceInfoId" ColumnName="DeviceInfoId" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CmdInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.CmdInfo)">
+        <MappingFragment StoreEntitySet="CmdInfo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DeviceRealId" ColumnName="DeviceRealId" />
+          <ScalarProperty Name="CmdCode" ColumnName="CmdCode" />
+          <ScalarProperty Name="CmdData" ColumnName="CmdData" />
+          <ScalarProperty Name="CmdState" ColumnName="CmdState" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

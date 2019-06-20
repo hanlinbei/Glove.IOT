@@ -107,6 +107,25 @@ namespace Glove.IOT.BLL
             return query;
         }
 
+        /// <summary>
+        /// 获取单个设备今日产量
+        /// </summary>
+        /// <param name="deviceInfoId">设备ID</param>
+        /// <returns></returns>
+        public int GetDeviceDayOutput(int deviceInfoId)
+        {
+            int deviceDayOutput = 0;
+            //获取此设备当天的数据
+            var  deviceTodayParameterInfos = DbSession.DeviceParameterInfoDal.GetEntities(d => d.DeviceInfoId == deviceInfoId 
+                                             && EntityFunctions.TruncateTime(d.SubTime) == EntityFunctions.TruncateTime(DateTime.Now));
+            //如果不为空
+            if (deviceTodayParameterInfos.Count()!=0)
+            {
+                deviceDayOutput=deviceTodayParameterInfos.Select(p => p.NowOutput).DefaultIfEmpty().Sum().Value;
+            }
+
+            return deviceDayOutput;
+        }
 
         /// <summary>
         /// 统计当前正在运行的设备总数

@@ -17,6 +17,11 @@ namespace Glove.IOT.DALFactory
 			get { return StaticDalFactory.GetActionInfoDal(); }
 		 }
 	
+		 public ICmdInfoDal CmdInfoDal
+		 {
+			get { return StaticDalFactory.GetCmdInfoDal(); }
+		 }
+	
 		 public IDeviceInfoDal DeviceInfoDal
 		 {
 			get { return StaticDalFactory.GetDeviceInfoDal(); }

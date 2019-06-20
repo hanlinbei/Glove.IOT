@@ -7,6 +7,8 @@ namespace Glove.IOT.IDAL
 	 
 		IActionInfoDal ActionInfoDal { get; }
 	 
+		ICmdInfoDal CmdInfoDal { get; }
+	 
 		IDeviceInfoDal DeviceInfoDal { get; }
 	 
 		IDeviceParameterInfoDal DeviceParameterInfoDal { get; }

@@ -130,6 +130,35 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult Test1()
+        {
+            int pageSize = 10;
+            int pageIndex = 1;
+
+            //过滤的设备名 过滤备注schDeviceId schStatusFlag
+            var queryParam = new DeviceQueryParam()
+            {
+                PageSize = pageSize,
+                PageIndex = pageIndex,
+                Total = 0
+            };
+            var pageData = DeviceInfoService.LoagDevicePageData(queryParam).ToList();
+            var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 网络测试
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Test2()
+        {
+            var data = DateTime.Now.ToString();
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
+
         public ActionResult IsLayerAdddevice()
         {
             return Content("Ok");

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/21/2019 12:43:06
+-- Date Created: 03/21/2019 21:26:34
 -- Generated from EDMX file: E:\研究生\项目\Glove.IOT\Glove.IOT.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -85,6 +85,9 @@ GO
 IF OBJECT_ID(N'[dbo].[R_GroupInfo_DeviceInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[R_GroupInfo_DeviceInfo];
 GO
+IF OBJECT_ID(N'[dbo].[CmdInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CmdInfo];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -153,6 +156,7 @@ GO
 CREATE TABLE [dbo].[DeviceInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DeviceId] nvarchar(256)  NOT NULL,
+    [DeviceRealId] nvarchar(128)  NOT NULL,
     [IsDeleted] bit  NOT NULL,
     [SubTime] datetime  NOT NULL
 );
@@ -224,6 +228,17 @@ CREATE TABLE [dbo].[R_GroupInfo_DeviceInfo] (
     [GroupInfoId] int  NOT NULL,
     [DeviceInfoId] int  NOT NULL,
     [IsDeleted] bit  NOT NULL
+);
+GO
+
+-- Creating table 'CmdInfo'
+CREATE TABLE [dbo].[CmdInfo] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DeviceRealId] nvarchar(256)  NOT NULL,
+    [CmdCode] tinyint  NOT NULL,
+    [CmdData] bigint  NULL,
+    [CmdState] nvarchar(128)  NOT NULL,
+    [SubTime] datetime  NOT NULL
 );
 GO
 
@@ -300,6 +315,12 @@ GO
 -- Creating primary key on [Id] in table 'R_GroupInfo_DeviceInfo'
 ALTER TABLE [dbo].[R_GroupInfo_DeviceInfo]
 ADD CONSTRAINT [PK_R_GroupInfo_DeviceInfo]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CmdInfo'
+ALTER TABLE [dbo].[CmdInfo]
+ADD CONSTRAINT [PK_CmdInfo]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

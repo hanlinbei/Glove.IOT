@@ -13,22 +13,13 @@ namespace Glove.IOT.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class DeviceInfo
+    public partial class CmdInfo
     {
-        public DeviceInfo()
-        {
-            this.IsDeleted = false;
-            this.DeviceParameterInfo = new HashSet<DeviceParameterInfo>();
-            this.R_GroupInfo_DeviceInfo = new HashSet<R_GroupInfo_DeviceInfo>();
-        }
-    
         public int Id { get; set; }
-        public string DeviceId { get; set; }
         public string DeviceRealId { get; set; }
-        public bool IsDeleted { get; set; }
+        public byte CmdCode { get; set; }
+        public Nullable<long> CmdData { get; set; }
+        public string CmdState { get; set; }
         public System.DateTime SubTime { get; set; }
-    
-        public virtual ICollection<DeviceParameterInfo> DeviceParameterInfo { get; set; }
-        public virtual ICollection<R_GroupInfo_DeviceInfo> R_GroupInfo_DeviceInfo { get; set; }
     }
 }

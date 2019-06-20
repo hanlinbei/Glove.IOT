@@ -22,6 +22,12 @@ namespace Glove.IOT.DALFactory
                  as IActionInfoDal;
         }
 	
+		public static ICmdInfoDal GetCmdInfoDal()
+        {                
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".CmdInfoDal")
+                 as ICmdInfoDal;
+        }
+	
 		public static IDeviceInfoDal GetDeviceInfoDal()
         {                
             return Assembly.Load(assemblyName).CreateInstance(assemblyName+".DeviceInfoDal")

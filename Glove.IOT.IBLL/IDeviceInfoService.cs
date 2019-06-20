@@ -31,5 +31,11 @@ namespace Glove.IOT.IBLL
         /// </summary>
         /// <returns></returns>
         int GetRunningDeviceCount();
+        /// <summary>
+        /// 获取单个设备今日产量
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
+        int GetDeviceDayOutput(int deviceInfoId);
     }
 }

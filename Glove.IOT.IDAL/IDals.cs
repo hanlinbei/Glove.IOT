@@ -14,6 +14,11 @@ namespace Glove.IOT.IDAL
        
     }   
 	
+	public partial interface ICmdInfoDal : IBaseDal<CmdInfo>
+    {
+       
+    }   
+	
 	public partial interface IDeviceInfoDal : IBaseDal<DeviceInfo>
     {
        

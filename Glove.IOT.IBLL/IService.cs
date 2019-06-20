@@ -13,6 +13,10 @@ namespace Glove.IOT.IBLL
         {
         }
 	
+		public partial interface ICmdInfoService:IBaseService<CmdInfo>
+        {
+        }
+	
 		public partial interface IDeviceInfoService:IBaseService<DeviceInfo>
         {
         }

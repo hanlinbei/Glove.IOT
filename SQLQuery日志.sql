@@ -192,3 +192,33 @@ DeviceId
 from WarningInfo 
 where IsDeleted=0
 group by DeviceId
+
+select * from DeviceParameterInfo
+
+select
+sum(NowOutput)
+from DeviceParameterInfo
+where DeviceInfoId=1007
+
+
+
+select
+DeviceInfoId,
+sum(NowOutput)
+from DeviceParameterInfo
+group by DeviceInfoId
+
+select
+sum(NowOutput)
+from DeviceParameterInfo
+where DeviceInfoId=1007 and day(SubTime)='21'
+
+use Test
+
+
+select
+sum(NowOutput),
+Convert(char(10),SubTime,120)
+from DeviceParameterInfo
+where DeviceInfoId=1007 
+group by Convert(char(10),SubTime,120)

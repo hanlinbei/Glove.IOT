@@ -27,6 +27,7 @@
         <EntityTypeShape EntityType="DataModel.R_GroupInfo_DeviceInfo" Width="1.5" PointX="7.875" PointY="4.75" />
         <AssociationConnector Association="DataModel.GroupInfoR_GroupInfo_DeviceInfo" />
         <AssociationConnector Association="DataModel.R_GroupInfo_DeviceInfoDeviceInfo" />
+        <EntityTypeShape EntityType="DataModel.CmdInfo" Width="1.5" PointX="10.25" PointY="8.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -17,6 +17,11 @@ namespace Glove.IOT.EFDAL
 
 	}
 	
+	public partial class CmdInfoDal:BaseDal<CmdInfo>,ICmdInfoDal
+    {
+
+	}
+	
 	public partial class DeviceInfoDal:BaseDal<DeviceInfo>,IDeviceInfoDal
     {
 
