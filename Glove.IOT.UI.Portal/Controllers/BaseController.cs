@@ -33,8 +33,8 @@ namespace Glove.IOT.UI.Portal.Controllers
                 {
                     Id = Convert.ToInt32(user.Ticket.UserData),
                     UName = User.Identity.Name,
-                    Ip=WebHelper.GetClientIp(),
-                    Mac=WebHelper.GetClientMACAddress()                
+                    Ip = WebHelper.GetClientIp(),
+                    //Mac = WebHelper.GetClientMACAddress()
                 };
 
             }

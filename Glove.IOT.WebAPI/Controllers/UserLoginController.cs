@@ -22,7 +22,7 @@ namespace Glove.IOT.WebAPI.Controllers
         /// </summary>
         /// <returns>OK</returns>
         [Route("Login")]
-        [HttpGet]
+        [HttpPost]
         public object Login(string strUserName,string strPwd)
         {
             if (!ValidateUser(strUserName, strPwd.ToMD5()))
@@ -37,6 +37,8 @@ namespace Glove.IOT.WebAPI.Controllers
             HttpContext.Current.Session["User"] = oUser;
             return oUser;
         }
+
+     
 
         private bool ValidateUser(string strName, string strPwd)
         {
