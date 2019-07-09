@@ -262,27 +262,39 @@
                                         <input type="text" name="目标产量" required lay-verify="required" placeholder="目标产量" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">已生产量：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="已生产量" required lay-verify="required" placeholder="已生产量" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="layui-col-md3">
-                        <p name="单个进度" style="color:#009688; font-size: 36px; text-align: center;  padding-top:30px">单个进度</p>
-                        <p style="text-align: center;font-size:18px;padding-top:27px;">单个进度</p>
-                    </div>
-                    <div class="layui-col-md6">
                         <div class="layui-form-item">
                             <div class="layui-form-item layui-form-text">
-                                @*<textarea name="历史记录" placeholder="历史记录" class="layui-textarea"></textarea>
-        <p style="text-align: center;font-size:18px;padding-top:5px;">历史记录</p>*@
-                                <div id="table-line" style="width: 550px;height:300px;"></div>
+                                @*<p name="单个进度" style="color:#009688; font-size: 36px; text-align: center;  padding-top:30px">单个进度</p>*@
+                                @*<p style="text-align: center;font-size:18px;padding-top:27px;">单个进度</p>*@
+                                <div id="table-line1" style="width:300px;height:400px;"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="layui-col-md3">
-                        <p name="整体进度" style="color:#FFB800; font-size: 36px; text-align: center;  padding-top:30px">整体进度</p>
-                        <p style="text-align: center;font-size:18px;padding-top:27px;">整体进度</p>
+                        <div class="layui-col-md6">
+                            <div class="layui-form-item">
+                                <div class="layui-form-item layui-form-text">
+                                    @*<textarea name="历史记录" placeholder="历史记录" class="layui-textarea"></textarea>
+                    <p style="text-align: center;font-size:18px;padding-top:5px;">历史记录</p>*@
+                                    <div id="table-line" style="width: 550px;height:300px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            @*<p name="整体进度" style="color:#FFB800; font-size: 36px; text-align: center;  padding-top:30px">整体进度</p>
+        <p style="text-align: center;font-size:18px;padding-top:27px;">整体进度</p>*@
+                            <div id="table-line2" style="width:300px;height:400px;"></div>
+                        </div>
                     </div>
-                </div>
             </div>
             
         </div>
@@ -337,10 +349,36 @@
                 $('input[name="运行时间"]').val(RunTime + ' 小时');
                 $('input[name="停机时间"').val(StopTime);
                 $('input[name="目标产量"').val(deviceInfos.deviceParameter.TargetOutput);
+                $('input[name="已生产量"').val(70);
                 //$('textarea[name="历史记录"]').val(deviceInfos.parameterHistory[0].NowOutput);
                 //$('textarea[name="历史记录"]').val("无");
-                $('p[name="单个进度"').text(deviceInfos.deviceParameter.SingleProgress + '%');
-                $('p[name="整体进度"').text(Math.floor((deviceInfos.deviceParameter.NowOutput / deviceInfos.deviceParameter.TargetOutput) * 100) + '%');
+                //$('p[name="单个进度"').text(deviceInfos.deviceParameter.SingleProgress + '%');
+               
+
+                //$('p[name="整体进度"').text(Math.floor((deviceInfos.deviceParameter.NowOutput / deviceInfos.deviceParameter.TargetOutput) * 100) + '%');
+                var myChart = echarts.init(document.getElementById('table-line2'));
+                //指定图表的配置项和数据
+                option = {
+                    tooltip: {
+                        formatter: "{a} <br/>{b} : {c}%"
+                    },
+                    toolbox: {
+                        feature: {
+                            restore: {},
+                            saveAsImage: {}
+                        }
+                    },
+                    series: [
+                        {
+                            name: '业务指标',
+                            type: 'gauge',
+                            detail: { formatter: '{value}%' },
+                            data: [{ value: Math.floor((70 / deviceInfos.deviceParameter.TargetOutput) * 100), name: '总体进度' }]
+                        }
+                    ]
+                };
+
+                myChart.setOption(option);
                 //处理时间
                 var subTime = new Array(5);
                 for (var i = 0; i < 5; i++) {
@@ -359,20 +397,44 @@
                         data: ['产量']
                     },
                     xAxis: {
-                        data: [subTime[0], subTime[1], subTime[2], subTime[3], subTime[4]]
+                        data: [subTime[4], subTime[3], subTime[2], subTime[1], subTime[0]]
                     },
                     yAxis: {},
                     series: [{
                         name: '产量',
                         type: 'line',
-                        data: [deviceInfos.parameterHistory[0].NowOutput,
-                            deviceInfos.parameterHistory[1].NowOutput,
-                            deviceInfos.parameterHistory[2].NowOutput,
+                        data: [deviceInfos.parameterHistory[4].NowOutput,
                             deviceInfos.parameterHistory[3].NowOutput,
-                            deviceInfos.parameterHistory[4].NowOutput]
+                            deviceInfos.parameterHistory[2].NowOutput,
+                            deviceInfos.parameterHistory[1].NowOutput,
+                            deviceInfos.parameterHistory[0].NowOutput]
                     }]
                 };
                 // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+                var myChart = echarts.init(document.getElementById('table-line1'));
+                //指定图表的配置项和数据
+                option = {
+                    tooltip: {
+                        formatter: "{a} <br/>{b} : {c}%"
+                    },
+                    toolbox: {
+                        feature: {
+                            restore: {},
+                            saveAsImage: {}
+                        }
+                    },
+                    series: [
+                        {
+                            name: '业务指标',
+                            type: 'gauge',
+                            detail: { formatter: '{value}%' },
+                            data: [{ value: deviceInfos.deviceParameter.SingleProgress, name: '单只手套进度'}]
+                        }
+                    ]
+                };
+
                 myChart.setOption(option);
             };
         }

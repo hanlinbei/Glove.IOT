@@ -40,6 +40,7 @@
             this.SendBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.disconbtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // IpAdressBox
@@ -48,7 +49,7 @@
             this.IpAdressBox.Name = "IpAdressBox";
             this.IpAdressBox.Size = new System.Drawing.Size(100, 21);
             this.IpAdressBox.TabIndex = 0;
-            this.IpAdressBox.Text = "36.23.72.47";
+            this.IpAdressBox.Text = "10.12.11.26";
             // 
             // ComBox
             // 
@@ -56,7 +57,7 @@
             this.ComBox.Name = "ComBox";
             this.ComBox.Size = new System.Drawing.Size(62, 21);
             this.ComBox.TabIndex = 1;
-            this.ComBox.Text = "36101";
+            this.ComBox.Text = "1500";
             // 
             // ConnectBtn
             // 
@@ -147,11 +148,22 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "接收区";
             // 
+            // disconbtn
+            // 
+            this.disconbtn.Location = new System.Drawing.Point(368, 13);
+            this.disconbtn.Name = "disconbtn";
+            this.disconbtn.Size = new System.Drawing.Size(75, 23);
+            this.disconbtn.TabIndex = 12;
+            this.disconbtn.Text = "关闭连接";
+            this.disconbtn.UseVisualStyleBackColor = true;
+            this.disconbtn.Click += new System.EventHandler(this.disconbtn_Click);
+            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(386, 411);
+            this.ClientSize = new System.Drawing.Size(465, 411);
+            this.Controls.Add(this.disconbtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SendBtn);
@@ -185,6 +197,7 @@
         private System.Windows.Forms.Button SendBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button disconbtn;
     }
 }
 

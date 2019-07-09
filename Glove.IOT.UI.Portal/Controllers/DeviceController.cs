@@ -148,16 +148,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// 网络测试
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Test2()
-        {
-            var data = DateTime.Now.ToString();
-            return Json(data, JsonRequestBehavior.AllowGet);
-
-        }
+     
 
         public ActionResult IsLayerAdddevice()
         {

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,7 +21,7 @@ namespace FileDownloadClientDemo
         {
             InitializeComponent();
         }
-
+        
         private void ConnectBtn_Click(object sender, EventArgs e)
         {
             //创建负责通信的Socket
@@ -32,6 +33,50 @@ namespace FileDownloadClientDemo
             ShowMsg("连接成功");
             dicSocket.Add(1, socketSend);
 
+            Thread th = new Thread(Recive);
+            th.IsBackground = true;
+            th.Start();
+
+        }
+
+        private void Recive()
+        {
+            while (true)
+            {
+                try
+                {
+                    byte[] buffer = new byte[1024 * 1024 * 3];
+                    int r = dicSocket[1].Receive(buffer);
+                    //实际接收到的有效字节数
+                    if (r == 0)
+                    {
+                        break;
+                    }
+                    //表示发送的文字消息
+                    if (buffer[0] == 0)
+                    {
+                        string s = Encoding.UTF8.GetString(buffer, 1, r - 1);
+                        ShowMsg(dicSocket[1].RemoteEndPoint + ":" + s);
+                    }
+                    else if (buffer[0] == 1)
+                    {
+                        SaveFileDialog sfd = new SaveFileDialog();
+                        sfd.InitialDirectory = @"C:\Users\SpringRain\Desktop";
+                        sfd.Title = "请选择要保存的文件";
+                        sfd.Filter = "所有文件|*.*";
+                        sfd.ShowDialog(this);
+                        string path = sfd.FileName;
+                        using (FileStream fsWrite = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
+                        {
+                            fsWrite.Write(buffer, 1, r - 1);
+                        }
+                        MessageBox.Show("保存成功");
+                    }
+
+
+                }
+                catch { }
+            }
         }
 
         void ShowMsg(string str)
@@ -86,6 +131,11 @@ namespace FileDownloadClientDemo
             }
 
 
+        }
+
+        private void disconbtn_Click(object sender, EventArgs e)
+        {
+            dicSocket[1].Close();
         }
     }
 }
