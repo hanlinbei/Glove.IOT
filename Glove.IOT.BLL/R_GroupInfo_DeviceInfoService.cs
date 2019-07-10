@@ -15,11 +15,11 @@ namespace Glove.IOT.BLL
         /// </summary>
         /// <param name="gId"></param>
         /// <param name="idList"></param>
-        public void AddSelectDevices(int gId, List<int> idList)
+        public void AddSelectDevices(int gId, List<string> idList)
         {
             for (int i = 0; i < idList.Count; i++)
             {
-                int deviceInfoId = Convert.ToInt32(idList[i]);
+                string deviceInfoId = idList[i];
                 R_GroupInfo_DeviceInfo r_GroupInfo_DeviceInfo = new R_GroupInfo_DeviceInfo
                 {
                     GroupInfoId = gId,

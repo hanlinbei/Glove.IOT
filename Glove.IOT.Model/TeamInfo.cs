@@ -17,7 +17,6 @@ namespace Glove.IOT.Model
     {
         public TeamInfo()
         {
-            this.IsDeleted = false;
             this.UserInfo = new HashSet<UserInfo>();
         }
     

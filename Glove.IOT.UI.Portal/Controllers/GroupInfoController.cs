@@ -73,9 +73,9 @@ namespace Glove.IOT.UI.Portal.Controllers
                 SchStatusFlag = statusFlag,
                 Total = 0
             };
-            var pageData = GroupInfoService.LoagDevicePageData(queryParam,gId).ToList();
-            var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
-            return Json(data, JsonRequestBehavior.AllowGet);
+            //var pageData = GroupInfoService.LoagDevicePageData(queryParam,gId).ToList();
+            //var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
+            return Json(0, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -131,17 +131,17 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="alldIds"></param>
         /// <param name="dIds"></param>
         /// <returns></returns>
-        public ActionResult SetDevices( int gId,int[]alldIds, int[] dIds)
+        public ActionResult SetDevices( int gId,string[]alldIds, string[] dIds)
         {
-            List<int> dIdsList = dIds.ToList();
-            List<int> alldIdsList = alldIds.ToList();
+            List<string> dIdsList = dIds.ToList();
+            List<string> alldIdsList = alldIds.ToList();
             //剁掉组里已存在的设备
             R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId == gId && alldIdsList.Contains(r.DeviceInfoId)));
             //添加勾选的设备
-            if (dIds[0] == 0)
-            {
-                return Content("OK");
-            }
+            //if (dIds[0] == 0)
+            //{
+            //    return Content("OK");
+            //}
             R_GroupInfo_DeviceInfoService.AddSelectDevices(gId, dIdsList);
 
             return Content("OK");

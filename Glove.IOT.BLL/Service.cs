@@ -19,7 +19,19 @@ namespace Glove.IOT.BLL
 	    
 		}
 	
-	    public partial class CmdInfoService : BaseService<CmdInfo>, ICmdInfoService
+	    public partial class DeviceCmdService : BaseService<DeviceCmd>, IDeviceCmdService
+        {
+	
+	    
+		}
+	
+	    public partial class DeviceHistoryDataService : BaseService<DeviceHistoryData>, IDeviceHistoryDataService
+        {
+	
+	    
+		}
+	
+	    public partial class DeviceHistoryWarningService : BaseService<DeviceHistoryWarning>, IDeviceHistoryWarningService
         {
 	
 	    
@@ -31,7 +43,13 @@ namespace Glove.IOT.BLL
 	    
 		}
 	
-	    public partial class DeviceParameterInfoService : BaseService<DeviceParameterInfo>, IDeviceParameterInfoService
+	    public partial class DeviceRealtimeDataService : BaseService<DeviceRealtimeData>, IDeviceRealtimeDataService
+        {
+	
+	    
+		}
+	
+	    public partial class DeviceRealtimeWarningService : BaseService<DeviceRealtimeWarning>, IDeviceRealtimeWarningService
         {
 	
 	    
@@ -80,12 +98,6 @@ namespace Glove.IOT.BLL
 		}
 	
 	    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
-        {
-	
-	    
-		}
-	
-	    public partial class WarningInfoService : BaseService<WarningInfo>, IWarningInfoService
         {
 	
 	    

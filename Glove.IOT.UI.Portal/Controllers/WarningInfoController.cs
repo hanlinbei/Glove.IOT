@@ -11,7 +11,7 @@ namespace Glove.IOT.UI.Portal.Controllers
     public class WarningInfoController : BaseController
     {
         public IOperationLogService OperationLogService { get; set; }
-        public IWarningInfoService WarningInfoService { get; set; }
+
         /// <summary>
         /// 报警视图
         /// </summary>
@@ -51,11 +51,11 @@ namespace Glove.IOT.UI.Portal.Controllers
                 SchDeviceId= schDeviceId,
                 Total = 0,
             };
-            var pageData = WarningInfoService.GetWarningInfo(warningQueryParam);
-            var data = new { code = 0, msg = "", count = warningQueryParam.Total, data = pageData.ToList() };
+
+            //var data = new { code = 0, msg = "", count = warningQueryParam.Total, data = pageData.ToList() };
             //写操作日志
             OperationLogService.Add("报警查看", "报警管理", LoginInfo, "报警", "");
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return Json(0, JsonRequestBehavior.AllowGet);
         }
     }
 }

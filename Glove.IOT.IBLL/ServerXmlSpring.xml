@@ -2,11 +2,17 @@
 <objects xmlns="http://www.springframework.net">
 		  <object name="ActionInfoService" type="Glove.IOT.BLL.ActionInfoService, Glove.IOT.BLL" singleton="false" >
 		   </object>
-		  <object name="CmdInfoService" type="Glove.IOT.BLL.CmdInfoService, Glove.IOT.BLL" singleton="false" >
+		  <object name="DeviceCmdService" type="Glove.IOT.BLL.DeviceCmdService, Glove.IOT.BLL" singleton="false" >
+		   </object>
+		  <object name="DeviceHistoryDataService" type="Glove.IOT.BLL.DeviceHistoryDataService, Glove.IOT.BLL" singleton="false" >
+		   </object>
+		  <object name="DeviceHistoryWarningService" type="Glove.IOT.BLL.DeviceHistoryWarningService, Glove.IOT.BLL" singleton="false" >
 		   </object>
 		  <object name="DeviceInfoService" type="Glove.IOT.BLL.DeviceInfoService, Glove.IOT.BLL" singleton="false" >
 		   </object>
-		  <object name="DeviceParameterInfoService" type="Glove.IOT.BLL.DeviceParameterInfoService, Glove.IOT.BLL" singleton="false" >
+		  <object name="DeviceRealtimeDataService" type="Glove.IOT.BLL.DeviceRealtimeDataService, Glove.IOT.BLL" singleton="false" >
+		   </object>
+		  <object name="DeviceRealtimeWarningService" type="Glove.IOT.BLL.DeviceRealtimeWarningService, Glove.IOT.BLL" singleton="false" >
 		   </object>
 		  <object name="GroupInfoService" type="Glove.IOT.BLL.GroupInfoService, Glove.IOT.BLL" singleton="false" >
 		   </object>
@@ -23,8 +29,6 @@
 		  <object name="TeamInfoService" type="Glove.IOT.BLL.TeamInfoService, Glove.IOT.BLL" singleton="false" >
 		   </object>
 		  <object name="UserInfoService" type="Glove.IOT.BLL.UserInfoService, Glove.IOT.BLL" singleton="false" >
-		   </object>
-		  <object name="WarningInfoService" type="Glove.IOT.BLL.WarningInfoService, Glove.IOT.BLL" singleton="false" >
 		   </object>
 
 </objects>

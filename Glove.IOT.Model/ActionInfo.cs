@@ -17,7 +17,6 @@ namespace Glove.IOT.Model
     {
         public ActionInfo()
         {
-            this.IsDeleted = false;
             this.R_RoleInfo_ActionInfo = new HashSet<R_RoleInfo_ActionInfo>();
         }
     

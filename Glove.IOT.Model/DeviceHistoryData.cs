@@ -13,23 +13,14 @@ namespace Glove.IOT.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class DeviceParameterInfo
+    public partial class DeviceHistoryData
     {
-        public DeviceParameterInfo()
-        {
-            this.SingleProgress = 0;
-        }
-    
-        public int Id { get; set; }
-        public Nullable<int> NowOutput { get; set; }
-        public Nullable<int> TargetOutput { get; set; }
-        public Nullable<short> SingleProgress { get; set; }
+        public string Id { get; set; }
+        public int DeviceName { get; set; }
+        public int NowOutput { get; set; }
         public string StatusFlag { get; set; }
+        public int SingleProgress { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
-        public Nullable<System.DateTime> StopTime { get; set; }
-        public System.DateTime SubTime { get; set; }
-        public int DeviceInfoId { get; set; }
-    
-        public virtual DeviceInfo DeviceInfo { get; set; }
+        public System.DateTime CreateTime { get; set; }
     }
 }

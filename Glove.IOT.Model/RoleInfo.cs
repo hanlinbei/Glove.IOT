@@ -17,9 +17,8 @@ namespace Glove.IOT.Model
     {
         public RoleInfo()
         {
-            this.IsDeleted = false;
-            this.R_UserInfo_RoleInfo = new HashSet<R_UserInfo_RoleInfo>();
             this.R_RoleInfo_ActionInfo = new HashSet<R_RoleInfo_ActionInfo>();
+            this.R_UserInfo_RoleInfo = new HashSet<R_UserInfo_RoleInfo>();
         }
     
         public int Id { get; set; }
@@ -28,7 +27,7 @@ namespace Glove.IOT.Model
         public string Remark { get; set; }
         public System.DateTime SubTime { get; set; }
     
-        public virtual ICollection<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
         public virtual ICollection<R_RoleInfo_ActionInfo> R_RoleInfo_ActionInfo { get; set; }
+        public virtual ICollection<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
     }
 }

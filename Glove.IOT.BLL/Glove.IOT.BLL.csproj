@@ -68,8 +68,6 @@
     <Compile Include="R_GroupInfo_DeviceInfoService.cs" />
     <Compile Include="R_RoleInfo_ActionInfoService.cs" />
     <Compile Include="R_UserInfo_RoleInfoService.cs" />
-    <Compile Include="DeviceParameterInfoService.cs" />
-    <Compile Include="DeviceInfoService.cs" />
     <Compile Include="OperationLogService.cs" />
     <Compile Include="Service.cs">
       <DependentUpon>Service.tt</DependentUpon>
@@ -78,9 +76,8 @@
     </Compile>
     <Compile Include="ActionInfoService.cs" />
     <Compile Include="TeamInfoService.cs" />
-    <Compile Include="UserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WarningInfoService.cs" />
+    <Compile Include="UserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glove.IOT.Common\Glove.IOT.Common.csproj">

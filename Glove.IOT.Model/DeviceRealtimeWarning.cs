@@ -13,13 +13,11 @@ namespace Glove.IOT.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class CmdInfo
+    public partial class DeviceRealtimeWarning
     {
-        public int Id { get; set; }
-        public string DeviceRealId { get; set; }
-        public byte CmdCode { get; set; }
-        public Nullable<long> CmdData { get; set; }
-        public string CmdState { get; set; }
-        public System.DateTime SubTime { get; set; }
+        public string Id { get; set; }
+        public int DeviceName { get; set; }
+        public string WarningMessage { get; set; }
+        public System.DateTime StartTime { get; set; }
     }
 }

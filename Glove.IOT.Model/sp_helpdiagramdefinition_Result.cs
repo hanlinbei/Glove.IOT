@@ -10,17 +10,10 @@
 namespace Glove.IOT.Model
 {
     using System;
-    using System.Collections.Generic;
     
-    [Serializable]
-    public partial class R_GroupInfo_DeviceInfo
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int Id { get; set; }
-        public int GroupInfoId { get; set; }
-        public string DeviceInfoId { get; set; }
-        public bool IsDeleted { get; set; }
-    
-        public virtual DeviceInfo DeviceInfo { get; set; }
-        public virtual GroupInfo GroupInfo { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

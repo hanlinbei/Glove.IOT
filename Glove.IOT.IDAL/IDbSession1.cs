@@ -7,11 +7,17 @@ namespace Glove.IOT.IDAL
 	 
 		IActionInfoDal ActionInfoDal { get; }
 	 
-		ICmdInfoDal CmdInfoDal { get; }
+		IDeviceCmdDal DeviceCmdDal { get; }
+	 
+		IDeviceHistoryDataDal DeviceHistoryDataDal { get; }
+	 
+		IDeviceHistoryWarningDal DeviceHistoryWarningDal { get; }
 	 
 		IDeviceInfoDal DeviceInfoDal { get; }
 	 
-		IDeviceParameterInfoDal DeviceParameterInfoDal { get; }
+		IDeviceRealtimeDataDal DeviceRealtimeDataDal { get; }
+	 
+		IDeviceRealtimeWarningDal DeviceRealtimeWarningDal { get; }
 	 
 		IGroupInfoDal GroupInfoDal { get; }
 	 
@@ -28,8 +34,6 @@ namespace Glove.IOT.IDAL
 		ITeamInfoDal TeamInfoDal { get; }
 	 
 		IUserInfoDal UserInfoDal { get; }
-	 
-		IWarningInfoDal WarningInfoDal { get; }
 	
 	}
 

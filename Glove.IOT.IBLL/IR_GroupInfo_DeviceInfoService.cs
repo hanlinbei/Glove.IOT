@@ -14,6 +14,6 @@ namespace Glove.IOT.IBLL
         /// </summary>
         /// <param name="gId"></param>
         /// <param name="idList"></param>
-        void AddSelectDevices(int gId, List<int> idList);
+        void AddSelectDevices(int gId, List<string> idList);
     }
 }

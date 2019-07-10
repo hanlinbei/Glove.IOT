@@ -17,7 +17,17 @@ namespace Glove.IOT.EFDAL
 
 	}
 	
-	public partial class CmdInfoDal:BaseDal<CmdInfo>,ICmdInfoDal
+	public partial class DeviceCmdDal:BaseDal<DeviceCmd>,IDeviceCmdDal
+    {
+
+	}
+	
+	public partial class DeviceHistoryDataDal:BaseDal<DeviceHistoryData>,IDeviceHistoryDataDal
+    {
+
+	}
+	
+	public partial class DeviceHistoryWarningDal:BaseDal<DeviceHistoryWarning>,IDeviceHistoryWarningDal
     {
 
 	}
@@ -27,7 +37,12 @@ namespace Glove.IOT.EFDAL
 
 	}
 	
-	public partial class DeviceParameterInfoDal:BaseDal<DeviceParameterInfo>,IDeviceParameterInfoDal
+	public partial class DeviceRealtimeDataDal:BaseDal<DeviceRealtimeData>,IDeviceRealtimeDataDal
+    {
+
+	}
+	
+	public partial class DeviceRealtimeWarningDal:BaseDal<DeviceRealtimeWarning>,IDeviceRealtimeWarningDal
     {
 
 	}
@@ -68,11 +83,6 @@ namespace Glove.IOT.EFDAL
 	}
 	
 	public partial class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
-    {
-
-	}
-	
-	public partial class WarningInfoDal:BaseDal<WarningInfo>,IWarningInfoDal
     {
 
 	}

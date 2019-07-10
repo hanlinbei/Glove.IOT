@@ -22,10 +22,22 @@ namespace Glove.IOT.DALFactory
                  as IActionInfoDal;
         }
 	
-		public static ICmdInfoDal GetCmdInfoDal()
+		public static IDeviceCmdDal GetDeviceCmdDal()
         {                
-            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".CmdInfoDal")
-                 as ICmdInfoDal;
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".DeviceCmdDal")
+                 as IDeviceCmdDal;
+        }
+	
+		public static IDeviceHistoryDataDal GetDeviceHistoryDataDal()
+        {                
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".DeviceHistoryDataDal")
+                 as IDeviceHistoryDataDal;
+        }
+	
+		public static IDeviceHistoryWarningDal GetDeviceHistoryWarningDal()
+        {                
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".DeviceHistoryWarningDal")
+                 as IDeviceHistoryWarningDal;
         }
 	
 		public static IDeviceInfoDal GetDeviceInfoDal()
@@ -34,10 +46,16 @@ namespace Glove.IOT.DALFactory
                  as IDeviceInfoDal;
         }
 	
-		public static IDeviceParameterInfoDal GetDeviceParameterInfoDal()
+		public static IDeviceRealtimeDataDal GetDeviceRealtimeDataDal()
         {                
-            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".DeviceParameterInfoDal")
-                 as IDeviceParameterInfoDal;
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".DeviceRealtimeDataDal")
+                 as IDeviceRealtimeDataDal;
+        }
+	
+		public static IDeviceRealtimeWarningDal GetDeviceRealtimeWarningDal()
+        {                
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".DeviceRealtimeWarningDal")
+                 as IDeviceRealtimeWarningDal;
         }
 	
 		public static IGroupInfoDal GetGroupInfoDal()
@@ -86,12 +104,6 @@ namespace Glove.IOT.DALFactory
         {                
             return Assembly.Load(assemblyName).CreateInstance(assemblyName+".UserInfoDal")
                  as IUserInfoDal;
-        }
-	
-		public static IWarningInfoDal GetWarningInfoDal()
-        {                
-            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".WarningInfoDal")
-                 as IWarningInfoDal;
         }
 
 	}

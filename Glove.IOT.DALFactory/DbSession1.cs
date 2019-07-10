@@ -17,9 +17,19 @@ namespace Glove.IOT.DALFactory
 			get { return StaticDalFactory.GetActionInfoDal(); }
 		 }
 	
-		 public ICmdInfoDal CmdInfoDal
+		 public IDeviceCmdDal DeviceCmdDal
 		 {
-			get { return StaticDalFactory.GetCmdInfoDal(); }
+			get { return StaticDalFactory.GetDeviceCmdDal(); }
+		 }
+	
+		 public IDeviceHistoryDataDal DeviceHistoryDataDal
+		 {
+			get { return StaticDalFactory.GetDeviceHistoryDataDal(); }
+		 }
+	
+		 public IDeviceHistoryWarningDal DeviceHistoryWarningDal
+		 {
+			get { return StaticDalFactory.GetDeviceHistoryWarningDal(); }
 		 }
 	
 		 public IDeviceInfoDal DeviceInfoDal
@@ -27,9 +37,14 @@ namespace Glove.IOT.DALFactory
 			get { return StaticDalFactory.GetDeviceInfoDal(); }
 		 }
 	
-		 public IDeviceParameterInfoDal DeviceParameterInfoDal
+		 public IDeviceRealtimeDataDal DeviceRealtimeDataDal
 		 {
-			get { return StaticDalFactory.GetDeviceParameterInfoDal(); }
+			get { return StaticDalFactory.GetDeviceRealtimeDataDal(); }
+		 }
+	
+		 public IDeviceRealtimeWarningDal DeviceRealtimeWarningDal
+		 {
+			get { return StaticDalFactory.GetDeviceRealtimeWarningDal(); }
 		 }
 	
 		 public IGroupInfoDal GroupInfoDal
@@ -70,11 +85,6 @@ namespace Glove.IOT.DALFactory
 		 public IUserInfoDal UserInfoDal
 		 {
 			get { return StaticDalFactory.GetUserInfoDal(); }
-		 }
-	
-		 public IWarningInfoDal WarningInfoDal
-		 {
-			get { return StaticDalFactory.GetWarningInfoDal(); }
 		 }
 
 	}

@@ -13,7 +13,15 @@ namespace Glove.IOT.IBLL
         {
         }
 	
-		public partial interface ICmdInfoService:IBaseService<CmdInfo>
+		public partial interface IDeviceCmdService:IBaseService<DeviceCmd>
+        {
+        }
+	
+		public partial interface IDeviceHistoryDataService:IBaseService<DeviceHistoryData>
+        {
+        }
+	
+		public partial interface IDeviceHistoryWarningService:IBaseService<DeviceHistoryWarning>
         {
         }
 	
@@ -21,7 +29,11 @@ namespace Glove.IOT.IBLL
         {
         }
 	
-		public partial interface IDeviceParameterInfoService:IBaseService<DeviceParameterInfo>
+		public partial interface IDeviceRealtimeDataService:IBaseService<DeviceRealtimeData>
+        {
+        }
+	
+		public partial interface IDeviceRealtimeWarningService:IBaseService<DeviceRealtimeWarning>
         {
         }
 	
@@ -54,10 +66,6 @@ namespace Glove.IOT.IBLL
         }
 	
 		public partial interface IUserInfoService:IBaseService<UserInfo>
-        {
-        }
-	
-		public partial interface IWarningInfoService:IBaseService<WarningInfo>
         {
         }
 

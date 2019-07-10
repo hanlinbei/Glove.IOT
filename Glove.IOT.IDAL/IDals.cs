@@ -14,7 +14,17 @@ namespace Glove.IOT.IDAL
        
     }   
 	
-	public partial interface ICmdInfoDal : IBaseDal<CmdInfo>
+	public partial interface IDeviceCmdDal : IBaseDal<DeviceCmd>
+    {
+       
+    }   
+	
+	public partial interface IDeviceHistoryDataDal : IBaseDal<DeviceHistoryData>
+    {
+       
+    }   
+	
+	public partial interface IDeviceHistoryWarningDal : IBaseDal<DeviceHistoryWarning>
     {
        
     }   
@@ -24,7 +34,12 @@ namespace Glove.IOT.IDAL
        
     }   
 	
-	public partial interface IDeviceParameterInfoDal : IBaseDal<DeviceParameterInfo>
+	public partial interface IDeviceRealtimeDataDal : IBaseDal<DeviceRealtimeData>
+    {
+       
+    }   
+	
+	public partial interface IDeviceRealtimeWarningDal : IBaseDal<DeviceRealtimeWarning>
     {
        
     }   
@@ -65,11 +80,6 @@ namespace Glove.IOT.IDAL
     }   
 	
 	public partial interface IUserInfoDal : IBaseDal<UserInfo>
-    {
-       
-    }   
-	
-	public partial interface IWarningInfoDal : IBaseDal<WarningInfo>
     {
        
     }   

@@ -15,11 +15,6 @@ namespace Glove.IOT.Model
     [Serializable]
     public partial class OperationLog
     {
-        public OperationLog()
-        {
-            this.IsDeleted = false;
-        }
-    
         public int Id { get; set; }
         public string UName { get; set; }
         public string ActionType { get; set; }

@@ -49,7 +49,6 @@
     <Compile Include="IR_GroupInfo_DeviceInfoService.cs" />
     <Compile Include="IR_RoleInfo_ActionInfoService.cs" />
     <Compile Include="IR_UserInfo_RoleInfoService.cs" />
-    <Compile Include="IDeviceParameterInfoService.cs" />
     <Compile Include="IDeviceInfoService.cs" />
     <Compile Include="IOperationLogService.cs" />
     <Compile Include="IService.cs">
@@ -61,7 +60,6 @@
     <Compile Include="IActionInfoService.cs" />
     <Compile Include="ITeamInfoService.cs" />
     <Compile Include="IUserInfoService.cs" />
-    <Compile Include="IWarningInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

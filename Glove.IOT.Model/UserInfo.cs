@@ -17,10 +17,6 @@ namespace Glove.IOT.Model
     {
         public UserInfo()
         {
-            this.StatusFlag = true;
-            this.IsDeleted = false;
-            this.TeamInfoId = 1;
-            this.GroupInfoId = 1;
             this.R_UserInfo_RoleInfo = new HashSet<R_UserInfo_RoleInfo>();
         }
     
@@ -28,19 +24,19 @@ namespace Glove.IOT.Model
         public string UCode { get; set; }
         public string UName { get; set; }
         public string Pwd { get; set; }
+        public bool StatusFlag { get; set; }
         public string Remark { get; set; }
         public string Gender { get; set; }
         public string Picture { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public bool StatusFlag { get; set; }
         public bool IsDeleted { get; set; }
         public System.DateTime SubTime { get; set; }
         public int TeamInfoId { get; set; }
         public int GroupInfoId { get; set; }
     
+        public virtual GroupInfo GroupInfo { get; set; }
         public virtual ICollection<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
         public virtual TeamInfo TeamInfo { get; set; }
-        public virtual GroupInfo GroupInfo { get; set; }
     }
 }

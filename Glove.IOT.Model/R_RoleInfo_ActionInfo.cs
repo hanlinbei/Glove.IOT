@@ -20,7 +20,7 @@ namespace Glove.IOT.Model
         public int ActionInfoId { get; set; }
         public bool IsDeleted { get; set; }
     
-        public virtual RoleInfo RoleInfo { get; set; }
         public virtual ActionInfo ActionInfo { get; set; }
+        public virtual RoleInfo RoleInfo { get; set; }
     }
 }

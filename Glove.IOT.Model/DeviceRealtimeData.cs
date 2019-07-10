@@ -13,14 +13,15 @@ namespace Glove.IOT.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class WarningInfo
+    public partial class DeviceRealtimeData
     {
-        public int Id { get; set; }
-        public string DeviceId { get; set; }
-        public string WarningMessage { get; set; }
+        public string Id { get; set; }
+        public int DeviceName { get; set; }
+        public string StatusFlag { get; set; }
+        public int SingleProgress { get; set; }
+        public int NowOutput { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
         public Nullable<System.DateTime> StopTime { get; set; }
-        public bool IsDeleted { get; set; }
-        public System.DateTime SubTime { get; set; }
+        public System.DateTime CreateTime { get; set; }
     }
 }
