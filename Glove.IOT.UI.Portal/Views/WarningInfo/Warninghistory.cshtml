@@ -1,6 +1,8 @@
-﻿@{
+﻿
+@{
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -21,66 +23,8 @@
     <![endif]-->
     <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
     <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
-    <link href="~/Content/DH/css/layer.css" rel="stylesheet" />
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
-    <style>
-        .layui-form-label {
-            width: 165px; /*左边的字*/
-            padding-left: 5px;
-        }
-        #main .layui-input-button {
-            margin-left: 165px;
-        }
-        .pwdempty {
-            position: absolute;
-            top: 20px;
-            left: 360px;
-            height: 38px;
-            width: 110px;
-            line-height: 38px;
-            text-align: center;
-            vertical-align: middle;
-            color: #f00;
-            display: none;
-        }
-        .newPwdempty {
-            position: absolute;
-            top: 77px;
-            left: 337px;
-            height: 38px;
-            width: 130px;
-            line-height: 38px;
-            text-align: center;
-            vertical-align: middle;
-            color: #f00;
-            display: none;
-        }
-        .reNewpwdempty {
-            position: absolute;
-            top: 135px;
-            left: 348px;
-            height: 38px;
-            width: 120px;
-            line-height: 38px;
-            text-align: center;
-            vertical-align: middle;
-            color: #f00;
-            display: none;
-        }
-        .reNewpwderror {
-            position: absolute;
-            top: 77px;
-            left: 360px;
-            height: 38px;
-            width: 110px;
-            line-height: 38px;
-            text-align: center;
-            vertical-align: middle;
-            color: #f00;
-            display: none;
-        }
-    </style>
     <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
 <body>
@@ -245,137 +189,45 @@
     <section id="main">
         <div class="navigation">
             <span class="layui-breadcrumb">
-                <a href="../UserInfo/Userpassword"><cite>修改密码</cite></a>
+                <a>报警管理</a>
+                <a href=""><cite>历史报警</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
-        <div class="user-form-border">
-            <div class="user-form-title">
-                <p>修改密码</p>
-            </div>
-            <div class="user-form">
-                <div class="layer-content">
-                    <form class="layui-form" lay-filter="userDetail" method="post">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label"><span style="color:red">*</span>请输入密码：</label>
-                            <div class="layui-input-block">
-                                <input type="password" name="pwd" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label"><span style="color:red">*</span>请输入新密码：</label>
-                            <div class="layui-input-block">
-                                <input type="password" name="newPwd" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label"><span style="color:red">*</span>请再次输入新密码：</label>
-                            <div class="layui-input-block">
-                                <input type="password" name="reNewpwd" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <div class="layui-input-button">
-                                <button class="layui-btn" type="button" name="修改密码">修改密码</button>
-                                <button class="layui-btn layui-btn-primary" type="button" name="重新填写">重新填写</button>
-                            </div>
-                        </div>
-                        <div class="pwdempty">
-                            <p>请输入您的密码</p>
-                        </div>
-                        <div class="newPwdempty">
-                            <p>请再次输入您的密码</p>
-                        </div>
-                        <div class="reNewpwdempty">
-                            <p>请输入您的新密码</p>
-                        </div>
-                        <div class="reNewpwderror">
-                            <p>二次密码不一致</p>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="button">
+            <span class="col-xs-10"></span>
+            <button class="layui-btn col-xs-1" name="查找报警">
+                <i class="iconfont icon-seek">&#xe618;</i>
+                查找报警
+            </button>
         </div>
+        <div class="table">
+            <div class="table-title">
+                历史报警
+            </div>
+            @*<table id="table_warning" lay-filter="table_warning" lay-data="{id: 'idTest'}"></table>*@
+            <table id="table_warning"></table>
+        </div>
+
     </section>
     <!-- 底部固定区域 -->
     <footer id="footer">
         <p class="text-right">© 版权所有 © 绍兴金隆机械制造有限公司</p>
     </footer>
+    <!-- 解析时间 -->
+    <script src="~/Scripts/datapattern.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs layui-btn-disabled a_disabled" lay-event="edit" name="编辑">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled a_disabled" lay-event="del" name="删除">删除</a>
     </script>
-    <script src="~/Content/DH/lib/jquery.form.js"></script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
         //更新左上角用户信息
         userMessage();
-        $('button[name="重新填写"]').click(function () {//清空内容 重新填写
-            $(':input', '.layui-form').val('');
-        })
-        $('button[name="修改密码"]').click(function () {//修改密码按钮
-            if ($('input[name="pwd"]').val() === '') {
-                $('input[name="pwd"]').attr('placeholder', '请输入密码');
-                $('input[name="pwd"]').addClass("red");
-            }
-            else if ($('input[name="newPwd"]').val() === '') {
-                $('input[name="newPwd"]').attr('placeholder', '请输入新密码');
-                $('input[name="newPwd"]').addClass("red");
-            }
-            else if ($('input[name="reNewpwd"]').val() === '') {
-                $('input[name="reNewpwd"]').attr('placeholder', '请再次输入新密码');
-                $('input[name="reNewpwd"]').addClass("red");
-            }
-            else if ($('input[name="newPwd"]').val() !== $('input[name="reNewpwd"]').val()) {
-                $('.reNewpwderror').show();
-            }
-            else {
-                $.post("/UserInfo/EditPwd", { oldPwd: $('input[name="pwd"]').val(), newPwd: $('input[name="newPwd"]').val() }, function (data) {
-                    if (data === "true") {
-                        layui.use('layer', function (data) {
-                            var layer = layui.layer;
-                            layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">修改密码成功</span>', {
-                                time: 2000,
-                                area: ['200px', '100px'],
-                                shade: 0.4,
-                                shadeClose: true
-                            });
-                        });
-                        $(':input', '.layui-form').val('');
-                    }
-                    else if (data === "false") {
-                        layui.use('layer', function (data) {
-                            var layer = layui.layer;
-                            layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">原密码错误</span>', {
-                                time: 2000,
-                                area: ['200px', '100px'],
-                                shade: 0.4,
-                                shadeClose: true
-                            });
-                        });
-                    }
-                })
-            }
-        })
-        //聚焦时删除提示
-        $('input[name="pwd"]').focus(function () {
-            $('input[name="pwd"]').removeClass("red");
-            $('input[name="pwd"]').removeAttr('placeholder');
-        })
-        $('input[name="newPwd"]').focus(function () {
-            $('input[name="newPwd"]').removeClass("red");
-            $('input[name="newPwd"]').removeAttr('placeholder');
-            $('.reNewpwderror').hide();
-        })
-        $('input[name="reNewpwd"]').focus(function () {
-            $('input[name="reNewpwd"]').removeClass("red");
-            $('input[name="reNewpwd"]').removeAttr('placeholder');
-            $('.reNewpwderror').hide();
-        })
     </script>
+
 </body>
 </html>
