@@ -9,12 +9,10 @@ namespace Glove.IOT.Common
 {
     public class Device
     {
-        public int Id { get; set; }
-        public string DeviceId { get; set; }
-        public string StatusFlag { get; set; }
+        public string Id { get; set; }
+        public int DeviceName { get; set; }
         public bool LAY_CHECKED { get; set; }
-        public DateTime Date { get; set; }
-        public int SumOutput { get; set; }
+
 
     }
 }

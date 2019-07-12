@@ -55,27 +55,27 @@ namespace Glove.IOT.UI.Portal.Controllers
         }
 
         /// <summary>
-        /// 获取所以设备，并勾选已经存在组内的设备
+        /// 获取所有设备，并勾选已经存在组内的设备
         /// </summary>
         /// <param name="deviceQueryParam"></param>
         /// <returns></returns>
-        public ActionResult GetAllDeviceInfos(string limit, string page, string deviceId, string statusFlag,int gId)
+        public ActionResult GetAllDeviceInfos(string limit, string page, string schDeviceName,int gId)
         {
             int pageSize = int.Parse(limit ?? "10");
             int pageIndex = int.Parse(page ?? "1");
+            int deviceName = int.Parse(schDeviceName ?? "0");
 
             //过滤的设备名 过滤备注schDeviceId schStatusFlag
-            var queryParam = new DeviceQueryParam()
+            var queryParam = new DeviceRealtimeQueryParam()
             {
                 PageSize = pageSize,
                 PageIndex = pageIndex,
-                SchDeviceId = deviceId,
-                SchStatusFlag = statusFlag,
+                SchDeviceName = deviceName,
                 Total = 0
             };
-            //var pageData = GroupInfoService.LoagDevicePageData(queryParam,gId).ToList();
-            //var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
-            return Json(0, JsonRequestBehavior.AllowGet);
+            var pageData = GroupInfoService.LoagDevicePageData(queryParam, gId).ToList();
+            var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -131,12 +131,12 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="alldIds"></param>
         /// <param name="dIds"></param>
         /// <returns></returns>
-        public ActionResult SetDevices( int gId,string[]alldIds, string[] dIds)
+        public ActionResult SetDevices( int gId, string[] dIds)
         {
             List<string> dIdsList = dIds.ToList();
-            List<string> alldIdsList = alldIds.ToList();
+
             //剁掉组里已存在的设备
-            R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId == gId && alldIdsList.Contains(r.DeviceInfoId)));
+            R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId == gId ));
             //添加勾选的设备
             //if (dIds[0] == 0)
             //{

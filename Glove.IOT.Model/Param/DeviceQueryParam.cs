@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.Model.Param
 {
-    public class DeviceQueryParam:BaseParam
+    public class DeviceRealtimeQueryParam:BaseParam
     {
-        public string SchDeviceId { get; set; }
+        public int SchDeviceName { get; set; }
         public string SchStatusFlag { get; set; }
     }
 }

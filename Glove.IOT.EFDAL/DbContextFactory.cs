@@ -21,6 +21,7 @@ namespace Glove.IOT.EFDAL
                 db = new DataModelContainer();
                 CallContext.SetData("DbContext", db);
             }
+            db.Configuration.ProxyCreationEnabled = false;
             return db;
         }
     }

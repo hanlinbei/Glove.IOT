@@ -15,49 +15,50 @@ namespace Glove.IOT.UI.Portal.Controllers
     {
         public IOperationLogService OperationLogService { get; set; }
         public IDeviceInfoService DeviceInfoService { get; set; }
+        public IDeviceRealtimeDataService DeviceRealtimeDataService { get; set; }
+        public IDeviceHistoryDataService DeviceHistoryDataService { get; set; }
 
-
-        /// <summary>
-        /// 删除设备
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult Delete(int[] ids)
-        {
-            
-
-            return Content("ok");
-        }
 
         /// <summary>
         /// 获取所有设备信息
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetAllDeviceInfos(string limit,string page,string deviceId, string statusFlag)
+        public ActionResult GetAllDeviceRealtimeData(string limit,string page,string schDeviceName, string schStatusFlag)
         {
-            
+            int pageSize = int.Parse(limit ?? "10");
+            int pageIndex = int.Parse(page ?? "1");
+            int deviceName = int.Parse(schDeviceName ?? "0");
+            //过滤的设备名 过滤备注schDeviceId schStatusFlag
+            var queryParam = new DeviceRealtimeQueryParam()
+            {
+                PageSize = pageSize,
+                PageIndex = pageIndex,
+                SchDeviceName = deviceName,
+                SchStatusFlag = schStatusFlag,
+                Total = 0
+            };
 
-            if (!string.IsNullOrEmpty(deviceId) || !string.IsNullOrEmpty(statusFlag))
+            var pageData = DeviceRealtimeDataService.LoadDeviceRealtimePageData(queryParam).ToList();
+            var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData };
+            
+            if (!string.IsNullOrEmpty(schDeviceName) || !string.IsNullOrEmpty(schStatusFlag))
             {
                 //写操作日志
-                OperationLogService.Add("查找设备", "设备管理", LoginInfo, deviceId, statusFlag);
+                OperationLogService.Add("查找设备", "设备管理", LoginInfo, schDeviceName, schStatusFlag);
             }
-            return Json(0, JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
 
         }
         /// <summary>
-        /// 获取设备参数详细信息
+        /// 获取单个设备近7天每天产量详细信息
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetDeviceParameterInfo(string deviceId)
+        public ActionResult GetWeekEachDayData(int deviceName)
         {
-
-            
-          
+            var data = DeviceHistoryDataService.GetWeekEachDayData(deviceName).ToList();
             //写操作日志
-            OperationLogService.Add("查看设备", "设备管理", LoginInfo, deviceId, "");
-            return Json(0, JsonRequestBehavior.AllowGet);
+            OperationLogService.Add("查看设备", "设备管理", LoginInfo, deviceName.ToString(), "");
+            return Json(data, JsonRequestBehavior.AllowGet);
 
         }
 

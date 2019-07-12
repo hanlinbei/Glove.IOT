@@ -11,6 +11,8 @@ namespace Glove.IOT.UI.Portal.Controllers
     public class WarningInfoController : BaseController
     {
         public IOperationLogService OperationLogService { get; set; }
+        public IDeviceRealtimeWarningService DeviceRealtimeWarningService { get; set; }
+        public IDeviceHistoryWarningService DeviceHistoryWarningService { get; set; }
 
         /// <summary>
         /// 报警视图
@@ -36,26 +38,60 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="schMessage"></param>
         /// <param name="schDeviceId"></param>
         /// <returns></returns>
-        public ActionResult GetWarningInfo(string limit, string page, string firsTime, string schMessage,string schDeviceId)
+        public ActionResult GetRealTimeWarningInfo(string limit, string page, string schStartTime, string schMessage,string schDeviceName)
         {
             int pageSize = int.Parse(limit ?? "10");
             int pageIndex = int.Parse(page ?? "1");
+            int deviceName = int.Parse(schDeviceName ?? "0");
             
             //过滤条件
             var warningQueryParam = new WarningQueryParam()
             {
                 PageSize = pageSize,
                 PageIndex = pageIndex,
-                FirstTime = firsTime,
+                SchStartTime = schStartTime,
                 SchMessage = schMessage,
-                SchDeviceId= schDeviceId,
+                SchDeviceName= deviceName,
                 Total = 0,
             };
+            var pageData=DeviceRealtimeWarningService.GetRealTimeWarningInfo(warningQueryParam);
 
-            //var data = new { code = 0, msg = "", count = warningQueryParam.Total, data = pageData.ToList() };
+            var data = new { code = 0, msg = "", count = warningQueryParam.Total, data = pageData.ToList() };
             //写操作日志
-            OperationLogService.Add("报警查看", "报警管理", LoginInfo, "报警", "");
-            return Json(0, JsonRequestBehavior.AllowGet);
+            OperationLogService.Add("实时报警查看", "报警管理", LoginInfo, "报警", "");
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 获取所有设备历史报警信息
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="page"></param>
+        /// <param name="schStartTime"></param>
+        /// <param name="schMessage"></param>
+        /// <param name="schDeviceName"></param>
+        /// <returns></returns>
+        public ActionResult GetHistoryWarningInfo(string limit, string page, string schStartTime, string schMessage, string schDeviceName)
+        {
+            int pageSize = int.Parse(limit ?? "10");
+            int pageIndex = int.Parse(page ?? "1");
+            int deviceName = int.Parse(schDeviceName ?? "0");
+
+            //过滤条件
+            var warningQueryParam = new WarningQueryParam()
+            {
+                PageSize = pageSize,
+                PageIndex = pageIndex,
+                SchStartTime = schStartTime,
+                SchMessage = schMessage,
+                SchDeviceName = deviceName,
+                Total = 0,
+            };
+            var pageData = DeviceHistoryWarningService.GetHistoryWarningInfo(warningQueryParam);
+
+            var data = new { code = 0, msg = "", count = warningQueryParam.Total, data = pageData.ToList() };
+            //写操作日志
+            OperationLogService.Add("历史报警查看", "报警管理", LoginInfo, "报警", "");
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

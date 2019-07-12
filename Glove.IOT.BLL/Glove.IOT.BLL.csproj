@@ -64,6 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseService.cs" />
+    <Compile Include="DeviceCmdService.cs" />
+    <Compile Include="DeviceHistoryDataService.cs" />
+    <Compile Include="DeviceHistoryWarningService.cs" />
+    <Compile Include="DeviceInfoService.cs" />
+    <Compile Include="DeviceRealtimeDataService.cs" />
+    <Compile Include="DeviceRealtimeWarningService.cs" />
     <Compile Include="GroupInfoService.cs" />
     <Compile Include="R_GroupInfo_DeviceInfoService.cs" />
     <Compile Include="R_RoleInfo_ActionInfoService.cs" />

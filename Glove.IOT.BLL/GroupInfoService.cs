@@ -53,6 +53,37 @@ namespace Glove.IOT.BLL
             return query.GetPageEntitiesAsc(baseParam.PageSize, baseParam.PageIndex, q => q.Id, true);
         }
 
-      
+        /// <summary>
+        /// 获取所有设备，并勾选已经存在组内的设备
+        /// </summary>
+        /// <param name="queryParam"></param>
+        /// <param name="gId"></param>
+        /// <returns></returns>
+        public IQueryable<Device> LoagDevicePageData(DeviceRealtimeQueryParam queryParam, int gId)
+        {
+            //组内已存在的设备ID
+            var temp = DbSession.R_GroupInfo_DeviceInfoDal.GetEntities(g => g.IsDeleted == false && g.GroupInfoId == gId).Select(g => g.DeviceInfoId);
+            var deviceInfoDal = DbSession.DeviceInfoDal.GetEntities(u => true);
+            var query = from t1 in deviceInfoDal
+                        select new Device
+                        {
+                            Id = t1.Id,
+                            DeviceName = t1.DeviceName,
+                            LAY_CHECKED = temp.Contains(t1.Id)
+                        };
+            //按设备名查找
+            if (queryParam.SchDeviceName != 0)
+            {
+                query = query.Where(u => u.DeviceName == queryParam.SchDeviceName).AsQueryable();
+            }
+
+            queryParam.Total = query.Count();
+
+            return query.GetPageEntitiesAsc(queryParam.PageSize, queryParam.PageIndex, q => q.DeviceName, true);
+        }
+
+
+
+
     }
 }

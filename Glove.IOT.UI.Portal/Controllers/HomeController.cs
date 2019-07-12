@@ -1,5 +1,6 @@
 ﻿using Glove.IOT.IBLL;
 using Glove.IOT.Model;
+using Glove.IOT.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace Glove.IOT.UI.Portal.Controllers
     {
         public IDeviceInfoService DeviceInfoService { get; set; }
         public IUserInfoService UserInfoService { get; set; }
+        public IDeviceRealtimeDataService DeviceRealtimeDataService { get; set; }
+        public IDeviceRealtimeWarningService DeviceRealtimeWarningService { get; set; }
+        public IDeviceHistoryDataService DeviceHistoryDataService { get; set; }
 
         // GET: Home
 
@@ -39,18 +43,23 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns>主页视图</returns>
         public ActionResult GetSummation()
         {
-            //var date = DateTime.Now.Date;
-            ////当前设备运行总数
-            //var device = DeviceInfoService.GetRunningDeviceCount();
-            ////当前上班的总人数
-            //var user=UserInfoService.GetNowOnWorkUserCount();
-            ////今日车间总产量
-            //var todayOutput = DeviceInfoService.GetSumOutput().Where(d=>d.Date==date).Select(d=>d.SumOutput).FirstOrDefault();
-            ////当期报警设备数
-            //var warningNum = WarningInfoService.GetWarningNum();
+            var runningStatus = StatusFlagEnum.运行中.ToString();
+            //当前设备运行总数
+            var runingDeviceCount = DeviceRealtimeDataService.GetEntities(u => u.StatusFlag == runningStatus).Count();
+            //获取设备总数
+            var allDeviceCount = DeviceInfoService.GetEntities(u => true).Count();
+            //当前上班的总人数
+            var onworkUserCount = UserInfoService.GetNowOnWorkUserCount();
+            //员工总人数
+            var allUserCount = UserInfoService.GetEntities(u => u.StatusFlag == true).Count();
+            //近一周车间每天总产量
+            var weekEachdayOutput = DeviceHistoryDataService.GetWeekEachDayData(); 
+            //当期报警设备数
+            var warningNum = DeviceRealtimeWarningService.GetEntities(u => true).Count();
 
-            //var data = new { Device = device, User = user, TodayOutput = todayOutput, WarningNum = warningNum };
-            return Json(0, JsonRequestBehavior.AllowGet);
+            var data = new { RuningDeviceCount = runingDeviceCount, AllDeviceCount = allDeviceCount, OnworkUserCount = onworkUserCount,
+                AllUseCountr = allUserCount, WeekEachDayOutput= weekEachdayOutput, WarningNum = warningNum };
+            return Json(data, JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult Home()

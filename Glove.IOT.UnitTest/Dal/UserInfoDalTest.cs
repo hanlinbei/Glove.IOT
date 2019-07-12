@@ -2,6 +2,8 @@
 using System.Linq;
 using Glove.IOT.EFDAL;
 using Glove.IOT.Model;
+using Glove.IOT.UI.Portal;
+using Glove.IOT.UI.Portal.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Glove.IOT.UnitTest
@@ -9,6 +11,8 @@ namespace Glove.IOT.UnitTest
     [TestClass]
     public class UserInfoDalTest
     {
+      
+
         [TestMethod]
         public void TestGetUsers()
         {
@@ -27,5 +31,7 @@ namespace Glove.IOT.UnitTest
             Assert.AreEqual(true, temp.Count() >= 10);
 
         }
+
+     
     }
 }
