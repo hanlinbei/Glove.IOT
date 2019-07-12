@@ -31,7 +31,8 @@
 
   <object type="Glove.IOT.UI.Portal.Controllers.DeviceController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="DeviceInfoService" ref="DeviceInfoService" />
-
+    <property name="DeviceRealtimeDataService" ref="DeviceRealtimeDataService" />
+    <property name="DeviceHistoryDataService" ref="DeviceHistoryDataService" />
     <property name="OperationLogService" ref="OperationLogService" />
   </object>
   
@@ -40,7 +41,10 @@
   </object>
    <object type="Glove.IOT.UI.Portal.Controllers.WarningInfoController, Glove.IOT.UI.Portal" singleton="false" >
      <property name="OperationLogService" ref="OperationLogService" />
-  </object>
+     <property name="DeviceRealtimeWarningService" ref="DeviceRealtimeWarningService" />
+     <property name="DeviceHistoryWarningService" ref="DeviceHistoryWarningService" />
+   </object>
+  
   <object type="Glove.IOT.UI.Portal.Controllers.TeamInfoController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="TeamInfoService" ref="TeamInfoService" />
     <property name="UserInfoService" ref="UserInfoService" />
@@ -54,6 +58,9 @@
   <object type="Glove.IOT.UI.Portal.Controllers.HomeController, Glove.IOT.UI.Portal" singleton="false" >
     <property name="DeviceInfoService" ref="DeviceInfoService" />
     <property name="UserInfoService" ref="UserInfoService" />
+    <property name="DeviceRealtimeWarningService" ref="DeviceRealtimeWarningService" />
+    <property name="DeviceRealtimeDataService" ref="DeviceRealtimeDataService" />
+    <property name="DeviceHistoryDataService" ref="DeviceHistoryDataService" />
   </object>
   
 </objects>

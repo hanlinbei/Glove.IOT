@@ -16,7 +16,8 @@
   </object>
   <object name="RoleInfoDal" type="Glove.IOT.EFDAL.RoleInfoDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
-
+  <object name="R_GroupInfo_DeviceInfoDal" type="Glove.IOT.EFDAL.R_GroupInfo_DeviceInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
   <object name="R_UserInfo_RoleInfoDal" type="Glove.IOT.EFDAL.R_UserInfo_RoleInfoDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
   <object name="DeviceInfoDal" type="Glove.IOT.EFDAL.DeviceInfoDal, Glove.IOT.EFDAL" singleton="false" >
@@ -29,6 +30,14 @@
   </object>
   <object name="GroupInfoDal" type="Glove.IOT.EFDAL.GroupInfoDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
-  <object name="R_GroupInfo_DeviceInfoDal" type="Glove.IOT.EFDAL.R_GroupInfo_DeviceInfoDal, Glove.IOT.EFDAL" singleton="false" >
+  <object name="DeviceCmdDal" type="Glove.IOT.EFDAL.DeviceCmdDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+ <object name="DeviceHistoryDataDal" type="Glove.IOT.EFDAL.DeviceHistoryDataDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+ <object name="DeviceHistoryWarningDal" type="Glove.IOT.EFDAL.DeviceHistoryWarningDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+ <object name="DeviceRealtimeDataDal" type="Glove.IOT.EFDAL.DeviceRealtimeDataDal, Glove.IOT.EFDAL" singleton="false" >
+  </object>
+ <object name="DeviceRealtimeWarningDal" type="Glove.IOT.EFDAL.DeviceRealtimeWarningDal, Glove.IOT.EFDAL" singleton="false" >
   </object>
 </objects>

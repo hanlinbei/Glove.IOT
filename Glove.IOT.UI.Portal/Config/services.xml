@@ -44,4 +44,24 @@
     <property name="DbSession" ref="DbSession" />
     <property name="CurrentDal" ref="R_GroupInfo_DeviceInfoDal" />
   </object>
+  <object name="DeviceCmdService" type="Glove.IOT.BLL.DeviceCmdService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="DeviceCmdDal" />
+  </object>
+  <object name="DeviceHistoryDataService" type="Glove.IOT.BLL.DeviceHistoryDataService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="DeviceHistoryDataDal" />
+  </object>
+  <object name="DeviceHistoryWarningService" type="Glove.IOT.BLL.DeviceHistoryWarningService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="DeviceHistoryWarningDal" />
+  </object>
+  <object name="DeviceRealtimeDataService" type="Glove.IOT.BLL.DeviceRealtimeDataService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="DeviceRealtimeDataDal" />
+  </object>
+  <object name="DeviceRealtimeWarningService" type="Glove.IOT.BLL.DeviceRealtimeWarningService, Glove.IOT.BLL" singleton="false" >
+    <property name="DbSession" ref="DbSession" />
+    <property name="CurrentDal" ref="DeviceRealtimeWarningDal" />
+  </object>
 </objects>

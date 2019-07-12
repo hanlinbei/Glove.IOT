@@ -23,6 +23,14 @@ namespace Glove.IOT.IBLL
         /// <param name="id"></param>
         /// <returns></returns>
         IQueryable<dynamic> GetGroupDevices(int id, BaseParam baseParam);
-       
+        /// <summary>
+        /// 获取所有设备并勾选已存在组内的设备
+        /// </summary>
+        /// <param name="queryParam"></param>
+        /// <param name="gId"></param>
+        /// <returns></returns>
+        IQueryable<Device> LoagDevicePageData(DeviceRealtimeQueryParam queryParam, int gId);
+
+
     }
 }

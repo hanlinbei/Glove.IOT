@@ -742,7 +742,7 @@ function someDel(assort) {
             //$.post("/Device/Delete", { ids: delId });//发送字符串
             //表格重载
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "员工管理", 1, globalLimit);
+            updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceRealtimeData', "员工管理", 1, globalLimit);
         });
     }
     else if (assort === 'class') {
@@ -967,7 +967,7 @@ layui.use('table', function () {//打开网页刷新表格
     table.render({
         elem: '#table_device'
         //, height: 500
-        , url: '/Device/GetAllDeviceInfos' //数据接口
+        , url: '/Device/GetAllDeviceRealtimeData' //数据接口
         , title: "设备管理"
         , page: true //开启分页
         , limit: 10
@@ -976,23 +976,23 @@ layui.use('table', function () {//打开网页刷新表格
             { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
             , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
-            , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
+            , { field: 'DeviceId', title: '设备名', minWidth: 80, align: 'center' }
             , { field: 'StatusFlag', title: '运行状态', minWidth: 80, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
          , parseData: function (res) { //res 即为原始返回的数据
-            for (var i = 0; i < res.data.length; i++) {//把状态数据用中文表示
-                if (res.data[i].StatusFlag === "0")
-                    res.data[i].StatusFlag = "关机中";
-                else if (res.data[i].StatusFlag === "1")
-                    res.data[i].StatusFlag = "运行中";
-                else if (res.data[i].StatusFlag === "2")
-                    res.data[i].StatusFlag = "暂停中";
-                else if (res.data[i].StatusFlag === "3")
-                    res.data[i].StatusFlag = "故障中";
-                else if (res.data[i].StatusFlag === "未连接")
-                    res.data[i].StatusFlag = "未连接";
-            }
+            //for (var i = 0; i < res.data.length; i++) {//把状态数据用中文表示
+            //    if (res.data[i].StatusFlag === "0")
+            //        res.data[i].StatusFlag = "关机中";
+            //    else if (res.data[i].StatusFlag === "1")
+            //        res.data[i].StatusFlag = "运行中";
+            //    else if (res.data[i].StatusFlag === "2")
+            //        res.data[i].StatusFlag = "暂停中";
+            //    else if (res.data[i].StatusFlag === "3")
+            //        res.data[i].StatusFlag = "故障中";
+            //    else if (res.data[i].StatusFlag === "未连接")
+            //        res.data[i].StatusFlag = "未连接";
+            //}
             return {
                 "code": res.code, //解析接口状态
                 "msg": res.msg, //解析提示文本
@@ -1040,7 +1040,7 @@ layui.use('table', function () {//打开网页刷新表格
                         globalPage = Math.ceil(num_d / globalLimit);//获取页码值
                         if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
                         //表格重载
-                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", globalPage, globalLimit);
+                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceRealtimeData', "设备管理", globalPage, globalLimit);
                     }
                     else {
                         alert("你没有权限删除");
@@ -1109,7 +1109,7 @@ function layerShowAdddevice(title, url, w, h, data) {
                         globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
                         globalPage = Math.ceil(num_p / globalLimit);//获取页码值
                         if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
-                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "员工管理", globalPage, globalLimit);
+                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceRealtimeData', "员工管理", globalPage, globalLimit);
                     }
                     else {
                         layui.use('layer', function () {
@@ -1154,7 +1154,7 @@ function layerShowSearchdevice(title, url, w, h, data) {
             var res = window["layui-layer-iframe" + index].callbackdata(index, "searchdevice");
             //表格重载 跳转到操作页面
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            updatatable_search('table_device', '#table_device', 550, '/Device/GetAllDeviceInfos', "设备管理", 1, globalLimit, res);
+            updatatable_search('table_device', '#table_device', 550, '/Device/GetAllDeviceRealtimeData', "设备管理", 1, globalLimit, res);
             //最后关闭弹出层
             layer.close(index);
         },

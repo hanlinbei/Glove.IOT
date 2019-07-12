@@ -6,29 +6,67 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.Model.Enum
 {
+    /// <summary>
+    /// 机器状态枚举
+    /// </summary>
     public enum StatusFlagEnum
     {
         /// <summary>
-        /// 无效状态
+        /// 关机状态
         /// </summary>
-        关机中 = 0,
+        关机中 = 5,
         /// <summary>
-        /// 有效状态
+        /// 运行状态
         /// </summary>
         运行中 = 1,
         /// <summary>
-        /// 已经删除状态
+        /// 暂停状态
         /// </summary>
-        暂停中=2,
+        暂停中 = 0,
         /// <summary>
-        /// 故障
+        /// 故障状态
         /// </summary>
-        故障中=3,
+        故障中 = 2,
         /// <summary>
-        /// 设备离线状态
+        /// 离线状态
         /// </summary>
-        未连接=4
-            
+        离线中 = 3,
+        /// <summary>
+        /// 设备注册后显示上线状态
+        /// </summary>
+        已上线 = 4
+
     }
-    
+
+    /// <summary>
+    /// 报警信息枚举
+    /// </summary>
+    public enum WarningMessageEnum
+    {
+        /// <summary>
+        /// 线段
+        /// </summary>
+        线断 = 1,
+        /// <summary>
+        /// 伺服过载
+        /// </summary>
+        伺服过载 = 2
+
+    }
+
+    /// <summary>
+    /// 设备命令状态
+    /// </summary>
+    public enum DevieceCmdStateEnum
+    {
+        /// <summary>
+        /// 待更新
+        /// </summary>
+        待操作 = 1,
+        /// <summary>
+        /// 更新完成
+        /// </summary>
+        操作完成 = 2
+    }
+
 }

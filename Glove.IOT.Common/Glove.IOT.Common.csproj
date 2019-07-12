@@ -63,6 +63,7 @@
     <Compile Include="Cache\HttpRuntimeCacheWriter.cs" />
     <Compile Include="Cache\ICacheWriter.cs" />
     <Compile Include="Cache\MemcacheWriter.cs" />
+    <Compile Include="DeviceDayOutput.cs" />
     <Compile Include="DeviceParameter.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="Email\FTMail.cs" />

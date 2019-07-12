@@ -8,8 +8,8 @@ namespace Glove.IOT.Model.Param
 {
     public class WarningQueryParam:BaseParam
     {
-        public string FirstTime { get; set; }
+        public string SchStartTime { get; set; }
         public string SchMessage { get; set; }
-        public string SchDeviceId { get; set; }
+        public int SchDeviceName { get; set; }
     }
 }
