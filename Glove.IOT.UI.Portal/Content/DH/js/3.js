@@ -1665,7 +1665,7 @@ layui.use('table', function () {//打开网页刷新表格
                 })
             });
         } else if (layEvent === 'edit') { //编辑
-            layerShowEditclass('编辑员工', 'LayerEditclass', 500, 350, obj.data);
+            layerShowEditclass('编辑班号', 'LayerEditclass', 500, 350, obj.data);
         }
     });
     table.on('checkbox(table_class)', function (obj) {

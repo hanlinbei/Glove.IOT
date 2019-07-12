@@ -71,12 +71,21 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -1845,6 +1854,7 @@
     <Content Include="Views\UserInfo\Userdetail.cshtml" />
     <Content Include="Views\WarningInfo\Warningmanage.cshtml" />
     <Content Include="Views\UserInfo\Userpassword.cshtml" />
+    <Content Include="Views\WarningInfo\Warninghistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1893,10 +1903,6 @@
     <ProjectReference Include="..\Glove.IOT.Model\Glove.IOT.Model.csproj">
       <Project>{61203463-03bb-4b9d-927b-75b0c9272b76}</Project>
       <Name>Glove.IOT.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Glove.IOT.Tcp\Glove.IOT.Tcp.csproj">
-      <Project>{4833C4A4-3E68-4191-B6B1-65687E9CA769}</Project>
-      <Name>Glove.IOT.Tcp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

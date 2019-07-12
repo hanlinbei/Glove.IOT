@@ -20,6 +20,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult Warninghistory()
+        {
+            return View();
+        }
         public ActionResult LayerSearchwarning()
         {
             return View();
