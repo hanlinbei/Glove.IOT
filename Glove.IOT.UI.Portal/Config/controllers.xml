@@ -33,6 +33,7 @@
     <property name="DeviceInfoService" ref="DeviceInfoService" />
     <property name="DeviceRealtimeDataService" ref="DeviceRealtimeDataService" />
     <property name="DeviceHistoryDataService" ref="DeviceHistoryDataService" />
+    <property name="DeviceCmdService" ref="DeviceCmdService" />
     <property name="OperationLogService" ref="OperationLogService" />
   </object>
   

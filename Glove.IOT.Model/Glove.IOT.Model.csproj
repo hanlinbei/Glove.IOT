@@ -96,6 +96,7 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Param\BaseParam.cs" />
+    <Compile Include="Param\DeviceCmdQueryParam.cs" />
     <Compile Include="Param\DeviceQueryParam.cs" />
     <Compile Include="Param\GroupQueryParam.cs" />
     <Compile Include="Param\OperationLogQueryParam.cs" />

@@ -17,6 +17,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IDeviceInfoService DeviceInfoService { get; set; }
         public IDeviceRealtimeDataService DeviceRealtimeDataService { get; set; }
         public IDeviceHistoryDataService DeviceHistoryDataService { get; set; }
+        public IDeviceCmdService DeviceCmdService { get; set; }
 
 
         /// <summary>
@@ -62,8 +63,50 @@ namespace Glove.IOT.UI.Portal.Controllers
 
         }
 
+        /// <summary>
+        /// 获取控制命令表
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public ActionResult GetCmdPageData(string limit, string page)
+        {
+            int pageSize = int.Parse(limit ?? "10");
+            int pageIndex = int.Parse(page ?? "1");
 
-     
+            var queryParam = new DeviceCmdQueryParam()
+            {
+                PageSize = pageSize,
+                PageIndex = pageIndex,
+                Total = 0
+            };
+            var pageData = DeviceCmdService.LoagPageData(queryParam).ToList();
+            var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 长传程序更新指令
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UploadProgramFile(int[] deviceNames)
+        {
+            var file = Request.Files["file"];
+            if (file != null)
+            {
+                string path = "/UploadFiles/UploadProgramFiles/" + file.FileName;
+                file.SaveAs(Request.MapPath(path));
+                DeviceCmdService.AddDeviceCmd(Request.MapPath(path), deviceNames);
+                return Content("ok");
+            }
+            return Content("false");
+
+
+
+        }
+
+
 
         public ActionResult IsLayerAdddevice()
         {

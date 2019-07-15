@@ -19,8 +19,7 @@ namespace Glove.IOT.BLL
         /// <returns></returns>
         public IQueryable<DeviceDayOutput> GetWeekEachDayData(int deviceName)
         {
-            var sevendaysAgo = DateTime.Now.AddDays(-7);
-            var deviceHistoryDatas = DbSession.DeviceHistoryDataDal.GetEntities(u => u.DeviceName == deviceName && u.CreateTime >= sevendaysAgo);
+            var deviceHistoryDatas = DbSession.DeviceHistoryDataDal.GetEntities(u => true);
             var query = from t1 in deviceHistoryDatas.GroupBy(u => EntityFunctions.TruncateTime(u.CreateTime))
                          .Select(p => new
                          {
@@ -33,7 +32,7 @@ namespace Glove.IOT.BLL
                             SumOutput = t1.DayOutput
                         };
 
-            return query;
+            return query.OrderBy(u=>u.Date).Take(7);
 
         }
 
@@ -42,9 +41,8 @@ namespace Glove.IOT.BLL
         /// </summary>
         /// <returns></returns>
         public IQueryable<DeviceDayOutput> GetWeekEachDayData()
-        {
-            var sevendaysAgo = DateTime.Now.AddDays(-7);
-            var deviceHistoryDatas = DbSession.DeviceHistoryDataDal.GetEntities(u => u.CreateTime >= sevendaysAgo);
+        {           
+            var deviceHistoryDatas = DbSession.DeviceHistoryDataDal.GetEntities(u =>true);
             var query = from t1 in deviceHistoryDatas.GroupBy(u => EntityFunctions.TruncateTime(u.CreateTime))
                         .Select(p => new
                         {
@@ -56,7 +54,7 @@ namespace Glove.IOT.BLL
                             Date = t1.DayTime,
                             SumOutput = t1.DaOutput
                         };
-            return query;
+            return query.OrderBy(u=>u.Date).Take(7);
         }
     }
 }
