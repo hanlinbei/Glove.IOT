@@ -102,7 +102,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             }
             return Content("false");
 
-
+        
 
         }
 
@@ -136,6 +136,14 @@ namespace Glove.IOT.UI.Portal.Controllers
         {
             return View();
         }
+        public ActionResult UploadFile()
+        {
+            return View();
+        }
+        public ActionResult LayerUploadFile()
+        {
+            return View();
+        }
         public ActionResult test()
         {
             return View();
@@ -145,6 +153,10 @@ namespace Glove.IOT.UI.Portal.Controllers
             return View();
         }
         public ActionResult eChartsTest()
+        {
+            return View();
+        }
+        public ActionResult test1()
         {
             return View();
         }

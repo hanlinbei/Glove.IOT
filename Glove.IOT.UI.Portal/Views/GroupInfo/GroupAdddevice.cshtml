@@ -196,7 +196,7 @@
             <button class="layui-btn layui-btn-normal col-xs-1" name="保存">
                 保存
             </button>
-            <p class="col-xs-1" style="height:38px;vertical-align:middle;line-height:38px;font-size:20px;">1组</p>
+            <p class="col-xs-1" style="height:38px;vertical-align:middle;line-height:38px;font-size:20px;"></p>
             <span class="col-xs-7"></span>
             <button class="layui-btn col-xs-1" name="查找">
                 查找
@@ -244,8 +244,13 @@
             layerShowSearchdevice_g('查找设备', 'LayerSearchdevice', 550, 350, "null");
         })
         $('button[name="保存"]').click(function () {
+            console.log('11a');
             var table = layui.table;
+            console.log(table.cache);
             var table_relationDevice = table.cache.table_relationDevice;
+            console.log(table.cache.table_relationDevice);
+
+            console.log(table_relationDevice);
             var alldIds = new Array();
             var dIds = new Array();
             for (var i = 0; i < table_relationDevice.length; i++) {

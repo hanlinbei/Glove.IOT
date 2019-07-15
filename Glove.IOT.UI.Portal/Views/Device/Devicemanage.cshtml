@@ -193,15 +193,15 @@
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
-            <button class="layui-btn layui-btn-normal col-xs-1" name="添加设备">
+            @*<button class="layui-btn layui-btn-normal col-xs-1" name="添加设备">
                 <i class="iconfont icon-add">&#xe726;</i>
                 添加设备
             </button>
             <button class="layui-btn layui-btn-danger col-xs-1" name="删除设备">
                 <i class="iconfont icon-delete">&#xe62f;</i>
                 删除设备
-            </button>
-            <span class="col-xs-8"></span>
+            </button>*@
+            <span class="col-xs-10"></span>
             <button class="layui-btn col-xs-1" name="查找设备">
                 <i class="iconfont icon-seek">&#xe618;</i>
                 查找设备
@@ -224,7 +224,7 @@
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs a_disabled layui-btn-disabled a_disabled layui-btn-disabled" lay-event="detail" name="查看">查看</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs a_disabled layui-btn-disabled" lay-event="del" name="删除">删除</a>
+        @*<a class="layui-btn layui-btn-danger layui-btn-xs a_disabled layui-btn-disabled" lay-event="del" name="删除">删除</a>*@
     </script>
     <script src="~/Content/DH/js/3.js"></script>
     <script>
@@ -232,7 +232,16 @@
         $('button').attr('disabled', 'disabled');
         //更新左上角用户信息
         userMessage();
+
+       
+        //var table = layui.table;
+        //TableCache = window.table.cache;
+        //console.log(window.table.cache.table_device);
+        ////var TableCache = table.cache.table_device;
+        //console.log(TableCache.table_device);
+
         
+
     </script>
 
 </body>
