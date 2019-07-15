@@ -41,7 +41,7 @@
                         <span class="topbar-left__alignmen">
                             <img src="~/Content/DH/img/LOGO.png" height="60" width="60" alt="品牌LOGO">
                         </span>
-                        <span class="topbar-left__font-size-l">金隆物联</span>
+                        <span class="topbar-left__font-size-l">手套机工业物联网平台</span>
                     </a>
                 </div>
                 <div class="collapse navbar-collapse topbar-middle">
@@ -244,7 +244,7 @@
         }
         $.get('/Home/GetSummation', {}, function (data) {
             console.log(data);
-            $('.Device').html(data.Device);
+            $('.AllDeviceCount').html(data.AllDeviceCount);
             $('.TodayOutput').html(data.TodayOutput);
             $('.User').html(data.User);
             $('.WarningNum').html(data.WarningNum);
@@ -275,7 +275,7 @@
             xAxis: [
                 {
                     type: 'category',
-                    data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                    data: ['1日', '2日', '3日', '4日', '5日', '6日', '7日'],
                     axisPointer: {
                         type: 'shadow'
                     }
@@ -286,7 +286,7 @@
                     type: 'value',
                     name: '万只',
                     min: 0,
-                    max: 250,
+                    max: 2,
                     interval: 50,
                     axisLabel: {
                         formatter: '{value} '
@@ -297,7 +297,7 @@
                 {
                     name: '总产量',
                     type: 'bar',
-                    data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                    data: [1, 1.2, 0.9, 1.5, 2, 1.6, 1]
                 }
             ]
         };
@@ -319,7 +319,7 @@
             legend: {
                 orient: 'vertical',
                 x: 'left',
-                data: ['未上线', '上线']
+                data: ['未运行', '运行中']
             },
             series: [
                 {
@@ -346,8 +346,8 @@
                         }
                     },
                     data: [
-                        { value: 35, name: '未上线' },
-                        { value: 510, name: '上线' }
+                        { value: 100, name: '未运行' },
+                        { value: 200, name: '运行中' }
                     ]
                 }
             ]
