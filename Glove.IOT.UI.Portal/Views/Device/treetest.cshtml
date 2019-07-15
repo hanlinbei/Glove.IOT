@@ -1,225 +1,679 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>多级分类管理</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" type="text/css"
-          href="layui/css/layui.css" media="all">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Glove Machine IoT</title>
 
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+    <link href="~/Content/DH/lib/NProgress/nprogress.css" rel="stylesheet" />
+    <link href="~/Content/DH/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/DH/css/layer.css" rel="stylesheet" />
+    <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
+    <style>
+        .phoneerror {
+            position: absolute;
+            top: 288px;
+            left: 446px;
+            height: 38px;
+            width: 150px;
+            line-height: 38px;
+            text-align: center;
+            vertical-align: middle;
+            color: #f00;
+            display: none;
+        }
+
+        .emailerror {
+            position: absolute;
+            top: 346px;
+            left: 446px;
+            height: 38px;
+            width: 150px;
+            line-height: 38px;
+            text-align: center;
+            vertical-align: middle;
+            color: #f00;
+            display: none;
+        }
+    </style>
+    <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
 </head>
+<body>
+    <!-- 头部区域 -->
+    <header id="header" class="layui-header">
+        <nav class="navbar navbar-glove navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header text-left">
+                    @*<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_list" aria-expanded="false">
+                            <span class="sr-only">切换菜单</span>
+                            <span class="icon-bar"></span><!--汉堡菜单方框里的横线-->
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>*@
+                    <a class="navbar-brand topbar-left" href="#">
+                        <span class="topbar-left__alignmen">
+                            <img src="~/Content/DH/img/LOGO.png" height="60" width="60" alt="品牌LOGO">
+                        </span>
+                        <span class="topbar-left__font-size-l">金隆物联</span>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse topbar-middle">
+                    <ul class="nav navbar-nav topbar-middle text-left">
+                        <li><i class="iconfont icon-telephone">&#xe62a;</i></li>
+                        <li class="hidden-sm hidden-xs"><span class="topbar-middle__alignment">客服电话：400-12345678(9:00~21:00)</span></li>
+                        <li><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li>
+                            <span class="topbar-middle__link">
+                                <span class="topbar-middle__alignment">微信小程序二维码</span>
+                                <img src="~/Content/DH/img/c_06.jpg" height="140" width="124" alt="二维码">
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="../Home/Home" class="layui-icon layui-icon-home"></a></li>
+                        <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li><a href="../WarningInfo/Warningmanage" class="iconfont icon-vline">&#xe6f1;</a></li>
+                        <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle iconfont icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&#xe638;<span class="caret"></span></a>
+                            <ul class="dropdown-menu" style="min-width: 80px; text-align:center;">
+                                <li><a href="../UserInfo/Userdetail">基本资料</a></li>
+                                <li><a href="../UserInfo/Userpassword">修改密码</a></li>
+                                <li><a id="logout">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 最小宽度时出现汉堡菜单-->
+                @*<div class="collapse navbar-collapse" id="nav_list">
+                        <ul class="nav navbar-nav">
+                            <li class="hidden-lg hidden-md hidden-sm"><a href="#">设备管理</a></li>
+                            <li class="hidden-lg hidden-md hidden-sm"><a href="#">班组管理</a></li>
+                            <li class="hidden-lg hidden-md hidden-sm"><a href="#">报警处理</a></li>
+                            <li class="hidden-lg hidden-md hidden-sm"><a href="#">系统管理</a></li>
+                        </ul>
+                    </div>*@
+            </div>
+        </nav>
+    </header>
+    <section id="aside" class="hidden-xs">
+        <div class="aside-top">
+            <div class="text-right col-xs-5" style="padding:0 5px 0 25px" id="tPicture"></div>
+            <div class="aside-top__username col-xs-7" style="padding:0 25px 0 5px"><p name="userName" style="text-align:center;"></p></div>
+        </div>
+        <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
+            <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-machine">&#xe6a3;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">设备管理</span>
+                    <span class="layui-nav-more"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-class">&#xe64a;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">班组管理</span>
+                    <span class="layui-nav-more"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    @*<dd><a href="#">班组设置</a></dd>*@
+                    <dd><a href="../TeamInfo/Classmanage">班号管理</a></dd>
+                    <dd><a href="../GroupInfo/Groupmanage">组号管理</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-alarm">&#xe6a8;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">报警管理</span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../WarningInfo/Warningmanage">当前报警</a></dd>
+                    <dd><a href="../WarningInfo/Warninghistory">历史报警</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-gear">&#xe65b;</i>
+                    <span style="font-size:18px;vertical-align: middle;padding-left:8px;">系统管理</span>
+                    <span class="layui-nav-more"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
+                    <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
+                    <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
+                    <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
+                    @*<dd><a href="#">数据字典</a></dd>
+                        <dd><a href="#">用户管理</a></dd>*@
+                </dl>
+            </li>
+        </ul>
+    </section>
+    <section id="aside" class="visible-xs-block">
+        <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="sidebar" lay-shrink="">
+            <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-machine">&#xe6a3;</i>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-class">&#xe64a;</i>
+                </a>
+                <dl class="layui-nav-child">
+                    @*<dd><a href="#">班组设置</a></dd>*@
+                    <dd><a href="../TeamInfo/Classmanage">班号管理</a></dd>
+                    <dd><a href="../GroupInfo/Groupmanage">组号管理</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-alarm">&#xe6a8;</i>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../WarningInfo/Warningmanage">当前报警</a></dd>
+                    <dd><a href="../WarningInfo/Warninghistory">历史报警</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="iconfont icon-gear">&#xe65b;</i>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../UserInfo/Usermanage">员工管理</a></dd>
+                    <dd><a href="../RoleInfo/Userpower">角色权限管理</a></dd>
+                    <dd><a href="../OperationLog/Operationlog">操作日志</a></dd>
+                    <dd><a href="../UserInfo/Userdetail">个人资料</a></dd>
+                    @*<dd><a href="#">数据字典</a></dd>
+                        <dd><a href="#">用户管理</a></dd>*@
+                </dl>
+            </li>
+        </ul>
+    </section>
+    <section id="main">
+        <div class="navigation">
+            <span class="layui-breadcrumb">
+                <a>系统管理</a>
+                <a href=""><cite>个人资料</cite></a>
+            </span>
+        </div>
+        <!-- 该页面的主要内容 -->
+        <div class="user-form-border">
+            <div class="user-form-title">
+                <p>个人资料</p>
+            </div>
+            <div class="user-form">
+                <div class="layer-content">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">输入框</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">密码框</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">辅助文字</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">选择框</label>
+                            <div class="layui-input-block">
+                                <select name="city" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="0">北京</option>
+                                    <option value="1">上海</option>
+                                    <option value="2">广州</option>
+                                    <option value="3">深圳</option>
+                                    <option value="4">杭州</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">复选框</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="like[write]" title="写作">
+                                <input type="checkbox" name="like[read]" title="阅读" checked>
+                                <input type="checkbox" name="like[dai]" title="发呆">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">开关</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="switch" lay-skin="switch">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">单选框</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="sex" value="男" title="男">
+                                <input type="radio" name="sex" value="女" title="女" checked>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">文本域</label>
+                            <div class="layui-input-block">
+                                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
 
-<style>
-    .panel {
-        margin-bottom: 0;
-    }
-
-    i {
-        cursor: pointer !important;
-        cursor: hand !important;
-    }
-
-    body {
-    }
-
-    a:hover {
-        background-color: #E6E6E6;
-    }
-
-    .active {
-        background: #E6E6E6;
-    }
-
-    .hide {
-        display: none;
-    }
-</style>
-<body style="height:100%;">
-
-
-
-    <div style="height:100%;">
-        <div class="panel panel-default"
-             style=" position:fixed;   width: 250px; height:800px;   overflow:auto;">
-            <div class="panel-body" style=" ">
-                <h4 style="text-align: center;">分类管理</h4>
-                <ul unselectable="on" id="demo"
-                    style="margin-top: 30px; -moz-user-select: none; -webkit-user-select: none;"
-                    onselectstart="return false;"></ul>
-                <button id="addcate" class="layui-btn  layui-btn-primary" style="margin-top:20px; margin-left:28px; width:70%;">添加分类</button>
+                    
+                        
+                   
+                </div>
             </div>
         </div>
+    </section>
+    <!-- 底部固定区域 -->
+    <footer id="footer">
+        <p class="text-right">© 版权所有 © 绍兴金隆机械制造有限公司</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs layui-btn-disabled a_disabled" lay-event="edit" name="编辑">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled a_disabled" lay-event="del" name="删除">删除</a>
+    </script>
+    <script src="~/Content/DH/lib/jquery.form.js"></script>
+    <script src="~/Content/DH/js/3.js"></script>
+    <script>
+        //更新左上角用户信息
+        userMessage();
+        //获取数据
+        uploadUserdetail('get');
 
 
+        //layui.use('form', function () {
+        //    var form = layui.form;
+        //    console.log(form);
+        //    console.log(form.config);
+        //    console.log(form.config.verify);
 
-    </div>
+        //})
 
 
-    <script type="text/javascript" src="layui/layui.js"></script>
-    <script type="text/javascript">
-        layui.use(['jquery', 'layer', 'element', 'form', 'tree'], function () {
-            window.jQuery = window.$ = layui.jquery;
-            window.layer = layui.layer;
+        //Demo
+        layui.use('form', function () {
             var form = layui.form;
-            var elem = layui.element;
-            var topcateid = 0;  //为模拟顶级分类id用
 
-            //初始化layer.tree
-            var tree = layui.tree({
-                elem: '#demo',
-                nodes: []     //这里可以通过后台获取（如ThinkPHP框架则可以通过后台拼接好，再生成模板变量类似{$tree}就可以）
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                layer.msg(JSON.stringify(data.field));
+                data.field.aaa = '111';
+                console.log(data);
+                return false;
             });
+        });
 
-            window.onload = function () {
 
-                //删除layui-tree 自带的样式
-                $("i.layui-tree-branch").remove();
-                $("i.layui-tree-leaf").remove();
-                //添加操作的图标(即鼠标划过时显示的添加，修改，删除的按钮组)
-                $("ul#demo").find("a").after("<i class='layui-icon add select hide ' )'></i>" +
-                    "<i class='layui-icon edit select hide'></i>" +
-                    "<i class='layui-icon del select hide'></i>");
+
+
+
+
+
+        $('button[name="重新填写"]').click(function () {
+            $(':input', '.layui-form')
+                .not('input[name="RoleName"], input[name="UName"]') //去除不需要重置的input类型
+                .val('');
+            $('input[type=radio][name="Gender"]:checked').prop("checked", false);//清空按钮
+            layui.use('form', function () {
+                var form = layui.form;
+                form.render();
+            });
+        })
+        $("#upload").click(function () {
+            $('#chooseImage').click();
+        })
+        $('#chooseImage').on('change', function (data) {
+            //var reader = new FileReader();
+            //reader.onload = function (e) {
+            //    console.log(reader.result);  //或者 e.target.result都是一样的，都是base64码
+            //    $('#Hportrait').attr('src', reader.result);
+            //    userDetail.delete('Picture');//清空
+            //    userDetail.append('Picture', reader.result);
+            //}
+            //reader.readAsDataURL(this.files[0]);
+            var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
+                fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),//获取文件后缀名
+                src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
+            //src = window.URL.createObjectURL(data.target.files[0]); //同理都可以获取文件
+            if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">文件格式错误</span>', {
+                        time: 2000,
+                        area: ['200px', '100px'],
+                        shade: 0.4,
+                        shadeClose: true
+                    });
+                });
+                return;
             }
-
-            //添加顶级分类
-            $("#addcate").on("click", function () {
-                layer.prompt({ title: '输入分类名称，并确认', formType: 0 }, function (text, index) {
-                    layer.close(index);
-                    //TODO 可以ajax到后台操作，这里只做模拟
-                    layer.load(2);
-                    setTimeout(function () {
-                        layer.closeAll("loading");
-                        //手动添加节点，肯定有更好的方法=.=！这里的方法感觉有点LOW
-                        // li里面的pid属性为父级类目的id,顶级分类的pid为0
-                        topcateid = topcateid + 1;
-                        $("ul#demo").append("<li  pid='0' id=" + (topcateid) + ">" +
-                            "<a ><cite>" + text + "</cite> </a>" +
-                            "<i class='layui-icon select hide add'></i>" +
-                            "<i class='layui-icon edit select hide'></i>" +
-                            "<i class='layui-icon del select hide'></i>" +
-                            "</li>");
-                    }, 1000)
-                });
-            })
-
-            //显示/隐藏 分类的操作栏
-            $("ul#demo").on({
-                mouseover: function (event) {
-                    event.stopPropagation();
-                    $(this).children(".select").removeClass("hide")
-                },
-
-                mouseout: function (event) {
-                    event.stopPropagation();
-                    $(this).children(".select").addClass("hide")
-                },
-
-            }, "li", "a")
-
-            //添加子分类
-            $("ul#demo ").on("click", "li .add", function () {
-
-                var pid = $(this).closest("li").attr("id");//将父级类目的id作为父类id
-                var that = $(this).closest("li");
-                layer.prompt({ title: '输入子分类名称，并确认', formType: 0 }, function (text, index) {
-                    layer.close(index);
-
-                    //TODO 可以ajax到后台操作，这里只做模拟
-                    layer.load(2);
-                    setTimeout(function () {
-                        layer.closeAll("loading");
-                        topcateid = topcateid + 1;
-                        if (that.children("ul").length == 0) {
-                            //表示要新增   i 以及 ul 标签
-                            that.prepend('<i class="layui-icon layui-tree-spread"></i>')
-                            that.append("<ul class='layui-show'><li  pid=" + pid + "   id=" + (topcateid) + "><a    ><cite>" + text + "</cite> </a><i  class='layui-icon select hide add' )'></i> <i    class='layui-icon edit select hide'></i> <i    class='layui-icon del select hide'></i></li></ul>")
-                        } else {
-                            that.children("ul").append("<li pid=" + pid + "    id=" + (topcateid) + "><a  ><cite>" + text + "</cite> </a><i  class='layui-icon select hide add' )'></i> <i    class='layui-icon edit select hide'></i> <i    class='layui-icon del select hide'></i></li>");
-                        }
-                    }, 1000)
-                });
-
-
-            })
-            //重命名
-            $("ul#demo ").on("click", "li .edit", function () {
-                var node = $(this).parent().children("a").children("cite");
-                var id = $(this).parent().attr("id")
-                var that = $(this).closest("li");
-                layer.prompt({ title: '输入新的分类名称，并确认', value: node.text(), formType: 0 }, function (text, index) {
-                    layer.close(index);
-
-                    //TODO 可以ajax到后台操作，这里只做模拟
-                    layer.load(2);
-                    setTimeout(function () {
-                        layer.closeAll("loading");
-                        node.text(text);
-                    }, 1000)
-                });
-
-
-            })
-            //删除分类
-            $("ul#demo ").on("click", "li .del", function () {
-
-                var that = $(this).closest("li");
-                if (that.children("ul").length > 0) {
-                    layer.msg("该分类下含有子分类不能删除")
-                    return;
-                }
-                var id = $(this).parent().attr("id")
-
-                layer.confirm('确定要删除？该分类下的课程亦将删除！', {
-                    btn: ['删除', '取消']
-                }, function () {
-
-                    //TODO 可以ajax到后台操作，这里只做模拟
-                    layer.load(2);
-                    setTimeout(function () {
-                        layer.closeAll("loading");
-                        if ((that.parent("ul").children("li").length == 1) && (that.parent("ul").parent("li").children("i.layui-tree-spread").length = 1)) {
-                            //要把分类名前的三角符号和ul标签删除
-                            that.parent("ul").parent("li").children("i.layui-tree-spread").remove();
-                        }
-                        that.remove()
-                    }, 1000)
-                });
-
-
-            })
-            //打开/关闭菜单
-
-            $("ul#demo").on({
-
-                click: function (event) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    if ($(this).parent().children("ul").hasClass("layui-show")) {
-
-
-                        $(this).html("");
-                        $(this).parent().children("ul").removeClass("layui-show");
-                        return;
-                    } else {
-
-
-                        $(this).html("");
-                        $(this).parent().children("ul").addClass("layui-show");
-                        return;
-                    }
-                    return;
-                }
-            }, 'i.layui-tree-spread');
-
-
+            $('#Hportrait').attr('src', src);
+            userDetail.delete('Picture');//清空
+            userDetail.append('Picture', data.target.files[0]);
         });
 
     </script>
 
-
-
 </body>
+</html>
 
-</html>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>多级分类管理</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" type="text/css"
+              href="layui/css/layui.css" media="all">
+
+    </head>
+
+    <style>
+        .panel {
+            margin-bottom: 0;
+        }
+
+        i {
+            cursor: pointer !important;
+            cursor: hand !important;
+        }
+
+        body {
+        }
+
+        a:hover {
+            background-color: #E6E6E6;
+        }
+
+        .active {
+            background: #E6E6E6;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+    <body style="height:100%;">
+
+
+
+        <div style="height:100%;">
+            <div class="panel panel-default"
+                 style=" position:fixed;   width: 250px; height:800px;   overflow:auto;">
+                <div class="panel-body" style=" ">
+                    <h4 style="text-align: center;">分类管理</h4>
+                    <ul unselectable="on" id="demo"
+                        style="margin-top: 30px; -moz-user-select: none; -webkit-user-select: none;"
+                        onselectstart="return false;"></ul>
+                    <button id="addcate" class="layui-btn  layui-btn-primary" style="margin-top:20px; margin-left:28px; width:70%;">添加分类</button>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        <script type="text/javascript" src="layui/layui.js"></script>
+        <script type="text/javascript">
+            layui.use(['jquery', 'layer', 'element', 'form', 'tree'], function () {
+                window.jQuery = window.$ = layui.jquery;
+                window.layer = layui.layer;
+                var form = layui.form;
+                var elem = layui.element;
+                var topcateid = 0;  //为模拟顶级分类id用
+
+                //初始化layer.tree
+                var tree = layui.tree({
+                    elem: '#demo',
+                    nodes: []     //这里可以通过后台获取（如ThinkPHP框架则可以通过后台拼接好，再生成模板变量类似{$tree}就可以）
+                });
+
+                window.onload = function () {
+
+                    //删除layui-tree 自带的样式
+                    $("i.layui-tree-branch").remove();
+                    $("i.layui-tree-leaf").remove();
+                    //添加操作的图标(即鼠标划过时显示的添加，修改，删除的按钮组)
+                    $("ul#demo").find("a").after("<i class='layui-icon add select hide ' )'></i>" +
+                        "<i class='layui-icon edit select hide'></i>" +
+                        "<i class='layui-icon del select hide'></i>");
+                }
+
+                //添加顶级分类
+                $("#addcate").on("click", function () {
+                    layer.prompt({ title: '输入分类名称，并确认', formType: 0 }, function (text, index) {
+                        layer.close(index);
+                        //TODO 可以ajax到后台操作，这里只做模拟
+                        layer.load(2);
+                        setTimeout(function () {
+                            layer.closeAll("loading");
+                            //手动添加节点，肯定有更好的方法=.=！这里的方法感觉有点LOW
+                            // li里面的pid属性为父级类目的id,顶级分类的pid为0
+                            topcateid = topcateid + 1;
+                            $("ul#demo").append("<li  pid='0' id=" + (topcateid) + ">" +
+                                "<a ><cite>" + text + "</cite> </a>" +
+                                "<i class='layui-icon select hide add'></i>" +
+                                "<i class='layui-icon edit select hide'></i>" +
+                                "<i class='layui-icon del select hide'></i>" +
+                                "</li>");
+                        }, 1000)
+                    });
+                })
+
+                //显示/隐藏 分类的操作栏
+                $("ul#demo").on({
+                    mouseover: function (event) {
+                        event.stopPropagation();
+                        $(this).children(".select").removeClass("hide")
+                    },
+
+                    mouseout: function (event) {
+                        event.stopPropagation();
+                        $(this).children(".select").addClass("hide")
+                    },
+
+                }, "li", "a")
+
+                //添加子分类
+                $("ul#demo ").on("click", "li .add", function () {
+
+                    var pid = $(this).closest("li").attr("id");//将父级类目的id作为父类id
+                    var that = $(this).closest("li");
+                    layer.prompt({ title: '输入子分类名称，并确认', formType: 0 }, function (text, index) {
+                        layer.close(index);
+
+                        //TODO 可以ajax到后台操作，这里只做模拟
+                        layer.load(2);
+                        setTimeout(function () {
+                            layer.closeAll("loading");
+                            topcateid = topcateid + 1;
+                            if (that.children("ul").length == 0) {
+                                //表示要新增   i 以及 ul 标签
+                                that.prepend('<i class="layui-icon layui-tree-spread"></i>')
+                                that.append("<ul class='layui-show'><li  pid=" + pid + "   id=" + (topcateid) + "><a    ><cite>" + text + "</cite> </a><i  class='layui-icon select hide add' )'></i> <i    class='layui-icon edit select hide'></i> <i    class='layui-icon del select hide'></i></li></ul>")
+                            } else {
+                                that.children("ul").append("<li pid=" + pid + "    id=" + (topcateid) + "><a  ><cite>" + text + "</cite> </a><i  class='layui-icon select hide add' )'></i> <i    class='layui-icon edit select hide'></i> <i    class='layui-icon del select hide'></i></li>");
+                            }
+                        }, 1000)
+                    });
+
+
+                })
+                //重命名
+                $("ul#demo ").on("click", "li .edit", function () {
+                    var node = $(this).parent().children("a").children("cite");
+                    var id = $(this).parent().attr("id")
+                    var that = $(this).closest("li");
+                    layer.prompt({ title: '输入新的分类名称，并确认', value: node.text(), formType: 0 }, function (text, index) {
+                        layer.close(index);
+
+                        //TODO 可以ajax到后台操作，这里只做模拟
+                        layer.load(2);
+                        setTimeout(function () {
+                            layer.closeAll("loading");
+                            node.text(text);
+                        }, 1000)
+                    });
+
+
+                })
+                //删除分类
+                $("ul#demo ").on("click", "li .del", function () {
+
+                    var that = $(this).closest("li");
+                    if (that.children("ul").length > 0) {
+                        layer.msg("该分类下含有子分类不能删除")
+                        return;
+                    }
+                    var id = $(this).parent().attr("id")
+
+                    layer.confirm('确定要删除？该分类下的课程亦将删除！', {
+                        btn: ['删除', '取消']
+                    }, function () {
+
+                        //TODO 可以ajax到后台操作，这里只做模拟
+                        layer.load(2);
+                        setTimeout(function () {
+                            layer.closeAll("loading");
+                            if ((that.parent("ul").children("li").length == 1) && (that.parent("ul").parent("li").children("i.layui-tree-spread").length = 1)) {
+                                //要把分类名前的三角符号和ul标签删除
+                                that.parent("ul").parent("li").children("i.layui-tree-spread").remove();
+                            }
+                            that.remove()
+                        }, 1000)
+                    });
+
+
+                })
+                //打开/关闭菜单
+
+                $("ul#demo").on({
+
+                    click: function (event) {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        if ($(this).parent().children("ul").hasClass("layui-show")) {
+
+
+                            $(this).html("");
+                            $(this).parent().children("ul").removeClass("layui-show");
+                            return;
+                        } else {
+
+
+                            $(this).html("");
+                            $(this).parent().children("ul").addClass("layui-show");
+                            return;
+                        }
+                        return;
+                    }
+                }, 'i.layui-tree-spread');
+
+
+            });
+
+        </script>
+
+
+
+    </body>
+
+    </html>*@  

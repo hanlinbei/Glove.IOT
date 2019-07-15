@@ -5,6 +5,9 @@ var globalLimit;
 var UIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
 var DIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
 var CIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
+
+var AIdtable = new Array();// 保存选中的设备，用于上传文件
+
 var Rid_Rolename = new Array();//保存UId 编辑的时候用
 var tId_Teamname = new Array();
 var gId_Groupname = new Array();
@@ -12,7 +15,10 @@ var RId = 0;
 var tId = 0;
 var gId = 0;
 var userDetail = new FormData();
+var uploadFile = new FormData();
 //var userDetail;
+var TableCache = { a: '1' };
+
 layui.config({
     version: false //一般用于更新模块缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
     ,debug: false //用于开启调试模式，默认false，如果设为true，则JS模块的节点会保留在页面
@@ -208,6 +214,7 @@ layui.use('table', function () {//打开网页刷新表格
         , skin: 'line'
 
     });
+    
     table.on('tool(table_ry)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
@@ -1055,6 +1062,14 @@ layui.use('table', function () {//打开网页刷新表格
         console.log(obj.checked); //当前是否选中状态
         console.log(obj.data); //选中行的相关数据
         console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+
+
+        if (obj.checked === true) {
+            AIdtable.push(obj.data.DeviceName);
+           console.log(AIdtable);
+        }
+
+
         if (obj.type === "all") {
             if (obj.checked === true) {
                 for (var i = 0; i < DIdtable.length; i++) {
@@ -1071,7 +1086,7 @@ layui.use('table', function () {//打开网页刷新表格
             for (var i = 0; i < DIdtable.length; i++) {
                 if (DIdtable[i][0] === obj.data.Id) {
                     DIdtable[i][1] = 1;
-                    console.log(DIdtable[i][0]);
+                    //console.log(DIdtable);
                     break;
                 }
             }
@@ -1138,6 +1153,68 @@ function layerShowAdddevice(title, url, w, h, data) {
         }
     });
 }
+
+//上传文件
+function layerShowUploadFile(title, url, w, h, data) {
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade: 0.4,
+        title: title,
+        content: url,
+        btn: ['确定'],
+        yes: function (index) {
+            //当点击‘确定’按钮的时候，获取弹出层返回的值
+            var res = window["layui-layer-iframe" + index].callbackdata(index, 'adddevice');
+            if (res.DeviceId !== "") {
+                //ajax发送post请求 给后端发送数据
+                $.post("/Device/Add", { DeviceId: res.DeviceId }, function (data) {
+                    if (data !== 'fail') {//判断是否重复
+                        //表格重载 跳转到操作页面
+                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                        globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+                        if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
+                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceRealtimeData', "员工管理", globalPage, globalLimit);
+                    }
+                    else {
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">设备已存在</span>', {
+                                time: 2000,
+                                area: ['200px', '100px'],
+                                shade: 0.4,
+                                shadeClose: true
+                            });
+                        });
+                    }
+                });
+                //最后关闭弹出层
+                layer.close(index);
+            }
+            else {
+                var body = layer.getChildFrame('body', index);
+                $(body).find('input[name="DeviceId"]').attr('placeholder', '设备ID不能为空');
+                $(body).find('input[name="DeviceId"]').addClass("red");
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+            }
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
 function layerShowSearchdevice(title, url, w, h, data) {
     layer.open({
         type: 2,
@@ -1180,6 +1257,10 @@ function Power(index) {
                 else if (data[i] === '查看设备') {
                     $("a[name='查看']").removeClass('a_disabled');
                     $("a[name='查看']").removeClass('layui-btn-disabled');
+                }
+                else if (data[i] === '上传文件') {
+                    $("a[name='上传文件']").removeClass('disabled');
+                    $("a[name='上传文件']").removeClass('layui-btn-disabled');
                 }
                 else if (data[i] === '查找设备') {
                     $("button[name='查找设备']").removeAttr('disabled');
@@ -1473,9 +1554,11 @@ function uploadUserdetail(data) {
             $("input[name='Phone']").val(data.Phone);
             $("input[name='Email']").val(data.Email);
             $("textarea[name='Remark']").val(data.Remark);
+            console.log(data);
             layui.use('form', function () {
                 var form = layui.form;
                 form.render();
+                //console.log(form);
             });
         })
     }
@@ -1496,6 +1579,7 @@ function uploadUserdetail(data) {
         userDetail.append('Phone', $('input[name="Pnumber"]').val());
         userDetail.append('Email', $('input[name="Email"]').val());
         userDetail.append('Remark', $('input[name="Remark"]').val());
+        
         //console.log(userDetail.getAll('Picture'));
         //var xhr = new XMLHttpRequest();
         //xhr.open('POST', "/UserInfo/EditUserDetail");
@@ -1505,8 +1589,8 @@ function uploadUserdetail(data) {
         //    if (this.readyState !== 4) return;
         //    userDetail = new FormData();//全部清空 释放旧的
         //}
-
-
+        
+    
         $.ajax({
             url: "/UserInfo/EditUserDetail",
             type: "POST",
@@ -1977,6 +2061,7 @@ layui.use('laydate', function () {
     });
 });
 //全局加载进度条
+
 $(document)
     .ajaxStart(function () {
         NProgress.start();
@@ -1998,11 +2083,33 @@ $(document).ready(function () {
         layerShowAdddevice('添加设备', 'LayerAdddevice', 500, 200, "null");
     });
     $("button[name='删除设备']").click(function () {
-        someDel('device');
+
+        console.log('开始');
+        
+        var table = layui.table;
+        console.log(table);
+        console.log(table.cache);
+        var TableCache = table.cache.table_device;
+        console.log(TableCache);
+
+        var alldIds = new Array();
+        var dIds = new Array();
+        for (var i = 0; i < table_device.length; i++) {
+            alldIds[i] = table_device[i].Id;
+            if (table_device[i].LAY_CHECKED === true) {
+                dIds[dIds.length] = table_device[i].Id;
+            }
+        }
+        uploadFile.append('dIds','1');
+        console.log(uploadFile);
+        layerShowUploadFile('上传文件', 'LayerUploadFile', 500, 400, 'null');
     });
     $("button[name='查找设备']").click(function () {
         layerShowSearchdevice('查找设备', 'LayerSearchdevice', 500, 380, "null");
     });
+    //$("button[name='上传文件']").click(function () {
+    //     layerShowUploadFile('上传文件','LayerUploadFile',500,400,'null');
+    //});
     $("button[name='登录']").click(function () {
         send();
     });
@@ -2012,7 +2119,8 @@ $(document).ready(function () {
     //$("button[name='确认修改']").click(function () {
     //    uploadDevicedetail('upload');
     //});
-    $("button[name='确认修改']").click(function () {    
+    $("button[name='确认修改']").click(function () {
+        console.log(111);
         var myReg = /^[-_A-Za-z0-9]+@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/;//邮箱格式的正则表达式
         if ($("input[name='Phone']").val() !== '' && String($("input[name='Phone']").val()).length !== 11) {
             $(".phoneerror").show();
@@ -2026,7 +2134,8 @@ $(document).ready(function () {
                 type: "POST",
                  success: function (data) {
                      if (data === 'ok') {
-                         window.location.href = '../UserInfo/Userdetail';
+                         alert('成功');
+                         //window.location.href = '../UserInfo/Userdetail';
                      }
                      layui.use('layer', function () {
                          var layer = layui.layer;

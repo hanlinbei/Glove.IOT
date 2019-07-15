@@ -98,6 +98,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -148,6 +149,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -208,7 +210,7 @@
             </div>
 
             <div class="middle">
-                <p>手套机</p>
+                <p>智能手套机</p>
                 <div id="glove-total"></div>
             </div>
         </div>
@@ -242,76 +244,13 @@
             //$('.home').css("width", (windowWidth + "px"));
             $('.home').css("height", (windowHeight + "px"));
         }
-        $.get('/Home/GetSummation', {}, function (data) {
-            console.log(data);
-            $('.Device').html(data.Device);
-            $('.TodayOutput').html(data.TodayOutput);
-            $('.User').html(data.User);
-            $('.WarningNum').html(data.WarningNum);
-        })
 
-        //基于准备好的dom,初始化echarts实例
-        var myChart1 = echarts.init(document.getElementById("glove-total"));
-        //指定图标的配置项和数据
-        option = {
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'cross',
-                    crossStyle: {
-                        color: '#666'
-                    }
-                }
-            },
-            toolbox: {
-                feature: {
-                    magicType: { show: true, type: ['line', 'bar'] },
-                    saveAsImage: { show: true }
-                }
-            },
-            legend: {
-                data: ['总产量']
-            },
-            xAxis: [
-                {
-                    type: 'category',
-                    data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-                    axisPointer: {
-                        type: 'shadow'
-                    }
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value',
-                    name: '万只',
-                    min: 0,
-                    max: 250,
-                    interval: 50,
-                    axisLabel: {
-                        formatter: '{value} '
-                    }
-                }
-            ],
-            series: [
-                {
-                    name: '总产量',
-                    type: 'bar',
-                    data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-                }
-            ]
-        };
-        myChart1.setOption(option);
-        //建议加上以下这一行代码，缩放时自动调整大小
-        window.addEventListener('resize', function () { myChart1.resize() });
-
-
-
+        
 
         //基于准备好的dom,初始化echarts实例
         var myChart2 = echarts.init(document.getElementById("left-top-pie"));
         //指定图标的配置项和数据
-        option = {
+        option2 = {
             tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -346,15 +285,15 @@
                         }
                     },
                     data: [
-                        { value: 35, name: '未上线' },
-                        { value: 510, name: '上线' }
+                        { value: '0', name: '未上线' },
+                        { value: '0', name: '上线' }
                     ]
                 }
             ]
         };
-        myChart2.setOption(option);
-        //建议加上以下这一行代码，缩放时自动调整大小
-        window.addEventListener('resize', function () { myChart2.resize() });
+        myChart2.setOption(option2);
+        
+
 
         var myChart3 = echarts.init(document.getElementById("left-buttom-pie"));
         //指定图标的配置项和数据
@@ -393,14 +332,167 @@
                         }
                     },
                     data: [
-                        { value: 35, name: '非在岗' },
-                        { value: 51, name: '在岗' }
+                        { value: '0', name: '非在岗' },
+                        { value: '0', name: '在岗' }
                     ]
                 }
             ]
         };
         myChart3.setOption(option);
-        //建议加上以下这一行代码，缩放时自动调整大小
+
+        //基于准备好的dom,初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById("glove-total"));
+        //指定图标的配置项和数据
+
+        option1 = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#666'
+                    }
+                }
+            },
+            toolbox: {
+                feature: {
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    saveAsImage: { show: true }
+                }
+            },
+            legend: {
+                data: ['总产量']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    name: '日期',
+                    data: ['1','2','3','4','5','6','7'],
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '只',
+                    min: 0,
+                    max: 0,
+                    interval: 0,
+                    axisLabel: {
+                        formatter: '{value} '
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: '总产量',
+                    type: 'bar',
+                    data: ['0','0','0','0','0','0','0']
+                }
+            ]
+        };
+        myChart1.setOption(option1);
+
+
+
+
+        $.get('/Home/GetSummation', {}, function (data) {
+            console.log(data);
+
+       
+            var AllDeviceCount = JSON.stringify(data.AllDeviceCount);
+            var RuningDeviceCount = JSON.stringify(data.RuningDeviceCount);
+            var unRuningDeviceCount = AllDeviceCount - RuningDeviceCount;
+
+            //指定图标的配置项和数据
+            option2 = {
+                series: [
+                    {
+                        data: [
+                            { value: unRuningDeviceCount, name: '未上线' },
+                            { value: RuningDeviceCount, name: '上线' }
+                        ]
+                    }
+                ]
+            };
+            myChart2.setOption(option2);
+            
+
+            var OnworkUserCount = data.OnworkUserCount;
+            var AllUseCountr = data.AllUseCountr;
+            var unworkUserCount = AllUseCountr - OnworkUserCount;
+            //更新图标的配置项和数据
+            option = {
+                series: [
+                    {
+                        data: [
+                            { value: unworkUserCount, name: '非在岗' },
+                            { value: OnworkUserCount, name: '在岗' }
+                        ]
+                    }
+                ]
+            };
+            myChart3.setOption(option);
+
+
+            //取得每天的日期
+            var EachDay = new Array();
+            for (var i = 0; i < 7; i++) {
+                EachDay[i] = (eval(data.WeekEachDayOutput[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
+            }
+            //取得每天的产量
+            var SumOutput = new Array();
+            for (var i = 0; i < 7; i++) {
+                SumOutput[i] = data.WeekEachDayOutput[i].SumOutput;
+            }
+            //求出7天中的最大产量
+            var MaxOutput = Math.max.apply(null, SumOutput);
+            var MaxX = Math.round(MaxOutput / 1000) * 1000;
+            var EachX = MaxX / 5;
+            
+
+            //更新图标的配置项和数据
+            option1 = {
+                xAxis: [
+                    {
+                        type: 'category',
+                        name: '日期',
+                        data: [EachDay[0], EachDay[1], EachDay[2], EachDay[3], EachDay[4], EachDay[5], EachDay[6]],
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '只',
+                        min: 0,
+                        max: MaxX,
+                        interval: EachX,
+                        axisLabel: {
+                            formatter: '{value} '
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '总产量',
+                        type: 'bar',
+                        data: [SumOutput[0], SumOutput[1], SumOutput[2], SumOutput[3], SumOutput[4], SumOutput[5], SumOutput[6]]
+                    }
+                ]
+            };
+            myChart1.setOption(option1);
+
+        })
+        
+
+        //建议加上以下这一行代码，缩放时自动调整echart大小
+        window.addEventListener('resize', function () { myChart1.resize() });
+        window.addEventListener('resize', function () { myChart2.resize() });
         window.addEventListener('resize', function () { myChart3.resize() });
     </script>
 
