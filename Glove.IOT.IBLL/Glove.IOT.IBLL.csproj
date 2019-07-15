@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDeviceCmdService.cs" />
     <Compile Include="IDeviceHistoryDataService.cs" />
     <Compile Include="IDeviceHistoryWarningService.cs" />
     <Compile Include="IDeviceRealtimeDataService.cs" />

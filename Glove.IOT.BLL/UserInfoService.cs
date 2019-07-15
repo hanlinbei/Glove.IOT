@@ -200,6 +200,7 @@ namespace Glove.IOT.BLL
                             userInfo.UCode = user.UCode;
                             userInfo.UName = user.UName;                
                             userInfo.Id = user.Id;
+                            userInfo.StatusFlag = true;
                             DbSession.UserInfoDal.Update(userInfo);
                             DbSession.SaveChanges();
                             return "ok";
