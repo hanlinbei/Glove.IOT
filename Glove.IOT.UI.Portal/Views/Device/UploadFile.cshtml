@@ -353,15 +353,13 @@
             //执行实例
             var uploadInst = upload.render({
                 elem: '#test1' //绑定元素
-                , url: '/Device/GetActions' //上传接口
+                , url: '/Device/UploadProgramFile' //上传接口
                 , done: function (res) {
                     //上传完毕回调
                 }
-                , error: function () {
-                    alert('失败');
-                },
-                data: {
-                    DeviceNames: AIdtable
+                , data: {
+                    DeviceNames: [3,2]
+
                 }
             });
         });

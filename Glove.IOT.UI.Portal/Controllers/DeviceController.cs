@@ -102,7 +102,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             }
             return Content("false");
 
-
+        
 
         }
 
