@@ -7,6 +7,7 @@ var DIdtable = new Array();//保存当前表格内数据是否被选中 在批�
 var CIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
 
 var AIdtable = new Array();// 保存选中的设备，用于上传文件
+var AIdtableList = new Object();
 
 var Rid_Rolename = new Array();//保存UId 编辑的时候用
 var tId_Teamname = new Array();
@@ -1142,8 +1143,14 @@ layui.use('table', function () {//打开网页刷新表格
             return arr;
         };
         removeEmpty(AIdtable);
-        console.log(AIdtable);
 
+        
+
+        var AIdtableList = {};
+        for (var key in AIdtable) {
+            AIdtableList[key] = AIdtable[key];
+        }
+        console.log(AIdtableList);
 
 
         //if (obj.type === "all") {
