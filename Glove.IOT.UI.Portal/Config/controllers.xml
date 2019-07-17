@@ -8,7 +8,7 @@
     <property name="R_UserInfo_RoleInfoService" ref="R_UserInfo_RoleInfoService" />
     <property name="OperationLogService" ref="OperationLogService" />
     <property name="TeamInfoService" ref="TeamInfoService" />
-    <property name="GroupInfoService" ref="GroupInfoService" />
+    <property name="DeviceGroupInfoService" ref="DeviceGroupInfoService" />
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.UserLoginController, Glove.IOT.UI.Portal" singleton="false" >
@@ -51,9 +51,9 @@
     <property name="UserInfoService" ref="UserInfoService" />
   </object>
   <object type="Glove.IOT.UI.Portal.Controllers.GroupInfoController, Glove.IOT.UI.Portal" singleton="false" >
-    <property name="GroupInfoService" ref="GroupInfoService" />
+    <property name="DeviceGroupInfoService" ref="DeviceGroupInfoService" />
+    <property name="R_DeviceInfo_DeviceGroupInfoService" ref="R_DeviceInfo_DeviceGroupInfoService" />
     <property name="UserInfoService" ref="UserInfoService" />
-    <property name="R_GroupInfo_DeviceInfoService" ref="R_GroupInfo_DeviceInfoService" />
   </object>
   
   <object type="Glove.IOT.UI.Portal.Controllers.HomeController, Glove.IOT.UI.Portal" singleton="false" >

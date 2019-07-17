@@ -22,6 +22,11 @@ namespace Glove.IOT.EFDAL
 
 	}
 	
+	public partial class DeviceGroupInfoDal:BaseDal<DeviceGroupInfo>,IDeviceGroupInfoDal
+    {
+
+	}
+	
 	public partial class DeviceHistoryDataDal:BaseDal<DeviceHistoryData>,IDeviceHistoryDataDal
     {
 
@@ -47,17 +52,12 @@ namespace Glove.IOT.EFDAL
 
 	}
 	
-	public partial class GroupInfoDal:BaseDal<GroupInfo>,IGroupInfoDal
-    {
-
-	}
-	
 	public partial class OperationLogDal:BaseDal<OperationLog>,IOperationLogDal
     {
 
 	}
 	
-	public partial class R_GroupInfo_DeviceInfoDal:BaseDal<R_GroupInfo_DeviceInfo>,IR_GroupInfo_DeviceInfoDal
+	public partial class R_DeviceInfo_DeviceGroupInfoDal:BaseDal<R_DeviceInfo_DeviceGroupInfo>,IR_DeviceInfo_DeviceGroupInfoDal
     {
 
 	}

@@ -50,8 +50,8 @@
     <Compile Include="IDeviceHistoryWarningService.cs" />
     <Compile Include="IDeviceRealtimeDataService.cs" />
     <Compile Include="IDeviceRealtimeWarningService.cs" />
-    <Compile Include="IGroupInfoService.cs" />
-    <Compile Include="IR_GroupInfo_DeviceInfoService.cs" />
+    <Compile Include="IDeviceGroupInfoService.cs" />
+    <Compile Include="IR_DeviceInfo_DeviceGroupInfoService.cs" />
     <Compile Include="IR_RoleInfo_ActionInfoService.cs" />
     <Compile Include="IR_UserInfo_RoleInfoService.cs" />
     <Compile Include="IDeviceInfoService.cs" />

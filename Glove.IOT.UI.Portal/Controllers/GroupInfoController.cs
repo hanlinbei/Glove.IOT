@@ -11,8 +11,8 @@ namespace Glove.IOT.UI.Portal.Controllers
 {
     public class GroupInfoController : Controller
     {
-        public IGroupInfoService GroupInfoService { get; set; }
-        public IR_GroupInfo_DeviceInfoService R_GroupInfo_DeviceInfoService { get; set; }
+        public IDeviceGroupInfoService DeviceGroupInfoService { get; set; }
+        public IR_DeviceInfo_DeviceGroupInfoService R_DeviceInfo_DeviceGroupInfoService { get; set; }
         public IUserInfoService UserInfoService { get; set; }
         // GET: GroupInfo
         public ActionResult Index()
@@ -28,7 +28,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult GetAllGroupInfos()
         {
-            var pageData = GroupInfoService.GetGroupInfo();
+            var pageData = DeviceGroupInfoService.GetGroupInfo();
             var data = new {group = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -37,7 +37,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult GetGroupDevices(int id, string limit, string page)
+        public ActionResult GetGroupDevices(string id, string limit, string page)
         {
             int pageSize = int.Parse(limit ?? "10");
             int pageIndex = int.Parse(page ?? "1");
@@ -48,7 +48,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 PageIndex = pageIndex,
                 Total = 0,
             };
-            var query = GroupInfoService.GetGroupDevices(id, baseParam);
+            var query = DeviceGroupInfoService.GetGroupDevices(id, baseParam);
             var data = new { code = 0, msg = "", count = query.Count(), data = query.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
 
@@ -59,7 +59,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="deviceQueryParam"></param>
         /// <returns></returns>
-        public ActionResult GetAllDeviceInfos(string limit, string page, string schDeviceName,int gId)
+        public ActionResult GetAllDeviceInfos(string limit, string page, string schDeviceName,string gId)
         {
             int pageSize = int.Parse(limit ?? "10");
             int pageIndex = int.Parse(page ?? "1");
@@ -73,7 +73,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 SchDeviceName = deviceName,
                 Total = 0
             };
-            var pageData = GroupInfoService.LoagDevicePageData(queryParam, gId).ToList();
+            var pageData = DeviceGroupInfoService.LoagDevicePageData(queryParam, gId).ToList();
             var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
 
@@ -84,10 +84,12 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="groupInfo"></param>
         /// <returns></returns>
-        public ActionResult Add(GroupInfo groupInfo)
+        public ActionResult Add(DeviceGroupInfo groupInfo)
         {
-            groupInfo.SubTime = DateTime.Now;
-            GroupInfoService.Add(groupInfo);
+            groupInfo.CreateTime = DateTime.Now;
+            groupInfo.Id = Guid.NewGuid().ToString();
+            groupInfo.IsDeleted = false;
+            DeviceGroupInfoService.Add(groupInfo);
             return Content("OK");
         }
         /// <summary>
@@ -95,10 +97,10 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="groupInfo"></param>
         /// <returns></returns>
-        public ActionResult Edit(GroupInfo groupInfo)
+        public ActionResult Edit(DeviceGroupInfo groupInfo)
         {
-            groupInfo.SubTime = DateTime.Now;
-            GroupInfoService.Update(groupInfo);
+            groupInfo.CreateTime = DateTime.Now;
+            DeviceGroupInfoService.Update(groupInfo);
             return Content("OK");
         }
         /// <summary>
@@ -106,20 +108,20 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// </summary>
         /// <param name="ids">用户id</param>
         /// <returns>del ok</returns>
-        public ActionResult Delete(int[] gIds)
+        public ActionResult Delete(string[] gIds)
         {
             if (gIds==null)
             {
                 return Content("请选中要删除的数据！");
             }
             //正常处理
-            List<int> idList = gIds.ToList();
+            List<string> idList = gIds.ToList();
 
-            GroupInfoService.DeleteListByLogical(idList);
+            DeviceGroupInfoService.DeleteListByLogical(idList);
             //原有组删除后 人员表重置为默认组
-            UserInfoService.Update(r => idList.Contains(r.GroupInfoId), r => new UserInfo
+            UserInfoService.Update(r => idList.Contains(r.DeviceGroupInfoId), r => new UserInfo
             {
-                GroupInfoId = 1
+                DeviceGroupInfoId = "123"
             });
             return Content("del ok");
         }
@@ -131,18 +133,18 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="alldIds"></param>
         /// <param name="dIds"></param>
         /// <returns></returns>
-        public ActionResult SetDevices( int gId, string[] dIds)
+        public ActionResult SetDevices( string gId, string[] dIds)
         {
             List<string> dIdsList = dIds.ToList();
 
             //剁掉组里已存在的设备
-            R_GroupInfo_DeviceInfoService.Delete(r => (r.GroupInfoId == gId ));
+            R_DeviceInfo_DeviceGroupInfoService.Delete(r => (r.DeviceGroupInfoId == gId ));
             //添加勾选的设备
             //if (dIds[0] == 0)
             //{
             //    return Content("OK");
             //}
-            R_GroupInfo_DeviceInfoService.AddSelectDevices(gId, dIdsList);
+            R_DeviceInfo_DeviceGroupInfoService.AddSelectDevices(gId, dIdsList);
 
             return Content("OK");
         }

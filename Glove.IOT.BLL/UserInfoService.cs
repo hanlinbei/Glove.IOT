@@ -78,13 +78,13 @@ namespace Glove.IOT.BLL
             var r_UserInfo_RoleInfo = DbSession.R_UserInfo_RoleInfoDal.GetEntities(r => r.IsDeleted == false);
             var roleInfo = DbSession.RoleInfoDal.GetEntities(r => r.IsDeleted == false);
             var teamInfo = DbSession.TeamInfoDal.GetEntities(t => t.IsDeleted == false);
-            var groupInfo = DbSession.GroupInfoDal.GetEntities(g => g.IsDeleted == false);
+            var groupInfo = DbSession.DeviceGroupInfoDal.GetEntities(g => g.IsDeleted == false);
             //内连接查询 查询人员信息
             var query = from t1 in userInfo
                         join t2 in r_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
                         join t3 in roleInfo on t2.RoleInfoId equals t3.Id
                         join t4 in teamInfo on t1.TeamInfoId equals t4.Id
-                        join t5 in groupInfo on t1.GroupInfoId equals t5.Id
+                        join t5 in groupInfo on t1.DeviceGroupInfoId equals t5.Id
                         select new
                         {
                             UId = t1.Id,
@@ -97,7 +97,7 @@ namespace Glove.IOT.BLL
                             TId = t4.Id,
                             GId = t5.Id,
                             t4.TName,
-                            t5.GName
+                            t5.DeviceGroupName
                         };
 
            //按员工编号筛选

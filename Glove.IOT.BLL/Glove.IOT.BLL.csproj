@@ -70,8 +70,8 @@
     <Compile Include="DeviceInfoService.cs" />
     <Compile Include="DeviceRealtimeDataService.cs" />
     <Compile Include="DeviceRealtimeWarningService.cs" />
-    <Compile Include="GroupInfoService.cs" />
-    <Compile Include="R_GroupInfo_DeviceInfoService.cs" />
+    <Compile Include="DeviceGroupInfoService.cs" />
+    <Compile Include="R_DeviceInfo_DeviceGroupInfoService.cs" />
     <Compile Include="R_RoleInfo_ActionInfoService.cs" />
     <Compile Include="R_UserInfo_RoleInfoService.cs" />
     <Compile Include="OperationLogService.cs" />

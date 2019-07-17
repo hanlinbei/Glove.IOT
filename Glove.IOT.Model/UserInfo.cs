@@ -33,10 +33,10 @@ namespace Glove.IOT.Model
         public bool IsDeleted { get; set; }
         public System.DateTime SubTime { get; set; }
         public int TeamInfoId { get; set; }
-        public int GroupInfoId { get; set; }
+        public string DeviceGroupInfoId { get; set; }
     
-        public virtual GroupInfo GroupInfo { get; set; }
         public virtual ICollection<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
         public virtual TeamInfo TeamInfo { get; set; }
+        public virtual DeviceGroupInfo DeviceGroupInfo { get; set; }
     }
 }

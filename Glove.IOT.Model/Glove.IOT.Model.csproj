@@ -73,6 +73,9 @@
     <Compile Include="DeviceCmd.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DeviceGroupInfo.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DeviceHistoryData.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -89,9 +92,6 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Enum\StatusFlagEnum.cs" />
-    <Compile Include="GroupInfo.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="OperationLog.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -107,7 +107,7 @@
     <Compile Include="RoleInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="R_GroupInfo_DeviceInfo.cs">
+    <Compile Include="R_DeviceInfo_DeviceGroupInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="R_RoleInfo_ActionInfo.cs">

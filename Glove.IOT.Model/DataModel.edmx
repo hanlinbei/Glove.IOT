@@ -29,6 +29,15 @@
           <Property Name="CmdState" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="FinishTime" Type="datetime" />
         </EntityType>
+        <EntityType Name="DeviceGroupInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeviceGroupName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="DeviceHistoryData">
           <Key>
             <PropertyRef Name="Id" />
@@ -81,15 +90,6 @@
           <Property Name="WarningMessage" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="StartTime" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="GroupInfo">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GName" Type="nvarchar" MaxLength="256" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="SubTime" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="OperationLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -104,14 +104,13 @@
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="SubTime" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="R_GroupInfo_DeviceInfo">
+        <EntityType Name="R_DeviceInfo_DeviceGroupInfo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupInfoId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DeviceInfoId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeviceGroupInfoId" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="R_RoleInfo_ActionInfo">
           <Key>
@@ -169,40 +168,40 @@
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="SubTime" Type="datetime" Nullable="false" />
           <Property Name="TeamInfoId" Type="int" Nullable="false" />
-          <Property Name="GroupInfoId" Type="int" Nullable="false" />
+          <Property Name="DeviceGroupInfoId" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_GroupInfoR_GroupInfo_DeviceInfo">
-          <End Role="GroupInfo" Type="Self.GroupInfo" Multiplicity="1" />
-          <End Role="R_GroupInfo_DeviceInfo" Type="Self.R_GroupInfo_DeviceInfo" Multiplicity="*" />
+        <Association Name="FK_DeviceGroupInfoR_DeviceInfo_DeviceGroupInfo">
+          <End Role="DeviceGroupInfo" Type="Self.DeviceGroupInfo" Multiplicity="1" />
+          <End Role="R_DeviceInfo_DeviceGroupInfo" Type="Self.R_DeviceInfo_DeviceGroupInfo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GroupInfo">
+            <Principal Role="DeviceGroupInfo">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="R_GroupInfo_DeviceInfo">
-              <PropertyRef Name="GroupInfoId" />
+            <Dependent Role="R_DeviceInfo_DeviceGroupInfo">
+              <PropertyRef Name="DeviceGroupInfoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GroupInfoUserInfo">
-          <End Role="GroupInfo" Type="Self.GroupInfo" Multiplicity="1" />
+        <Association Name="FK_DeviceGroupInfoUserInfo">
+          <End Role="DeviceGroupInfo" Type="Self.DeviceGroupInfo" Multiplicity="1" />
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GroupInfo">
+            <Principal Role="DeviceGroupInfo">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserInfo">
-              <PropertyRef Name="GroupInfoId" />
+              <PropertyRef Name="DeviceGroupInfoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_R_GroupInfo_DeviceInfoDeviceInfo">
+        <Association Name="FK_DeviceInfoR_DeviceInfo_DeviceGroupInfo">
           <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="1" />
-          <End Role="R_GroupInfo_DeviceInfo" Type="Self.R_GroupInfo_DeviceInfo" Multiplicity="*" />
+          <End Role="R_DeviceInfo_DeviceGroupInfo" Type="Self.R_DeviceInfo_DeviceGroupInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeviceInfo">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="R_GroupInfo_DeviceInfo">
+            <Dependent Role="R_DeviceInfo_DeviceGroupInfo">
               <PropertyRef Name="DeviceInfoId" />
             </Dependent>
           </ReferentialConstraint>
@@ -270,30 +269,30 @@
         <EntityContainer Name="DataModelStoreContainer">
           <EntitySet Name="ActionInfo" EntityType="Self.ActionInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceCmd" EntityType="Self.DeviceCmd" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceGroupInfo" EntityType="Self.DeviceGroupInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceHistoryData" EntityType="Self.DeviceHistoryData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceHistoryWarning" EntityType="Self.DeviceHistoryWarning" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceInfo" EntityType="Self.DeviceInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceRealtimeData" EntityType="Self.DeviceRealtimeData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceRealtimeWarning" EntityType="Self.DeviceRealtimeWarning" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GroupInfo" EntityType="Self.GroupInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OperationLog" EntityType="Self.OperationLog" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="R_GroupInfo_DeviceInfo" EntityType="Self.R_GroupInfo_DeviceInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_DeviceInfo_DeviceGroupInfo" EntityType="Self.R_DeviceInfo_DeviceGroupInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="R_RoleInfo_ActionInfo" EntityType="Self.R_RoleInfo_ActionInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="R_UserInfo_RoleInfo" EntityType="Self.R_UserInfo_RoleInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleInfo" EntityType="Self.RoleInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TeamInfo" EntityType="Self.TeamInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_GroupInfoR_GroupInfo_DeviceInfo" Association="Self.FK_GroupInfoR_GroupInfo_DeviceInfo">
-            <End Role="GroupInfo" EntitySet="GroupInfo" />
-            <End Role="R_GroupInfo_DeviceInfo" EntitySet="R_GroupInfo_DeviceInfo" />
+          <AssociationSet Name="FK_DeviceGroupInfoR_DeviceInfo_DeviceGroupInfo" Association="Self.FK_DeviceGroupInfoR_DeviceInfo_DeviceGroupInfo">
+            <End Role="DeviceGroupInfo" EntitySet="DeviceGroupInfo" />
+            <End Role="R_DeviceInfo_DeviceGroupInfo" EntitySet="R_DeviceInfo_DeviceGroupInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_GroupInfoUserInfo" Association="Self.FK_GroupInfoUserInfo">
-            <End Role="GroupInfo" EntitySet="GroupInfo" />
+          <AssociationSet Name="FK_DeviceGroupInfoUserInfo" Association="Self.FK_DeviceGroupInfoUserInfo">
+            <End Role="DeviceGroupInfo" EntitySet="DeviceGroupInfo" />
             <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_R_GroupInfo_DeviceInfoDeviceInfo" Association="Self.FK_R_GroupInfo_DeviceInfoDeviceInfo">
+          <AssociationSet Name="FK_DeviceInfoR_DeviceInfo_DeviceGroupInfo" Association="Self.FK_DeviceInfoR_DeviceInfo_DeviceGroupInfo">
             <End Role="DeviceInfo" EntitySet="DeviceInfo" />
-            <End Role="R_GroupInfo_DeviceInfo" EntitySet="R_GroupInfo_DeviceInfo" />
+            <End Role="R_DeviceInfo_DeviceGroupInfo" EntitySet="R_DeviceInfo_DeviceGroupInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_R_RoleInfo_ActionInfoActionInfo" Association="Self.FK_R_RoleInfo_ActionInfoActionInfo">
             <End Role="ActionInfo" EntitySet="ActionInfo" />
@@ -358,9 +357,7 @@
           <EntitySet Name="DeviceInfo" EntityType="DataModel.DeviceInfo" />
           <EntitySet Name="DeviceRealtimeData" EntityType="DataModel.DeviceRealtimeData" />
           <EntitySet Name="DeviceRealtimeWarning" EntityType="DataModel.DeviceRealtimeWarning" />
-          <EntitySet Name="GroupInfo" EntityType="DataModel.GroupInfo" />
           <EntitySet Name="OperationLog" EntityType="DataModel.OperationLog" />
-          <EntitySet Name="R_GroupInfo_DeviceInfo" EntityType="DataModel.R_GroupInfo_DeviceInfo" />
           <EntitySet Name="R_RoleInfo_ActionInfo" EntityType="DataModel.R_RoleInfo_ActionInfo" />
           <EntitySet Name="R_UserInfo_RoleInfo" EntityType="DataModel.R_UserInfo_RoleInfo" />
           <EntitySet Name="RoleInfo" EntityType="DataModel.RoleInfo" />
@@ -369,18 +366,6 @@
           <AssociationSet Name="FK_R_RoleInfo_ActionInfoActionInfo" Association="DataModel.FK_R_RoleInfo_ActionInfoActionInfo">
             <End Role="ActionInfo" EntitySet="ActionInfo" />
             <End Role="R_RoleInfo_ActionInfo" EntitySet="R_RoleInfo_ActionInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_R_GroupInfo_DeviceInfoDeviceInfo" Association="DataModel.FK_R_GroupInfo_DeviceInfoDeviceInfo">
-            <End Role="DeviceInfo" EntitySet="DeviceInfo" />
-            <End Role="R_GroupInfo_DeviceInfo" EntitySet="R_GroupInfo_DeviceInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupInfoR_GroupInfo_DeviceInfo" Association="DataModel.FK_GroupInfoR_GroupInfo_DeviceInfo">
-            <End Role="GroupInfo" EntitySet="GroupInfo" />
-            <End Role="R_GroupInfo_DeviceInfo" EntitySet="R_GroupInfo_DeviceInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupInfoUserInfo" Association="DataModel.FK_GroupInfoUserInfo">
-            <End Role="GroupInfo" EntitySet="GroupInfo" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_RoleInfoR_RoleInfo_ActionInfo" Association="DataModel.FK_RoleInfoR_RoleInfo_ActionInfo">
             <End Role="RoleInfo" EntitySet="RoleInfo" />
@@ -397,6 +382,20 @@
           <AssociationSet Name="FK_TeamInfoUserInfo" Association="DataModel.FK_TeamInfoUserInfo">
             <End Role="TeamInfo" EntitySet="TeamInfo" />
             <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <EntitySet Name="DeviceGroupInfo" EntityType="DataModel.DeviceGroupInfo" />
+          <EntitySet Name="R_DeviceInfo_DeviceGroupInfo" EntityType="DataModel.R_DeviceInfo_DeviceGroupInfo" />
+          <AssociationSet Name="FK_DeviceGroupInfoR_DeviceInfo_DeviceGroupInfo" Association="DataModel.FK_DeviceGroupInfoR_DeviceInfo_DeviceGroupInfo">
+            <End Role="DeviceGroupInfo" EntitySet="DeviceGroupInfo" />
+            <End Role="R_DeviceInfo_DeviceGroupInfo" EntitySet="R_DeviceInfo_DeviceGroupInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceGroupInfoUserInfo" Association="DataModel.FK_DeviceGroupInfoUserInfo">
+            <End Role="DeviceGroupInfo" EntitySet="DeviceGroupInfo" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceInfoR_DeviceInfo_DeviceGroupInfo" Association="DataModel.FK_DeviceInfoR_DeviceInfo_DeviceGroupInfo">
+            <End Role="DeviceInfo" EntitySet="DeviceInfo" />
+            <End Role="R_DeviceInfo_DeviceGroupInfo" EntitySet="R_DeviceInfo_DeviceGroupInfo" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -464,7 +463,7 @@
           <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DeviceName" Type="Int32" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="R_GroupInfo_DeviceInfo" Relationship="DataModel.FK_R_GroupInfo_DeviceInfoDeviceInfo" FromRole="DeviceInfo" ToRole="R_GroupInfo_DeviceInfo" />
+          <NavigationProperty Name="R_DeviceInfo_DeviceGroupInfo" Relationship="DataModel.FK_DeviceInfoR_DeviceInfo_DeviceGroupInfo" FromRole="DeviceInfo" ToRole="R_DeviceInfo_DeviceGroupInfo" />
         </EntityType>
         <EntityType Name="DeviceRealtimeData">
           <Key>
@@ -488,17 +487,6 @@
           <Property Name="WarningMessage" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="GroupInfo">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="R_GroupInfo_DeviceInfo" Relationship="DataModel.FK_GroupInfoR_GroupInfo_DeviceInfo" FromRole="GroupInfo" ToRole="R_GroupInfo_DeviceInfo" />
-          <NavigationProperty Name="UserInfo" Relationship="DataModel.FK_GroupInfoUserInfo" FromRole="GroupInfo" ToRole="UserInfo" />
-        </EntityType>
         <EntityType Name="OperationLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -512,17 +500,6 @@
           <Property Name="Mac" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="R_GroupInfo_DeviceInfo">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GroupInfoId" Type="Int32" Nullable="false" />
-          <Property Name="DeviceInfoId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="DeviceInfo" Relationship="DataModel.FK_R_GroupInfo_DeviceInfoDeviceInfo" FromRole="R_GroupInfo_DeviceInfo" ToRole="DeviceInfo" />
-          <NavigationProperty Name="GroupInfo" Relationship="DataModel.FK_GroupInfoR_GroupInfo_DeviceInfo" FromRole="R_GroupInfo_DeviceInfo" ToRole="GroupInfo" />
         </EntityType>
         <EntityType Name="R_RoleInfo_ActionInfo">
           <Key>
@@ -587,10 +564,10 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TeamInfoId" Type="Int32" Nullable="false" />
-          <Property Name="GroupInfoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="GroupInfo" Relationship="DataModel.FK_GroupInfoUserInfo" FromRole="UserInfo" ToRole="GroupInfo" />
           <NavigationProperty Name="R_UserInfo_RoleInfo" Relationship="DataModel.FK_UserInfoR_UserInfo_RoleInfo" FromRole="UserInfo" ToRole="R_UserInfo_RoleInfo" />
           <NavigationProperty Name="TeamInfo" Relationship="DataModel.FK_TeamInfoUserInfo" FromRole="UserInfo" ToRole="TeamInfo" />
+          <Property Name="DeviceGroupInfoId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DeviceGroupInfo" Relationship="DataModel.FK_DeviceGroupInfoUserInfo" FromRole="UserInfo" ToRole="DeviceGroupInfo" />
         </EntityType>
         <Association Name="FK_R_RoleInfo_ActionInfoActionInfo">
           <End Type="DataModel.ActionInfo" Role="ActionInfo" Multiplicity="1" />
@@ -601,42 +578,6 @@
             </Principal>
             <Dependent Role="R_RoleInfo_ActionInfo">
               <PropertyRef Name="ActionInfoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_R_GroupInfo_DeviceInfoDeviceInfo">
-          <End Type="DataModel.DeviceInfo" Role="DeviceInfo" Multiplicity="1" />
-          <End Type="DataModel.R_GroupInfo_DeviceInfo" Role="R_GroupInfo_DeviceInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeviceInfo">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="R_GroupInfo_DeviceInfo">
-              <PropertyRef Name="DeviceInfoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupInfoR_GroupInfo_DeviceInfo">
-          <End Type="DataModel.GroupInfo" Role="GroupInfo" Multiplicity="1" />
-          <End Type="DataModel.R_GroupInfo_DeviceInfo" Role="R_GroupInfo_DeviceInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupInfo">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="R_GroupInfo_DeviceInfo">
-              <PropertyRef Name="GroupInfoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupInfoUserInfo">
-          <End Type="DataModel.GroupInfo" Role="GroupInfo" Multiplicity="1" />
-          <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupInfo">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserInfo">
-              <PropertyRef Name="GroupInfoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -685,6 +626,63 @@
             </Principal>
             <Dependent Role="UserInfo">
               <PropertyRef Name="TeamInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DeviceGroupInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceGroupName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="R_DeviceInfo_DeviceGroupInfo" Relationship="DataModel.FK_DeviceGroupInfoR_DeviceInfo_DeviceGroupInfo" FromRole="DeviceGroupInfo" ToRole="R_DeviceInfo_DeviceGroupInfo" />
+          <NavigationProperty Name="UserInfo" Relationship="DataModel.FK_DeviceGroupInfoUserInfo" FromRole="DeviceGroupInfo" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="R_DeviceInfo_DeviceGroupInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceInfoId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceGroupInfoId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DeviceGroupInfo" Relationship="DataModel.FK_DeviceGroupInfoR_DeviceInfo_DeviceGroupInfo" FromRole="R_DeviceInfo_DeviceGroupInfo" ToRole="DeviceGroupInfo" />
+          <NavigationProperty Name="DeviceInfo" Relationship="DataModel.FK_DeviceInfoR_DeviceInfo_DeviceGroupInfo" FromRole="R_DeviceInfo_DeviceGroupInfo" ToRole="DeviceInfo" />
+        </EntityType>
+        <Association Name="FK_DeviceGroupInfoR_DeviceInfo_DeviceGroupInfo">
+          <End Type="DataModel.DeviceGroupInfo" Role="DeviceGroupInfo" Multiplicity="1" />
+          <End Type="DataModel.R_DeviceInfo_DeviceGroupInfo" Role="R_DeviceInfo_DeviceGroupInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceGroupInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="R_DeviceInfo_DeviceGroupInfo">
+              <PropertyRef Name="DeviceGroupInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceGroupInfoUserInfo">
+          <End Type="DataModel.DeviceGroupInfo" Role="DeviceGroupInfo" Multiplicity="1" />
+          <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceGroupInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="DeviceGroupInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceInfoR_DeviceInfo_DeviceGroupInfo">
+          <End Type="DataModel.DeviceInfo" Role="DeviceInfo" Multiplicity="1" />
+          <End Type="DataModel.R_DeviceInfo_DeviceGroupInfo" Role="R_DeviceInfo_DeviceGroupInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="R_DeviceInfo_DeviceGroupInfo">
+              <PropertyRef Name="DeviceInfoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -777,16 +775,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GroupInfo">
-            <EntityTypeMapping TypeName="DataModel.GroupInfo">
-              <MappingFragment StoreEntitySet="GroupInfo">
-                <ScalarProperty Name="SubTime" ColumnName="SubTime" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="GName" ColumnName="GName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OperationLog">
             <EntityTypeMapping TypeName="DataModel.OperationLog">
               <MappingFragment StoreEntitySet="OperationLog">
@@ -798,16 +786,6 @@
                 <ScalarProperty Name="ActionName" ColumnName="ActionName" />
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="UName" ColumnName="UName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="R_GroupInfo_DeviceInfo">
-            <EntityTypeMapping TypeName="DataModel.R_GroupInfo_DeviceInfo">
-              <MappingFragment StoreEntitySet="R_GroupInfo_DeviceInfo">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="DeviceInfoId" ColumnName="DeviceInfoId" />
-                <ScalarProperty Name="GroupInfoId" ColumnName="GroupInfoId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -858,7 +836,7 @@
           <EntitySetMapping Name="UserInfo">
             <EntityTypeMapping TypeName="DataModel.UserInfo">
               <MappingFragment StoreEntitySet="UserInfo">
-                <ScalarProperty Name="GroupInfoId" ColumnName="GroupInfoId" />
+                <ScalarProperty Name="DeviceGroupInfoId" ColumnName="DeviceGroupInfoId" />
                 <ScalarProperty Name="TeamInfoId" ColumnName="TeamInfoId" />
                 <ScalarProperty Name="SubTime" ColumnName="SubTime" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
@@ -871,6 +849,25 @@
                 <ScalarProperty Name="Pwd" ColumnName="Pwd" />
                 <ScalarProperty Name="UName" ColumnName="UName" />
                 <ScalarProperty Name="UCode" ColumnName="UCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceGroupInfo">
+            <EntityTypeMapping TypeName="DataModel.DeviceGroupInfo">
+              <MappingFragment StoreEntitySet="DeviceGroupInfo">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="DeviceGroupName" ColumnName="DeviceGroupName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_DeviceInfo_DeviceGroupInfo">
+            <EntityTypeMapping TypeName="DataModel.R_DeviceInfo_DeviceGroupInfo">
+              <MappingFragment StoreEntitySet="R_DeviceInfo_DeviceGroupInfo">
+                <ScalarProperty Name="DeviceGroupInfoId" ColumnName="DeviceGroupInfoId" />
+                <ScalarProperty Name="DeviceInfoId" ColumnName="DeviceInfoId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

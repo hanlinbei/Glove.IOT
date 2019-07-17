@@ -166,7 +166,7 @@ namespace Glove.IOT.EFDAL
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int DeleteListByLogical(List<int> ids)
+        public int DeleteListByLogical<S>(List<S> ids)
         {
             foreach (var id in ids)
             {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.IBLL
 {
-    public partial interface IGroupInfoService : IBaseService<GroupInfo>
+    public partial interface IDeviceGroupInfoService : IBaseService<DeviceGroupInfo>
     {
         /// <summary>
         /// 获取所有组
@@ -22,14 +22,14 @@ namespace Glove.IOT.IBLL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        IQueryable<dynamic> GetGroupDevices(int id, BaseParam baseParam);
+        IQueryable<dynamic> GetGroupDevices(string id, BaseParam baseParam);
         /// <summary>
         /// 获取所有设备并勾选已存在组内的设备
         /// </summary>
         /// <param name="queryParam"></param>
         /// <param name="gId"></param>
         /// <returns></returns>
-        IQueryable<Device> LoagDevicePageData(DeviceRealtimeQueryParam queryParam, int gId);
+        IQueryable<Device> LoagDevicePageData(DeviceRealtimeQueryParam queryParam, string gId);
 
 
     }

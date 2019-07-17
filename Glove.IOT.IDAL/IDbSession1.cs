@@ -9,6 +9,8 @@ namespace Glove.IOT.IDAL
 	 
 		IDeviceCmdDal DeviceCmdDal { get; }
 	 
+		IDeviceGroupInfoDal DeviceGroupInfoDal { get; }
+	 
 		IDeviceHistoryDataDal DeviceHistoryDataDal { get; }
 	 
 		IDeviceHistoryWarningDal DeviceHistoryWarningDal { get; }
@@ -19,11 +21,9 @@ namespace Glove.IOT.IDAL
 	 
 		IDeviceRealtimeWarningDal DeviceRealtimeWarningDal { get; }
 	 
-		IGroupInfoDal GroupInfoDal { get; }
-	 
 		IOperationLogDal OperationLogDal { get; }
 	 
-		IR_GroupInfo_DeviceInfoDal R_GroupInfo_DeviceInfoDal { get; }
+		IR_DeviceInfo_DeviceGroupInfoDal R_DeviceInfo_DeviceGroupInfoDal { get; }
 	 
 		IR_RoleInfo_ActionInfoDal R_RoleInfo_ActionInfoDal { get; }
 	 

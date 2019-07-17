@@ -1,10 +1,9 @@
-﻿
+﻿ 
 using Glove.IOT.DALFactory;
 using Glove.IOT.EFDAL;
 using Glove.IOT.IBLL;
 using Glove.IOT.IDAL;
 using Glove.IOT.Model;
-using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +20,12 @@ namespace Glove.IOT.BLL
 		}
 	
 	    public partial class DeviceCmdService : BaseService<DeviceCmd>, IDeviceCmdService
+        {
+	
+	    
+		}
+	
+	    public partial class DeviceGroupInfoService : BaseService<DeviceGroupInfo>, IDeviceGroupInfoService
         {
 	
 	    
@@ -43,19 +48,14 @@ namespace Glove.IOT.BLL
 	
 	    
 		}
-
-    public partial class DeviceRealtimeDataService : BaseService<DeviceRealtimeData>, IDeviceRealtimeDataService
-    {
-       
-    }
-
-    public partial class DeviceRealtimeWarningService : BaseService<DeviceRealtimeWarning>, IDeviceRealtimeWarningService
+	
+	    public partial class DeviceRealtimeDataService : BaseService<DeviceRealtimeData>, IDeviceRealtimeDataService
         {
 	
 	    
 		}
 	
-	    public partial class GroupInfoService : BaseService<GroupInfo>, IGroupInfoService
+	    public partial class DeviceRealtimeWarningService : BaseService<DeviceRealtimeWarning>, IDeviceRealtimeWarningService
         {
 	
 	    
@@ -67,7 +67,7 @@ namespace Glove.IOT.BLL
 	    
 		}
 	
-	    public partial class R_GroupInfo_DeviceInfoService : BaseService<R_GroupInfo_DeviceInfo>, IR_GroupInfo_DeviceInfoService
+	    public partial class R_DeviceInfo_DeviceGroupInfoService : BaseService<R_DeviceInfo_DeviceGroupInfo>, IR_DeviceInfo_DeviceGroupInfoService
         {
 	
 	    

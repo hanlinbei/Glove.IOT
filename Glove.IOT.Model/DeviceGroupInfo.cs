@@ -13,20 +13,20 @@ namespace Glove.IOT.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class GroupInfo
+    public partial class DeviceGroupInfo
     {
-        public GroupInfo()
+        public DeviceGroupInfo()
         {
-            this.R_GroupInfo_DeviceInfo = new HashSet<R_GroupInfo_DeviceInfo>();
+            this.R_DeviceInfo_DeviceGroupInfo = new HashSet<R_DeviceInfo_DeviceGroupInfo>();
             this.UserInfo = new HashSet<UserInfo>();
         }
     
-        public int Id { get; set; }
-        public string GName { get; set; }
+        public string Id { get; set; }
+        public string DeviceGroupName { get; set; }
+        public System.DateTime CreateTime { get; set; }
         public bool IsDeleted { get; set; }
-        public System.DateTime SubTime { get; set; }
     
-        public virtual ICollection<R_GroupInfo_DeviceInfo> R_GroupInfo_DeviceInfo { get; set; }
+        public virtual ICollection<R_DeviceInfo_DeviceGroupInfo> R_DeviceInfo_DeviceGroupInfo { get; set; }
         public virtual ICollection<UserInfo> UserInfo { get; set; }
     }
 }

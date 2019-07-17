@@ -35,14 +35,14 @@ namespace Glove.IOT.Model
         public DbSet<DeviceInfo> DeviceInfo { get; set; }
         public DbSet<DeviceRealtimeData> DeviceRealtimeData { get; set; }
         public DbSet<DeviceRealtimeWarning> DeviceRealtimeWarning { get; set; }
-        public DbSet<GroupInfo> GroupInfo { get; set; }
         public DbSet<OperationLog> OperationLog { get; set; }
-        public DbSet<R_GroupInfo_DeviceInfo> R_GroupInfo_DeviceInfo { get; set; }
         public DbSet<R_RoleInfo_ActionInfo> R_RoleInfo_ActionInfo { get; set; }
         public DbSet<R_UserInfo_RoleInfo> R_UserInfo_RoleInfo { get; set; }
         public DbSet<RoleInfo> RoleInfo { get; set; }
         public DbSet<TeamInfo> TeamInfo { get; set; }
         public DbSet<UserInfo> UserInfo { get; set; }
+        public DbSet<DeviceGroupInfo> DeviceGroupInfo { get; set; }
+        public DbSet<R_DeviceInfo_DeviceGroupInfo> R_DeviceInfo_DeviceGroupInfo { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

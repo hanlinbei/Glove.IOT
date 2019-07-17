@@ -36,13 +36,13 @@
     <property name="DbSession" ref="DbSession" />
     <property name="CurrentDal" ref="TeamInfoDal" />
   </object>
-  <object name="GroupInfoService" type="Glove.IOT.BLL.GroupInfoService, Glove.IOT.BLL" singleton="false" >
+  <object name="DeviceGroupInfoService" type="Glove.IOT.BLL.DeviceGroupInfoService, Glove.IOT.BLL" singleton="false" >
     <property name="DbSession" ref="DbSession" />
-    <property name="CurrentDal" ref="GroupInfoDal" />
+    <property name="CurrentDal" ref="DeviceGroupInfoDal" />
   </object>
-  <object name="R_GroupInfo_DeviceInfoService" type="Glove.IOT.BLL.R_GroupInfo_DeviceInfoService, Glove.IOT.BLL" singleton="false" >
+  <object name="R_DeviceInfo_DeviceGroupInfoService" type="Glove.IOT.BLL.R_DeviceInfo_DeviceGroupInfoService, Glove.IOT.BLL" singleton="false" >
     <property name="DbSession" ref="DbSession" />
-    <property name="CurrentDal" ref="R_GroupInfo_DeviceInfoDal" />
+    <property name="CurrentDal" ref="R_DeviceInfo_DeviceGroupInfoDal" />
   </object>
   <object name="DeviceCmdService" type="Glove.IOT.BLL.DeviceCmdService, Glove.IOT.BLL" singleton="false" >
     <property name="DbSession" ref="DbSession" />

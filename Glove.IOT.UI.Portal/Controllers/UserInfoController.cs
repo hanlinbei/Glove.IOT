@@ -23,7 +23,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IR_UserInfo_RoleInfoService R_UserInfo_RoleInfoService { get; set; }
         public IOperationLogService OperationLogService { get; set; }
         public ITeamInfoService TeamInfoService { get; set; }
-        public IGroupInfoService GroupInfoService { get; set; }
+        public IDeviceGroupInfoService DeviceGroupInfoService { get; set; }
         /// <summary>
         /// 用户起始视图
         /// </summary>
@@ -90,7 +90,7 @@ namespace Glove.IOT.UI.Portal.Controllers
             userInfo.Phone = Request["Phone"];
             userInfo.Remark = Request["Remark"];
             userInfo.UCode = Request["UCode"];
-            userInfo.GroupInfoId = user.GroupInfoId;
+            userInfo.DeviceGroupInfoId = user.DeviceGroupInfoId;
             userInfo.TeamInfoId = user.TeamInfoId;
             var file = Request.Files["Picture"];
             //如果头像为空 用回原来已存在的
@@ -130,7 +130,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                     StatusFlag = userInfoRoleInfo.StatusFlag,
                     Remark = userInfoRoleInfo.Remark,
                     TeamInfoId=userInfoRoleInfo.TId,
-                    GroupInfoId=userInfoRoleInfo.GId,
+                    DeviceGroupInfoId=userInfoRoleInfo.GId,
                     SubTime = DateTime.Now
                 };
                 
@@ -172,7 +172,7 @@ namespace Glove.IOT.UI.Portal.Controllers
                 Remark=userInfo.Remark,
                 StatusFlag=userInfo.StatusFlag,
                 TeamInfoId=userInfo.TId,
-                GroupInfoId=userInfo.GId,
+                DeviceGroupInfoId=userInfo.GId,
                 SubTime=DateTime.Now
             });
             //设置更新用户角色
@@ -246,11 +246,11 @@ namespace Glove.IOT.UI.Portal.Controllers
         public ActionResult GetAllGroups()
         {
             //把所有的班发送到前台
-            var AllGroups = GroupInfoService.GetEntities(g => g.IsDeleted == false).OrderBy(g => g.Id);
+            var AllGroups = DeviceGroupInfoService.GetEntities(g => g.IsDeleted == false).OrderBy(g => g.Id);
             var temp = AllGroups.Select(g => new
             {
                 g.Id,
-                g.GName
+                g.DeviceGroupName
             });
             return Json(temp.ToList(), JsonRequestBehavior.AllowGet);
         }

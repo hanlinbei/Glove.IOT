@@ -1,6 +1,5 @@
-﻿
+﻿ 
 using Glove.IOT.Model;
-using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +17,10 @@ namespace Glove.IOT.IBLL
         {
         }
 	
+		public partial interface IDeviceGroupInfoService:IBaseService<DeviceGroupInfo>
+        {
+        }
+	
 		public partial interface IDeviceHistoryDataService:IBaseService<DeviceHistoryData>
         {
         }
@@ -29,17 +32,12 @@ namespace Glove.IOT.IBLL
 		public partial interface IDeviceInfoService:IBaseService<DeviceInfo>
         {
         }
-
-        public partial interface IDeviceRealtimeDataService : IBaseService<DeviceRealtimeData>
-        {
-        
-        }
-
-        public partial interface IDeviceRealtimeWarningService:IBaseService<DeviceRealtimeWarning>
+	
+		public partial interface IDeviceRealtimeDataService:IBaseService<DeviceRealtimeData>
         {
         }
 	
-		public partial interface IGroupInfoService:IBaseService<GroupInfo>
+		public partial interface IDeviceRealtimeWarningService:IBaseService<DeviceRealtimeWarning>
         {
         }
 	
@@ -47,7 +45,7 @@ namespace Glove.IOT.IBLL
         {
         }
 	
-		public partial interface IR_GroupInfo_DeviceInfoService:IBaseService<R_GroupInfo_DeviceInfo>
+		public partial interface IR_DeviceInfo_DeviceGroupInfoService:IBaseService<R_DeviceInfo_DeviceGroupInfo>
         {
         }
 	
