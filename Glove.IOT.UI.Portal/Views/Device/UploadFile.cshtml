@@ -97,6 +97,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -147,6 +148,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -193,15 +195,21 @@
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
-            <button class="layui-btn layui-btn-normal col-xs-1" name="添加设备">
+            @*<button class="layui-btn layui-btn-normal col-xs-1" name="添加设备">
                 <i class="iconfont icon-add">&#xe726;</i>
                 添加设备
             </button>
             <button class="layui-btn layui-btn-danger col-xs-1" name="删除设备">
                 <i class="iconfont icon-delete">&#xe62f;</i>
                 删除设备
-            </button>
-            <span class="col-xs-8"></span>
+            </button>*@
+             <button class="layui-btn layui-btn-normal col-xs-1" id="upDevice">
+                 <i class="layui-icon">&#xe67c;</i>上传文件
+              </button>
+             <span class="col-xs-2">  
+                 <p>*注:在上传文件之前,请先选择需要更新的设备</p>
+             </span>
+            <span class="col-xs-7"></span>
             <button class="layui-btn col-xs-1" name="查找设备">
                 <i class="iconfont icon-seek">&#xe618;</i>
                 查找设备
@@ -213,48 +221,6 @@
             </div>
             <table id="table_device" lay-filter="table_device" lay-data="{id: 'idTest'}"></table>
         </div>
-        <div class="user-form" style="top:400px">
-            <div class="layer-content">
-                <form class="layui-form" lay-filter="userDetail" method="post">
-                    @*<div class="layui-form-item">
-                        <label class="layui-form-label">我的头像：</label>
-                        <div class="layui-input-block">
-                            <div style="display: inline-block;float:left;">
-                                
-                            </div>
-                            <div class="user-form-btn-container">
-                                <button class="layui-btn layui-btn-primary" id="upload" type="button">上传照片</button> 原生按钮默认submit类型type="button"防止点击提交
-                                <input type="file" id="chooseImage" name="Picture" style="display: none" accept="image/*">
-                            </div>
-                            <div style="line-height: 20px;color: #999;padding: 30px 0px !important;width:250px;margin-left:220px;">头像格式必须为：png/jpg/jpeg</div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">用户名：</label>
-                        <div class="layui-input-block">
-                            input type="text" name="UName" readonly="readonly" autocomplete="off" class="layui-input">
-                            <input type="file" name="name" value="" />
-                        </div>
-                        <div class="user-form-tip">当前用户名不可更改</div>
-                    </div>
-                    <div class="layui-form-item">
-                            <label class="layui-form-label">手机：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="Phone" placeholder="请输入您的手机号码" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-button">
-                            <button class="layui-btn" type="button" name="确认修改">确认修改</button>
-                            <button class="layui-btn layui-btn-primary" type="button" name="重新填写">重新填写</button>
-                        </div>
-                    </div>*@
-                    <button type="button" class="layui-btn" id="test1">
-                      <i class="layui-icon">&#xe67c;</i>上传文件
-                    </button>
-                </form>
-             </div>
-         </div>
      </section>
     <!-- 底部固定区域 -->
     <footer id="footer">
@@ -275,92 +241,49 @@
         //更新左上角用户信息
         userMessage();
 
-
-        //var table = layui.table;
-        //TableCache = window.table.cache;
-        //console.log(window.table.cache.table_device);
-        ////var TableCache = table.cache.table_device;
-        //console.log(TableCache.table_device);
-        //AIdtable = [1, 2];
+        //去除空值
+        //function removeEmpty(arr) {
+        //    for (var i = 0; i < arr.length; i++) {
+        //        if (arr[i] == "" || typeof (arr[i]) == "undefined" || arr[i] == -1) {
+        //            arr.splice(i, 1);
+        //            i = i - 1; // i - 1 ,因为空元素在数组下标 2 位置，删除空之后，后面的元素要向前补位
+        //        }
+        //    }
+        //    return arr;
+        //};
+        //removeEmpty(AIdtable);
         //console.log(AIdtable);
 
-        //Demo
-        layui.use('form', function () {
-            var form = layui.form;
-            
-            //监听提交
-            form.on('submit(formDemo)', function (data) {
-                layer.msg(JSON.stringify(data.field));
-                
-                console.log(data);
-                return false;
-            });
-        });
+        //var AIdtableList = {};
+        //for (var key in AIdtable) {
+        //    AIdtableList[key] = AIdtable[key];
+        //}
+        //console.log(AIdtableList);
 
 
+        
+        
 
-
-        $('button[name="重新填写"]').click(function () {
-            $(':input', '.layui-form')
-                .not('input[name="RoleName"], input[name="UName"]') //去除不需要重置的input类型
-                .val('');
-            $('input[type=radio][name="Gender"]:checked').prop("checked", false);//清空按钮
-            layui.use('form', function () {
-                var form = layui.form;
-                form.render();
-            });
-        })
-        $("#upload").click(function () {
-            $('#chooseImage').click();
-        })
-        $('#chooseImage').on('change', function (data) {
-            //var reader = new FileReader();
-            //reader.onload = function (e) {
-            //    console.log(reader.result);  //或者 e.target.result都是一样的，都是base64码
-            //    $('#Hportrait').attr('src', reader.result);
-            //    userDetail.delete('Picture');//清空
-            //    userDetail.append('Picture', reader.result);
-            //}
-            //reader.readAsDataURL(this.files[0]);
-            var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
-                fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),//获取文件后缀名
-                src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
-            //src = window.URL.createObjectURL(data.target.files[0]); //同理都可以获取文件
-            if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
-                layui.use('layer', function () {
-                    var layer = layui.layer;
-                    layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">文件格式错误</span>', {
-                        time: 2000,
-                        area: ['200px', '100px'],
-                        shade: 0.4,
-                        shadeClose: true
-                    });
-                });
-                return;
-            }
-            $('#Hportrait').attr('src', src);
-            userDetail.delete('Picture');//清空
-            userDetail.append('Picture', data.target.files[0]);
-        });
-
-
-
-       /////////////////////////////
+       //上传文件
         layui.use('upload', function () {
             var upload = layui.upload;
 
-            console.log(AIdtable);
+            //console.log(AIdtable);
             //执行实例
             var uploadInst = upload.render({
-                elem: '#test1' //绑定元素
-                , url: '/Device/UploadProgramFile' //上传接口     
+                elem: '#upDevice' //绑定元素
+                , url: '/Device/UploadProgramFile' //上传接口
                 , done: function (res) {
-                    //上传完毕回调
+                    console.log(res);//上传完毕回调
                 }
+                , error: function () {
+                    console.log('error');
+                }
+                ,accept: 'file'
+                //,exts: 'txt'
                 , data: {
-                    DeviceNames: AIdtable
-
-                }             
+                    DeviceNames: AIdtableList
+                }
             });
         });
 
