@@ -115,6 +115,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -165,6 +166,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -258,12 +260,7 @@
                                         <input type="text" name="停机时间" required lay-verify="required" placeholder="停机时间" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">目标产量：</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="目标产量" required lay-verify="required" placeholder="目标产量" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
+                                
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">已生产量：</label>
                                     <div class="layui-input-block">
@@ -273,29 +270,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-col-md3">
-                        <div class="layui-form-item">
-                            <div class="layui-form-item layui-form-text">
-                                @*<p name="单个进度" style="color:#009688; font-size: 36px; text-align: center;  padding-top:30px">单个进度</p>*@
-                                @*<p style="text-align: center;font-size:18px;padding-top:27px;">单个进度</p>*@
-                                <div id="table-line1" style="width:300px;height:400px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                        <div class="layui-col-md6">
+                    
+                        <div class="layui-col-md6" >
                             <div class="layui-form-item">
-                                <div class="layui-form-item layui-form-text">
+                                <div class="layui-form-item layui-form-text" style="margin:40px">
                                     @*<textarea name="历史记录" placeholder="历史记录" class="layui-textarea"></textarea>
-                    <p style="text-align: center;font-size:18px;padding-top:5px;">历史记录</p>*@
-                                    <div id="table-line" style="width: 550px;height:300px;"></div>
+                                    <p style="text-align: center;font-size:18px;padding-top:5px;">历史记录</p>*@
+                                    <div id="table-line" style="left:0px;width:550px;height:300px;"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-col-md3">
-                            @*<p name="整体进度" style="color:#FFB800; font-size: 36px; text-align: center;  padding-top:30px">整体进度</p>
-        <p style="text-align: center;font-size:18px;padding-top:27px;">整体进度</p>*@
-                            <div id="table-line2" style="width:300px;height:400px;"></div>
+                            <div class="layui-form-item">
+                                <div class="layui-form-item layui-form-text" style="margin:40px">
+                                    <h3 style="text-align:center">单只手套进度</h3>
+                                    @*<p name="单个进度" style="color:#009688; font-size: 36px; text-align: center;  padding-top:30px">单个进度</p>*@
+                                    @*<p style="text-align: center;font-size:18px;padding-top:27px;">单个进度</p>*@
+                                    <div id="table-line1" style="left:30px; width:260px;height:300px;"></div>
+                                </div>
+                            </div>
                         </div>
+                        @*<div class="layui-col-md3">
+                            <p name="整体进度" style="color:#FFB800; font-size: 36px; text-align: center;  padding-top:30px">整体进度</p>
+                            <p style="text-align: center;font-size:18px;padding-top:27px;">整体进度</p>
+                            <div id="table-line2" style="width:300px;height:400px;"></div>
+                        </div>*@
                     </div>
             </div>
             
@@ -324,124 +323,274 @@
         var cateval = category.substring(category.lastIndexOf('=') + 1, category.length);
         if (cateval !== "") {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', "/Device/GetDeviceParameterInfo?DeviceId=" + cateval);
+            xhr.open('GET', "/Device/GetAllDeviceRealtimeData?schDeviceName=" + cateval);
             //xhr.setRequestHeader('content-Type', 'application/x-www-form-urlencoded');
             xhr.send();//多发一个id数据
             xhr.onreadystatechange = function () {
                 if (this.readyState !== 4) return;
                 var deviceInfos = eval("(" + this.responseText + ")");//JSON.parse安全
-
-                $('input[name="设备ID"]').val(deviceInfos.deviceParameter.deviceId);
-                if (deviceInfos.deviceParameter.StatusFlag === "关机中")
+                console.log(deviceInfos);
+                $('input[name="设备ID"]').val(deviceInfos.data[0].DeviceName);
+                if (deviceInfos.data[0].StatusFlag === "关机中")
                     $('input[name="运行状态"]').val("关机中");
-                else if (deviceInfos.deviceParameter.StatusFlag === "运行中")
+                else if (deviceInfos.data[0].StatusFlag === "运行中")
                     $('input[name="运行状态"]').val("运行中");
-                else if (deviceInfos.deviceParameter.StatusFlag === "暂停中")
+                else if (deviceInfos.data[0].StatusFlag === "暂停中")
                     $('input[name="运行状态"]').val("暂停中");
-                else if (deviceInfos.deviceParameter.StatusFlag === "故障中")
+                else if (deviceInfos.data[0].StatusFlag === "故障中")
                     $('input[name="运行状态"]').val("故障中");
-                else if (deviceInfos.deviceParameter.StatusFlag === "未连接")
+                else if (deviceInfos.data[0].StatusFlag === "未连接")
                     $('input[name="运行状态"]').val("未连接");
                 //解析时间
                 //var StartTime = (eval(deviceInfos.deviceParameter.StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
-                var RunTime = Math.round(deviceInfos.deviceParameter.RunTime.TotalHours * 100) / 100;
-                if (deviceInfos.deviceParameter.StopTime !== null) {
-                    var StopTime = (eval(deviceInfos.deviceParameter.StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+
+                //得到运行的时间（秒）
+                var STime = (eval(deviceInfos.data[0].StopTime.match(/[0-9]+/gi) - deviceInfos.data[0].StartTime.match(/[0-9]+/gi)));
+
+                //计算小时分和秒
+                function showTime(val) {
+                    if (val < 60) {
+                        return val + "\t秒";
+                    } else {
+
+                        var min_total = Math.floor(val / 60);	// 分钟
+                        var sec = Math.floor(val % 60);	// 余秒
+
+                        if (min_total < 60) {
+                            return min_total + "\t分钟" + sec + "\t秒";
+                        } else {
+                            var hour_total = Math.floor(min_total / 60);	// 小时数
+                            var min = Math.floor(min_total % 60);	// 余分钟
+
+                            return hour_total + "小时" + min + "分钟";
+                        }
+                    }
                 }
-                $('input[name="运行时间"]').val(RunTime + ' 小时');
+             
+                var RunTime = showTime(STime);
+                //console.log(RunTime);
+                console.log(STime);
+
+                var StartTime = (eval(deviceInfos.data[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm;ss");
+                console.log(StartTime);
+                var StopTime = (eval(deviceInfos.data[0].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                console.log(StopTime);
+                
+                
+                $('input[name="运行时间"]').val(RunTime);
                 $('input[name="停机时间"').val(StopTime);
-                $('input[name="目标产量"').val(deviceInfos.deviceParameter.TargetOutput);
-                $('input[name="已生产量"').val(70);
+                //$('input[name="目标产量"').val(deviceInfos.deviceParameter.TargetOutput);
+                $('input[name="已生产量"').val(deviceInfos.data[0].NowOutput);
+
                 //$('textarea[name="历史记录"]').val(deviceInfos.parameterHistory[0].NowOutput);
                 //$('textarea[name="历史记录"]').val("无");
                 //$('p[name="单个进度"').text(deviceInfos.deviceParameter.SingleProgress + '%');
                
 
-                //$('p[name="整体进度"').text(Math.floor((deviceInfos.deviceParameter.NowOutput / deviceInfos.deviceParameter.TargetOutput) * 100) + '%');
-                var myChart = echarts.init(document.getElementById('table-line2'));
-                //指定图表的配置项和数据
-                option = {
-                    tooltip: {
-                        formatter: "{a} <br/>{b} : {c}%"
-                    },
-                    toolbox: {
-                        feature: {
-                            restore: {},
-                            saveAsImage: {}
-                        }
-                    },
-                    series: [
-                        {
-                            name: '业务指标',
-                            type: 'gauge',
-                            detail: { formatter: '{value}%' },
-                            data: [{ value: Math.floor((70 / deviceInfos.deviceParameter.TargetOutput) * 100), name: '总体进度' }]
-                        }
-                    ]
-                };
-
-                myChart.setOption(option);
-                //处理时间
-                var subTime = new Array(5);
-                for (var i = 0; i < 5; i++) {
-                    subTime[i] = (eval(deviceInfos.parameterHistory[i].SubTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
-                    console.log(subTime[i]);
-                }
-                    
-                // 基于准备好的dom，初始化echarts实例
-                var myChart = echarts.init(document.getElementById('table-line'));
-                // 指定图表的配置项和数据
-                var option = {
-                    title: {
-                        text: '手套机产量'
-                    },
-                    tooltip: {},
-                    legend: {
-                        data: ['产量']
-                    },
-                    xAxis: {
-                        data: [subTime[4], subTime[3], subTime[2], subTime[1], subTime[0]]
-                    },
-                    yAxis: {},
-                    series: [{
-                        name: '产量',
-                        type: 'line',
-                        data: [
-                            deviceInfos.parameterHistory[4].NowOutput,
-                            deviceInfos.parameterHistory[3].NowOutput,
-                            deviceInfos.parameterHistory[2].NowOutput,
-                            deviceInfos.parameterHistory[1].NowOutput,
-                            deviceInfos.parameterHistory[0].NowOutput]
-                    }]
-                };
-                // 使用刚指定的配置项和数据显示图表。
-                myChart.setOption(option);
-
+                ////$('p[name="整体进度"').text(Math.floor((deviceInfos.deviceParameter.NowOutput / deviceInfos.deviceParameter.TargetOutput) * 100) + '%');
                 var myChart = echarts.init(document.getElementById('table-line1'));
                 //指定图表的配置项和数据
                 option = {
                     tooltip: {
                         formatter: "{a} <br/>{b} : {c}%"
                     },
-                    toolbox: {
-                        feature: {
-                            restore: {},
-                            saveAsImage: {}
-                        }
-                    },
                     series: [
                         {
                             name: '业务指标',
                             type: 'gauge',
                             detail: { formatter: '{value}%' },
-                            data: [{ value: deviceInfos.deviceParameter.SingleProgress, name: '单只手套进度'}]
+                            data: [{ value: Math.floor(deviceInfos.data[0].SingleProgress)}]
                         }
                     ]
                 };
 
                 myChart.setOption(option);
+                window.addEventListener('resize', function () { myChart.resize() });
+                ////处理时间
+                //var subTime = new Array(5);
+                //for (var i = 0; i < 5; i++) {
+                //    subTime[i] = (eval(deviceInfos.parameterHistory[i].SubTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
+                //    console.log(subTime[i]);
+                //}
+                    
+                //// 基于准备好的dom，初始化echarts实例
+                //var myChart = echarts.init(document.getElementById('table-line'));
+                //// 指定图表的配置项和数据
+                //var option = {
+                //    title: {
+                //        text: '手套机产量'
+                //    },
+                //    tooltip: {},
+                //    legend: {
+                //        data: ['产量']
+                //    },
+                //    xAxis: {
+                //        data: [subTime[4], subTime[3], subTime[2], subTime[1], subTime[0]]
+                //    },
+                //    yAxis: {},
+                //    series: [{
+                //        name: '产量',
+                //        type: 'line',
+                //        data: [
+                //            deviceInfos.parameterHistory[4].NowOutput,
+                //            deviceInfos.parameterHistory[3].NowOutput,
+                //            deviceInfos.parameterHistory[2].NowOutput,
+                //            deviceInfos.parameterHistory[1].NowOutput,
+                //            deviceInfos.parameterHistory[0].NowOutput]
+                //    }]
+                //};
+                //// 使用刚指定的配置项和数据显示图表。
+                //myChart.setOption(option);
+
+                //var myChart = echarts.init(document.getElementById('table-line1'));
+                ////指定图表的配置项和数据
+                //option = {
+                //    tooltip: {
+                //        formatter: "{a} <br/>{b} : {c}%"
+                //    },
+                //    toolbox: {
+                //        feature: {
+                //            restore: {},
+                //            saveAsImage: {}
+                //        }
+                //    },
+                //    series: [
+                //        {
+                //            name: '业务指标',
+                //            type: 'gauge',
+                //            detail: { formatter: '{value}%' },
+                //            data: [{ value: deviceInfos.deviceParameter.SingleProgress, name: '单只手套进度'}]
+                //        }
+                //    ]
+                //};
+
+                //myChart.setOption(option);
             };
         }
+
+
+        if (cateval !== "") {
+            var xhre = new XMLHttpRequest();
+            xhre.open('get', "/Device/GetWeekEachDayData?deviceName=" + cateval);
+            xhre.send();
+            xhre.onreadystatechange = function () {
+                if (this.readyState !== 4) return;
+                var deviceOutputs = eval("(" + this.responseText + ")");//JSON.parse安全
+                console.log(deviceOutputs);
+                console.log(deviceOutputs[1].Date);
+                
+                //处理时间
+                var subTime = new Array();
+                for (var i = 0; i < 7; i++) {
+                    //subTime[i] = (eval(deviceOutputs[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("mm:ss");
+                    subTime[i] = (eval(deviceOutputs[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d HH:mm:ss");
+                    //console.log(subTime[i]);
+                }
+          
+                // 基于准备好的dom，初始化echarts实例
+                var mychart1 = echarts.init(document.getElementById('table-line'));
+                // 指定图表的配置项和数据
+                var option = {
+                    title: {
+                        text: '当前手套机产量'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: ['产量']
+                    },
+                    xAxis: {
+                        data: [subTime[6], subTime[5], subTime[4], subTime[3], subTime[2], subTime[1], subTime[0]]
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '产量',
+                        type: 'line',
+                        data: [
+                            deviceOutputs[6].SumOutput,
+                            deviceOutputs[5].SumOutput,
+                            deviceOutputs[4].SumOutput,
+                            deviceOutputs[3].SumOutput,
+                            deviceOutputs[2].SumOutput,
+                            deviceOutputs[1].SumOutput,
+                            deviceOutputs[0].SumOutput
+                            ]
+                    }]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                mychart1.setOption(option);
+                 //建议加上以下这一行代码，缩放时自动调整echart大小
+                window.addEventListener('resize', function () { mychart1.resize() });
+
+
+
+            }
+        }
+
+
+        //$.get(('/Device/GetWeekEachDayDate?deviceName=' + cateval), {}, function (data) {
+        //    console.log(data);
+
+
+          
+
+            ////取得每天的日期
+            //var EachDay = new Array();
+            //for (var i = 0; i < 7; i++) {
+            //    EachDay[i] = (eval(data.WeekEachDayOutput[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
+            //}
+            ////取得每天的产量
+            //var SumOutput = new Array();
+            //for (var i = 0; i < 7; i++) {
+            //    SumOutput[i] = data.WeekEachDayOutput[i].SumOutput;
+            //}
+            ////求出7天中的最大产量
+            //var MaxOutput = Math.max.apply(null, SumOutput);
+            //var MaxX = Math.round(MaxOutput / 1000) * 1000;
+            //var EachX = MaxX / 5;
+
+
+            ////更新图标的配置项和数据
+            //option1 = {
+            //    xAxis: [
+            //        {
+            //            type: 'category',
+            //            name: '日期',
+            //            data: [EachDay[0], EachDay[1], EachDay[2], EachDay[3], EachDay[4], EachDay[5], EachDay[6]],
+            //            axisPointer: {
+            //                type: 'shadow'
+            //            }
+            //        }
+            //    ],
+            //    yAxis: [
+            //        {
+            //            type: 'value',
+            //            name: '只',
+            //            min: 0,
+            //            max: MaxX,
+            //            interval: EachX,
+            //            axisLabel: {
+            //                formatter: '{value} '
+            //            }
+            //        }
+            //    ],
+            //    series: [
+            //        {
+            //            name: '总产量',
+            //            type: 'bar',
+            //            data: [SumOutput[0], SumOutput[1], SumOutput[2], SumOutput[3], SumOutput[4], SumOutput[5], SumOutput[6]]
+            //        }
+            //    ]
+            //};
+            //myChart1.setOption(option1);
+
+        //})
+
+
+        //建议加上以下这一行代码，缩放时自动调整echart大小
+        //window.addEventListener('resize', function () { myChart1.resize() });
+
+
+
     </script>
 </body>
 </html>
