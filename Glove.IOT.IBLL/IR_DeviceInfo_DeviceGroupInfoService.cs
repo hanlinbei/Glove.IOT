@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Glove.IOT.IBLL
 {
-    public partial interface IR_GroupInfo_DeviceInfoService : IBaseService<R_GroupInfo_DeviceInfo>
+    public partial interface IR_DeviceInfo_DeviceGroupInfoService : IBaseService<R_DeviceInfo_DeviceGroupInfo>
     {
         /// <summary>
         /// 为组添加已选中的设备
         /// </summary>
         /// <param name="gId"></param>
         /// <param name="idList"></param>
-        void AddSelectDevices(int gId, List<string> idList);
+        void AddSelectDevices(string gId, List<string> idList);
     }
 }

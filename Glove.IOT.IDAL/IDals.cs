@@ -19,6 +19,11 @@ namespace Glove.IOT.IDAL
        
     }   
 	
+	public partial interface IDeviceGroupInfoDal : IBaseDal<DeviceGroupInfo>
+    {
+       
+    }   
+	
 	public partial interface IDeviceHistoryDataDal : IBaseDal<DeviceHistoryData>
     {
        
@@ -44,17 +49,12 @@ namespace Glove.IOT.IDAL
        
     }   
 	
-	public partial interface IGroupInfoDal : IBaseDal<GroupInfo>
-    {
-       
-    }   
-	
 	public partial interface IOperationLogDal : IBaseDal<OperationLog>
     {
        
     }   
 	
-	public partial interface IR_GroupInfo_DeviceInfoDal : IBaseDal<R_GroupInfo_DeviceInfo>
+	public partial interface IR_DeviceInfo_DeviceGroupInfoDal : IBaseDal<R_DeviceInfo_DeviceGroupInfo>
     {
        
     }   

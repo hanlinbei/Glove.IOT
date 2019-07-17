@@ -13,14 +13,13 @@ namespace Glove.IOT.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class R_GroupInfo_DeviceInfo
+    public partial class R_DeviceInfo_DeviceGroupInfo
     {
-        public int Id { get; set; }
-        public int GroupInfoId { get; set; }
+        public string Id { get; set; }
         public string DeviceInfoId { get; set; }
-        public bool IsDeleted { get; set; }
+        public string DeviceGroupInfoId { get; set; }
     
+        public virtual DeviceGroupInfo DeviceGroupInfo { get; set; }
         public virtual DeviceInfo DeviceInfo { get; set; }
-        public virtual GroupInfo GroupInfo { get; set; }
     }
 }

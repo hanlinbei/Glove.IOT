@@ -17,13 +17,13 @@ namespace Glove.IOT.Model
     {
         public DeviceInfo()
         {
-            this.R_GroupInfo_DeviceInfo = new HashSet<R_GroupInfo_DeviceInfo>();
+            this.R_DeviceInfo_DeviceGroupInfo = new HashSet<R_DeviceInfo_DeviceGroupInfo>();
         }
     
         public string Id { get; set; }
         public int DeviceName { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
     
-        public virtual ICollection<R_GroupInfo_DeviceInfo> R_GroupInfo_DeviceInfo { get; set; }
+        public virtual ICollection<R_DeviceInfo_DeviceGroupInfo> R_DeviceInfo_DeviceGroupInfo { get; set; }
     }
 }

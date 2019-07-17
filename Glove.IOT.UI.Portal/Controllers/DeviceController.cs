@@ -90,9 +90,11 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// 长传程序更新指令
         /// </summary>
         /// <returns></returns>
-        public ActionResult UploadProgramFile(int[] deviceNames)
+        public ActionResult UploadProgramFile()
         {
             var file = Request.Files["file"];
+            var names = Request["deviceNames"];
+            int[] deviceNames = Array.ConvertAll<string, int>(names.Split(new char[] { ',' }), s => int.Parse(s));
             if (file != null)
             {
                 string path = "/UploadFiles/UploadProgramFiles/" + file.FileName;

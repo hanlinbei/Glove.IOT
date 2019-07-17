@@ -28,6 +28,12 @@ namespace Glove.IOT.DALFactory
                  as IDeviceCmdDal;
         }
 	
+		public static IDeviceGroupInfoDal GetDeviceGroupInfoDal()
+        {                
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".DeviceGroupInfoDal")
+                 as IDeviceGroupInfoDal;
+        }
+	
 		public static IDeviceHistoryDataDal GetDeviceHistoryDataDal()
         {                
             return Assembly.Load(assemblyName).CreateInstance(assemblyName+".DeviceHistoryDataDal")
@@ -58,22 +64,16 @@ namespace Glove.IOT.DALFactory
                  as IDeviceRealtimeWarningDal;
         }
 	
-		public static IGroupInfoDal GetGroupInfoDal()
-        {                
-            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".GroupInfoDal")
-                 as IGroupInfoDal;
-        }
-	
 		public static IOperationLogDal GetOperationLogDal()
         {                
             return Assembly.Load(assemblyName).CreateInstance(assemblyName+".OperationLogDal")
                  as IOperationLogDal;
         }
 	
-		public static IR_GroupInfo_DeviceInfoDal GetR_GroupInfo_DeviceInfoDal()
+		public static IR_DeviceInfo_DeviceGroupInfoDal GetR_DeviceInfo_DeviceGroupInfoDal()
         {                
-            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".R_GroupInfo_DeviceInfoDal")
-                 as IR_GroupInfo_DeviceInfoDal;
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".R_DeviceInfo_DeviceGroupInfoDal")
+                 as IR_DeviceInfo_DeviceGroupInfoDal;
         }
 	
 		public static IR_RoleInfo_ActionInfoDal GetR_RoleInfo_ActionInfoDal()

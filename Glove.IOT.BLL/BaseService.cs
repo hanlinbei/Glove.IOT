@@ -90,13 +90,14 @@ namespace Glove.IOT.BLL
         /// </summary>
         /// <param name="ids">多个od</param>
         /// <returns>true</returns>
-        public int DeleteListByLogical(List<int> ids)
+        public int DeleteListByLogical<S>(List<S> ids)
         {
 
             CurrentDal.DeleteListByLogical(ids);
             return DbSession.SaveChanges();
 
         }
+
 
         /// <summary>
         /// 批量删除
@@ -113,6 +114,8 @@ namespace Glove.IOT.BLL
 
 
         }
+
+  
         /// <summary>
         /// 批量删除
         /// </summary>

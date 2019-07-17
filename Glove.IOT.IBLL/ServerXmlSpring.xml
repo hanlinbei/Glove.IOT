@@ -4,6 +4,8 @@
 		   </object>
 		  <object name="DeviceCmdService" type="Glove.IOT.BLL.DeviceCmdService, Glove.IOT.BLL" singleton="false" >
 		   </object>
+		  <object name="DeviceGroupInfoService" type="Glove.IOT.BLL.DeviceGroupInfoService, Glove.IOT.BLL" singleton="false" >
+		   </object>
 		  <object name="DeviceHistoryDataService" type="Glove.IOT.BLL.DeviceHistoryDataService, Glove.IOT.BLL" singleton="false" >
 		   </object>
 		  <object name="DeviceHistoryWarningService" type="Glove.IOT.BLL.DeviceHistoryWarningService, Glove.IOT.BLL" singleton="false" >
@@ -14,11 +16,9 @@
 		   </object>
 		  <object name="DeviceRealtimeWarningService" type="Glove.IOT.BLL.DeviceRealtimeWarningService, Glove.IOT.BLL" singleton="false" >
 		   </object>
-		  <object name="GroupInfoService" type="Glove.IOT.BLL.GroupInfoService, Glove.IOT.BLL" singleton="false" >
-		   </object>
 		  <object name="OperationLogService" type="Glove.IOT.BLL.OperationLogService, Glove.IOT.BLL" singleton="false" >
 		   </object>
-		  <object name="R_GroupInfo_DeviceInfoService" type="Glove.IOT.BLL.R_GroupInfo_DeviceInfoService, Glove.IOT.BLL" singleton="false" >
+		  <object name="R_DeviceInfo_DeviceGroupInfoService" type="Glove.IOT.BLL.R_DeviceInfo_DeviceGroupInfoService, Glove.IOT.BLL" singleton="false" >
 		   </object>
 		  <object name="R_RoleInfo_ActionInfoService" type="Glove.IOT.BLL.R_RoleInfo_ActionInfoService, Glove.IOT.BLL" singleton="false" >
 		   </object>

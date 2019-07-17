@@ -86,8 +86,9 @@ namespace Glove.IOT.IDAL
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        int DeleteListByLogical(List<int> ids);
+        int DeleteListByLogical<S>(List<S> ids);
 
-       
+
+
     }
 }
