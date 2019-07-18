@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta http-equiv="Refresh" content="60">
+    <!-- 上述3个meta标签标签为自动刷新 -->
     <title>Glove Machine IoT</title>
 
     <!-- Bootstrap -->
@@ -397,7 +399,7 @@
 
 
 
-
+        //配置echarts数据
         $.get('/Home/GetSummation', {}, function (data) {
             console.log(data);
 
@@ -437,32 +439,26 @@
             myChart3.setOption(option);
 
 
-            //取得每天的日期
-            var EachDay = new Array();
-            for (var i = 0; i < 7; i++) {
+            
+            var EachDay = new Array();//取得每天的日期
+            var SumOutput = new Array();//取得每天的产量
+
+            for (var i = 0; i < data.WeekEachDayOutput.length; i++) {     //
                 EachDay[i] = (eval(data.WeekEachDayOutput[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
-            }
-            //取得每天的产量
-            var SumOutput = new Array();
-            for (var i = 0; i < 7; i++) {
                 SumOutput[i] = data.WeekEachDayOutput[i].SumOutput;
             }
-            //求出7天中的最大产量
+            
+            //求出最大产量
             var MaxOutput = Math.max.apply(null, SumOutput);
-            var MaxX = Math.round(MaxOutput / 1000) * 1000;
-            var EachX = MaxX / 5;
+            var MaxX = Math.round(MaxOutput / 1000) * 1000;   //取整至千位
+            var EachX = MaxX / 5;   
             
 
             //更新图标的配置项和数据
             option1 = {
                 xAxis: [
                     {
-                        type: 'category',
-                        name: '日期',
-                        data: [EachDay[0], EachDay[1], EachDay[2], EachDay[3], EachDay[4], EachDay[5], EachDay[6]],
-                        axisPointer: {
-                            type: 'shadow'
-                        }
+                        data: [EachDay[0], EachDay[1], EachDay[2], EachDay[3], EachDay[4], EachDay[5], EachDay[6]]
                     }
                 ],
                 yAxis: [
@@ -479,8 +475,6 @@
                 ],
                 series: [
                     {
-                        name: '总产量',
-                        type: 'bar',
                         data: [SumOutput[0], SumOutput[1], SumOutput[2], SumOutput[3], SumOutput[4], SumOutput[5], SumOutput[6]]
                     }
                 ]

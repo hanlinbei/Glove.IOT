@@ -233,19 +233,19 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">设备ID：</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="设备ID" required lay-verify="required" placeholder="设备ID" autocomplete="off" class="layui-input">
+                                        <input type="text" name="设备ID" required lay-verify="required" placeholder="设备ID" autocomplete="off" class="layui-input" disabled>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">运行状态：</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="运行状态" required lay-verify="required" placeholder="运行状态" autocomplete="off" class="layui-input">
+                                        <input type="text" name="运行状态" required lay-verify="required" placeholder="运行状态" autocomplete="off" class="layui-input" disabled>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">运行时间：</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="运行时间" required lay-verify="required" placeholder="运行时间" autocomplete="off" class="layui-input">
+                                        <input type="text" name="运行时间" required lay-verify="required" placeholder="运行时间" autocomplete="off" class="layui-input" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -257,14 +257,14 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">停机时间：</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="停机时间" required lay-verify="required" placeholder="停机时间" autocomplete="off" class="layui-input">
+                                        <input type="text" name="停机时间" required lay-verify="required" placeholder="停机时间" autocomplete="off" class="layui-input" disabled>
                                     </div>
                                 </div>
                                 
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">已生产量：</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="已生产量" required lay-verify="required" placeholder="已生产量" autocomplete="off" class="layui-input">
+                                        <input type="text" name="已生产量" required lay-verify="required" placeholder="已生产量" autocomplete="off" class="layui-input" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -331,16 +331,8 @@
                 var deviceInfos = eval("(" + this.responseText + ")");//JSON.parse安全
                 console.log(deviceInfos);
                 $('input[name="设备ID"]').val(deviceInfos.data[0].DeviceName);
-                if (deviceInfos.data[0].StatusFlag === "关机中")
-                    $('input[name="运行状态"]').val("关机中");
-                else if (deviceInfos.data[0].StatusFlag === "运行中")
-                    $('input[name="运行状态"]').val("运行中");
-                else if (deviceInfos.data[0].StatusFlag === "暂停中")
-                    $('input[name="运行状态"]').val("暂停中");
-                else if (deviceInfos.data[0].StatusFlag === "故障中")
-                    $('input[name="运行状态"]').val("故障中");
-                else if (deviceInfos.data[0].StatusFlag === "未连接")
-                    $('input[name="运行状态"]').val("未连接");
+                $('input[name="运行状态"]').val(deviceInfos.data[0].StatusFlag);
+
                 //解析时间
                 //var StartTime = (eval(deviceInfos.deviceParameter.StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
 

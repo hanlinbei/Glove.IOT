@@ -442,34 +442,38 @@ margin-top:70px;  */
     margin-right: 10px;
     color: #999;
 }
-    #main .layui-input-block {
-        position: relative;
-        float: left;
-        width: 300px; /*右边的框*/
-        margin-left: 0px;
-        margin-right: 10px;
-        display: block;
-        vertical-align: middle;
-    }
-    #main .layui-input-textarea {
-        position: relative;
-        float: left;
-        width: 600px; /*右边的框*/
-        margin-left: 0px;
-        margin-right: 10px;
-        display: block;
-        vertical-align: middle;
-    }
+#main .layui-input-block {
+    position: relative;
+    float: left;
+    width: 300px; /*右边的框*/
+    margin-left: 0px;
+    margin-right: 10px;
+    display: block;
+    vertical-align: middle;
+}
+#main .layui-input-textarea {
+    position: relative;
+    float: left;
+    width: 600px; /*右边的框*/
+    margin-left: 0px;
+    margin-right: 10px;
+    display: block;
+    vertical-align: middle;
+}
 #main .layui-input-button {
     margin-left:110px;
 }
-    #main .user-form-btn-container {
-        display: block;
-        float: left;
-        vertical-align: middle;
-        line-height: 80px;
-        margin-left: 20px;
-    }
+#main .user-form-btn-container {
+    display: block;
+    float: left;
+    vertical-align: middle;
+    line-height: 60px;
+    margin-left: 20px;
+}
+
+
+
+
         /*#main .table .layer {
     display: none;
     position: fixed;
@@ -504,17 +508,24 @@ margin-top:70px;  */
     width: inherit;
     padding: 10px 20px;
 }*/
-#footer{
-    position: fixed; 
-    left: 200px; 
-    right: 0; 
-    bottom: 0; 
-    height: 30px; 
-    line-height: 30px; 
-    padding: 0 20px; 
+
+.uploadfile{
+    background-color: #FFF;
+}
+
+
+
+#footer {
+    position: fixed;
+    left: 200px;
+    right: 0;
+    bottom: 0;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px;
     background-color: #393d49;
-    color:#fff;
-    border-left: 1px solid #999; 
+    color: #fff;
+    border-left: 1px solid #999;
     z-index: 3100;
 }
 
