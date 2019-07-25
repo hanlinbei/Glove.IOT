@@ -2,6 +2,7 @@
 using Glove.IOT.Model;
 using Glove.IOT.Model.Param;
 using Glove.IOT.UI.Portal.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,14 +99,15 @@ namespace Glove.IOT.UI.Portal.Controllers
             if (file != null)
             {
                 string path = "/UploadFiles/UploadProgramFiles/" + file.FileName;
-                file.SaveAs(Request.MapPath(path));
-                DeviceCmdService.AddDeviceCmd(Request.MapPath(path), deviceNames);
+                string realPath = Request.MapPath(path);
+                if (!System.IO.File.Exists(realPath))
+                {
+                    file.SaveAs(realPath);
+                }            
+                DeviceCmdService.AddDeviceCmd(realPath, deviceNames);
                 return Content("ok");
             }
             return Content("false");
-
-        
-
         }
 
 
