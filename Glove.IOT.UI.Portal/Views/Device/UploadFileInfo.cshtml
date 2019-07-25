@@ -9,7 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Glove Machine IoT</title>
+    <meta http-equiv="Refresh" content="15">
+    <!-- 上述3个meta标签为自动刷新 -->
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
@@ -23,8 +24,6 @@
     <link href="~/Content/DH/css/mainUI.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/Content/DH/img/favicon.ico" type="image/x-icon" />
     <script src="~/Content/DH/lib/NProgress/nprogress.js"></script>
-    <style type="text/css">
-    </style>
 </head>
 <body>
     <!-- 头部区域 -->
@@ -192,100 +191,32 @@
             <!-- 面包屑 -->
             <span class="layui-breadcrumb">
                 <a>设备管理</a>
-                <a href="Devicemanage"><cite>设备工作情况</cite></a>
+                <a href="Devicemanage"><cite>上传文件情况</cite></a>
             </span>
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
-
-            <button class="layui-btn col-xs-2" name="查看更新状态">
-                <i class="iconfont icon-seek">&#xe618;</i>
-                查看设备更新状态
-            </button>
-            @*<button class="layui-btn layui-btn-danger col-xs-1" name="删除设备">
-            <i class="iconfont icon-delete">&#xe62f;</i>
-            删除设备
-        </button>
-            <button class="layui-btn layui-btn-normal col-xs-1" id="upDevice">
-            <i class="layui-icon">&#xe67c;</i>上传文件
-        </button>
-        <span class="col-xs-2">
-            <p>*注:在上传文件之前,请先选择需要更新的设备</p>
-        </span>*@
-            <span class="col-xs-8"></span>
-            <button class="layui-btn col-xs-1" name="查找设备">
-                <i class="iconfont icon-seek">&#xe618;</i>
-                查找设备
+            @*<button class="layui-btn layui-btn-normal col-xs-1" name="添加设备">
+                    <i class="iconfont icon-add">&#xe726;</i>
+                    添加设备
+                </button>
+                <button class="layui-btn layui-btn-danger col-xs-1" name="删除设备">
+                    <i class="iconfont icon-delete">&#xe62f;</i>
+                    删除设备
+                </button>*@
+            <span class="col-xs-10"></span>
+            <button class="layui-btn col-xs-1" name="返回">
+                <i class="iconfont icon-warm"></i>
+                返回
             </button>
         </div>
         <div class="table">
             <div class="table-title">
-                设备管理
+                上传文件情况
             </div>
-            <table id="table_device" lay-filter="table_device" lay-data="{id: 'idTest'}"></table>
-            <div class="layer-content uploadfile">
-                <form class="layui-form" lay-filter="userDetail" method="post">
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <div class="user-form-btn-container">
-                                <button class="layui-btn layui-btn-primary" id="upload" type="button">上传文件</button> @*原生按钮默认submit类型type="button"防止点击提交*@
-                                <input type="file" id="chooseImage" name="Picture" style="display: none" accept="text/plain">
-                            </div>
-                            <div style="line-height: 20px;color: #999;padding: 30px 0px !important;width:900px;margin-left:120px;">
-                                <label>注:在上传文件之前,请先选择需要更新的设备 </label>
-                                <label> *已选择的文件： </label>
-                                <input type="text" name="testfile" id="testfile" value="" style="border:0px" disabled>@*格式需要是txt*@
-                                <label> *已选择的设备： </label>
-                                <input type="text" name="testdevice" id="testdevice" value="" style="border:0px" disabled>
-                                <div style="float:right"><button class="layui-btn" type="button" name="确认上传">确认上传</button></div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <table id="table_fileinfo" lay-filter="table_fileinfo" lay-data="{id: 'idTest'}"></table>
         </div>
-
-        @*<div class="user-form" style="top:350px">
-            <div class="layer-content">
-                <form class="layui-form" lay-filter="userDetail" method="post">
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            
-                            <div class="user-form-btn-container">
-                                <button class="layui-btn layui-btn-primary" id="upload" type="button">上传文件</button> 原生按钮默认submit类型type="button"防止点击提交
-                                <input type="file" id="chooseImage" name="Picture" style="display: none" accept="text/plain">
-                                <input type="file" name="name" value="" />
-                            </div>
-                            <div style="line-height: 20px;color: #999;padding: 30px 0px !important;width:600px;margin-left:120px;">
-                                <input type="text" name="test" id="test" value="文件名" disabled>格式必须为：txt
-                                <div  style="float:right"><button class="layui-btn" type="button" name="确认上传">确认上传</button></div>
-                            </div>
-                            <div style="!important;width:100px;height:20px;float:right">
-                                <button class="layui-btn" type="button" name="确认上传">确认上传</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="layui-form-item">
-                        <div class="layui-form-item layui-form-text">
-                            <label class="layui-form-label">备注：</label>
-                            <div class="layui-input-textarea">
-                                <textarea name="Remark" placeholder="请输入内容" class="layui-textarea"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-button">
-                            <button class="layui-btn" type="button" name="确认上传">确认上传</button>
-                            <button class="layui-btn layui-btn-primary" type="button" name="重新上传">重新上传</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>*@
-
-
-     </section>
+    </section>
     <!-- 底部固定区域 -->
     <footer id="footer">
         <p class="text-right">© 版权所有 © 绍兴金隆机械制造有限公司</p>
@@ -305,142 +236,12 @@
         //更新左上角用户信息
         userMessage();
 
-        //去除空值
-        //function removeEmpty(arr) {
-        //    for (var i = 0; i < arr.length; i++) {
-        //        if (arr[i] == "" || typeof (arr[i]) == "undefined" || arr[i] == -1) {
-        //            arr.splice(i, 1);
-        //            i = i - 1; // i - 1 ,因为空元素在数组下标 2 位置，删除空之后，后面的元素要向前补位
-        //        }
-        //    }
-        //    return arr;
-        //};
-        //removeEmpty(AIdtable);
-        //console.log(AIdtable);
 
-        //var AIdtableList = {};
-        //for (var key in AIdtable) {
-        //    AIdtableList[key] = AIdtable[key];
-        //}
-        //console.log(AIdtableList);
-
-        
-
-       ////上传文件
-       // layui.use('upload', function () {
-       //     var upload = layui.upload;
-
-       //     //console.log(AIdtable);
-       //     //执行实例
-       //     var uploadInst = upload.render({
-       //         elem: '#upDevice' //绑定元素
-       //         //, headers:{"Content-Type":"application/json"}
-       //         , url: '/Device/UploadProgramFile' //上传接口
-       //         , done: function (res) {
-       //             console.log(res);//上传完毕回调
-       //         }
-       //         , error: function () {
-       //             console.log('error');
-       //         }
-       //         ,accept: 'file'
-       //         //,exts: 'txt'
-       //         , data: {
-       //             deviceNames: AIdtable
-       //         }
-       //     });
-       // });
-
-
-
-        ////////////////////////////////////
-        $("#upload").click(function () {
-            $('#chooseImage').click();
-            document.getElementById("testdevice").value = AIdtableStr;
+        $('button[name="返回"]').click(function () {
+            window.location.href = '../Device/UploadFile';
         })
-        $('#chooseImage').on('change', function (data) {
-            //var reader = new FileReader();
-            //reader.onload = function (e) {
-            //    console.log(reader.result);  //或者 e.target.result都是一样的，都是base64码
-            //    $('#Hportrait').attr('src', reader.result);
-            //    userDetail.delete('Picture');//清空
-            //    userDetail.append('Picture', reader.result);
-            //}
-            //reader.readAsDataURL(this.files[0]);
-            var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
-                fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),//获取文件后缀名
-            fileName = filePath.substring(filePath.lastIndexOf("/"));
-            //console.log(fileName);
-            function insertTitle(path){
-                var test1 = path.lastIndexOf("/"); //对路径进行截取
-                var test2 = path.lastIndexOf("\\"); //对路径进行截取
-                var test = Math.max(test1, test2)
-                if (test < 0) {
-                    document.getElementById("testfile").value = path;
-                } else {
-                    document.getElementById("testfile").value = path.substring(test + 1); //赋值文件名
-                }
-             }
-            insertTitle(filePath);
-            src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
-            src = window.URL.createObjectURL(data.target.files[0]); //同理都可以获取文件
-            console.log(filePath);
-            if (!fileFormat.match(/.txt/)) {
-                layui.use('layer', function () {
-                    var layer = layui.layer;
-                    layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">文件格式错误</span>', {
-                        time: 2000,
-                        area: ['200px', '100px'],
-                        shade: 0.4,
-                        shadeClose: true
-                    });
-                });
-                return;
-            }
-            userDetail.delete('Picture');//清空
-            userDetail.append('file', data.target.files[0]);
-
-        });
-
-        $("button[name='确认上传']").click(function () {
-            //userDetail.append('Remark', $('input[name="Remark"]').val());
-            userDetail.append('deviceNames', AIdtableStr);
-            console.log(userDetail.get('deviceNames'));
-            //验证上传信息是否为空
-            if ($("input[name='testfile']").val() == '') {
-                alert('未选择文件');//$(".phoneerror").show();
-            }
-            else if (userDetail.get('deviceNames') == undefined) {
-                alert('未选择设备');//$(".emailerror").show();
-            }
-            else {
-                
-                $.ajax({
-                    url: "/Device/UploadProgramFile",
-                    type: "POST",
-                    data: userDetail,
-                    cache: false,
-                    processData: false,  // 直接发送formdata格式要特殊处理 告诉jQuery不要去处理发送的数据
-                    contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
-                    success: function () {
-                        userDetail = new FormData();//全部清空 释放旧的
-                        console.log('上传完成');
-                        //layerShowUploadFile('上传文件', 'LayerUploadFile', 500, 400, 'null');
-                        window.location.href = '../Device/UploadFileInfo';
-                    }
-                });
-            }
-
-           
-        });
 
 
-
-        //查看更新状态
-        $("button[name='查看更新状态']").click(function () {
-            window.location.href = '../Device/UploadFileInfo';
-        });
-
-        
 
     </script>
 

@@ -7,7 +7,8 @@ var DIdtable = new Array();//保存当前表格内数据是否被选中 在批�
 var CIdtable = new Array();//保存当前表格内数据是否被选中 在批量删除中使用
 
 var AIdtable = new Array();// 保存选中的设备，用于上传文件
-var AIdtableList = new Object();
+var AIdtableStr;
+//var AIdtableList = new Object();
 
 var Rid_Rolename = new Array();//保存UId 编辑的时候用
 var tId_Teamname = new Array();
@@ -903,7 +904,7 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
                 curr: page
             }//重新制定page和limit
             , limit: limit
-            , where: { deviceId: res.DeviceId, statusFlag: res.StatusFlag, gId: getdata() }
+            , where: { schDeviceName: res.DeviceName, statusFlag: res.StatusFlag, gId: getdata() }
             , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
                 console.log("表格重载完成");
             }
@@ -995,13 +996,13 @@ layui.use('table', function () {//打开网页刷新表格
         , title: "设备管理"
         , page: true //开启分页
         , limit: 10
-        , limits: [5, 10, 15, 20]
+        , limits: [5, 10, 20, 30, 50]
         , cols: [[ //表头
             { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
             , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
-            , { field: 'DeviceName', title: '设备名', minWidth: 80, align: 'center' }
-            , { field: 'StatusFlag', title: '运行状态', minWidth: 80, align: 'center' }
+            , { field: 'DeviceName', title: '设备名', minWidth: 80, sort: true, align: 'center' }
+            , { field: 'StatusFlag', title: '运行状态', minWidth: 80, sort: true, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
          , parseData: function (res) { //res 即为原始返回的数据
@@ -1143,14 +1144,19 @@ layui.use('table', function () {//打开网页刷新表格
             return arr;
         };
         removeEmpty(AIdtable);
+        //console.log(AIdtable);
+
+
+        //转换成字符串格式
+        AIdtableStr = AIdtable.join(",");
+        console.log(AIdtableStr);
 
         
-
-        var AIdtableList = {};
-        for (var key in AIdtable) {
-            AIdtableList[key] = AIdtable[key];
-        }
-        console.log(AIdtableList);
+        //var AIdtableList = {};
+        //for (var key in AIdtable) {
+        //    AIdtableList[key] = AIdtable[key];
+        //}
+        //console.log(AIdtableList);
 
 
         //if (obj.type === "all") {
@@ -1185,6 +1191,69 @@ layui.use('table', function () {//打开网页刷新表格
 
     });
 });
+layui.use('table', function () {//打开网页刷新表格
+    var table = layui.table;
+    //第一个实例
+    table.render({
+        elem: '#table_fileinfo'
+        //, height: 500
+        , url: '/Device/GetCmdPageData' //数据接口
+        , title: "设备管理"
+        , page: true //开启分页
+        , limit: 10
+        , limits: [5, 10, 15, 20]
+        , cols: [[ //表头
+            //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+            //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
+            { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
+            , { field: 'DeviceName', title: '设备名', minWidth: 50, align: 'center' }
+            , { field: 'CmdState', title: '操作状态', minWidth: 50, align: 'center' }
+            , { field: 'CreateTime', title: '操作时间', minWidth: 80, align: 'center' }
+            , { field: 'FinishTime', title: '操作完成', minWidth: 80, align: 'center' }
+            //, { fixed: 'FinishTime', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+        ]]
+        , parseData: function (res) { //res 即为原始返回的数据
+          
+            //修改原始数据
+
+            for (var i = 0; i < res.data.length; i++) {
+                //console.log(res.data[i].CreateTime);
+                //console.log(res.data[i].FinishTime);
+                if (res.data[i].FinishTime !== null) {
+                    res.data[i].FinishTime = (eval(res.data[i].FinishTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)")));
+                } else {
+                    res.data[i].FinishTime = '暂无';
+                }
+                if (res.data[i].CreateTime !== null) {
+                    res.data[i].CreateTime = (eval(res.data[i].CreateTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)")));  // .pattern("HH:mm:ss")
+                } else {
+                    res.data[i].CreateTime = '暂无';
+                }
+                
+                //console.log(res.data[i].CreateTime);
+            }
+            
+            return {
+                "code": res.code, //解析接口状态
+                "msg": res.msg, //解析提示文本
+                "count": res.count, //解析数据长度
+                "data": res.data //解析数据列表
+            };
+        }
+        , toolbar: true
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+            
+        }
+        , skin: 'line'
+
+    });
+
+
+
+
+});
+
+
 function layerShowAdddevice(title, url, w, h, data) {
     layer.open({
         type: 2,
@@ -1238,63 +1307,57 @@ function layerShowAdddevice(title, url, w, h, data) {
 }
 
 //上传文件
-function layerShowUploadFile(title, url, w, h, data) {
-    layer.open({
-        type: 2,
-        area: [w + 'px', h + 'px'],
-        fix: false, //不固定
-        maxmin: true,
-        shadeClose: true,
-        shade: 0.4,
-        title: title,
-        content: url,
-        btn: ['确定'],
-        yes: function (index) {
-            //当点击‘确定’按钮的时候，获取弹出层返回的值
-            var res = window["layui-layer-iframe" + index].callbackdata(index, 'adddevice');
-            if (res.DeviceId !== "") {
-                //ajax发送post请求 给后端发送数据
-                $.post("/Device/Add", { DeviceId: res.DeviceId }, function (data) {
-                    if (data !== 'fail') {//判断是否重复
-                        //表格重载 跳转到操作页面
-                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-                        globalPage = Math.ceil(num_p / globalLimit);//获取页码值
-                        if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
-                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceRealtimeData', "员工管理", globalPage, globalLimit);
-                    }
-                    else {
-                        layui.use('layer', function () {
-                            var layer = layui.layer;
-                            layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">设备已存在</span>', {
-                                time: 2000,
-                                area: ['200px', '100px'],
-                                shade: 0.4,
-                                shadeClose: true
-                            });
-                        });
-                    }
-                });
-                //最后关闭弹出层
-                layer.close(index);
-            }
-            else {
-                var body = layer.getChildFrame('body', index);
-                $(body).find('input[name="DeviceId"]').attr('placeholder', '设备ID不能为空');
-                $(body).find('input[name="DeviceId"]').addClass("red");
-                layui.use('form', function () {
-                    var form = layui.form;
-                    form.render();
-                });
-            }
-        }
-    });
-}
-
-
-
-
-
-
+//function layerShowUploadFile(title, url, w, h, data) {
+//    layer.open({
+//        type: 2,
+//        area: [w + 'px', h + 'px'],
+//        fix: false, //不固定
+//        maxmin: true,
+//        shadeClose: true,
+//        shade: 0.4,
+//        title: title,
+//        content: url,
+//        btn: ['确定'],
+//        yes: function (index) {
+//            //当点击‘确定’按钮的时候，获取弹出层返回的值
+//            var res = window["layui-layer-iframe" + index].callbackdata(index, 'adddevice');
+//            if (res.DeviceId !== "") {
+//                //ajax发送post请求 给后端发送数据
+//                $.post("/Device/Add", { DeviceId: res.DeviceId }, function (data) {
+//                    if (data !== 'fail') {//判断是否重复
+//                        //表格重载 跳转到操作页面
+//                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+//                        globalPage = Math.ceil(num_p / globalLimit);//获取页码值
+//                        if (num_p % globalLimit === 0) globalPage += 1;//超过分页值 页码加1
+//                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceRealtimeData', "员工管理", globalPage, globalLimit);
+//                    }
+//                    else {
+//                        layui.use('layer', function () {
+//                            var layer = layui.layer;
+//                            layer.msg('<span style="font-size:24px;vertical-align:middle;line-height:76px;">设备已存在</span>', {
+//                                time: 2000,
+//                                area: ['200px', '100px'],
+//                                shade: 0.4,
+//                                shadeClose: true
+//                            });
+//                        });
+//                    }
+//                });
+//                //最后关闭弹出层
+//                layer.close(index);
+//            }
+//            else {
+//                var body = layer.getChildFrame('body', index);
+//                $(body).find('input[name="DeviceId"]').attr('placeholder', '设备ID不能为空');
+//                $(body).find('input[name="DeviceId"]').addClass("red");
+//                layui.use('form', function () {
+//                    var form = layui.form;
+//                    form.render();
+//                });
+//            }
+//        }
+//    });
+//}
 
 
 
@@ -1691,25 +1754,26 @@ function uploadUserdetail(data) {
         //})
     }
 }
+
 /////////////////////////////////报警表格/////////////////////////
 //layui.use('table', function () {//打开网页刷新表格
 //    var table = layui.table;
 //    table.render({
 //        elem: '#table_warning'
-//        //, height: 520
-//        , url: '/WarningInfo/GetWarningInfo' //数据接口
+//        , height: 520
+//        , url: '/WarningInfo/GetRealTimeWarningInfo' //数据接口
 //        , title: "当前报警"
 //        , page: true //开启分页
 //        , limit: 10
 //        , limits: [5, 10, 15, 20]
 //        , cols: [[ //表头
-//            //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+//            { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
 //            { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center', fixed: 'left' }
 //            , { field: 'DeviceId', title: '设备ID', minWidth: 80, align: 'center' }
 //            , { field: 'WarningMessage', title: '报警信息', minWidth: 80, sort: true, align: 'center' }
 //            , { field: 'WarningStartTime', title: '开始时间', minWidth: 80, align: 'center' }
 //            , { field: 'WarningTime', title: '报警时长', minWidth: 80, align: 'center' }
-//            // , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+//             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
 //        ]]
 //        , toolbar: true
 //        , parseData: function (res) { //修改原始数据
@@ -1754,7 +1818,7 @@ layui.use('table', function () {//打开网页刷新表格
             , { field: 'DeviceName', title: '设备ID', minWidth: 80, align: 'center' }
             , { field: 'WarningMessage', title: '报警信息', minWidth: 80, sort: true, align: 'center' }
             , { field: 'StartTime', title: '开始时间', minWidth: 80, align: 'center' }
-            , { field: 'WarningTime', title: '报警时长', minWidth: 80, align: 'center' }
+            //, { field: 'WarningTime', title: '报警时长', minWidth: 80, align: 'center' }
             // , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , toolbar: true
@@ -1770,7 +1834,7 @@ layui.use('table', function () {//打开网页刷新表格
 
 
                 //得到运行的时间（秒）
-                var WarningTime = (eval(res.data[i].StopTime.match(/[0-9]+/gi) - res.data[i].StartTime.match(/[0-9]+/gi)));
+                //var WarningTime = (eval(res.data[i].StopTime.match(/[0-9]+/gi) - res.data[i].StartTime.match(/[0-9]+/gi)));
                 //console.log(WarningTime);
                 //计算小时分和秒
                 function showTime(val) {
@@ -1796,9 +1860,14 @@ layui.use('table', function () {//打开网页刷新表格
                 //console.log(RunTime);
 
 
-                res.data[i].WarningTime = WarningTime;
+                //res.data[i].WarningTime = WarningTime;
 
-                res.data[i].StartTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                //res.data[i].StartTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                if (res.data[i].StartTime !== null) {
+                    res.data[i].StartTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                } else {
+                    res.data[i].StartTime = '暂无';
+                }
             }
             return {
                 "code": res.code, //解析接口状态
@@ -1822,13 +1891,13 @@ layui.use('table', function () {//打开网页刷新表格
         , title: "当前报警"
         , page: true //开启分页
         , limit: 10
-        , limits: [5, 10, 15, 20]
+        , limits: [5, 10, 20, 30]
         , cols: [[ //表头
             //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center', fixed: 'left' }
-            , { field: 'DeviceName', title: '设备ID', minWidth: 80, align: 'center' }
+            , { field: 'DeviceName', title: '设备ID', minWidth: 80, sort: true, align: 'center' }
             , { field: 'WarningMessage', title: '报警信息', minWidth: 80, sort: true, align: 'center' }
-            , { field: 'StartTime', title: '开始时间', minWidth: 80, align: 'center' }
+            , { field: 'StartTime', title: '开始时间', minWidth: 80, sort: true, align: 'center' }
             , { field: 'WarningTime', title: '报警时长', minWidth: 80, align: 'center' }
             // , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
@@ -1873,7 +1942,12 @@ layui.use('table', function () {//打开网页刷新表格
 
                 res.data[i].WarningTime = WarningTime;
 
-                res.data[i].StartTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                //res.data[i].StartTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                if (res.data[i].StartTime !== null) {
+                    res.data[i].StartTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                } else {
+                    res.data[i].StartTime = '暂无';
+                }
             }
             return {
                 "code": res.code, //解析接口状态
@@ -2216,20 +2290,20 @@ layui.use('table', function () {//打开网页刷新表格
         , url: '/GroupInfo/GetGroupDevices?id=0' //数据接口
         , title: "组号关联设备"
         , page: true //开启分页
-        , limit: 10
-        , limits: [5, 10, 15, 20]
+        , limit: 20
+        , limits: [5, 10, 20,30]
         , cols: [[ //表头
-            { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+            //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
-            , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
-            , { field: 'DeviceName', title: '设备ID', minWidth: 80, align: 'center' }
+            { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
+            , { field: 'DeviceName', title: '设备ID', minWidth: 80, sort: true, align: 'center' }
             //, { field: 'wTime', title: '工作时间', minWidth: 80, sort: true, align: 'center' }
-            , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+            // , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , toolbar: true
         //, parseData: function (res) { //修改原始数据
         //    for (var i = 0; i < res.data.length; i++) {
-        //        res.data[i].wTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
+        //        res.data[i].Glo = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss")
         //            + ' ~ ' + (eval(res.data[i].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("HH:mm:ss");
         //    }
         //    return {
@@ -2258,12 +2332,12 @@ layui.use('table', function () {//打开网页刷新表格
         , url: '/GroupInfo/GetAllDeviceInfos?gId=' + data //数据接口
         , title: "设备管理"
         , page: true //开启分页
-        , limit: 10
-        , limits: [5, 10, 15, 20]
+        , limit: 20
+        , limits: [5, 10, 20, 30]
         , cols: [[ //表头
             { field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
             , { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
-            , { field: 'DeviceName', title: '设备ID', minWidth: 80, align: 'center' }
+            , { field: 'DeviceName', title: '设备ID', minWidth: 80, sort: true, align: 'center' }
             //, { field: 'StatusFlag', title: '运行状态', minWidth: 80, align: 'center' }
             //, { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
@@ -2347,25 +2421,25 @@ $(document).ready(function () {
     });
     $("button[name='删除设备']").click(function () {
 
-        console.log('开始');
+        //console.log('开始');
         
-        var table = layui.table;
-        console.log(table);
-        console.log(table.cache);
-        var TableCache = table.cache.table_device;
-        console.log(TableCache);
+        //var table = layui.table;
+        //console.log(table);
+        //console.log(table.cache);
+        //var TableCache = table.cache.table_device;
+        //console.log(TableCache);
 
-        var alldIds = new Array();
-        var dIds = new Array();
-        for (var i = 0; i < table_device.length; i++) {
-            alldIds[i] = table_device[i].Id;
-            if (table_device[i].LAY_CHECKED === true) {
-                dIds[dIds.length] = table_device[i].Id;
-            }
-        }
-        uploadFile.append('dIds','1');
-        console.log(uploadFile);
-        layerShowUploadFile('上传文件', 'LayerUploadFile', 500, 400, 'null');
+        //var alldIds = new Array();
+        //var dIds = new Array();
+        //for (var i = 0; i < table_device.length; i++) {
+        //    alldIds[i] = table_device[i].Id;
+        //    if (table_device[i].LAY_CHECKED === true) {
+        //        dIds[dIds.length] = table_device[i].Id;
+        //    }
+        //}
+        //uploadFile.append('dIds','1');
+        //console.log(uploadFile);
+        //layerShowUploadFile('上传文件', 'LayerUploadFile', 500, 400, 'null');
     });
     $("button[name='查找设备']").click(function () {
         layerShowSearchdevice('查找设备', 'LayerSearchdevice', 500, 380, "null");
