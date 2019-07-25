@@ -443,10 +443,15 @@
             var EachDay = new Array();//取得每天的日期
             var SumOutput = new Array();//取得每天的产量
 
-            for (var i = 0; i < data.WeekEachDayOutput.length; i++) {     //
-                EachDay[i] = (eval(data.WeekEachDayOutput[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
+            for (var i = 0; i < data.WeekEachDayOutput.length; i++) {     //data.WeekEachDayOutput.length
+                EachDay[i] = data.WeekEachDayOutput[i].Date;
+            }
+
+            for (var i = 0; i < data.WeekEachDayOutput.length; i++) {     //data.WeekEachDayOutput.length
+                EachDay[i] = (eval(EachDay[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
                 SumOutput[i] = data.WeekEachDayOutput[i].SumOutput;
             }
+           
             
             //求出最大产量
             var MaxOutput = Math.max.apply(null, SumOutput);
@@ -458,7 +463,7 @@
             option1 = {
                 xAxis: [
                     {
-                        data: [EachDay[0], EachDay[1], EachDay[2], EachDay[3], EachDay[4], EachDay[5], EachDay[6]]
+                        data: EachDay
                     }
                 ],
                 yAxis: [
@@ -475,7 +480,7 @@
                 ],
                 series: [
                     {
-                        data: [SumOutput[0], SumOutput[1], SumOutput[2], SumOutput[3], SumOutput[4], SumOutput[5], SumOutput[6]]
+                        data: SumOutput
                     }
                 ]
             };

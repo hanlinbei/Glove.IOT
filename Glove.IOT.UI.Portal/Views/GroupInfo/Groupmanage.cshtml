@@ -169,6 +169,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../WarningInfo/Warningmanage">当前报警</a></dd>
+                    <dd><a href="../WarningInfo/Warninghistory">历史报警</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -195,6 +196,7 @@
         </div>
         <!-- 该页面的主要内容 -->
         <div class="button">
+            <h3>组号管理</h3>
             @*<button class="layui-btn layui-btn-normal col-xs-1" name="添加班号">
                 <i class="iconfont icon-add">&#xe726;</i>
                 添加班号
@@ -209,11 +211,11 @@
                 修改员工
             </button>
                 -->
-            <span class="col-xs-9"></span>
+            @*<span class="col-xs-9"></span>
             <button class="layui-btn col-xs-1" name="查找班号">
                 <i class="iconfont icon-seek">&#xe618;</i>
                 查找班号
-            </button>
+            </button>*@
         </div>
         <div class="table-left">
             <ul id="group-tree"></ul>
@@ -277,20 +279,23 @@
             "</li>");
         $.get("/GroupInfo/GetAllGroupInfos", {}, function (data) {
             for (var i = 0; i < data.group.length; i++) {
+                //console.log(typeof data.group[i].Id);
                 if ($('#group-f').children("ul").length == 0) {
                     //表示要新增   i 以及 ul 标签
                     $('#group-f').prepend('<i class="layui-icon layui-tree-spread"></i>');
-                    $('#group-f').append("<ul class='layui-show'><li class=" + data.group[i].Id + "><a href='javascript:;' onclick='doAction(" + data.group[i].Id + ")'><cite>" + data.group[i].DeviceGroupName +
+                    $('#group-f').append("<ul class='layui-show'><li class=" + data.group[i].Id + "><a href='javascript:;' onclick='doAction(\"" + data.group[i].Id + "\")'><cite>" + data.group[i].DeviceGroupName +
                         "</cite></a><i class='layui-icon layui-icon-set hide tree-select'></i><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></ul>");
                 } else {
-                    $('#group-f').children("ul").append("<li class=" + data.group[i].Id + "><a href='javascript:;' onclick='doAction(" + data.group[i].Id + ")'><cite>" + data.group[i].DeviceGroupName +
+                    $('#group-f').children("ul").append("<li class=" + data.group[i].Id + "><a href='javascript:;' onclick='doAction(\"" + data.group[i].Id + "\")'><cite>" + data.group[i].DeviceGroupName +
                         "</cite></a><i class='layui-icon layui-icon-set hide tree-select'></i><i class='layui-icon layui-icon-delete hide tree-select'></i><i class='layui-icon layui-icon-edit hide tree-select'></i></li>");
                 }
             }
         })
         function doAction(Id) {
+            //console.log(Id);
+            //console.log(arguments);
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            updatatable('table_group', '#table_group', 550, '/GroupInfo/GetGroupDevices?id=' + Id, "组号关联设备", 1, globalLimit);
+            updatatable('table_group', '#table_group', 550, '/GroupInfo/GetGroupDevices?id=' + Id, "组号关联设备", 1, 30);
         }
         //显示/隐藏 分类的操作栏
         $("ul#group-tree").on({
@@ -315,7 +320,7 @@
             layer.prompt({ title: '重命名', value: node.text(), formType: 0 }, function (text, index) {
                 layer.close(index);
                 layer.load(2);
-                $.post("/GroupInfo/Edit", { Id: id, GName: text }, function (data) {
+                $.post("/GroupInfo/Edit", { Id: id, DeviceGroupName: text }, function (data) {
                     if (data === "OK") {
                         layer.closeAll("loading");
                         node.text(text);
@@ -381,7 +386,7 @@
             layer.prompt({ title: '输入子分类名称', formType: 0 }, function (text, index) {
                 layer.close(index);
                 layer.load(2);//加载进度条
-                $.post("/GroupInfo/Add", { GName: text }, function (data) {
+                $.post("/GroupInfo/Add", { DeviceGroupName: text }, function (data) {
                     if (data === 'OK') {
                         layer.closeAll("loading");
                         if (that.children("ul").length == 0) {
