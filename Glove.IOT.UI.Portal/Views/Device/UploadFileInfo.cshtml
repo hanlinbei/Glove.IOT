@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta http-equiv="Refresh" content="15">
+    @*<meta http-equiv="Refresh" content="15">*@
     <!-- 上述3个meta标签为自动刷新 -->
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -241,8 +241,67 @@
             window.location.href = '../Device/UploadFile';
         })
 
+        function upData() {
+            //console.log('5');
+            var table = layui.table;
+            //第一个实例
+            table.render({
+                elem: '#table_fileinfo'
+                //, height: 500
+                , url: '/Device/GetCmdPageData' //数据接口
+                , title: "设备管理"
+                , page: true //开启分页
+                , limit: 10
+                , limits: [5, 10, 15, 20]
+                , cols: [[ //表头
+                    //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+                    //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
+                    { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
+                    , { field: 'DeviceName', title: '设备名', minWidth: 50, align: 'center' }
+                    , { field: 'CmdState', title: '操作状态', minWidth: 50, align: 'center' }
+                    , { field: 'CreateTime', title: '操作时间', minWidth: 80, align: 'center' }
+                    , { field: 'FinishTime', title: '操作完成', minWidth: 80, align: 'center' }
+                    //, { fixed: 'FinishTime', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+                ]]
+                , parseData: function (res) { //res 即为原始返回的数据
 
+                    //修改原始数据
 
+                    for (var i = 0; i < res.data.length; i++) {
+                        //console.log(res.data[i].CreateTime);
+                        //console.log(res.data[i].FinishTime);
+                        if (res.data[i].FinishTime !== null) {
+                            res.data[i].FinishTime = (eval(res.data[i].FinishTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)")));
+                        } else {
+                            res.data[i].FinishTime = '暂无';
+                        }
+                        if (res.data[i].CreateTime !== null) {
+                            res.data[i].CreateTime = (eval(res.data[i].CreateTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)")));  // .pattern("HH:mm:ss")
+                        } else {
+                            res.data[i].CreateTime = '暂无';
+                        }
+
+                        //console.log(res.data[i].CreateTime);
+                    }
+
+                    return {
+                        "code": res.code, //解析接口状态
+                        "msg": res.msg, //解析提示文本
+                        "count": res.count, //解析数据长度
+                        "data": res.data //解析数据列表
+                    };
+                }
+                , toolbar: true
+                , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+
+                }
+                , skin: 'line'
+
+            });
+
+        }
+
+        setInterval('upData()', 10000);
     </script>
 
 </body>

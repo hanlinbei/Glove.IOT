@@ -316,7 +316,7 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
-    <script src="~/Content/DH/lib/echarts/echarts.js"></script>
+    <script src="~/Content/DH/lib/echarts/echarts.min.js"></script>
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="detail ">查看</a>
         @*<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>*@
@@ -535,18 +535,22 @@
             };
         }
 
-        if (cateval !== "") {
-            var xhre = new XMLHttpRequest();
-            xhre.open('get', "/Device/GetWeekEachDayData?deviceName=" + cateval);
-            xhre.send();
-            xhre.onreadystatechange = function () {
-                if (this.readyState !== 4) return;
-                var deviceOutputs = eval("(" + this.responseText + ")");//JSON.parse安全
-               
-                $('input[name="今日产量"').val(deviceOutputs[6].SumOutput);
-                
-            }
-        }
+        //if (cateval !== "") {
+        //    var xhre = new XMLHttpRequest();
+        //    xhre.open('get', "/Device/GetWeekEachDayData?deviceName=" + cateval);
+        //    xhre.send();
+        //    xhre.onreadystatechange = function () {
+        //        if (this.readyState !== 4) return;
+        //        var deviceOutputs = eval("(" + this.responseText + ")");//JSON.parse安全
+                 
+        //        if (deviceOutputs[6].SumOutput === null) {
+        //            $('input[name="今日产量"]').val("暂无");
+        //        }
+        //        else {
+        //           $('input[name="今日产量"').val(deviceOutputs[6].SumOutput);
+        //        }
+        //    }
+        //}
 
 
 
@@ -558,8 +562,23 @@
                 if (this.readyState !== 4) return;
                 var deviceOutputs = eval("(" + this.responseText + ")");//JSON.parse安全
                 console.log(deviceOutputs);
-                console.log(deviceOutputs[1].Date);
-                
+                console.log(deviceOutputs[0]);
+
+                if (deviceOutputs[0].SumOutput === null) {
+                    $('input[name="今日产量"]').val("暂无");
+                }
+                else {
+                    $('input[name="今日产量"').val(deviceOutputs[0].SumOutput);
+                }
+
+                var SumOutput = new Array();
+                for (var i = 0; i < deviceOutputs.length; i++) {
+                    SumOutput[i] = deviceOutputs[i].SumOutput;
+                }
+                console.log(SumOutput);
+
+
+
                 var dateTime = new Array();
                 for (var i = 0; i < deviceOutputs.length; i++) {
                     dateTime[i] = deviceOutputs[i].Date;
@@ -581,40 +600,18 @@
                         data: subTime
                     },
                     series: [{
-                        data: [
-                            deviceOutputs[0].SumOutput,
-                            deviceOutputs[1].SumOutput,
-                            deviceOutputs[2].SumOutput,
-                            deviceOutputs[3].SumOutput,
-                            deviceOutputs[4].SumOutput,
-                            deviceOutputs[5].SumOutput,
-                            deviceOutputs[6].SumOutput
-                            ]
+                        data: SumOutput
                     }]
                 };
                 // 使用刚指定的配置项和数据显示图表。
                 mychart1.setOption(option);
-               
+                //setInterval(singleOutputs(), 5000);
             }
         }
 
 
 
         function singleOutputs() {
-            if (cateval !== "") {
-                var xhre = new XMLHttpRequest();
-                xhre.open('get', "/Device/GetWeekEachDayData?deviceName=" + cateval);
-                xhre.send();
-                xhre.onreadystatechange = function () {
-                    if (this.readyState !== 4) return;
-                    var deviceOutputs = eval("(" + this.responseText + ")");//JSON.parse安全
-
-                    $('input[name="今日产量"').val(deviceOutputs[6].SumOutput);
-
-                }
-            }
-
-            
             if (cateval !== "") {
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', "/Device/GetAllDeviceRealtimeData?schDeviceName=" + cateval);
@@ -623,8 +620,80 @@
                 xhr.onreadystatechange = function () {
                     if (this.readyState !== 4) return;
                     var deviceInfos = eval("(" + this.responseText + ")");//JSON.parse安全
-                 
-                    //指定图表的配置项和数据
+                    //console.log(deviceInfos);
+                    if (deviceInfos.data[0].DeviceName === "null") {
+                        $('input[name="设备ID"]').val("暂无");
+                    } else {
+                        $('input[name="设备ID"]').val(deviceInfos.data[0].DeviceName);
+                    }
+                    if (deviceInfos.data[0].StatusFalg === "null") {
+                        $('input[name="运行状态"]').val("暂无");
+                    } else {
+                        $('input[name="运行状态"]').val(deviceInfos.data[0].StatusFlag);
+                    }
+                    //$('input[name="设备ID"]').val(deviceInfos.data[0].DeviceName);
+                    //$('input[name="运行状态"]').val(deviceInfos.data[0].StatusFlag);
+
+                    //解析时间
+                    //var StartTime = (eval(deviceInfos.deviceParameter.StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+
+                    if (deviceInfos.data[0].StartTime === null) {
+                        $('input[name="运行时间"]').val("暂无");
+                    } else if (deviceInfos.data[0].StopTime === null && deviceInfos.data[0].StartTime !== null) {
+                        var myDate = new Date();
+                        stopTime = myDate.getTime();
+                        //console.log(stopTime);
+                        var STime = (stopTime - (eval(deviceInfos.data[0].StartTime.match(/[0-9]+/gi)))) / 1000;
+                        var RunTime = showTime(STime);
+                        $('input[name="运行时间"]').val(RunTime);
+                    } else {
+                        //得到运行的时间（秒）
+                        var STime = (eval(deviceInfos.data[0].StopTime.match(/[0-9]+/gi) - deviceInfos.data[0].StartTime.match(/[0-9]+/gi))) / 1000;
+                        var RunTime = showTime(STime);
+                        $('input[name="运行时间"]').val(RunTime);
+
+                    }
+                    //console.log(STime);
+
+                    //计算小时分和秒
+                    function showTime(val) {
+                        if (val < 60) {
+                            var sec = Math.floor(val % 60);	// 余秒
+                            return sec + "秒";
+                        } else {
+
+                            var min_total = Math.floor(val / 60);	// 分钟
+                            var sec = Math.floor(val % 60);	// 余秒
+
+                            if (min_total < 60) {
+                                return min_total + "分钟" + sec + "秒";
+                            } else {
+                                var hour_total = Math.floor(min_total / 60);	// 小时数
+                                var min = Math.floor(min_total % 60);	// 余分钟
+
+                                return hour_total + "小时" + min + "分钟";
+                            }
+                        }
+                    }
+                   
+
+                    if (deviceInfos.data[0].StopTime === null) {
+                        $('input[name="停机时间"]').val("暂无");
+                    }
+                    else {
+                        var StopTime = (eval(deviceInfos.data[0].StopTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                        $('input[name="停机时间"').val(StopTime);
+                    }
+
+                    if (deviceInfos.data[0].StartTime === null) {
+                        $('input[name="开机时间"]').val("暂无");
+                    }
+                    else {
+                        var StartTime = (eval(deviceInfos.data[0].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm;ss");
+                        $('input[name="开机时间"').val(StartTime);
+                    }
+
+
                     option = {
                         series: [
                             {
@@ -635,9 +704,67 @@
 
                     myChart.setOption(option);
 
-                   
                 };
             }
+
+
+            
+
+            if (cateval !== "") {
+                var xhre = new XMLHttpRequest();
+                xhre.open('get', "/Device/GetWeekEachDayData?deviceName=" + cateval);
+                xhre.send();
+                xhre.onreadystatechange = function () {
+                    if (this.readyState !== 4) return;
+                    var deviceOutputs = eval("(" + this.responseText + ")");//JSON.parse安全
+                    console.log(deviceOutputs);
+                    console.log(deviceOutputs[0]);
+
+                    if (deviceOutputs[0].SumOutput === null) {
+                        $('input[name="今日产量"]').val("暂无");
+                    }
+                    else {
+                        $('input[name="今日产量"').val(deviceOutputs[0].SumOutput);
+                    }
+
+                    var SumOutput = new Array();
+                    for (var i = 0; i < deviceOutputs.length; i++) {
+                        SumOutput[i] = deviceOutputs[i].SumOutput;
+                    }
+                    console.log(SumOutput);
+
+
+
+                    var dateTime = new Array();
+                    for (var i = 0; i < deviceOutputs.length; i++) {
+                        dateTime[i] = deviceOutputs[i].Date;
+                        //console.log(dateTime[i]);
+                    }
+
+                    //处理时间
+                    var subTime = new Array();
+                    for (var i = 0; i < dateTime.length; i++) {
+                        //subTime[i] = (eval(deviceOutputs[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("mm:ss");
+                        subTime[i] = (eval(dateTime[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
+                        //console.log(subTime[i]);
+                    }
+
+
+                    // 指定图表的配置项和数据
+                    var option = {
+                        xAxis: {
+                            data: subTime
+                        },
+                        series: [{
+                            data: SumOutput
+                        }]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    mychart1.setOption(option);
+
+                }
+            }
+
         }
 
         //$.get(('/Device/GetWeekEachDayDate?deviceName=' + cateval), {}, function (data) {
@@ -698,7 +825,7 @@
 
 
         //自动刷新
-        //setInterval(singleOutputs(), 3000);
+        setInterval('singleOutputs()', 5000);
 
 
         //建议加上以下这一行代码，缩放时自动调整echart大小
