@@ -86,11 +86,18 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult Add(DeviceGroupInfo groupInfo)
         {
-            groupInfo.CreateTime = DateTime.Now;
-            groupInfo.Id = Guid.NewGuid().ToString();
-            groupInfo.IsDeleted = false;
-            DeviceGroupInfoService.Add(groupInfo);
-            return Content("OK");
+            if (DeviceGroupInfoService.GetEntities(u => u.DeviceGroupName == groupInfo.DeviceGroupName & u.IsDeleted == false) != null)
+            {
+                groupInfo.CreateTime = DateTime.Now;
+                groupInfo.Id = Guid.NewGuid().ToString();
+                groupInfo.IsDeleted = false;
+                DeviceGroupInfoService.Add(groupInfo);
+                return Content("OK");
+            }
+            else
+            {
+                return Content("false");
+            }
         }
         /// <summary>
         /// 编辑组信息
@@ -99,9 +106,16 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult Edit(DeviceGroupInfo groupInfo)
         {
-            groupInfo.CreateTime = DateTime.Now;
-            DeviceGroupInfoService.Update(groupInfo);
-            return Content("OK");
+            if (DeviceGroupInfoService.GetEntities(u => u.DeviceGroupName == groupInfo.DeviceGroupName & u.IsDeleted == false) != null)
+            {
+                groupInfo.CreateTime = DateTime.Now;
+                DeviceGroupInfoService.Update(groupInfo);
+                return Content("OK");
+            }
+            else
+            {
+                return Content("false");
+            }
         }
         /// <summary>
         /// 删除
