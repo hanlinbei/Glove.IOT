@@ -178,7 +178,7 @@ layui.use('table', function () {//打开网页刷新表格
             , { field: 'RoleName', title: '角色名', minWidth: 150, align: 'center' }
             , { field: 'StatusFlag', title: '角色状态', minWidth: 80, align: 'center' }
             , { field: 'TName', title: '班号', minWidth: 80, align: 'center' }
-            , { field: 'GName', title: '组号', minWidth: 80, align: 'center' }
+            , { field: 'DeviceGroupName', title: '组号', minWidth: 80, align: 'center' }
             , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
         ]]
         , parseData: function (res) { //res 即为原始返回的数据
@@ -324,13 +324,13 @@ function layerShowEdituser(title, url, w, h, data) {
                     }
                 }
                 for (var i = 0; i < gId_Groupname.length; i++) {
-                    if (gId_Groupname[i][1] === res.GName) {
+                    if (gId_Groupname[i][1] === res.DeviceGroupName) {
                         gId = gId_Groupname[i][0];
                         break;
                     }
                 }
                 $.post("/UserInfo/Edit", {
-                    UName: res.UName, UCode: res.UCode, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, UId: data.UId, tId: tId, gId: gId
+                    UName: res.UName, UCode: res.UCode, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, UId: data.UId, tId: tId, GId: gId
                 });
                 globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
                 globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
@@ -418,16 +418,16 @@ function layerShowEdituser(title, url, w, h, data) {
             })
             $.get("/UserInfo/GetAllGroups", {}, function (d) {
                 for (var i = 0; i < d.length; i++) {
-                    if (d[i].GName === data.GName) {
-                        var e = $('<option value="' + d[i].GName + '" selected>' + d[i].GName + '</option>');
+                    if (d[i].DeviceGroupName === data.DeviceGroupName) {
+                        var e = $('<option value="' + d[i].DeviceGroupName + '" selected>' + d[i].DeviceGroupName + '</option>');
                     }
                     else {
-                        var e = $('<option value="' + d[i].GName + '">' + d[i].GName + '</option>');
+                        var e = $('<option value="' + d[i].DeviceGroupName + '">' + d[i].DeviceGroupName + '</option>');
                     }
-                    $(body).find('select[name="GName"]').append(e);
+                    $(body).find('select[name="DeviceGroupName"]').append(e);
                 }
                 for (var i = 0; i < d.length; i++) {//保存查询用
-                    gId_Groupname[i] = [d[i].Id, d[i].GName];
+                    gId_Groupname[i] = [d[i].Id, d[i].DeviceGroupName];
                 }
                 layui.use('form', function () {
                     var form = layui.form;
@@ -546,13 +546,13 @@ function layerShowAdduser(title, url, w, h, data) {
                     }
                 }
                 for (var i = 0; i < gId_Groupname.length; i++) {
-                    if (gId_Groupname[i][1] === res.GName) {
+                    if (gId_Groupname[i][1] === res.DeviceGroupName) {
                         gId = gId_Groupname[i][0];
                         break;
                     }
                 }
                 //ajax发送post请求 给后端发送数据
-                $.post("/UserInfo/Add", {UName: res.UName, UCode: res.UCode, Pwd: res.Pwd, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, tId: tId, gId: gId},
+                $.post("/UserInfo/Add", {UName: res.UName, UCode: res.UCode, Pwd: res.Pwd, RId: RId, Remark: res.Remark, StatusFlag: res.StatusFlag, tId: tId, GId: gId},
                    function (data) {
                    if (data !== 'fail') {
                         //表格重载 跳转到操作页面
@@ -588,7 +588,7 @@ function layerShowAdduser(title, url, w, h, data) {
             })
             $.get("/UserInfo/GetAllGroups", {}, function (data) {
                 for (var i = 0; i < data.length; i++) {//保存查询用
-                    gId_Groupname[i] = [data[i].Id, data[i].GName];
+                    gId_Groupname[i] = [data[i].Id, data[i].DeviceGroupName];
                 }
             })
             //var xhr = new XMLHttpRequest();
@@ -646,7 +646,7 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
                 Remark: $('textarea[name="Remark"]').val(),
                 StatusFlag: $('input[name^="StatusFlag"]:checked').val(),//前缀为StatusFlag
                 TName: $('select[name="TName"] option:selected').val(),
-                GName: $('select[name="GName"] option:selected').val(),
+                DeviceGroupName: $('select[name="DeviceGroupName"] option:selected').val(),
             }
             break;
         case 'adddevice':
@@ -659,7 +659,7 @@ function callbackdata(index, retrieval) {//获取弹窗用户输入的数据
                 UCode: $('input[name="UCode"]').val(),
                 RoleName: $('select[name="RoleName"] option:selected').val(),
                 TName: $('select[name="TName"] option:selected').val(),
-                GName: $('select[name="GName"] option:selected').val(),
+                DeviceGroupName: $('select[name="DeviceGroupName"] option:selected').val(),
             }
             break;
         case 'searchdevice':
@@ -970,9 +970,9 @@ function getRolename() {
     })
     $.get("/UserInfo/GetAllGroups", {}, function (data) {
         for (var i = 0; i < data.length; i++) {
-            var e = $('<option value="' + data[i].GName + '">' + data[i].GName + '</option>');
+            var e = $('<option value="' + data[i].DeviceGroupName + '">' + data[i].DeviceGroupName + '</option>');
             //$(body).find('select[name="RoleName"]').append(e);
-            $('select[name="GName"]').append(e);
+            $('select[name="DeviceGroupName"]').append(e);
         }
         layui.use('form', function () {
             var form = layui.form;
@@ -1136,7 +1136,7 @@ layui.use('table', function () {//打开网页刷新表格
         //去除空值
         function removeEmpty(arr) {
             for (var i = 0; i < arr.length; i++) {
-                if (arr[i] == "" || typeof (arr[i]) == "undefined" || arr[i] == -1) {
+                if (typeof (arr[i]) == "undefined" || arr[i] == -1) {
                     arr.splice(i, 1);
                     i = i - 1; // i - 1 ,因为空元素在数组下标 2 位置，删除空之后，后面的元素要向前补位
                 }
@@ -1914,19 +1914,20 @@ layui.use('table', function () {//打开网页刷新表格
 
 
                 //得到运行的时间（秒）
-                var WarningTime = (eval(res.data[i].StopTime.match(/[0-9]+/gi) - res.data[i].StartTime.match(/[0-9]+/gi)));
+                var WarningTime = (eval(res.data[i].StopTime.match(/[0-9]+/gi) - res.data[i].StartTime.match(/[0-9]+/gi)))/1000;
                 //console.log(WarningTime);
                 //计算小时分和秒
                 function showTime(val) {
                     if (val < 60) {
-                        return val + "\t秒";
+                        var sec = Math.floor(val % 60);	// 余秒
+                        return sec + "秒";
                     } else {
 
                         var min_total = Math.floor(val / 60);	// 分钟
                         var sec = Math.floor(val % 60);	// 余秒
 
                         if (min_total < 60) {
-                            return min_total + "\t分钟" + sec + "\t秒";
+                            return min_total + "分钟" + sec + "秒";
                         } else {
                             var hour_total = Math.floor(min_total / 60);	// 小时数
                             var min = Math.floor(min_total % 60);	// 余分钟
