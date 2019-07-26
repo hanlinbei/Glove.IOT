@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta http-equiv="Refresh" content="60">
+    @*<meta http-equiv="Refresh" content="60">*@
     <!-- 上述3个meta标签标签为自动刷新 -->
     <title>Glove Machine IoT</title>
 
@@ -227,7 +227,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
     <script src="~/Content/DH/lib/layui/layui.all.min.js"></script>
-    <script src="~/Content/DH/lib/echarts/echarts.js"></script>
+    <script src="~/Content/DH/lib/echarts/echarts.min.js"></script>
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit" name="编辑">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" name="删除">删除</a>
@@ -400,94 +400,117 @@
 
 
         //配置echarts数据
-        $.get('/Home/GetSummation', {}, function (data) {
-            console.log(data);
 
-       
-            var AllDeviceCount = JSON.stringify(data.AllDeviceCount);
-            var RuningDeviceCount = JSON.stringify(data.RuningDeviceCount);
-            var unRuningDeviceCount = AllDeviceCount - RuningDeviceCount;
-
-            //指定图标的配置项和数据
-            option2 = {
-                series: [
-                    {
-                        data: [
-                            { value: unRuningDeviceCount, name: '未上线' },
-                            { value: RuningDeviceCount, name: '上线' }
-                        ]
-                    }
-                ]
-            };
-            myChart2.setOption(option2);
-            
-
-            var OnworkUserCount = data.OnworkUserCount;
-            var AllUseCountr = data.AllUseCountr;
-            var unworkUserCount = AllUseCountr - OnworkUserCount;
-            //更新图标的配置项和数据
-            option = {
-                series: [
-                    {
-                        data: [
-                            { value: unworkUserCount, name: '非在岗' },
-                            { value: OnworkUserCount, name: '在岗' }
-                        ]
-                    }
-                ]
-            };
-            myChart3.setOption(option);
+        function updataEcharts() {
+            $.get('/Home/GetSummation', {}, function (data) {
+                console.log(data);
 
 
-            
-            var EachDay = new Array();//取得每天的日期
-            var SumOutput = new Array();//取得每天的产量
+                var AllDeviceCount = JSON.stringify(data.AllDeviceCount);
+                var RuningDeviceCount = JSON.stringify(data.RuningDeviceCount);
+                var unRuningDeviceCount = AllDeviceCount - RuningDeviceCount;
 
-            for (var i = 0; i < data.WeekEachDayOutput.length; i++) {     //data.WeekEachDayOutput.length
-                EachDay[i] = data.WeekEachDayOutput[i].Date;
-            }
-
-            for (var i = 0; i < data.WeekEachDayOutput.length; i++) {     //data.WeekEachDayOutput.length
-                EachDay[i] = (eval(EachDay[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
-                SumOutput[i] = data.WeekEachDayOutput[i].SumOutput;
-            }
-           
-            
-            //求出最大产量
-            var MaxOutput = Math.max.apply(null, SumOutput);
-            var MaxX = Math.round(MaxOutput / 1000) * 1000;   //取整至千位
-            var EachX = MaxX / 5;   
-            
-
-            //更新图标的配置项和数据
-            option1 = {
-                xAxis: [
-                    {
-                        data: EachDay
-                    }
-                ],
-                yAxis: [
-                    {
-                        type: 'value',
-                        name: '只',
-                        min: 0,
-                        max: MaxX,
-                        interval: EachX,
-                        axisLabel: {
-                            formatter: '{value} '
+                //指定图标的配置项和数据
+                option2 = {
+                    series: [
+                        {
+                            data: [
+                                { value: unRuningDeviceCount, name: '未上线' },
+                                { value: RuningDeviceCount, name: '上线' }
+                            ]
                         }
-                    }
-                ],
-                series: [
-                    {
-                        data: SumOutput
-                    }
-                ]
-            };
-            myChart1.setOption(option1);
+                    ]
+                };
+                myChart2.setOption(option2);
 
-        })
-        
+
+                var OnworkUserCount = data.OnworkUserCount;
+                var AllUseCountr = data.AllUseCountr;
+                var unworkUserCount = AllUseCountr - OnworkUserCount;
+                //更新图标的配置项和数据
+                option = {
+                    series: [
+                        {
+                            data: [
+                                { value: unworkUserCount, name: '非在岗' },
+                                { value: OnworkUserCount, name: '在岗' }
+                            ]
+                        }
+                    ]
+                };
+                myChart3.setOption(option);
+
+
+
+                var EachDay = new Array();//取得每天的日期
+                var SumOutput = new Array();//取得每天的产量
+
+                for (var i = 0; i < data.WeekEachDayOutput.length; i++) {     //data.WeekEachDayOutput.length
+                    EachDay[i] = data.WeekEachDayOutput[i].Date;
+                }
+
+                for (var i = 0; i < data.WeekEachDayOutput.length; i++) {     //data.WeekEachDayOutput.length
+                    EachDay[i] = (eval(EachDay[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
+                    SumOutput[i] = data.WeekEachDayOutput[i].SumOutput;
+                }
+
+                if (data.WeekEachDayOutput.length == 1) {
+
+                    EachDay[6] = data.WeekEachDayOutput[0].Date;
+                    EachDay[6] = (eval(EachDay[6].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
+                    for (var i = 0; i < 6; i++) {
+                        EachDay[i] = 0;
+                    }
+                    SumOutput[6] = data.WeekEachDayOutput[0].SumOutput;
+
+                    for (var i = 0; i < 6; i++) {
+                        SumOutput[i] = 0;
+                    }
+
+                }
+                
+                
+
+                //求出最大产量
+                var MaxOutput = Math.max.apply(null, SumOutput);
+                var MaxX = Math.round(MaxOutput / 1000) * 1000;   //取整至千位
+                var EachX = MaxX / 5;
+
+
+                //更新图标的配置项和数据
+                option1 = {
+                    xAxis: [
+                        {
+                            data: EachDay
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            name: '只',
+                            min: 0,
+                            max: MaxX,
+                            interval: EachX,
+                            axisLabel: {
+                                formatter: '{value} '
+                            }
+                        }
+                    ],
+                    series: [
+                        {
+                            data: SumOutput
+                        }
+                    ]
+                };
+                myChart1.setOption(option1);
+
+            })
+
+        }
+
+        updataEcharts();
+
+        setInterval('updataEcharts()', 5000);
 
         //建议加上以下这一行代码，缩放时自动调整echart大小
         window.addEventListener('resize', function () { myChart1.resize() });
