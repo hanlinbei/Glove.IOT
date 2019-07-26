@@ -84,7 +84,8 @@ namespace Glove.IOT.BLL
                         join t2 in r_UserInfo_RoleInfo on t1.Id equals t2.UserInfoId
                         join t3 in roleInfo on t2.RoleInfoId equals t3.Id
                         join t4 in teamInfo on t1.TeamInfoId equals t4.Id
-                        join t5 in groupInfo on t1.DeviceGroupInfoId equals t5.Id
+                        join t5 in groupInfo on t1.DeviceGroupInfoId equals t5.Id into t6 
+                        from t7 in t6.DefaultIfEmpty()
                         select new
                         {
                             UId = t1.Id,
@@ -95,9 +96,9 @@ namespace Glove.IOT.BLL
                             t1.Remark,
                             t1.StatusFlag,
                             TId = t4.Id,
-                            GId = t5.Id,
+                            GId = t7.Id,
                             t4.TName,
-                            t5.DeviceGroupName
+                            t7.DeviceGroupName
                         };
 
            //按员工编号筛选

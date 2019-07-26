@@ -86,11 +86,19 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult Add(DeviceGroupInfo groupInfo)
         {
-            groupInfo.CreateTime = DateTime.Now;
-            groupInfo.Id = Guid.NewGuid().ToString();
-            groupInfo.IsDeleted = false;
-            DeviceGroupInfoService.Add(groupInfo);
-            return Content("OK");
+         
+            if (DeviceGroupInfoService.GetEntities(u => u.DeviceGroupName == groupInfo.DeviceGroupName & u.IsDeleted == false).Count()==0)
+            {
+                groupInfo.CreateTime = DateTime.Now;
+                groupInfo.Id = Guid.NewGuid().ToString();
+                groupInfo.IsDeleted = false;
+                DeviceGroupInfoService.Add(groupInfo);
+                return Content("OK");
+            }
+            else
+            {
+                return Content("false");
+            }
         }
         /// <summary>
         /// 编辑组信息
@@ -99,9 +107,16 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult Edit(DeviceGroupInfo groupInfo)
         {
-            groupInfo.CreateTime = DateTime.Now;
-            DeviceGroupInfoService.Update(groupInfo);
-            return Content("OK");
+            if (DeviceGroupInfoService.GetEntities(u => u.DeviceGroupName == groupInfo.DeviceGroupName & u.IsDeleted == false).Count() == 0)
+            {
+                groupInfo.CreateTime = DateTime.Now;
+                DeviceGroupInfoService.Update(groupInfo);
+                return Content("OK");
+            }
+            else
+            {
+                return Content("false");
+            }
         }
         /// <summary>
         /// 删除
@@ -133,17 +148,17 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <param name="alldIds"></param>
         /// <param name="dIds"></param>
         /// <returns></returns>
-        public ActionResult SetDevices( string gId, string[] dIds)
+        public ActionResult SetDevices(string gId, string[]alldIds,string[] dIds)
         {
             List<string> dIdsList = dIds.ToList();
 
             //剁掉组里已存在的设备
-            R_DeviceInfo_DeviceGroupInfoService.Delete(r => (r.DeviceGroupInfoId == gId ));
+            R_DeviceInfo_DeviceGroupInfoService.Delete(r => (r.DeviceGroupInfoId == gId&&alldIds.Contains(r.DeviceInfoId)));
             //添加勾选的设备
-            //if (dIds[0] == 0)
-            //{
-            //    return Content("OK");
-            //}
+            if (dIds[0] == string.Empty)
+            {
+                return Content("OK");
+            }
             R_DeviceInfo_DeviceGroupInfoService.AddSelectDevices(gId, dIdsList);
 
             return Content("OK");
