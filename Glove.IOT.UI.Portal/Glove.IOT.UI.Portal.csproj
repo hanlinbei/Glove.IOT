@@ -223,6 +223,7 @@
     <Content Include="Content\DH\img\验证码.png" />
     <Content Include="Content\DH\js\3.js" />
     <Content Include="Content\DH\lib\echarts\echarts.js" />
+    <Content Include="Content\DH\lib\echarts\echarts.min.js" />
     <Content Include="Content\DH\lib\jquery.form.js" />
     <Content Include="Content\DH\lib\layui\css\layui.css" />
     <Content Include="Content\DH\lib\layui\layui.js" />
