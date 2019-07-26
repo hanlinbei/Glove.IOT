@@ -86,7 +86,8 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult Add(DeviceGroupInfo groupInfo)
         {
-            if (DeviceGroupInfoService.GetEntities(u => u.DeviceGroupName == groupInfo.DeviceGroupName & u.IsDeleted == false) != null)
+         
+            if (DeviceGroupInfoService.GetEntities(u => u.DeviceGroupName == groupInfo.DeviceGroupName & u.IsDeleted == false).Count()==0)
             {
                 groupInfo.CreateTime = DateTime.Now;
                 groupInfo.Id = Guid.NewGuid().ToString();
@@ -106,7 +107,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         /// <returns></returns>
         public ActionResult Edit(DeviceGroupInfo groupInfo)
         {
-            if (DeviceGroupInfoService.GetEntities(u => u.DeviceGroupName == groupInfo.DeviceGroupName & u.IsDeleted == false) != null)
+            if (DeviceGroupInfoService.GetEntities(u => u.DeviceGroupName == groupInfo.DeviceGroupName & u.IsDeleted == false).Count() == 0)
             {
                 groupInfo.CreateTime = DateTime.Now;
                 DeviceGroupInfoService.Update(groupInfo);

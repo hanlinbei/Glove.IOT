@@ -201,15 +201,19 @@
   <ItemGroup>
     <Content Include="Config\common.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\controllers.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\dals.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\services.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\DH\css\main.css" />
     <Content Include="Content\DH\css\main1.css" />
@@ -223,6 +227,7 @@
     <Content Include="Content\DH\img\验证码.png" />
     <Content Include="Content\DH\js\3.js" />
     <Content Include="Content\DH\lib\echarts\echarts.js" />
+    <Content Include="Content\DH\lib\echarts\echarts.min.js" />
     <Content Include="Content\DH\lib\jquery.form.js" />
     <Content Include="Content\DH\lib\layui\css\layui.css" />
     <Content Include="Content\DH\lib\layui\layui.js" />
