@@ -1191,6 +1191,7 @@ layui.use('table', function () {//打开网页刷新表格
 
     });
 });
+
 layui.use('table', function () {//打开网页刷新表格
     var table = layui.table;
     //第一个实例
@@ -1881,6 +1882,8 @@ layui.use('table', function () {//打开网页刷新表格
         }
         , skin: 'line'
     });
+
+    
 });
 layui.use('table', function () {//打开网页刷新表格
     var table = layui.table;
@@ -1962,6 +1965,7 @@ layui.use('table', function () {//打开网页刷新表格
         }
         , skin: 'line'
     });
+    
 });
 
 
@@ -2472,7 +2476,7 @@ $(document).ready(function () {
                 type: "POST",
                  success: function (data) {
                      if (data === 'ok') {
-                         alert('成功');
+                         //alert('成功');
                          //window.location.href = '../UserInfo/Userdetail';
                      }
                      layui.use('layer', function () {
