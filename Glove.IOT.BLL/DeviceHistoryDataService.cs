@@ -1,6 +1,8 @@
 ﻿using Glove.IOT.Common;
+using Glove.IOT.Common.Extention;
 using Glove.IOT.IBLL;
 using Glove.IOT.Model;
+using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
 using System.Data.Objects;
@@ -55,6 +57,38 @@ namespace Glove.IOT.BLL
                             SumOutput = t1.DaOutput
                         };
             return query.OrderBy(u=>u.Date).Take(7);
+        }
+
+        /// <summary>
+        /// 获取每台设备今日产量
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<dynamic> GetTodayOutput(DeviceRealtimeQueryParam queryParam )
+        {
+            var today = DateTime.Now.Date;
+            var deviceHistoryDatas = DbSession.DeviceHistoryDataDal.GetEntities(u => EntityFunctions.TruncateTime(u.CreateTime)==today);
+            var query = from t1 in deviceHistoryDatas.GroupBy(u => u.DeviceName)
+                         .Select(p => new
+                         {
+                             DeviceName=p.Key,
+                             DayOutput = p.Sum(q => q.NowOutput)
+                         })
+                        select new 
+                        {
+                            DeviceName = t1.DeviceName,
+                            SumOutput = t1.DayOutput
+                        };
+
+            //按设备名查找
+            if (queryParam.SchDeviceName != 0)
+            {
+                query = query.Where(u => u.DeviceName == queryParam.SchDeviceName).AsQueryable();
+            }
+
+            queryParam.Total = query.Count();
+
+            return query.GetPageEntitiesAsc(queryParam.PageSize, queryParam.PageIndex, q => q.DeviceName, true);
+
         }
     }
 }
