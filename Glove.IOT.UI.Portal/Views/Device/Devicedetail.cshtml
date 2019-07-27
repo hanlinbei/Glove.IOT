@@ -565,21 +565,7 @@
                 var deviceOutputs = eval("(" + this.responseText + ")");//JSON.parse安全
                 console.log(deviceOutputs);
                 console.log(deviceOutputs[0]);
-
-                if (deviceOutputs[deviceOutputs.length - 1 ].SumOutput === null) {
-                    $('input[name="今日产量"]').val("暂无");
-                }
-                else {
-                    $('input[name="今日产量"').val(deviceOutputs[deviceOutputs.length - 1].SumOutput);
-                }
-
-                var SumOutput = new Array();
-                for (var i = 0; i < deviceOutputs.length; i++) {
-                    SumOutput[i] = deviceOutputs[i].SumOutput;
-                }
-                console.log(SumOutput);
-
-
+                
 
                 var dateTime = new Array();
                 for (var i = 0; i < deviceOutputs.length; i++) {
@@ -594,6 +580,29 @@
                     subTime[i] = (eval(dateTime[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
                     //console.log(subTime[i]);
                 }
+                var Today = new Date();
+                var thisDay = Today.getDate();
+                var thisMonth = Today.getMonth() + 1;
+                var today = thisMonth + '-' + thisDay;
+                //console.log(today);
+                
+                var todayDate = new Array();
+                for (var i = 0; i < dateTime.length; i++) {
+                    //subTime[i] = (eval(deviceOutputs[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("mm:ss");
+                    todayDate[i] = (eval(dateTime[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
+                    //console.log(subTime[i]);
+                    if (today === todayDate[i]) {
+                        $('input[name="今日产量"').val(deviceOutputs[i].SumOutput);
+                    } else {
+                        $('input[name="今日产量"]').val("暂无");
+                    }
+                }
+
+                var SumOutput = new Array();
+                for (var i = 0; i < deviceOutputs.length; i++) {
+                    SumOutput[i] = deviceOutputs[i].SumOutput;
+                }
+                //console.log(SumOutput);
           
              
                 // 指定图表的配置项和数据
@@ -720,22 +729,7 @@
                     if (this.readyState !== 4) return;
                     var deviceOutputs = eval("(" + this.responseText + ")");//JSON.parse安全
                     console.log(deviceOutputs);
-                    console.log(deviceOutputs[0]);
-
-                    if (deviceOutputs[deviceOutputs.length - 1].SumOutput === null) {
-                        $('input[name="今日产量"]').val("暂无");
-                    }
-                    else {
-                        $('input[name="今日产量"').val(deviceOutputs[deviceOutputs.length - 1].SumOutput);
-                    }
-
-                    var SumOutput = new Array();
-                    for (var i = 0; i < deviceOutputs.length; i++) {
-                        SumOutput[i] = deviceOutputs[i].SumOutput;
-                    }
-                    console.log(SumOutput);
-
-
+                    //console.log(deviceOutputs[0]);
 
                     var dateTime = new Array();
                     for (var i = 0; i < deviceOutputs.length; i++) {
@@ -750,6 +744,29 @@
                         subTime[i] = (eval(dateTime[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
                         //console.log(subTime[i]);
                     }
+                    var Today = new Date();
+                    var thisDay = Today.getDate();
+                    var thisMonth = Today.getMonth() + 1;
+                    var today = thisMonth + '-' + thisDay;
+                    //console.log(today);
+
+                    var todayDate = new Array();
+                    for (var i = 0; i < dateTime.length; i++) {
+                        //subTime[i] = (eval(deviceOutputs[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("mm:ss");
+                        todayDate[i] = (eval(dateTime[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
+                        //console.log(subTime[i]);
+                        if (today === todayDate[i]) {
+                            $('input[name="今日产量"').val(deviceOutputs[i].SumOutput);
+                        } else {
+                            $('input[name="今日产量"]').val("暂无");
+                        }
+                    }
+
+                    var SumOutput = new Array();
+                    for (var i = 0; i < deviceOutputs.length; i++) {
+                        SumOutput[i] = deviceOutputs[i].SumOutput;
+                    }
+                    //console.log(SumOutput);
 
 
                     // 指定图表的配置项和数据

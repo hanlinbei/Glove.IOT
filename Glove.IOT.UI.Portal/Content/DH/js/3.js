@@ -1232,7 +1232,7 @@ layui.use('table', function () {//打开网页刷新表格
             //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
             { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
             , { field: 'DeviceName', title: '设备名', minWidth: 50, align: 'center' }
-            , { field: 'CmdData', title: '文件名', minWidth: 80, align: 'center' }
+            , { field: 'CmdData', title: '文件名', minWidth: 50, align: 'center' }
             , { field: 'CmdState', title: '操作状态', minWidth: 50, align: 'center' }
             , { field: 'CreateTime', title: '操作时间', minWidth: 80, align: 'center' }
             , { field: 'FinishTime', title: '操作完成', minWidth: 80, align: 'center' }
@@ -1246,6 +1246,7 @@ layui.use('table', function () {//打开网页刷新表格
                 //console.log(res.data[i].CreateTime);
                 //console.log(res.data[i].FinishTime);
                 if (res.data[i].FinishTime !== null) {
+                    //res.data[i].FinishTime = (eval(res.data[i].FinishTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
                     res.data[i].FinishTime = (eval(res.data[i].FinishTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)")));
                 } else {
                     res.data[i].FinishTime = '暂无';
@@ -1678,7 +1679,7 @@ layui.use('table', function () {//打开网页刷新表格
         ]]
         , toolbar: true
         , parseData: function (res) { //修改原始数据
-            console.log(res.data[1].SubTime);
+            //console.log(res.data[1].SubTime);
             for (var i = 0; i < res.data.length; i++) {   
                 res.data[i].SubTime = (eval(res.data[i].SubTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
             } 
@@ -2072,7 +2073,7 @@ layui.use('table', function () {//打开网页刷新表格
                 }
 
                 var WarningTime = showTime(WarningTime);
-                //console.log(RunTime);
+                //console.log(res.data[i].StartTime);
                 
 
                 res.data[i].WarningTime = WarningTime;
