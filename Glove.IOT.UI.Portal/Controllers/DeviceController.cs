@@ -110,7 +110,32 @@ namespace Glove.IOT.UI.Portal.Controllers
             return Content("false");
         }
 
+        /// <summary>
+        /// 获取每台设备今日产量
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="page"></param>
+        /// <param name="schDeviceName"></param>
+        /// <returns></returns>
+        public ActionResult GetTodayOutput(string limit, string page, string schDeviceName)
+        {
+            int pageSize = int.Parse(limit ?? "10");
+            int pageIndex = int.Parse(page ?? "1");
+            int deviceName = int.Parse(schDeviceName ?? "0");
+            //过滤的设备名 过滤备注schDeviceId schStatusFlag
+            var queryParam = new DeviceRealtimeQueryParam()
+            {
+                PageSize = pageSize,
+                PageIndex = pageIndex,
+                SchDeviceName = deviceName,
+                Total = 0
+            };
+            var pageData = DeviceHistoryDataService.GetTodayOutput(queryParam);
+            var data = new { code = 0, msg = "", count = queryParam.Total, data = pageData };
 
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
 
         public ActionResult IsLayerAdddevice()
         {

@@ -1,5 +1,6 @@
 ﻿using Glove.IOT.Common;
 using Glove.IOT.Model;
+using Glove.IOT.Model.Param;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,11 @@ namespace Glove.IOT.IBLL
         /// </summary>
         /// <returns></returns>
         IQueryable<DeviceDayOutput> GetWeekEachDayData();
+        /// <summary>
+        /// 获取每台设备今日产量
+        /// </summary>
+        /// <param name="queryParam"></param>
+        /// <returns></returns>
+        IQueryable<dynamic> GetTodayOutput(DeviceRealtimeQueryParam queryParam);
     }
 }
