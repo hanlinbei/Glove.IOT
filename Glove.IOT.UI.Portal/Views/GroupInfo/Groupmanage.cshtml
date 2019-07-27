@@ -355,9 +355,9 @@
                 layer.load(2);
                 $.post("/GroupInfo/Delete", { gIds: id }, function (data) {
                     if (data === "del ok") {
-                        layer.closeAll("loading");
+                        //layer.closeAll("loading");
                         if ((that.parent("ul").children("li").length == 1) && (that.parent("ul").parent("li").children("i.layui-tree-spread").length = 1)) {
-                            //要把分类名前的三角符号和ul标签删除
+                            要把分类名前的三角符号和ul标签删除
                             that.parent("ul").parent("li").children("i.layui-tree-spread").remove();
                         }
                         that.remove();
@@ -398,11 +398,11 @@
                         }
                     }
                     else {
-                        layer.closeAll("loading");
+                       //layer.closeAll("loading");
                         layui.use('layer', function () {
-                            layer.closeAll("loading");
-                            that.remove();
-                            layer.close(index);
+                            //layer.closeAll("loading");
+                            //that.remove();
+                            //layer.close(index);
                             var layer = layui.layer;
                             layer.msg('<span style="font-size:18px;vertical-align:middle;line-height:76px;">添加失败</span>', {
                                 time: 2000,
@@ -410,6 +410,7 @@
                                 shade: 0.4,
                                 shadeClose: true
                             });
+                            layer.closeAll("loading");
                         });
                     }
                 })

@@ -2476,9 +2476,11 @@ $(document).ready(function () {
                 type: "POST",
                  success: function (data) {
                      if (data === 'ok') {
+                         userMessage();
                          //alert('成功');
                          //window.location.href = '../UserInfo/Userdetail';
                      }
+                     //userMessage();
                      layui.use('layer', function () {
                          var layer = layui.layer;
                          layer.msg('<span style="font-size:16px;vertical-align:middle;line-height:76px;">' + data + '</span>', {

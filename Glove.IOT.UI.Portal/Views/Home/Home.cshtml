@@ -61,7 +61,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="../Home/Home" class="layui-icon layui-icon-home"></a></li>
                         <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
-                        <li><a href="../WarningInfo/Warningmanage" class="iconfont icon-vline">&#xe6f1;</a></li>
+                        <li><a href="../WarningInfo/Warningmanage" id="wr" class="iconfont icon-vline">&#xe6f1;</a></li>
                         <li class="layui-nav-item-no"><i class="iconfont icon-vline">&#xe63a;</i></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle iconfont icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&#xe638;<span class="caret"></span></a>
@@ -260,7 +260,7 @@
             legend: {
                 orient: 'vertical',
                 x: 'left',
-                data: ['未上线', '上线']
+                data: ['报警', '未上线', '上线']
             },
             series: [
                 {
@@ -287,8 +287,10 @@
                         }
                     },
                     data: [
+                        { value: '0', name: '报警' },
                         { value: '0', name: '未上线' },
                         { value: '0', name: '上线' }
+                        
                     ]
                 }
             ]
@@ -391,6 +393,12 @@
                 {
                     name: '总产量',
                     type: 'bar',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
                     data: ['0','0','0','0','0','0','0']
                 }
             ]
@@ -409,12 +417,19 @@
                 var AllDeviceCount = JSON.stringify(data.AllDeviceCount);
                 var RuningDeviceCount = JSON.stringify(data.RuningDeviceCount);
                 var unRuningDeviceCount = AllDeviceCount - RuningDeviceCount;
+                var WarningNum = JSON.stringify(data.WarningNum);
 
+                if (WarningNum !== '0') {
+                    $("#wr").addClass("red");
+                } else {
+                    $("#wr").removeClass("red");
+                }
                 //指定图标的配置项和数据
                 option2 = {
                     series: [
                         {
                             data: [
+                                { value: WarningNum, name: '报警' },
                                 { value: unRuningDeviceCount, name: '未上线' },
                                 { value: RuningDeviceCount, name: '上线' }
                             ]
