@@ -21,16 +21,16 @@ namespace Glove.IOT.BLL
         /// <returns></returns>
         public IQueryable<DeviceDayOutput> GetWeekEachDayData(int deviceName)
         {
-            var deviceHistoryDatas = DbSession.DeviceHistoryDataDal.GetEntities(u => true);
+            var deviceHistoryDatas = DbSession.DeviceHistoryDataDal.GetEntities(u => u.DeviceName==deviceName);
             var query = from t1 in deviceHistoryDatas.GroupBy(u => EntityFunctions.TruncateTime(u.CreateTime))
                          .Select(p => new
                          {
-                             DayTime = p.Key,
+                              p.Key,
                              DayOutput = p.Sum(q => q.NowOutput)
                          })
                         select new DeviceDayOutput
                         {
-                            Date = t1.DayTime,
+                            Date = t1.Key,
                             SumOutput = t1.DayOutput
                         };
 
