@@ -116,6 +116,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/DeviceOutputs">设备产量情况</a></dd>
                     <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
@@ -167,6 +168,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/DeviceOutputs">设备产量情况</a></dd>
                     <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
@@ -564,11 +566,11 @@
                 console.log(deviceOutputs);
                 console.log(deviceOutputs[0]);
 
-                if (deviceOutputs[0].SumOutput === null) {
+                if (deviceOutputs[deviceOutputs.length - 1 ].SumOutput === null) {
                     $('input[name="今日产量"]').val("暂无");
                 }
                 else {
-                    $('input[name="今日产量"').val(deviceOutputs[0].SumOutput);
+                    $('input[name="今日产量"').val(deviceOutputs[deviceOutputs.length - 1].SumOutput);
                 }
 
                 var SumOutput = new Array();
@@ -720,11 +722,11 @@
                     console.log(deviceOutputs);
                     console.log(deviceOutputs[0]);
 
-                    if (deviceOutputs[0].SumOutput === null) {
+                    if (deviceOutputs[deviceOutputs.length - 1].SumOutput === null) {
                         $('input[name="今日产量"]').val("暂无");
                     }
                     else {
-                        $('input[name="今日产量"').val(deviceOutputs[0].SumOutput);
+                        $('input[name="今日产量"').val(deviceOutputs[deviceOutputs.length - 1].SumOutput);
                     }
 
                     var SumOutput = new Array();
@@ -825,7 +827,7 @@
 
 
         //自动刷新
-        setInterval('singleOutputs()', 5000);
+        setInterval('singleOutputs()', 10000);
 
 
         //建议加上以下这一行代码，缩放时自动调整echart大小

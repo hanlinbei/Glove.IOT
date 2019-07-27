@@ -100,6 +100,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/DeviceOutputs">设备产量情况</a></dd>
                     <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
@@ -151,6 +152,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/DeviceOutputs">设备产量情况</a></dd>
                     <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
@@ -260,8 +262,9 @@
             legend: {
                 orient: 'vertical',
                 x: 'left',
-                data: ['报警', '未上线', '上线']
+                data: ['运行','报警', '其他']
             },
+            color: [ 'green', '#D22', 'gray'],
             series: [
                 {
                     name: '设备状态',
@@ -287,9 +290,9 @@
                         }
                     },
                     data: [
+                        { value: '0', name: '运行' },
                         { value: '0', name: '报警' },
-                        { value: '0', name: '未上线' },
-                        { value: '0', name: '上线' }
+                        { value: '0', name: '其他' }
                         
                     ]
                 }
@@ -311,6 +314,7 @@
                 x: 'left',
                 data: ['在岗', '非在岗']
             },
+            color: ['#D22','green'],
             series: [
                 {
                     name: '员工状态',
@@ -416,8 +420,9 @@
 
                 var AllDeviceCount = JSON.stringify(data.AllDeviceCount);
                 var RuningDeviceCount = JSON.stringify(data.RuningDeviceCount);
-                var unRuningDeviceCount = AllDeviceCount - RuningDeviceCount;
                 var WarningNum = JSON.stringify(data.WarningNum);
+                var unRuningDeviceCount = AllDeviceCount - RuningDeviceCount - WarningNum;
+                
 
                 if (WarningNum !== '0') {
                     $("#wr").addClass("red");
@@ -429,9 +434,9 @@
                     series: [
                         {
                             data: [
+                                { value: RuningDeviceCount, name: '运行'},
                                 { value: WarningNum, name: '报警' },
-                                { value: unRuningDeviceCount, name: '未上线' },
-                                { value: RuningDeviceCount, name: '上线' }
+                                { value: unRuningDeviceCount, name: '其他' }
                             ]
                         }
                     ]
@@ -525,7 +530,7 @@
 
         updataEcharts();
 
-        setInterval('updataEcharts()', 5000);
+        setInterval('updataEcharts()', 30000);
 
         //建议加上以下这一行代码，缩放时自动调整echart大小
         window.addEventListener('resize', function () { myChart1.resize() });

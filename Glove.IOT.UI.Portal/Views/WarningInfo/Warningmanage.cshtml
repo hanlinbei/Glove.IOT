@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta http-equiv="Refresh" content="60">
+    @*<meta http-equiv="Refresh" content="60">*@
     <!-- 上述3个meta标签标签为自动刷新 -->
     <title>Glove Machine IoT</title>
 
@@ -101,6 +101,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/DeviceOutputs">设备产量情况</a></dd>
                     <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
@@ -152,6 +153,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/DeviceOutputs">设备产量情况</a></dd>
                     <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
@@ -208,8 +210,8 @@
             <div class="table-title">
                 当前报警
             </div>
-            @*<table id="table_warning" lay-filter="table_warning" lay-data="{id: 'idTest'}"></table>*@
-            <table id="table_warning"></table>
+            <table id="table_warning" lay-filter="table_warning" lay-data="{id: 'idTest'}"></table>
+            @*<table id="table_warning"></table>*@
         </div>
 
     </section>
@@ -230,6 +232,92 @@
     <script>
         //更新左上角用户信息
         userMessage();
+
+        //自动更新
+        function updataWarning() {
+
+            layui.use('table', function () {//打开网页刷新表格
+                var table = layui.table;
+                table.render({
+                    elem: '#table_warning'
+                    //, height: 520
+                    , url: '/WarningInfo/GetRealTimeWarningInfo' //数据接口
+                    , title: "当前报警"
+                    , page: true //开启分页
+                    , limit: 10
+                    , limits: [5, 10, 15, 20]
+                    , cols: [[ //表头
+                        //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+                        { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center', fixed: 'left' }
+                        , { field: 'DeviceName', title: '设备ID', minWidth: 80, align: 'center' }
+                        , { field: 'WarningMessage', title: '报警信息', minWidth: 80, sort: true, align: 'center' }
+                        , { field: 'StartTime', title: '开始时间', minWidth: 80, align: 'center' }
+                        //, { field: 'WarningTime', title: '报警时长', minWidth: 80, align: 'center' }
+                        // , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+                    ]]
+                    , toolbar: true
+                    , parseData: function (res) { //修改原始数据
+                        for (var i = 0; i < res.data.length; i++) {
+                            //res.data[i].StartTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                            //var m = Math.floor(res.data[i].minute % 60);
+                            //var h = Math.floor(res.data[i].minute / 60 % 24);
+                            //var d = Math.floor(res.data[i].minute / 60 / 24);
+                            //if (m < 10) m = "0" + m;
+                            //if (h < 10) h = "0" + h;
+                            //if (d < 10) d = "0" + d;
+
+
+                            //得到运行的时间（秒）
+                            //var WarningTime = (eval(res.data[i].StopTime.match(/[0-9]+/gi) - res.data[i].StartTime.match(/[0-9]+/gi)));
+                            //console.log(WarningTime);
+                            //计算小时分和秒
+                            function showTime(val) {
+                                if (val < 60) {
+                                    return val + "\t秒";
+                                } else {
+
+                                    var min_total = Math.floor(val / 60);	// 分钟
+                                    var sec = Math.floor(val % 60);	// 余秒
+
+                                    if (min_total < 60) {
+                                        return min_total + "\t分钟" + sec + "\t秒";
+                                    } else {
+                                        var hour_total = Math.floor(min_total / 60);	// 小时数
+                                        var min = Math.floor(min_total % 60);	// 余分钟
+
+                                        return hour_total + "小时" + min + "分钟";
+                                    }
+                                }
+                            }
+
+                            var WarningTime = showTime(WarningTime);
+                            //console.log(RunTime);
+
+
+                            //res.data[i].WarningTime = WarningTime;
+
+                            //res.data[i].StartTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                            if (res.data[i].StartTime !== null) {
+                                res.data[i].StartTime = (eval(res.data[i].StartTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
+                            } else {
+                                res.data[i].StartTime = '暂无';
+                            }
+                        }
+                        return {
+                            "code": res.code, //解析接口状态
+                            "msg": res.msg, //解析提示文本
+                            "count": res.count, //解析数据长度
+                            "data": res.data //解析数据列表
+                        };
+                    }
+                    , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+
+                    }
+                    , skin: 'line'
+                });
+            });
+        }
+        setInterval('updataWarning()', 10000);
     </script>
 
 </body>

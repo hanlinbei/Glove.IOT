@@ -1832,6 +1832,7 @@
     <Content Include="Views\Device\LayerUploadFile.cshtml" />
     <Content Include="Views\Device\UploadFile.cshtml" />
     <Content Include="Views\Device\UploadFileInfo.cshtml" />
+    <Content Include="Views\Device\DeviceOutputs.cshtml" />
     <None Include="Views\UserInfo\indexUI.cshtml" />
     <Content Include="Views\UserInfo\Usermanage.cshtml" />
     <None Include="Views\UserInfo\LayerSearchuser.cshtml" />
