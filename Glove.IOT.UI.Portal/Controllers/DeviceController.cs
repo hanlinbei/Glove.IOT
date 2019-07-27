@@ -20,7 +20,7 @@ namespace Glove.IOT.UI.Portal.Controllers
         public IDeviceHistoryDataService DeviceHistoryDataService { get; set; }
         public IDeviceCmdService DeviceCmdService { get; set; }
 
-
+ 
         /// <summary>
         /// 获取所有设备信息
         /// </summary>
