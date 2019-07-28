@@ -829,6 +829,30 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
             }
         });
     }
+    else if (id === 'table_deviceOutputs') {
+        table.reload(id, {
+            elem: elem
+            //, height: height
+            , url: url//数据接口
+            , title: title
+            , page: {
+                curr: page
+            }//重新制定page和limit
+            , limit: limit
+            , where: { schDeviceName: res.DeviceName}
+            , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+                console.log("表格重载完成");
+                globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
+                globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
+                Power('device');
+                DIdtable = [];//清空数组
+                for (var i = 0; i < (count % globalLimit === 0 ? globalLimit : count % globalLimit); i++) {
+                    DIdtable[i] = [res.data[i].Id, 0, res.data[i].DeviceName];
+                }
+                num_d = count;
+            }
+        });
+    }
     else if (id === 'table_olog') {
         table.reload(id, {
             elem: elem
@@ -846,22 +870,22 @@ function updatatable_search(id, elem, height, url, title, page, limit, res) {//�
             }
         });
     }
-    //else if (id === 'table_warning') {
-    //    table.reload(id, {
-    //        elem: elem
-    //        //, height: height
-    //        , url: url//数据接口
-    //        , title: title
-    //        , page: {
-    //            curr: page
-    //        }//重新制定page和limit
-    //        , limit: limit
-    //        , where: { schDeviceId: res.DeviceId, schMessage: res.WarningMessage, firsTime: res.WarningStartTime }
-    //        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
-    //            console.log("表格重载完成");
-    //        }
-    //    });
-    //}
+    else if (id === 'table_warning') {
+        table.reload(id, {
+            elem: elem
+            //, height: height
+            , url: url//数据接口
+            , title: title
+            , page: {
+                curr: page
+            }//重新制定page和limit
+            , limit: limit
+            , where: { schDeviceName: res.DeviceName}
+            , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+                console.log("表格重载完成");
+            }
+        });
+    }
     else if (id === 'table_hwarning') {
         table.reload(id, {
             elem: elem
@@ -1208,6 +1232,7 @@ layui.use('table', function () {//打开网页刷新表格
             //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
             { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
             , { field: 'DeviceName', title: '设备名', minWidth: 50, align: 'center' }
+            , { field: 'CmdData', title: '文件名', minWidth: 50, align: 'center' }
             , { field: 'CmdState', title: '操作状态', minWidth: 50, align: 'center' }
             , { field: 'CreateTime', title: '操作时间', minWidth: 80, align: 'center' }
             , { field: 'FinishTime', title: '操作完成', minWidth: 80, align: 'center' }
@@ -1221,6 +1246,7 @@ layui.use('table', function () {//打开网页刷新表格
                 //console.log(res.data[i].CreateTime);
                 //console.log(res.data[i].FinishTime);
                 if (res.data[i].FinishTime !== null) {
+                    //res.data[i].FinishTime = (eval(res.data[i].FinishTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
                     res.data[i].FinishTime = (eval(res.data[i].FinishTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)")));
                 } else {
                     res.data[i].FinishTime = '暂无';
@@ -1230,7 +1256,8 @@ layui.use('table', function () {//打开网页刷新表格
                 } else {
                     res.data[i].CreateTime = '暂无';
                 }
-                
+                res.data[i].CmdData = (eval(res.data[i].CmdData.match(/([^\\/]+)\.([^\\/]+)/gi)));
+
                 //console.log(res.data[i].CreateTime);
             }
             
@@ -1249,10 +1276,92 @@ layui.use('table', function () {//打开网页刷新表格
 
     });
 
-
-
-
+    
 });
+
+layui.use('table', function () {//打开网页刷新表格
+    var table = layui.table;
+    //第一个实例
+    table.render({
+        elem: '#table_deviceOutputs'
+        //, height: 500
+        , url: '/Device/GetTodayOutput' //数据接口
+        , title: "设备管理"
+        , page: true //开启分页
+        , limit: 10
+        , limits: [5, 10, 20, 30, 50]
+        , cols: [[ //表头
+            //{ field: 'Checkbox', type: 'checkbox', minWidth: 50, fixed: 'left' }
+            //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
+            { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
+            , { field: 'DeviceName', title: '设备名', minWidth: 80, sort: true, align: 'center' }
+            , { field: 'SumOutput', title: '今日产量', minWidth: 80, sort: true, align: 'center' }
+            , { fixed: 'right', title: '操作', minWidth: 120, align: 'center', toolbar: '#barDemo' }
+        ]]
+        , parseData: function (res) { //res 即为原始返回的数据
+         
+            return {
+                "code": res.code, //解析接口状态
+                "msg": res.msg, //解析提示文本
+                "count": res.count, //解析数据长度
+                "data": res.data //解析数据列表
+            };
+        }
+        , toolbar: true
+        , done: function (res, curr, count) {//如果是异步请求数据方式，res即为你接口返回的信息, curr是当前的页码，count是得到的数据总量
+            Power('device');
+            globalPage = $(".layui-laypage-skip").find("input").val();//获取页码值
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val();//获取分页数目
+            DIdtable = [];//清空
+            if (curr === Math.floor(count / globalLimit) + 1) {
+                var length = (count % globalLimit === 0 ? globalLimit : count % globalLimit);
+            }
+            else {
+                var length = globalLimit;
+            }
+            for (var i = 0; i < length; i++) {
+                DIdtable[i] = [res.data[i].Id, 0, res.data[i].DeviceName];
+            }
+            num_d = count;
+        }
+        , skin: 'line'
+
+    });
+    table.on('tool(table_deviceOutputs)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var data = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+        if (layEvent === 'detail') { //查看
+            console.log("点击了查看");
+            window.location.href = 'Devicedetail?DeviceName=' + data.DeviceName;
+        } else if (layEvent === 'del') { //删除
+            console.log(data);
+            layer.confirm('确定删除？', function (index) {
+                layer.close(index);
+                //向服务端发送删除指令
+                ids = "" + data.Id;
+                $.post("/Device/Delete", { ids: ids }, function (data) {
+                    if (data === 'ok') {
+                        num_d = num_d - 1;
+                        globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+                        globalPage = Math.ceil(num_d / globalLimit);//获取页码值
+                        if (num_d % globalLimit === 0) globalPage -= 1;//超过分页值 页码加1
+                        //表格重载
+                        updatatable('table_device', '#table_device', 550, '/Device/GetAllDeviceRealtimeData', "设备管理", globalPage, globalLimit);
+                    }
+                    else {
+                        alert("你没有权限删除");
+                    }
+                });
+            });
+        } else if (layEvent === 'group') { //分组
+            layerShowAddgroup('设备分组', 'LayerAddgroup', 500, 250, obj.data);
+        }
+    });
+    
+});
+
+
 
 
 function layerShowAdddevice(title, url, w, h, data) {
@@ -1379,6 +1488,29 @@ function layerShowSearchdevice(title, url, w, h, data) {
             //表格重载 跳转到操作页面
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
             updatatable_search('table_device', '#table_device', 550, '/Device/GetAllDeviceRealtimeData', "设备管理", 1, globalLimit, res);
+            //最后关闭弹出层
+            layer.close(index);
+        },
+        skin: 'demo-class'
+    });
+}
+function layerShowSearchdevice_o(title, url, w, h, data) {
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade: 0.4,
+        title: title,
+        content: url,
+        btn: ['查找'],
+        yes: function (index) {
+            //当点击‘确定’按钮的时候，获取弹出层返回的值
+            var res = window["layui-layer-iframe" + index].callbackdata(index, "searchdevice");
+            //表格重载 跳转到操作页面
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            updatatable_search('table_deviceOutputs', '#table_deviceOutputs', 550, '/Device/GetTodayOutput', "设备管理", 1, globalLimit, res);
             //最后关闭弹出层
             layer.close(index);
         },
@@ -1547,7 +1679,7 @@ layui.use('table', function () {//打开网页刷新表格
         ]]
         , toolbar: true
         , parseData: function (res) { //修改原始数据
-            console.log(res.data[1].SubTime);
+            //console.log(res.data[1].SubTime);
             for (var i = 0; i < res.data.length; i++) {   
                 res.data[i].SubTime = (eval(res.data[i].SubTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d HH:mm:ss");
             } 
@@ -1941,7 +2073,7 @@ layui.use('table', function () {//打开网页刷新表格
                 }
 
                 var WarningTime = showTime(WarningTime);
-                //console.log(RunTime);
+                //console.log(res.data[i].StartTime);
                 
 
                 res.data[i].WarningTime = WarningTime;
@@ -2011,7 +2143,32 @@ function layerShowSearchwarning(title, url, w, h, data) {
             var res = window["layui-layer-iframe" + index].callbackdata(index, 'warning');
             //表格重载 跳转到操作页面
             globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
-            updatatable_search('table_hwarning', '#table_hwarning', 550, '/WarningInfo/GetHIstoryWarningInfo', "当前报警", 1, globalLimit, res);
+            updatatable_search('table_warning', '#table_warning', 550, '/WarningInfo/GetRealTimeWarningInfo', "当前报警", 1, globalLimit, res);
+            //最后关闭弹出层
+            layer.close(index);
+        },
+        success: function (layero, index) {
+
+        }
+    });
+}
+function layerShowSearchwarning_h(title, url, w, h, data) {
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade: 0.4,
+        title: title,
+        content: url,
+        btn: ['确定'],
+        yes: function (index) {
+            //当点击‘确定’按钮的时候，获取弹出层返回的值
+            var res = window["layui-layer-iframe" + index].callbackdata(index, 'warning');
+            //表格重载 跳转到操作页面
+            globalLimit = $(".layui-laypage-limits").find("option:selected").val() //获取分页数目
+            updatatable_search('table_hwarning', '#table_hwarning', 550, '/WarningInfo/GetHistoryWarningInfo', "当前报警", 1, globalLimit, res);
             //最后关闭弹出层
             layer.close(index);
         },
@@ -2449,6 +2606,9 @@ $(document).ready(function () {
     $("button[name='查找设备']").click(function () {
         layerShowSearchdevice('查找设备', 'LayerSearchdevice', 500, 380, "null");
     });
+    $("button[name='查找设备产量']").click(function () {
+        layerShowSearchdevice_o('查找设备', 'LayerSearchdevice', 500, 380, "null");
+    });
     //$("button[name='上传文件']").click(function () {
     //     layerShowUploadFile('上传文件','LayerUploadFile',500,400,'null');
     //});
@@ -2476,9 +2636,11 @@ $(document).ready(function () {
                 type: "POST",
                  success: function (data) {
                      if (data === 'ok') {
+                         userMessage();
                          //alert('成功');
                          //window.location.href = '../UserInfo/Userdetail';
                      }
+                     //userMessage();
                      layui.use('layer', function () {
                          var layer = layui.layer;
                          layer.msg('<span style="font-size:16px;vertical-align:middle;line-height:76px;">' + data + '</span>', {
@@ -2494,6 +2656,9 @@ $(document).ready(function () {
     });
     $("button[name='查找报警']").click(function () {
         layerShowSearchwarning('查找报警', 'LayerSearchwarning', 550, 450, "null");
+    });
+    $("button[name='查找历史报警']").click(function () {
+        layerShowSearchwarning_h('查找报警', 'LayerSearchwarning', 550, 450, "null");
     });
     $("button[name='添加班号']").click(function () {
         layerShowAddclass('添加班组', 'LayerAddclass', 550, 450, "null");

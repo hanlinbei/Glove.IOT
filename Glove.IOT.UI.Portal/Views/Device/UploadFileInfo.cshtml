@@ -98,6 +98,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/DeviceOutputs">设备产量情况</a></dd>
                     <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
@@ -149,6 +150,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/DeviceOutputs">设备产量情况</a></dd>
                     <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
@@ -242,7 +244,6 @@
         })
 
         function upData() {
-            //console.log('5');
             var table = layui.table;
             //第一个实例
             table.render({
@@ -258,6 +259,7 @@
                     //, { field: 'DeviceId', title: '序号', minWidth: 100, sort: true, align: 'center' }
                     { field: 'index', title: '序号', minWidth: 50, type: "numbers", align: 'center' }
                     , { field: 'DeviceName', title: '设备名', minWidth: 50, align: 'center' }
+                    , { field: 'CmdData', title: '文件名', minWidth: 80, align: 'center' }
                     , { field: 'CmdState', title: '操作状态', minWidth: 50, align: 'center' }
                     , { field: 'CreateTime', title: '操作时间', minWidth: 80, align: 'center' }
                     , { field: 'FinishTime', title: '操作完成', minWidth: 80, align: 'center' }
@@ -280,6 +282,7 @@
                         } else {
                             res.data[i].CreateTime = '暂无';
                         }
+                        res.data[i].CmdData = (eval(res.data[i].CmdData.match(/([^\\/]+)\.([^\\/]+)/gi)));
 
                         //console.log(res.data[i].CreateTime);
                     }

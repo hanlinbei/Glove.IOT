@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta http-equiv="refresh" content="15">
+    @*<meta http-equiv="refresh" content="15">*@
     <title>Glove Machine IoT</title>
 
     <!-- Bootstrap -->
@@ -116,6 +116,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/DeviceOutputs">设备产量情况</a></dd>
                     <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
@@ -167,6 +168,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../Device/Devicemanage">设备工作情况</a></dd>
+                    <dd><a href="../Device/DeviceOutputs">设备产量情况</a></dd>
                     <dd><a href="../Device/UploadFile">设备文件更新</a></dd>
                 </dl>
             </li>
@@ -563,21 +565,7 @@
                 var deviceOutputs = eval("(" + this.responseText + ")");//JSON.parse安全
                 console.log(deviceOutputs);
                 console.log(deviceOutputs[0]);
-
-                if (deviceOutputs[0].SumOutput === null) {
-                    $('input[name="今日产量"]').val("暂无");
-                }
-                else {
-                    $('input[name="今日产量"').val(deviceOutputs[0].SumOutput);
-                }
-
-                var SumOutput = new Array();
-                for (var i = 0; i < deviceOutputs.length; i++) {
-                    SumOutput[i] = deviceOutputs[i].SumOutput;
-                }
-                console.log(SumOutput);
-
-
+                
 
                 var dateTime = new Array();
                 for (var i = 0; i < deviceOutputs.length; i++) {
@@ -592,6 +580,29 @@
                     subTime[i] = (eval(dateTime[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
                     //console.log(subTime[i]);
                 }
+                var Today = new Date();
+                var thisDay = Today.getDate();
+                var thisMonth = Today.getMonth() + 1;
+                var today = thisMonth + '-' + thisDay;
+                //console.log(today);
+                
+                var todayDate = new Array();
+                for (var i = 0; i < dateTime.length; i++) {
+                    //subTime[i] = (eval(deviceOutputs[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("mm:ss");
+                    todayDate[i] = (eval(dateTime[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
+                    //console.log(subTime[i]);
+                    if (today === todayDate[i]) {
+                        $('input[name="今日产量"').val(deviceOutputs[i].SumOutput);
+                    } else {
+                        $('input[name="今日产量"]').val("暂无");
+                    }
+                }
+
+                var SumOutput = new Array();
+                for (var i = 0; i < deviceOutputs.length; i++) {
+                    SumOutput[i] = deviceOutputs[i].SumOutput;
+                }
+                //console.log(SumOutput);
           
              
                 // 指定图表的配置项和数据
@@ -718,22 +729,7 @@
                     if (this.readyState !== 4) return;
                     var deviceOutputs = eval("(" + this.responseText + ")");//JSON.parse安全
                     console.log(deviceOutputs);
-                    console.log(deviceOutputs[0]);
-
-                    if (deviceOutputs[0].SumOutput === null) {
-                        $('input[name="今日产量"]').val("暂无");
-                    }
-                    else {
-                        $('input[name="今日产量"').val(deviceOutputs[0].SumOutput);
-                    }
-
-                    var SumOutput = new Array();
-                    for (var i = 0; i < deviceOutputs.length; i++) {
-                        SumOutput[i] = deviceOutputs[i].SumOutput;
-                    }
-                    console.log(SumOutput);
-
-
+                    //console.log(deviceOutputs[0]);
 
                     var dateTime = new Array();
                     for (var i = 0; i < deviceOutputs.length; i++) {
@@ -748,6 +744,29 @@
                         subTime[i] = (eval(dateTime[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
                         //console.log(subTime[i]);
                     }
+                    var Today = new Date();
+                    var thisDay = Today.getDate();
+                    var thisMonth = Today.getMonth() + 1;
+                    var today = thisMonth + '-' + thisDay;
+                    //console.log(today);
+
+                    var todayDate = new Array();
+                    for (var i = 0; i < dateTime.length; i++) {
+                        //subTime[i] = (eval(deviceOutputs[i].Date.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("mm:ss");
+                        todayDate[i] = (eval(dateTime[i].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("M-d");
+                        //console.log(subTime[i]);
+                        if (today === todayDate[i]) {
+                            $('input[name="今日产量"').val(deviceOutputs[i].SumOutput);
+                        } else {
+                            $('input[name="今日产量"]').val("暂无");
+                        }
+                    }
+
+                    var SumOutput = new Array();
+                    for (var i = 0; i < deviceOutputs.length; i++) {
+                        SumOutput[i] = deviceOutputs[i].SumOutput;
+                    }
+                    //console.log(SumOutput);
 
 
                     // 指定图表的配置项和数据
@@ -825,7 +844,7 @@
 
 
         //自动刷新
-        setInterval('singleOutputs()', 5000);
+        setInterval('singleOutputs()', 10000);
 
 
         //建议加上以下这一行代码，缩放时自动调整echart大小
