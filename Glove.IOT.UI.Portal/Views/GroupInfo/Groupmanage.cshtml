@@ -364,9 +364,10 @@
                         }
                         that.remove();
                         layer.close(index);
+                        layer.closeAll("loading");
                     } else {
                         layui.use('layer', function () {
-                            layer.closeAll("loading");
+                            //layer.closeAll("loading");
                             that.remove();
                             layer.close(index);
                             var layer = layui.layer;
@@ -376,6 +377,7 @@
                                 shade: 0.4,
                                 shadeClose: true
                             });
+                            layer.closeAll("loading");
                         });
                     }
                 })
