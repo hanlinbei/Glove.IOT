@@ -402,7 +402,7 @@
                         }
                     }
                     else {
-                       //layer.closeAll("loading");
+                        //layer.closeAll("loading");
                         layui.use('layer', function () {
                             //layer.closeAll("loading");
                             //that.remove();
@@ -417,7 +417,8 @@
                             layer.closeAll("loading");
                         });
                     }
-                })
+                });
+                window.location.href = '../GroupInfo/Groupmanage';
             });
         })
         //添加顶级分类
